@@ -15,10 +15,10 @@ export function InsightsIndex({ items, clusters }: { items: Insight[]; clusters:
       <aside className="lg:col-span-3">
         <div className="eyebrow mb-4">Topics</div>
         <ul className="space-y-1">
-          <li><button onClick={() => setActive("all")} className={cn("w-full rounded-lg px-3 py-2 text-left text-sm transition-colors", active === "all" ? "bg-white/6 text-fg" : "text-muted hover:text-fg")}>All insights</button></li>
+          <li><button data-filter="cluster" data-value="all" onClick={() => setActive("all")} className={cn("w-full rounded-lg px-3 py-2 text-left text-sm transition-colors", active === "all" ? "bg-white/6 text-fg" : "text-muted hover:text-fg")}>All insights</button></li>
           {clusters.map((c) => (
             <li key={c.slug}>
-              <button onClick={() => setActive(c.slug)} className={cn("w-full rounded-lg px-3 py-2 text-left text-sm transition-colors", active === c.slug ? "bg-white/6 text-fg" : "text-muted hover:text-fg")}>
+              <button data-filter="cluster" data-value={c.slug} onClick={() => setActive(c.slug)} className={cn("w-full rounded-lg px-3 py-2 text-left text-sm transition-colors", active === c.slug ? "bg-white/6 text-fg" : "text-muted hover:text-fg")}>
                 {c.name}<span className="ml-2 font-mono text-[0.68rem] text-dim">{items.filter((i) => i.cluster === c.slug).length}</span>
               </button>
             </li>
@@ -29,7 +29,7 @@ export function InsightsIndex({ items, clusters }: { items: Insight[]; clusters:
       <div className="divide-y divide-line border-y border-line lg:col-span-9">
         {shown.map((i, idx) => (
           <Reveal key={i.slug} delay={idx * 40}>
-            <Link href={`/insights/${i.slug}`} className="group grid gap-3 py-8 md:grid-cols-12 md:items-baseline">
+            <Link data-item data-cluster={i.cluster} href={`/insights/${i.slug}`} className="group grid gap-3 py-8 md:grid-cols-12 md:items-baseline">
               <div className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted md:col-span-3">{name(i.cluster)}<br />{formatDate(i.date)}</div>
               <div className="md:col-span-8">
                 <div className="text-[1.35rem] font-medium tracking-tight transition-colors group-hover:text-ember md:text-[1.6rem]">{i.title}</div>

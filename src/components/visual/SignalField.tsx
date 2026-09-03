@@ -99,5 +99,5 @@ export function SignalField({ className }: { className?: string }) {
     ro.observe(canvas);
     return () => { cancelAnimationFrame(raf); ro.disconnect(); };
   }, []);
-  return <canvas ref={ref} className={className} aria-hidden />;
+  return <canvas ref={ref} data-signal-field className={className} aria-hidden />;
 }

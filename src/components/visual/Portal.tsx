@@ -18,6 +18,7 @@ export function Portal() {
   return (
     <div
       ref={ref}
+      data-portal
       onMouseMove={onMove}
       onMouseLeave={() => setX(52)}
       className="relative h-[460px] w-full overflow-hidden rounded-[var(--radius-xl)] border border-line md:h-[520px]"
@@ -35,7 +36,7 @@ export function Portal() {
         </div>
       </div>
       {/* agents side */}
-      <div className="absolute inset-0 bg-ink text-fg transition-[clip-path] duration-200 ease-out" style={{ clipPath: `inset(0 0 0 ${x}%)` }}>
+      <div data-portal-agents className="absolute inset-0 bg-ink text-fg transition-[clip-path] duration-200 ease-out" style={{ clipPath: `inset(0 0 0 ${x}%)` }}>
         <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_80%_50%,rgba(124,243,214,.18),transparent_70%)]" />
         <div className="grid-bg absolute inset-0 opacity-70" />
         <div className="absolute inset-y-0 left-0 w-full animate-scan bg-[linear-gradient(to_bottom,transparent,rgba(124,243,214,.10),transparent)]" />
@@ -53,7 +54,7 @@ export function Portal() {
         </div>
       </div>
       {/* divider */}
-      <div className="pointer-events-none absolute inset-y-0 w-px bg-ion shadow-[0_0_24px_rgba(124,243,214,.9)] transition-[left] duration-200 ease-out" style={{ left: `${x}%` }}>
+      <div data-portal-divider className="pointer-events-none absolute inset-y-0 w-px bg-ion shadow-[0_0_24px_rgba(124,243,214,.9)] transition-[left] duration-200 ease-out" style={{ left: `${x}%` }}>
         <div className="absolute left-1/2 top-1/2 flex size-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-ion/60 bg-ink/80 font-mono text-[0.6rem] text-ion backdrop-blur">⇆</div>
       </div>
     </div>

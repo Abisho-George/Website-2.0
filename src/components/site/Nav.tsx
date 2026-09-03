@@ -30,7 +30,7 @@ export function Nav() {
   const active = (href: string) => pathname === href || pathname.startsWith(href + "/");
 
   return (
-    <header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-500", open ? "bg-ink" : scrolled ? "bg-ink/70 backdrop-blur-xl" : "bg-transparent")}>
+    <header data-nav className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-500", open ? "bg-ink" : scrolled ? "bg-ink/70 backdrop-blur-xl" : "bg-transparent")}>
       <div className={cn("hairline absolute inset-x-0 bottom-0 transition-opacity", scrolled ? "opacity-100" : "opacity-0")} />
       <div className="container-x flex h-[var(--nav-h)] items-center justify-between">
         <Logo />
@@ -54,7 +54,7 @@ export function Nav() {
                 <span className="absolute -right-1 -top-1 size-2 rounded-full bg-ion shadow-[0_0_10px_rgba(124,243,214,.9)]" />
               </Link>
             ) : (
-              <div key={item.href} className="relative" onMouseEnter={() => item.mega && setMega(true)}>
+              <div key={item.href} className="relative" data-mega-trigger={item.mega ? "" : undefined} onMouseEnter={() => item.mega && setMega(true)}>
                 <Link
                   href={item.href}
                   className={cn("inline-flex h-9 items-center rounded-full px-3.5 text-[0.9rem] transition-colors", active(item.href) ? "text-fg" : "text-muted hover:text-fg")}
@@ -62,7 +62,7 @@ export function Nav() {
                   {item.label}
                 </Link>
                 {item.mega && (
-                  <div className={cn("absolute left-1/2 top-full w-[720px] -translate-x-1/2 pt-3 transition-all duration-300", mega ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none translate-y-2 opacity-0")}>
+                  <div data-mega-panel className={cn("absolute left-1/2 top-full w-[720px] -translate-x-1/2 pt-3 transition-all duration-300", mega ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none translate-y-2 opacity-0")}>
                     <div className="overflow-hidden rounded-[var(--radius-lg)] border border-line-strong bg-ink-2 p-2 shadow-[0_30px_80px_-20px_rgba(0,0,0,.8)]">
                       <div className="grid grid-cols-2 gap-1">
                         {practices.map((p) => (
@@ -92,13 +92,13 @@ export function Nav() {
           <Button href={nav.cta.href} size="sm" className="ml-2">{nav.cta.label}</Button>
         </div>
 
-        <button className="inline-flex size-10 items-center justify-center rounded-full border border-line lg:hidden" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}>
+        <button data-menu-toggle className="inline-flex size-10 items-center justify-center rounded-full border border-line lg:hidden" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}>
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
       </div>
 
       {/* mobile drawer */}
-      <div className={cn("fixed inset-0 top-[var(--nav-h)] z-40 bg-ink transition-all duration-400 lg:hidden", open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0")}>
+      <div data-drawer className={cn("fixed inset-0 top-[var(--nav-h)] z-40 bg-ink transition-all duration-400 lg:hidden", open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0")}>
         <div className="container-x flex h-full flex-col overflow-y-auto pb-10 pt-6">
           <Link href="/gtm-ai-twin" className="glow-ion mb-6 flex items-center justify-between rounded-2xl border border-ion/50 bg-ion/10 p-5">
             <div>

@@ -30,7 +30,7 @@ export function Stat({ value, suffix = "", label, size = "lg" }: { value: string
   return (
     <div ref={ref}>
       <div className={size === "lg" ? "display text-[2.8rem] md:text-[3.6rem]" : "display text-[2rem] md:text-[2.4rem]"}>
-        <span data-placeholder={isPh ? "" : undefined} title={isPh ? "Placeholder — verify before launch" : undefined}>{shown}</span>
+        <span data-stat={numeric ? clean : undefined} data-placeholder={isPh ? "" : undefined} title={isPh ? "Placeholder — verify before launch" : undefined}>{shown}</span>
         <span className="text-ember">{suffix}</span>
       </div>
       <p className="mt-2 max-w-[22ch] text-sm text-muted"><Copy text={label} /></p>

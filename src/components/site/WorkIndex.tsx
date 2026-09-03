@@ -14,11 +14,11 @@ export function WorkIndex({ items }: { items: CaseStudy[] }) {
   return (
     <div>
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div className="flex flex-wrap items-center gap-2"><span className="eyebrow mr-2">Practice</span>{practicesList.map((p) => <button key={p} onClick={() => setPractice(p)} className={pill(practice === p)}>{p}</button>)}</div>
-        <div className="flex flex-wrap items-center gap-2"><span className="eyebrow mr-2">Sector</span>{verticals.map((v) => <button key={v} onClick={() => setVertical(v)} className={pill(vertical === v)}>{v}</button>)}</div>
+        <div className="flex flex-wrap items-center gap-2"><span className="eyebrow mr-2">Practice</span>{practicesList.map((p) => <button key={p} data-filter="practice" data-value={p} onClick={() => setPractice(p)} className={pill(practice === p)}>{p}</button>)}</div>
+        <div className="flex flex-wrap items-center gap-2"><span className="eyebrow mr-2">Sector</span>{verticals.map((v) => <button key={v} data-filter="vertical" data-value={v} onClick={() => setVertical(v)} className={pill(vertical === v)}>{v}</button>)}</div>
       </div>
       <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {shown.map((c, i) => <CaseTile key={c.slug} c={c} i={i} />)}
+        {shown.map((c, i) => <div key={c.slug} data-item data-practice={c.practice} data-vertical={c.vertical}><CaseTile c={c} i={i} /></div>)}
       </div>
       {shown.length === 0 && <p className="py-20 text-center text-muted">Nothing matches that combination yet.</p>}
     </div>

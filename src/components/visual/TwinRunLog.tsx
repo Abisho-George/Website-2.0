@@ -37,7 +37,7 @@ export function TwinRunLog({ className }: { className?: string }) {
         </div>
         <span className="font-mono text-[0.68rem] text-dim">illustrative · synthetic data</span>
       </div>
-      <div className="min-h-[300px] px-5 py-4 font-mono text-[0.78rem] leading-[1.9]">
+      <div data-run-log className="min-h-[300px] px-5 py-4 font-mono text-[0.78rem] leading-[1.9]">
         {LINES.slice(0, n).map((l, i) => (
           <div key={i} className="flex gap-3">
             <span className="w-[6.5rem] shrink-0 text-dim">▸ {l.agent}</span>
