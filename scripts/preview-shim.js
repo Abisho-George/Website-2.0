@@ -95,8 +95,8 @@
     });
 
     /* filters (work + insights) */
-    var pillOn = ["border-fg", "bg-fg", "text-ink"], pillOff = ["border-line", "text-muted"];
-    var sideOn = ["bg-white/6", "text-fg"], sideOff = ["text-muted"];
+    var pillOn = ["border-fg", "bg-fg", "text-paper"], pillOff = ["border-rule", "text-muted"];
+    var sideOn = ["bg-sand", "text-fg"], sideOff = ["text-muted"];
     var active = { practice: "All", vertical: "All", cluster: "all" };
     var applyFilters = function () {
       app.querySelectorAll("[data-item]").forEach(function (it) {
@@ -138,7 +138,7 @@
       var agents = portal.querySelector("[data-portal-agents]"), divider = portal.querySelector("[data-portal-divider]");
       var setX = function (x) { agents.style.clipPath = "inset(0 0 0 " + x + "%)"; divider.style.left = x + "%"; };
       portal.addEventListener("mousemove", function (e) { var r = portal.getBoundingClientRect(); setX(Math.max(12, Math.min(88, ((e.clientX - r.left) / r.width) * 100))); });
-      portal.addEventListener("mouseleave", function () { setX(52); });
+      portal.addEventListener("mouseleave", function () { setX(54); });
     }
 
     /* run log */
@@ -147,16 +147,16 @@
       var LINES = [
         ["prospecting", "universe refreshed · 4,212 accounts scanned · 38 moved to active tier", ""],
         ["research", "brief built · Northwind Logistics · S/4 migration · new CIO · 3 open roles", ""],
-        ["qualify", "PASS · ICP tier 1 · fit 0.91 · signal 0.84 · score 87", "text-fg"],
+        ["qualify", "PASS · ICP tier 1 · fit 0.91 · signal 0.84 · score 87", "text-[#f6f2ec]"],
         ["outreach", "drafted 1/6 · VP Applications · email · references integration-risk checklist", ""],
         ["outreach", "sent · warmed domain ls-mail-03 · deliverability 99.2%", ""],
-        ["conversation", "reply received · \"can you send the checklist and a case?\" · handled", "text-fg"],
-        ["conversation", "reply received · \"how does pricing compare to Vendor X?\" · escalated → AE-North", "text-ember-2"],
-        ["scheduling", "meeting booked · Thu 11:30 IST · calendar + CRM updated · brief sent to AE-North", "text-ion"],
+        ["conversation", "reply · \"can you send the checklist and a case?\" · handled", "text-[#f6f2ec]"],
+        ["conversation", "reply · \"how does pricing compare to Vendor X?\" · escalated → AE-North", "text-ember-2"],
+        ["scheduling", "meeting booked · Thu 11:30 IST · calendar + CRM updated · brief sent", "text-ion-2"],
         ["report", "today · 38 engaged · 11 replies · 2 escalations · 3 meetings booked", ""]
       ];
       var cursor = log.lastElementChild; var i = 0;
-      var line = function (l) { var d = document.createElement("div"); d.className = "flex gap-3"; d.innerHTML = '<span class="w-[6.5rem] shrink-0 text-dim">▸ ' + l[0] + '</span><span class="' + (l[2] || "text-muted") + '"></span>'; d.lastChild.textContent = l[1]; log.insertBefore(d, cursor); };
+      var line = function (l) { var d = document.createElement("div"); d.className = "flex gap-3"; d.innerHTML = '<span class="w-[6.2rem] shrink-0 text-[#7d7264]">▸ ' + l[0] + '</span><span class="' + (l[2] || "text-[#c3b9ac]") + '"></span>'; d.lastChild.textContent = l[1]; log.insertBefore(d, cursor); };
       var clear = function () { while (log.firstElementChild !== cursor) log.removeChild(log.firstElementChild); };
       var tick = function () {
         line(LINES[i]); i += 1;
@@ -166,6 +166,24 @@
       if (reduced) LINES.forEach(line); else timers.push(setTimeout(tick, 700));
     }
 
+    /* spine progress + section markers */
+    var fill = document.querySelector("[data-spine-fill]");
+    var markers = [].slice.call(app.querySelectorAll(".marker"));
+    var onSpine = function () {
+      if (fill) {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        fill.style.height = (max > 0 ? Math.min(1, window.scrollY / max) * 100 : 0) + "%";
+      }
+      markers.forEach(function (m) {
+        var sec = m.parentElement.getBoundingClientRect();
+        var mid = window.innerHeight / 2;
+        m.classList.toggle("marker--on", sec.top < mid && sec.bottom > mid);
+      });
+    };
+    var prevScroll = window.onscroll;
+    window.onscroll = function () { if (prevScroll) prevScroll(); onSpine(); };
+    onSpine();
+
     /* signal field */
     var canvas = app.querySelector("[data-signal-field]");
     if (canvas) signalField(canvas);
@@ -173,39 +191,39 @@
 
   function signalField(canvas) {
     var ctx = canvas.getContext("2d"); if (!ctx) return;
-    var w = 0, h = 0, dpr = 1, ps = [], gates = [0.34, 0.6, 0.86];
-    var N = function () { return w < 720 ? 60 : 140; };
-    var spawn = function (p) { var q = p || {}; q.x = -0.02 - Math.random() * 0.2; q.y = 0.12 + Math.random() * 0.76; q.vx = 0.0009 + Math.random() * 0.0011; q.vy = (Math.random() - 0.5) * 0.0003; q.stage = 0; q.alive = true; q.t = 0; q.seed = Math.random(); q.fading = 0; return q; };
+    var w = 0, h = 0, dpr = 1, ps = [], gates = [0.3, 0.56, 0.8];
+    var N = function () { return w < 700 ? 54 : w < 1100 ? 96 : 150; };
+    var spawn = function (p) { var q = p || {}; q.x = -0.04 - Math.random() * 0.22; q.y = 0.1 + Math.random() * 0.8; q.vx = 0.0010 + Math.random() * 0.0012; q.vy = (Math.random() - 0.5) * 0.0003; q.stage = 0; q.alive = true; q.t = 0; q.seed = Math.random(); q.fading = 0; return q; };
     var resize = function () { dpr = Math.min(2, window.devicePixelRatio || 1); w = canvas.clientWidth; h = canvas.clientHeight; canvas.width = w * dpr; canvas.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ps = []; for (var k = 0; k < N(); k++) { var p = spawn(); p.x = Math.random() * 1.1 - 0.1; p.stage = gates.filter(function (g) { return p.x > g; }).length; if (p.stage === 3) p.alive = Math.random() < 0.35; ps.push(p); } };
-    var ember = function (a) { return "rgba(255,107,61," + a + ")"; }, ion = function (a) { return "rgba(124,243,214," + a + ")"; }, gray = function (a) { return "rgba(237,235,230," + a + ")"; };
+      ps = []; for (var k = 0; k < N(); k++) { var p = spawn(); p.x = Math.random() * 1.15 - 0.15; p.stage = gates.filter(function (g) { return p.x > g; }).length; if (p.stage === 3) p.alive = Math.random() < 0.4; ps.push(p); } };
+    var ember = function (a) { return "rgba(255,90,31," + a + ")"; }, ink = function (a) { return "rgba(23,18,13," + a + ")"; };
     var draw = function (time) {
       ctx.clearRect(0, 0, w, h);
-      var meet = { x: w * 0.955, y: h * 0.5 };
+      var meet = { x: w * 0.945, y: h * 0.5 };
       ctx.save();
-      gates.forEach(function (g, i) { var x = w * g; ctx.strokeStyle = gray(0.10); ctx.lineWidth = 1; ctx.setLineDash([2, 6]); ctx.beginPath(); ctx.moveTo(x, h * 0.12); ctx.lineTo(x, h - 34); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle = gray(0.38); ctx.font = "500 10px Geist Mono, monospace"; ctx.textAlign = "center"; ctx.fillText(["IDENTIFY", "QUALIFY", "BOOK"][i], x, h - 18); });
+      gates.forEach(function (g, i) { var x = w * g; ctx.strokeStyle = ink(0.13); ctx.lineWidth = 1; ctx.setLineDash([2, 7]); ctx.beginPath(); ctx.moveTo(x, h * 0.1); ctx.lineTo(x, h - 30); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle = ink(0.42); ctx.font = "500 10px ui-monospace, monospace"; ctx.textAlign = "center"; ctx.letterSpacing = "1.5px"; ctx.fillText(["IDENTIFY", "QUALIFY", "BOOK"][i], x, h - 14); });
       ctx.restore();
       var pulse = 0.5 + 0.5 * Math.sin(time / 600);
-      var grd = ctx.createRadialGradient(meet.x, meet.y, 0, meet.x, meet.y, 60 + pulse * 20); grd.addColorStop(0, ion(0.35)); grd.addColorStop(1, ion(0));
-      ctx.fillStyle = grd; ctx.beginPath(); ctx.arc(meet.x, meet.y, 80, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = ion(0.95); ctx.beginPath(); ctx.arc(meet.x, meet.y, 4 + pulse * 1.5, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = ion(0.5); ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(meet.x, meet.y, 12 + pulse * 4, 0, Math.PI * 2); ctx.stroke();
-      ctx.lineWidth = 0.6;
-      for (var i = 0; i < ps.length; i++) { var a = ps[i]; if (!a.alive || a.stage < 1) continue; for (var j = i + 1; j < ps.length; j++) { var b = ps[j]; if (!b.alive || b.stage < 1) continue; var dx = (a.x - b.x) * w, dy = (a.y - b.y) * h, d2 = dx * dx + dy * dy; if (d2 < 8100) { ctx.strokeStyle = ember(0.08 * (1 - d2 / 8100)); ctx.beginPath(); ctx.moveTo(a.x * w, a.y * h); ctx.lineTo(b.x * w, b.y * h); ctx.stroke(); } } }
+      var grd = ctx.createRadialGradient(meet.x, meet.y, 0, meet.x, meet.y, 54 + pulse * 16); grd.addColorStop(0, ember(0.22)); grd.addColorStop(1, ember(0));
+      ctx.fillStyle = grd; ctx.beginPath(); ctx.arc(meet.x, meet.y, 72, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = ember(1); ctx.beginPath(); ctx.arc(meet.x, meet.y, 4.5, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = ember(0.45); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(meet.x, meet.y, 11 + pulse * 5, 0, Math.PI * 2); ctx.stroke();
+      ctx.lineWidth = 0.7;
+      for (var i = 0; i < ps.length; i++) { var a = ps[i]; if (!a.alive || a.stage < 1) continue; for (var j = i + 1; j < ps.length; j++) { var b = ps[j]; if (!b.alive || b.stage < 1) continue; var dx = (a.x - b.x) * w, dy = (a.y - b.y) * h, d2 = dx * dx + dy * dy; if (d2 < 7400) { ctx.strokeStyle = ember(0.10 * (1 - d2 / 7400)); ctx.beginPath(); ctx.moveTo(a.x * w, a.y * h); ctx.lineTo(b.x * w, b.y * h); ctx.stroke(); } } }
       ps.forEach(function (p) {
         if (!reduced) {
           p.t += 1;
-          if (p.stage === 3 && p.alive) { var tx = meet.x / w, ty = meet.y / h; p.x += (tx - p.x) * 0.02 + 0.0004; p.y += (ty - p.y) * 0.03; if (Math.abs(p.x - tx) < 0.004 && Math.abs(p.y - ty) < 0.01) spawn(p); }
-          else { p.x += p.vx; p.y += p.vy + Math.sin(p.t / 40 + p.seed * 10) * 0.00025; if (!p.alive) { p.fading += 0.02; if (p.fading >= 1) spawn(p); } }
+          if (p.stage === 3 && p.alive) { var tx = meet.x / w, ty = meet.y / h; p.x += (tx - p.x) * 0.022 + 0.0004; p.y += (ty - p.y) * 0.035; if (Math.abs(p.x - tx) < 0.004 && Math.abs(p.y - ty) < 0.012) spawn(p); }
+          else { p.x += p.vx; p.y += p.vy + Math.sin(p.t / 44 + p.seed * 10) * 0.00022; if (!p.alive) { p.fading += 0.022; if (p.fading >= 1) spawn(p); } }
           var next = gates[p.stage];
-          if (next !== undefined && p.x >= next) { p.stage += 1; var keep = [0.62, 0.55, 0.5][p.stage - 1]; if (p.alive && Math.random() > keep) p.alive = false; }
-          if (p.x > 1.05) spawn(p);
+          if (next !== undefined && p.x >= next) { p.stage += 1; var keep = [0.6, 0.55, 0.5][p.stage - 1]; if (p.alive && Math.random() > keep) p.alive = false; }
+          if (p.x > 1.06) spawn(p);
         }
-        var base = p.alive ? [0.22, 0.45, 0.75, 0.95][p.stage] : Math.max(0, 0.25 - p.fading * 0.25);
-        var r = p.alive ? [1.2, 1.6, 2.1, 2.6][p.stage] : 1.2;
-        ctx.fillStyle = p.stage === 0 ? gray(base) : p.stage === 3 ? ion(base) : ember(base);
+        var base = p.alive ? [0.16, 0.3, 0.55, 0.9][p.stage] : Math.max(0, 0.16 - p.fading * 0.16);
+        var r = p.alive ? [1.3, 1.7, 2.2, 2.8][p.stage] : 1.3;
+        ctx.fillStyle = p.stage === 0 ? ink(base) : ember(base);
         ctx.beginPath(); ctx.arc(p.x * w, p.y * h, r, 0, Math.PI * 2); ctx.fill();
-        if (p.alive && p.stage >= 2) { ctx.fillStyle = p.stage === 3 ? ion(0.12) : ember(0.12); ctx.beginPath(); ctx.arc(p.x * w, p.y * h, r * 3.2, 0, Math.PI * 2); ctx.fill(); }
+        if (p.alive && p.stage >= 2) { ctx.fillStyle = ember(0.1); ctx.beginPath(); ctx.arc(p.x * w, p.y * h, r * 3.4, 0, Math.PI * 2); ctx.fill(); }
       });
       if (!reduced && canvas.isConnected) raf = requestAnimationFrame(draw);
     };

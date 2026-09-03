@@ -54,12 +54,12 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
       </section>
 
       {/* 3 · problem */}
-      <Section paper>
+      <Section band="sand" index="01" label="the problem">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5"><Eyebrow className="mb-4">The problem</Eyebrow><Reveal><h2 className="h2 balance">{p.problem.title}</h2></Reveal></div>
           <ul className="space-y-6 lg:col-span-7">
             {p.problem.points.map((pt, i) => (
-              <Reveal key={i} as="li" delay={i * 80} className="flex gap-5 border-t border-ink/15 pt-6 text-lg leading-snug">
+              <Reveal key={i} as="li" delay={i * 80} className="flex gap-5 border-t border-rule pt-6 text-lg leading-snug">
                 <span className="font-mono text-[0.75rem] text-ember">0{i + 1}</span><span><Copy text={pt} /></span>
               </Reveal>
             ))}
@@ -68,7 +68,7 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
       </Section>
 
       {/* 4 · deliverables */}
-      <Section>
+      <Section index="02" label="deliverables">
         <Eyebrow className="mb-4">What you get</Eyebrow>
         <Reveal><h2 className="h2 max-w-3xl balance">Deliverables, not decks.</h2></Reveal>
         <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -83,12 +83,12 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
       </Section>
 
       {/* 5 · process */}
-      <Section className="pt-0">
+      <Section index="03" label="process" className="pt-0">
         <Eyebrow className="mb-4">How it runs</Eyebrow>
         <Reveal><h2 className="h2 max-w-3xl balance">Four phases. Weekly reviews. No surprises.</h2></Reveal>
-        <ol className="mt-12 grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-line bg-line md:grid-cols-4">
+        <ol className="mt-12 grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-rule bg-rule md:grid-cols-4">
           {p.process.map((s, i) => (
-            <Reveal key={s.phase} as="li" delay={i * 80} className="bg-ink p-7">
+            <Reveal key={s.phase} as="li" delay={i * 80} className="bg-paper p-7">
               <div className="flex items-center justify-between font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted"><span>Phase {s.phase}</span><span className="text-ember">{s.duration}</span></div>
               <div className="mt-8 text-xl font-medium tracking-tight">{s.title}</div>
               <p className="mt-3 text-[0.9rem] leading-relaxed text-muted">{s.body}</p>
@@ -108,7 +108,7 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
           <div className="lg:col-span-5">
             <Eyebrow className="mb-4">Outcomes</Eyebrow>
             <Reveal><h2 className="h3 mb-8 max-w-sm">Numbers we are prepared to be measured on.</h2></Reveal>
-            <div className="space-y-8 border-l border-line pl-6">
+            <div className="space-y-8 border-l border-rule pl-6">
               {p.outcomes.map((o, i) => <Reveal key={o.label} delay={i * 80}><Stat value={o.value} label={o.label} size="md" /></Reveal>)}
             </div>
           </div>
@@ -116,8 +116,8 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
       </Section>
 
       {/* 8 · pricing */}
-      <Section id="pricing" tight className="scroll-mt-28">
-        <Reveal className="grid gap-8 rounded-[var(--radius-xl)] border border-ember/30 bg-ink-2/70 p-8 glow-ember md:grid-cols-12 md:p-12">
+      <Section band="sand" id="pricing" tight index="05" label="pricing" className="scroll-mt-28">
+        <Reveal className="grid gap-8 rounded-[var(--radius-xl)] border border-ember/30 bg-paper p-8 glow-ember md:grid-cols-12 md:p-12">
           <div className="md:col-span-5"><Eyebrow tone="ember" className="mb-4">Pricing signal</Eyebrow><h2 className="h3">{p.pricing.model}</h2></div>
           <div className="md:col-span-7">
             <div className="flex items-baseline gap-3"><span className="text-sm text-muted">from</span><span className="display text-[1.8rem] md:text-[2.4rem]"><Copy text={p.pricing.from} /></span></div>
@@ -128,21 +128,21 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
       </Section>
 
       {/* 9 · FAQ + related */}
-      <Section><FAQBlock items={p.faq} title={`Questions about ${p.short}.`} /></Section>
+      <Section index="06" label="questions"><FAQBlock items={p.faq} title={`Questions about ${p.short}.`} /></Section>
       {related.length > 0 && (
         <Section className="pt-0">
           <div className="flex items-end justify-between"><Eyebrow>Related work</Eyebrow><Link href="/work" className="inline-flex items-center gap-2 text-sm text-muted hover:text-fg">All work <ArrowRight className="size-4" /></Link></div>
           <div className="mt-8 grid gap-4 md:grid-cols-2">{related.map((c, i) => c && <CaseTile key={c.slug} c={c} i={i} compact />)}</div>
         </Section>
       )}
-      <Section paper tight>
+      <Section band="sand" tight>
         <div className="eyebrow mb-6">Other practices</div>
-        <div className="grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-ink/15 bg-ink/15 md:grid-cols-3">
+        <div className="grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-rule bg-rule md:grid-cols-3">
           {others.map((o) => (
-            <Link key={o.slug} href={`/practices/${o.slug}`} className="group bg-paper p-6 transition-colors hover:bg-paper-2">
+            <Link key={o.slug} href={`/practices/${o.slug}`} className="group bg-paper p-6 transition-colors hover:bg-kraft">
               <div className="font-mono text-[0.7rem] text-ember">{o.index}</div>
               <div className="mt-3 text-lg font-medium tracking-tight">{o.name}</div>
-              <p className="mt-1 text-sm text-ink/60">{o.tagline}</p>
+              <p className="mt-1 text-sm text-muted">{o.tagline}</p>
             </Link>
           ))}
         </div>

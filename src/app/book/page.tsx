@@ -27,7 +27,7 @@ export default function BookPage() {
             </Reveal>
           ) : (
             <Reveal delay={120} className="card p-6 md:p-8">
-              <p className="mb-6 rounded-xl border border-line bg-white/[.03] p-4 font-mono text-[0.72rem] text-muted">Calendar embed not configured. Set <span className="text-fg">NEXT_PUBLIC_CAL_LINK</span> (e.g. <span className="text-fg">leadstrategus/strategy-call</span>) to embed Cal.com here. Until then, requests go through the form.</p>
+              <p className="mb-6 rounded-xl border border-rule bg-white/[.03] p-4 font-mono text-[0.72rem] text-muted">Calendar embed not configured. Set <span className="text-fg">NEXT_PUBLIC_CAL_LINK</span> (e.g. <span className="text-fg">leadstrategus/strategy-call</span>) to embed Cal.com here. Until then, requests go through the form.</p>
               <ContactForm defaultType="other" />
             </Reveal>
           )}

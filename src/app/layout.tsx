@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import "@fontsource/instrument-serif/400.css";
-import "@fontsource/instrument-serif/400-italic.css";
+import "@fontsource-variable/bricolage-grotesque";
 import "./globals.css";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
+import { Spine } from "@/components/site/Spine";
 import { PlaceholderToggle } from "@/components/site/PlaceholderToggle";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { buildMetadata, orgJsonLd } from "@/lib/seo";
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: { default: `${site.name} — ${site.tagline}`, template: `%s — ${site.name}` },
 };
 
-export const viewport: Viewport = { themeColor: "#070a0f", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#ffffff", width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -27,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <JsonLd data={orgJsonLd()} />
+        <Spine />
         <Nav />
         <main className="relative">{children}</main>
         <Footer />

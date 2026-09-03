@@ -25,106 +25,110 @@ export default function TwinPage() {
     <>
       <JsonLd data={[serviceJsonLd({ name: "GTM AI Twin", description: twin.lede, path: "/gtm-ai-twin" }), faqJsonLd(twinFaq), breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "GTM AI Twin", path: "/gtm-ai-twin" }])]} />
 
-      {/* hero */}
-      <section className="relative overflow-hidden pt-[var(--nav-h)]">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_75%_30%,rgba(124,243,214,.16),transparent_70%)]" />
+      <section className="band relative overflow-hidden pt-[var(--nav-h)]">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_60%_at_78%_28%,rgba(255,90,31,.14),transparent_70%)]" />
         <div className="grid-bg pointer-events-none absolute inset-0" />
-        <div className="container-x relative grid items-center gap-12 py-20 md:py-28 lg:grid-cols-12">
+        <div className="container-x relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-6">
-            <Reveal><Eyebrow tone="ion" className="mb-6">{twin.eyebrow}</Eyebrow></Reveal>
-            <Reveal delay={80}>
-              <h1 className="display text-[3rem] sm:text-[4rem] md:text-[5.2rem]">{twin.h1}<br /><em className="text-ion">{twin.h1em}</em></h1>
+            <Reveal>
+              <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-ember-wash px-3.5 py-1.5 font-mono text-[0.66rem] uppercase tracking-[0.15em] text-ember-ink">
+                <Sparkles className="size-3.5" /> Special service
+              </span>
             </Reveal>
-            <Reveal delay={160}><p className="lede mt-7 max-w-xl">{twin.lede}</p></Reveal>
-            <Reveal delay={240} className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <Button href="/contact?type=gtm-ai-twin" variant="ion" size="lg"><Sparkles className="size-4" /> Scope my twin</Button>
-              <Button href="#what" variant="outline" size="lg">How it works</Button>
+            <Reveal delay={70}>
+              <h1 className="display text-[2.8rem] sm:text-[3.8rem] md:text-[4.9rem]">{twin.h1}<br /><em>{twin.h1em}</em></h1>
+            </Reveal>
+            <Reveal delay={140}><p className="lede mt-7 max-w-xl">{twin.lede}</p></Reveal>
+            <Reveal delay={210} className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Button href="/contact?type=gtm-ai-twin" size="lg">Scope my twin</Button>
+              <Button href="#what" size="lg" variant="outline">How it works</Button>
             </Reveal>
           </div>
-          <div className="lg:col-span-6"><Reveal delay={200}><TwinRunLog /></Reveal></div>
+          <div className="lg:col-span-6"><Reveal delay={170}><TwinRunLog /></Reveal></div>
         </div>
       </section>
 
-      {/* sticky anchor nav */}
-      <div className="sticky top-[var(--nav-h)] z-30 border-y border-line bg-ink/80 backdrop-blur-xl">
-        <div className="container-x scrollbar-none flex gap-6 overflow-x-auto py-3 font-mono text-[0.7rem] uppercase tracking-[0.14em]">
-          {anchors.map(([id, l]) => <a key={id} href={`#${id}`} className="shrink-0 text-muted transition-colors hover:text-ion">{l}</a>)}
+      <div className="sticky top-[var(--nav-h)] z-30 border-y border-rule bg-paper/90 backdrop-blur-xl">
+        <div className="container-x scrollbar-none flex gap-6 overflow-x-auto py-3 font-mono text-[0.68rem] uppercase tracking-[0.14em]">
+          {anchors.map(([id, l]) => <a key={id} href={`#${id}`} className="shrink-0 text-muted transition-colors hover:text-ember-ink">{l}</a>)}
         </div>
       </div>
 
-      {/* pipeline */}
-      <Section tight>
+      <Section tight index="—" label="the chain">
         <Reveal>
-          <Eyebrow tone="ion" className="mb-4">What it takes over</Eyebrow>
-          <h2 className="h2 max-w-3xl balance">Six agents. One hand-off chain. <em className="serif-em text-muted">From first signal to booked meeting.</em></h2>
+          <Eyebrow tone="ember" className="mb-4">What it takes over</Eyebrow>
+          <h2 className="h2 max-w-3xl balance">Six agents, one hand-off chain. <em className="serif-em">From first signal to booked meeting.</em></h2>
         </Reveal>
-        <Reveal delay={100} className="mt-14"><TwinDiagram /></Reveal>
+        <Reveal delay={90} className="mt-12"><TwinDiagram /></Reveal>
       </Section>
 
-      {/* 01 · What is it */}
-      <Section id="what" className="scroll-mt-32">
-        <div className="grid gap-12 lg:grid-cols-12">
+      {/* 01 · what is it */}
+      <Section band="sand" id="what" index="01" label="what is it" className="scroll-mt-32">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-4">
-            <div className="display text-[4rem] text-ion/80">01</div>
-            <Eyebrow tone="ion" className="mt-2">{twin.what.title}</Eyebrow>
+            <div className="display text-[3.5rem] text-ember md:text-[4.5rem]">01</div>
+            <Eyebrow className="mt-2">{twin.what.title}</Eyebrow>
           </div>
           <div className="lg:col-span-8">
             <Reveal><h2 className="h2 balance">{twin.what.h}</h2></Reveal>
-            <div className="mt-8 space-y-5 text-lg leading-relaxed text-muted">
+            <div className="mt-7 space-y-5 text-[1.05rem] leading-relaxed text-muted md:text-lg">
               {twin.what.paras.map((p, i) => <Reveal key={i} delay={i * 60}><p>{p}</p></Reveal>)}
             </div>
-            <div className="mt-12 grid gap-4 md:grid-cols-2">
+            <div className="mt-11 grid gap-4 md:grid-cols-2">
               <Reveal className="card p-6">
-                <div className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ion">It is</div>
-                <ul className="mt-4 space-y-3">{twin.what.isList.map((t) => <li key={t} className="flex gap-3 text-[0.95rem]"><Check className="mt-0.5 size-4 shrink-0 text-ion" />{t}</li>)}</ul>
+                <div className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-ember-ink">It is</div>
+                <ul className="mt-4 space-y-3">{twin.what.isList.map((t) => <li key={t} className="flex gap-3 text-[0.94rem]"><Check className="mt-0.5 size-4 shrink-0 text-ember" />{t}</li>)}</ul>
               </Reveal>
-              <Reveal delay={80} className="card p-6">
-                <div className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted">It is not</div>
-                <ul className="mt-4 space-y-3">{twin.what.notList.map((t) => <li key={t} className="flex gap-3 text-[0.95rem] text-muted"><X className="mt-0.5 size-4 shrink-0 text-dim" />{t}</li>)}</ul>
+              <Reveal delay={70} className="card p-6">
+                <div className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-muted">It is not</div>
+                <ul className="mt-4 space-y-3">{twin.what.notList.map((t) => <li key={t} className="flex gap-3 text-[0.94rem] text-muted"><X className="mt-0.5 size-4 shrink-0 text-dim" />{t}</li>)}</ul>
               </Reveal>
             </div>
           </div>
         </div>
       </Section>
 
-      {/* 02 · Why now */}
-      <Section id="why-now" paper className="scroll-mt-32">
-        <div className="grid gap-12 lg:grid-cols-12">
+      {/* 02 · why now */}
+      <Section id="why-now" index="02" label="why now" className="scroll-mt-32">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-4">
-            <div className="display text-[4rem] text-ink/25">02</div>
+            <div className="display text-[3.5rem] text-ember md:text-[4.5rem]">02</div>
             <Eyebrow className="mt-2">{twin.why.title}</Eyebrow>
           </div>
           <div className="lg:col-span-8">
             <Reveal><h2 className="h2 balance">{twin.why.h}</h2></Reveal>
-            <div className="mt-12 grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-ink/15 bg-ink/15 md:grid-cols-2">
+            <ol className="mt-11 grid gap-x-10 gap-y-9 md:grid-cols-2">
               {twin.why.reasons.map((r, i) => (
-                <Reveal key={r.n} delay={i * 80} className="bg-paper p-7 md:p-8">
-                  <div className="font-mono text-[0.72rem] text-ember">{r.n}</div>
-                  <h3 className="mt-6 text-xl font-medium tracking-tight">{r.t}</h3>
-                  <p className="mt-3 leading-relaxed text-ink/70"><Copy text={r.b} /></p>
+                <Reveal key={r.n} as="li" delay={i * 70}>
+                  <div className="mb-4 flex items-center gap-3">
+                    <span className="font-mono text-[0.7rem] text-ember-ink">{r.n}</span>
+                    <span className="h-px flex-1 bg-rule" />
+                  </div>
+                  <h3 className="font-display text-[1.2rem] font-semibold leading-snug tracking-[-0.025em] md:text-[1.32rem]">{r.t}</h3>
+                  <p className="mt-3 leading-relaxed text-muted"><Copy text={r.b} /></p>
                 </Reveal>
               ))}
-            </div>
+            </ol>
           </div>
         </div>
       </Section>
 
-      {/* 03 · Why LeadStrategus */}
-      <Section id="why-us" className="scroll-mt-32">
-        <div className="grid gap-12 lg:grid-cols-12">
+      {/* 03 · why us */}
+      <Section band="sand" id="why-us" index="03" label="why us" className="scroll-mt-32">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-4">
-            <div className="display text-[4rem] text-ion/80">03</div>
-            <Eyebrow tone="ion" className="mt-2">{twin.whyUs.title}</Eyebrow>
+            <div className="display text-[3.5rem] text-ember md:text-[4.5rem]">03</div>
+            <Eyebrow className="mt-2">{twin.whyUs.title}</Eyebrow>
             <p className="mt-8 text-sm text-muted">Leadership from</p>
-            <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium">{proof.pedigree.map((p) => <li key={p}>{p}</li>)}</ul>
+            <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1 font-display text-[0.95rem] font-semibold tracking-tight">{proof.pedigree.map((p) => <li key={p}>{p}</li>)}</ul>
           </div>
           <div className="lg:col-span-8">
             <Reveal><h2 className="h2 balance">{twin.whyUs.h}</h2></Reveal>
-            <div className="mt-12 grid gap-4 md:grid-cols-2">
+            <div className="mt-11 grid gap-4 md:grid-cols-2">
               {twin.whyUs.points.map((p, i) => (
-                <Reveal key={p.t} delay={i * 70} className="card card-hover p-6">
-                  <div className="flex size-8 items-center justify-center rounded-full border border-ion/40 font-mono text-[0.68rem] text-ion">{String(i + 1).padStart(2, "0")}</div>
-                  <h3 className="mt-5 text-lg font-medium tracking-tight">{p.t}</h3>
+                <Reveal key={p.t} delay={i * 60} className="card card-hover p-6">
+                  <div className="flex size-8 items-center justify-center rounded-full border border-ember/40 font-mono text-[0.66rem] text-ember-ink">{String(i + 1).padStart(2, "0")}</div>
+                  <h3 className="mt-5 font-display text-[1.08rem] font-semibold tracking-tight">{p.t}</h3>
                   <p className="mt-2 text-[0.92rem] leading-relaxed text-muted">{p.b}</p>
                 </Reveal>
               ))}
@@ -134,42 +138,45 @@ export default function TwinPage() {
       </Section>
 
       {/* build */}
-      <Section id="build" className="scroll-mt-32 pt-0">
+      <Section id="build" index="04" label="the build" className="scroll-mt-32">
         <Reveal>
-          <Eyebrow tone="ion" className="mb-4">How it&apos;s built</Eyebrow>
+          <Eyebrow tone="ember" className="mb-4">How it&apos;s built</Eyebrow>
           <h2 className="h2 max-w-3xl balance"><Copy text="[[Six weeks]] from kickoff to a supervised live run." /></h2>
         </Reveal>
-        <ol className="mt-12 grid gap-4 md:grid-cols-4">
+        <ol className="rail rail--swipe mt-12 md:grid-cols-4">
           {twin.build.map((b, i) => (
-            <Reveal key={b.t} as="li" delay={i * 80} className="card relative p-6">
-              <div className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ion">{b.wk}</div>
-              <div className="mt-6 text-xl font-medium tracking-tight">{b.t}</div>
-              <p className="mt-3 text-[0.9rem] leading-relaxed text-muted">{b.b}</p>
-            </Reveal>
+            <li key={b.t} className="relative">
+              <div className="mb-5 flex items-center gap-3">
+                <span className="flex size-8 items-center justify-center rounded-full border border-ember/40 bg-paper font-mono text-[0.66rem] text-ember-ink">0{i + 1}</span>
+                <span className="h-px flex-1 bg-rule" />
+              </div>
+              <div className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-ember-ink">{b.wk}</div>
+              <div className="mt-1.5 font-display text-xl font-semibold tracking-tight">{b.t}</div>
+              <p className="mt-2.5 text-[0.9rem] leading-relaxed text-muted">{b.b}</p>
+            </li>
           ))}
         </ol>
       </Section>
 
       {/* pricing */}
-      <Section id="pricing" tight className="scroll-mt-32">
-        <Reveal className="glow-ion grid gap-8 rounded-[var(--radius-xl)] border border-ion/30 bg-ink-2/70 p-8 md:grid-cols-12 md:p-12">
+      <Section band="ink" id="pricing" tight className="scroll-mt-32">
+        <Reveal className="grid gap-8 md:grid-cols-12 md:items-center">
           <div className="md:col-span-5">
-            <Eyebrow tone="ion" className="mb-4">Pricing signal</Eyebrow>
+            <Eyebrow className="mb-4 text-ember-2">Pricing signal</Eyebrow>
             <h2 className="h3">{twin.pricing.model}</h2>
           </div>
           <div className="md:col-span-7">
-            <div className="display text-[1.8rem] md:text-[2.4rem]"><Copy text={twin.pricing.from} /></div>
-            <p className="mt-4 text-muted"><Copy text={twin.pricing.note} /></p>
-            <Button href="/contact?type=gtm-ai-twin" variant="ion" className="mt-8">Get a scoped quote</Button>
+            <div className="display text-[1.7rem] text-ember-2 md:text-[2.3rem]"><Copy text={twin.pricing.from} /></div>
+            <p className="mt-4 text-[#c3b9ac]"><Copy text={twin.pricing.note} /></p>
+            <Button href="/contact?type=gtm-ai-twin" className="mt-8">Get a scoped quote</Button>
           </div>
         </Reveal>
       </Section>
 
-      {/* faq */}
-      <Section id="faq" className="scroll-mt-32"><FAQBlock items={twinFaq} tone="ion" title="What people ask before they build one." /></Section>
+      <Section id="faq" index="05" label="questions" className="scroll-mt-32"><FAQBlock items={twinFaq} title="What people ask before they build one." /></Section>
 
-      <CTABand tone="ion"
-        title={<>Your GTM team, <em className="serif-em text-ion">twinned.</em></>}
+      <CTABand
+        title={<>Your GTM team, <em>twinned.</em></>}
         lede="A forty-minute scoping call: your ICP, your motion, your stack. We tell you what the twin would take over first and what it would cost."
         primary={{ label: "Scope my twin", href: "/contact?type=gtm-ai-twin" }}
         secondary={{ label: "See the platform", href: "https://leadstrategus.ai", external: true }}

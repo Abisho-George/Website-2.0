@@ -37,7 +37,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
       {posts.length > 0 && (
         <Section className="pt-0">
           <div className="eyebrow mb-6">Writing</div>
-          <div className="divide-y divide-line border-y border-line">
+          <div className="divide-y divide-rule border-y border-rule">
             {posts.map((i) => (
               <Link key={i.slug} href={`/insights/${i.slug}`} className="group grid gap-2 py-6 md:grid-cols-12 md:items-baseline">
                 <div className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted md:col-span-3">{getCluster(i.cluster)?.name} · {formatDate(i.date)}</div>

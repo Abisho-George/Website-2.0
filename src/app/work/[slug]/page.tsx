@@ -31,18 +31,18 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
               <Reveal><div className="font-mono text-[0.72rem] uppercase tracking-[0.14em] text-muted">{c.client} · {c.region} · {c.year}</div></Reveal>
               <Reveal delay={60}><h1 className="display mt-5 text-[2.4rem] md:text-[4rem]"><Copy text={c.title} /></h1></Reveal>
               <Reveal delay={120}><p className="lede mt-6 max-w-2xl">{c.summary}</p></Reveal>
-              <Reveal delay={180} className="mt-6 flex flex-wrap gap-1.5">{c.tags.map((t) => <span key={t} className="rounded-full border border-line px-2.5 py-1 text-[0.72rem] text-muted">{t}</span>)}</Reveal>
+              <Reveal delay={180} className="mt-6 flex flex-wrap gap-1.5">{c.tags.map((t) => <span key={t} className="rounded-full border border-rule px-2.5 py-1 text-[0.72rem] text-muted">{t}</span>)}</Reveal>
             </div>
             <Reveal delay={200} className="card h-fit p-6 lg:col-span-4">
               <div className="eyebrow mb-6">Results</div>
               <div className="space-y-7">{c.stats.map((s) => <Stat key={s.label} value={s.value} label={s.label} size="md" />)}</div>
-              <div className="mt-8 border-t border-line pt-5 text-sm text-muted">Practice: <Link href={`/practices/${c.practiceSlug}`} className="link-u text-fg">{c.practice}</Link></div>
+              <div className="mt-8 border-t border-rule pt-5 text-sm text-muted">Practice: <Link href={`/practices/${c.practiceSlug}`} className="link-u text-fg">{c.practice}</Link></div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      <Section paper>
+      <Section band="sand">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4"><Eyebrow className="mb-4">The challenge</Eyebrow></div>
           <div className="lg:col-span-8"><Reveal><p className="text-xl leading-relaxed md:text-2xl">{c.challenge}</p></Reveal></div>
@@ -53,7 +53,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
           <div className="lg:col-span-4"><Eyebrow className="mb-4">What we did</Eyebrow><Reveal><h2 className="h3">The approach, step by step.</h2></Reveal></div>
           <ol className="space-y-6 lg:col-span-8">
             {c.approach.map((a, i) => (
-              <Reveal key={i} as="li" delay={i * 70} className="flex gap-6 border-t border-line pt-6"><span className="font-mono text-[0.75rem] text-ember">0{i + 1}</span><p className="text-lg leading-relaxed text-fg/90">{a}</p></Reveal>
+              <Reveal key={i} as="li" delay={i * 70} className="flex gap-6 border-t border-rule pt-6"><span className="font-mono text-[0.75rem] text-ember">0{i + 1}</span><p className="text-lg leading-relaxed text-fg/90">{a}</p></Reveal>
             ))}
           </ol>
         </div>

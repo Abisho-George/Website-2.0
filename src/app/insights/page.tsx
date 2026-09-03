@@ -18,7 +18,7 @@ export default function InsightsPage() {
           <Reveal delay={160}><p className="lede mt-7 max-w-2xl">Four topics, no filler. What we learned running programmes this quarter, written down so you do not have to learn it the expensive way.</p></Reveal>
         </div>
       </section>
-      <Section className="pt-0"><InsightsIndex items={insightsByDate} clusters={clusters} /></Section>
+      <Section index="—" label="archive" className="pt-0"><InsightsIndex items={insightsByDate} clusters={clusters} /></Section>
       <CTABand title={<>Rather talk it through than <em className="serif-em text-ember">read about it?</em></>} primary={{ label: "Book a strategy call", href: "/book" }} />
     </>
   );

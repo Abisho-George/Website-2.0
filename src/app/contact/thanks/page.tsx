@@ -13,8 +13,8 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
     <section className="relative flex min-h-[85vh] items-center pt-[var(--nav-h)]">
       <div className="grid-bg pointer-events-none absolute inset-0" />
       <div className="container-x relative py-20">
-        <p className={`eyebrow mb-6 ${isTwin ? "text-ion" : "text-ember"}`}>Received · {enquiryLabel(type ?? "")}</p>
-        <h1 className="display max-w-4xl text-[3rem] md:text-[5rem]">Got it. A founder will reply <em className={isTwin ? "text-ion" : "text-ember"}>within a working day.</em></h1>
+        <p className={`eyebrow mb-6 ${isTwin ? "text-ember-ink" : "text-ember"}`}>Received · {enquiryLabel(type ?? "")}</p>
+        <h1 className="display max-w-4xl text-[3rem] md:text-[5rem]">Got it. A founder will reply <em className={isTwin ? "text-ember-ink" : "text-ember"}>within a working day.</em></h1>
         <p className="lede mt-6 max-w-xl">Meanwhile, two things that will make the first call more useful.</p>
         <div className="mt-10 grid gap-4 md:grid-cols-2">
           <div className="card p-6"><div className="eyebrow mb-3">Bring</div><p className="text-muted">Your last two quarters of pipeline by source, and the three accounts you most wish you had won.</p></div>

@@ -22,16 +22,18 @@ const clean = (b) => b.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<scrip
 css = css.replace(/@font-face\s*\{[^}]*\}/g, "");
 const shim = readFileSync(new URL("./preview-shim.js", import.meta.url), "utf8");
 const out = `<title>LeadStrategus 2.0</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap">
 <style>
 ${css}
 :root { --font-geist-sans: "Geist"; --font-geist-mono: "Geist Mono"; }
-html { color-scheme: dark; }
-body { background: #070a0f; color: #edebe6; }
+@supports (font-variation-settings: normal) { :root { --font-display: "Bricolage Grotesque", system-ui, sans-serif; } }
+html { color-scheme: light; }
+body { background: #ffffff; color: #17120d; }
 #app { min-height: 100vh; }
-.preview-badge { position: fixed; right: 14px; bottom: 14px; z-index: 70; font: 500 11px/1 "Geist Mono", ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: #98a1b0; background: rgba(12,16,23,.9); border: 1px solid rgba(237,235,230,.12); border-radius: 999px; padding: 8px 12px; backdrop-filter: blur(8px); }
-.preview-badge b { color: #7cf3d6; font-weight: 500; }
+.preview-badge { position: fixed; right: 14px; bottom: 14px; z-index: 70; font: 500 11px/1 "Geist Mono", ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: #6e645a; background: rgba(255,255,255,.94); border: 1px solid #e9e2d6; border-radius: 999px; padding: 8px 12px; box-shadow: 0 8px 24px -14px rgba(23,18,13,.45); }
+.preview-badge b { color: #c2410c; font-weight: 600; }
 </style>
+<div class="spine" aria-hidden><div class="spine__fill" data-spine-fill style="height:0%"></div></div>
 <div id="app"></div>
 <div class="preview-badge">Preview · <b>${pages.length - 1} pages</b> · forms simulated</div>
 ${pages.map(([r, b]) => `<template data-route="${r}">${clean(b)}</template>`).join("\n")}

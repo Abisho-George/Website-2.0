@@ -32,7 +32,7 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
           <div className="mx-auto mt-12 max-w-3xl">
             <Reveal><h1 className="display text-[2.4rem] md:text-[3.8rem] balance">{i.title}</h1></Reveal>
             <Reveal delay={80}><p className="lede mt-6">{i.dek}</p></Reveal>
-            <Reveal delay={140} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-y border-line py-4 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted">
+            <Reveal delay={140} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-y border-rule py-4 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted">
               {author && <Link href={`/authors/${author.slug}`} className="text-fg hover:text-ember">{author.name}</Link>}
               <span>{formatDate(i.date)}</span><span>{mins} min read</span>
             </Reveal>
@@ -44,7 +44,7 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
         {author && (
           <div className="mx-auto mt-16 max-w-3xl">
             <Link href={`/authors/${author.slug}`} className="card card-hover flex gap-5 p-6">
-              <div className="flex size-14 shrink-0 items-center justify-center rounded-full border border-line bg-ink-3 font-display text-2xl italic">{author.name.split(" ").map((s) => s[0]).join("")}</div>
+              <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-ember-wash font-display text-lg font-semibold text-ember-ink">{author.name.split(" ").map((s) => s[0]).join("")}</div>
               <div>
                 <div className="text-lg font-medium tracking-tight">{author.name}</div>
                 <div className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ember">{author.role}</div>
@@ -55,14 +55,14 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
         )}
       </Section>
       {related.length > 0 && (
-        <Section paper tight>
+        <Section band="sand" tight>
           <div className="eyebrow mb-6">Related</div>
-          <div className="grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-ink/15 bg-ink/15 md:grid-cols-2">
+          <div className="grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-rule bg-rule md:grid-cols-2">
             {related.map((r) => r && (
-              <Link key={r.slug} href={`/insights/${r.slug}`} className="group bg-paper p-6 transition-colors hover:bg-paper-2">
-                <div className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ink/55">{getCluster(r.cluster)?.name}</div>
+              <Link key={r.slug} href={`/insights/${r.slug}`} className="group bg-paper p-6 transition-colors hover:bg-kraft">
+                <div className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-dim">{getCluster(r.cluster)?.name}</div>
                 <div className="mt-3 text-lg font-medium tracking-tight">{r.title}</div>
-                <p className="mt-1 text-sm text-ink/60">{r.dek}</p>
+                <p className="mt-1 text-sm text-muted">{r.dek}</p>
                 <div className="mt-4 inline-flex items-center gap-1 text-sm">Read <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></div>
               </Link>
             ))}

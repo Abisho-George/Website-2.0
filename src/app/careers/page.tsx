@@ -27,7 +27,7 @@ export default function CareersPage() {
       </section>
       <Section className="pt-0">
         <div className="eyebrow mb-6">Open roles · Bengaluru, hybrid</div>
-        <div className="divide-y divide-line border-y border-line">
+        <div className="divide-y divide-rule border-y border-rule">
           {roles.map((r, i) => (
             <Reveal key={i} delay={i * 60} className="grid gap-3 py-7 md:grid-cols-12 md:items-baseline">
               <div className="text-xl font-medium tracking-tight md:col-span-4"><Copy text={r.t} /></div>

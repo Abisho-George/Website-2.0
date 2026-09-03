@@ -22,7 +22,7 @@ export default function PracticesHub() {
       </section>
 
       <Section className="pt-0">
-        <div className="divide-y divide-line border-y border-line">
+        <div className="divide-y divide-rule border-y border-rule">
           {practices.map((p, i) => (
             <Reveal key={p.slug} delay={i * 60}>
               <Link href={`/practices/${p.slug}`} className="group grid gap-6 py-10 md:grid-cols-12 md:items-start">
@@ -32,24 +32,24 @@ export default function PracticesHub() {
                   <p className="mt-2 text-muted">{p.tagline}</p>
                 </div>
                 <div className="md:col-span-5">
-                  <ul className="flex flex-wrap gap-1.5">{p.services.map((s) => <li key={s} className="rounded-full border border-line px-2.5 py-1 text-[0.72rem] text-muted">{s}</li>)}</ul>
+                  <ul className="flex flex-wrap gap-1.5">{p.services.map((s) => <li key={s} className="rounded-full border border-rule px-2.5 py-1 text-[0.72rem] text-muted">{s}</li>)}</ul>
                 </div>
                 <div className="md:col-span-1 md:justify-self-end"><ArrowRight className="size-5 text-dim transition-all group-hover:translate-x-1 group-hover:text-fg" /></div>
               </Link>
             </Reveal>
           ))}
         </div>
-        <Reveal className="glow-ion mt-10 grid gap-6 rounded-[var(--radius-xl)] border border-ion/30 bg-ink-2/70 p-8 md:grid-cols-12 md:items-center md:p-10">
+        <Reveal className="glow-ember mt-10 grid gap-6 rounded-[var(--radius-xl)] border border-ember/30 bg-paper p-8 md:grid-cols-12 md:items-center md:p-10">
           <div className="md:col-span-8">
-            <div className="flex items-center gap-2 text-ion"><Sparkles className="size-4" /><span className="font-mono text-[0.7rem] uppercase tracking-[0.14em]">Special service</span></div>
+            <div className="flex items-center gap-2 text-ember-ink"><Sparkles className="size-4" /><span className="font-mono text-[0.7rem] uppercase tracking-[0.14em]">Special service</span></div>
             <h2 className="mt-3 text-[1.8rem] font-medium tracking-tight md:text-[2.2rem]">GTM AI Twin</h2>
             <p className="mt-2 max-w-xl text-muted">Custom agents that take over the whole motion, from identifying the prospect to booking the meeting. Every practice above feeds it.</p>
           </div>
-          <div className="md:col-span-4 md:justify-self-end"><Button href="/gtm-ai-twin" variant="ion">Explore the Twin</Button></div>
+          <div className="md:col-span-4 md:justify-self-end"><Button href="/gtm-ai-twin" variant="primary">Explore the Twin</Button></div>
         </Reveal>
       </Section>
 
-      <Section paper tight>
+      <Section band="sand" tight>
         <SectionHead eyebrow="Not sure which?" title="Start with a diagnostic." lede="Two weeks, fixed fee, and you leave with a written view of what is stalling pipeline and which practice would move it. The fee is credited against whatever you do next." />
         <Button href="/book" variant="paper" className="mt-8">Book a strategy call</Button>
       </Section>

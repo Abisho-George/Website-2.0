@@ -42,16 +42,16 @@ export default function AboutPage() {
         <div className="mt-16"><Marquee speed="50s" items={proof.pedigree.map((p) => <span key={p} className="text-2xl font-medium tracking-tight text-fg/60">{p}</span>)} /></div>
       </Section>
 
-      <Section paper>
+      <Section band="sand" index="01" label="founders">
         <SectionHead eyebrow="Founders" title={<>Led by people who have <em className="serif-em">carried the number.</em></>} />
         <div className="mt-12 grid gap-4 md:grid-cols-2">
           {authors.map((a, i) => (
             <Reveal key={a.slug} delay={i * 90}>
               <Link href={`/authors/${a.slug}`} className="card card-hover group block h-full p-7">
-                <div className="flex size-16 items-center justify-center rounded-full bg-ink font-display text-2xl italic text-paper">{a.name.split(" ").map((s) => s[0]).join("")}</div>
+                <div className="flex size-16 items-center justify-center rounded-full bg-ember-wash font-display text-xl font-semibold text-ember-ink">{a.name.split(" ").map((s) => s[0]).join("")}</div>
                 <div className="mt-6 text-2xl font-medium tracking-tight">{a.name}</div>
                 <div className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ember">{a.role}</div>
-                <p className="mt-4 leading-relaxed text-ink/70"><Copy text={a.long[0]} /></p>
+                <p className="mt-4 leading-relaxed text-muted"><Copy text={a.long[0]} /></p>
                 <div className="mt-5 inline-flex items-center gap-1 text-sm">Full profile <ArrowUpRight className="size-4" /></div>
               </Link>
             </Reveal>
@@ -59,11 +59,11 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section>
-        <SectionHead eyebrow="Principles" title={<>Four rules we do not <em className="serif-em text-muted">bend.</em></>} />
-        <div className="mt-12 grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-line bg-line md:grid-cols-2">
+      <Section index="02" label="principles">
+        <SectionHead eyebrow="Principles" title={<>Four rules we do not <em className="serif-em">bend.</em></>} />
+        <div className="mt-12 grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-rule bg-rule md:grid-cols-2">
           {principles.map((p, i) => (
-            <Reveal key={p.t} delay={i * 70} className="bg-ink p-8">
+            <Reveal key={p.t} delay={i * 70} className="bg-paper p-8">
               <div className="font-mono text-[0.72rem] text-ember">0{i + 1}</div>
               <h3 className="mt-6 text-xl font-medium tracking-tight">{p.t}</h3>
               <p className="mt-3 leading-relaxed text-muted">{p.b}</p>
@@ -72,9 +72,9 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section className="pt-0">
-        <SectionHead eyebrow="Timeline" title={<>From programmes to <em className="serif-em text-muted">platform.</em></>} />
-        <ol className="mt-12 border-l border-line">
+      <Section index="03" label="timeline" className="pt-0">
+        <SectionHead eyebrow="Timeline" title={<>From programmes to <em className="serif-em">platform.</em></>} />
+        <ol className="mt-12 border-l border-rule">
           {timeline.map((t, i) => (
             <Reveal key={t.t} as="li" delay={i * 60} className="relative grid gap-2 py-6 pl-8 md:grid-cols-12">
               <span className="absolute -left-[5px] top-8 size-[9px] rounded-full bg-ember" />
@@ -85,7 +85,7 @@ export default function AboutPage() {
         </ol>
       </Section>
 
-      <Section paper tight>
+      <Section band="sand" tight>
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-5"><Eyebrow className="mb-4">Where we are</Eyebrow><h2 className="h3">Bengaluru, working in your time zone.</h2></div>
           <div className="grid gap-6 text-sm md:col-span-7 md:grid-cols-2">

@@ -18,7 +18,7 @@ export default function WorkPage() {
           <Reveal delay={160}><p className="lede mt-7 max-w-2xl">Client names are withheld by default; most of our work is under NDA. Every number is traced to a client review or a signed-off study before it ships.</p></Reveal>
         </div>
       </section>
-      <Section className="pt-0"><WorkIndex items={caseStudies} /></Section>
+      <Section index="—" label="case studies" className="pt-0"><WorkIndex items={caseStudies} /></Section>
       <CTABand title={<>Your programme could be <em className="serif-em text-ember">next.</em></>} primary={{ label: "Book a strategy call", href: "/book" }} secondary={{ label: "See the practices", href: "/practices" }} />
     </>
   );
