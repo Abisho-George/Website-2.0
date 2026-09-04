@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-import { Section, Eyebrow } from "@/components/ui/Section";
+import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { Copy, strip } from "@/components/ui/Copy";
 import { Stat } from "@/components/ui/Stat";
@@ -34,7 +34,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
               <Reveal delay={180} className="mt-6 flex flex-wrap gap-1.5">{c.tags.map((t) => <span key={t} className="rounded-full border border-rule px-2.5 py-1 text-[0.72rem] text-muted">{t}</span>)}</Reveal>
             </div>
             <Reveal delay={200} className="card h-fit p-6 lg:col-span-4">
-              <div className="eyebrow mb-6">Results</div>
+              <div className="mb-6 font-display text-lg font-semibold tracking-tight">Results</div>
               <div className="space-y-7">{c.stats.map((s) => <Stat key={s.label} value={s.value} label={s.label} size="md" />)}</div>
               <div className="mt-8 border-t border-rule pt-5 text-sm text-muted">Practice: <Link href={`/practices/${c.practiceSlug}`} className="link-u text-fg">{c.practice}</Link></div>
             </Reveal>
@@ -44,23 +44,23 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
 
       <Section band="sand">
         <div className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-4"><Eyebrow className="mb-4">The challenge</Eyebrow></div>
+          <div className="lg:col-span-4"><Reveal><h2 className="h2 balance">The challenge</h2></Reveal></div>
           <div className="lg:col-span-8"><Reveal><p className="text-xl leading-relaxed md:text-2xl">{c.challenge}</p></Reveal></div>
         </div>
       </Section>
       <Section>
         <div className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-4"><Eyebrow className="mb-4">What we did</Eyebrow><Reveal><h2 className="h3">The approach, step by step.</h2></Reveal></div>
+          <div className="lg:col-span-4"><Reveal><h2 className="h2 balance">The approach, step by step.</h2></Reveal></div>
           <ol className="space-y-6 lg:col-span-8">
             {c.approach.map((a, i) => (
-              <Reveal key={i} as="li" delay={i * 70} className="flex gap-6 border-t border-rule pt-6"><span className="font-mono text-[0.75rem] text-ember">0{i + 1}</span><p className="text-lg leading-relaxed text-fg/90">{a}</p></Reveal>
+              <Reveal key={i} as="li" delay={i * 70} className="flex gap-6 border-t border-rule pt-6"><span className="mt-[13px] size-1.5 shrink-0 rounded-full bg-ember" /><p className="text-lg leading-relaxed text-fg/90">{a}</p></Reveal>
             ))}
           </ol>
         </div>
       </Section>
       <Section className="pt-0">
         <div className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-4"><Eyebrow className="mb-4">The outcome</Eyebrow></div>
+          <div className="lg:col-span-4"><Reveal><h2 className="h2 balance">The outcome</h2></Reveal></div>
           <div className="lg:col-span-8">
             <Reveal><p className="text-xl leading-relaxed text-fg md:text-2xl">{c.outcome}</p></Reveal>
             {c.quote && <Reveal delay={100} className="mt-14"><Quote text={c.quote.text} who={c.quote.who} /></Reveal>}
@@ -68,7 +68,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
         </div>
       </Section>
       <Section className="pt-0">
-        <div className="flex items-end justify-between"><Eyebrow>More work</Eyebrow><Link href="/work" className="inline-flex items-center gap-2 text-sm text-muted hover:text-fg">All work <ArrowRight className="size-4" /></Link></div>
+        <div className="flex items-end justify-between"><h2 className="h3">More work</h2><Link href="/work" className="inline-flex items-center gap-2 text-sm text-muted hover:text-fg">All work <ArrowRight className="size-4" /></Link></div>
         <div className="mt-8 grid gap-4 md:grid-cols-3">{more.map((m, i) => <CaseTile key={m.slug} c={m} i={i} compact />)}</div>
       </Section>
       <CTABand title={<>Want this for <em className="serif-em text-ember">your pipeline?</em></>} primary={{ label: "Book a strategy call", href: "/book" }} secondary={{ label: `About ${c.practice}`, href: `/practices/${c.practiceSlug}` }} />

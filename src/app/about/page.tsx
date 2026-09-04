@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Section, SectionHead, Eyebrow } from "@/components/ui/Section";
+import { Section, SectionHead } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
+import { PageHero } from "@/components/site/PageHero";
 import { Copy } from "@/components/ui/Copy";
 import { Marquee } from "@/components/ui/Marquee";
 import { CTABand, StatRow } from "@/components/site/Blocks";
@@ -28,22 +29,15 @@ const timeline = [
 export default function AboutPage() {
   return (
     <>
-      <section className="relative overflow-hidden pt-[var(--nav-h)]">
-        <div className="grid-bg pointer-events-none absolute inset-0" />
-        <div className="container-x relative py-20 md:py-28">
-          <Reveal><Eyebrow className="mb-6">About</Eyebrow></Reveal>
-          <Reveal delay={80}><h1 className="display max-w-5xl text-[3rem] md:text-[5.6rem]">Operators, <em className="text-ember">not an agency.</em></h1></Reveal>
-          <Reveal delay={160}><p className="lede mt-7 max-w-2xl">LeadStrategus was started in 2018 by people who had run marketing and business development for global technology vendors in India, and were tired of watching agencies report activity while pipeline stayed flat. We built the firm we wished we could have hired.</p></Reveal>
-        </div>
-      </section>
+      <PageHero art="about" title={<>Operators, <em>not an agency.</em></>} lede="LeadStrategus was started in 2018 by people who had run marketing and business development for global technology vendors in India, and were tired of watching agencies report activity while pipeline stayed flat. We built the firm we wished we could have hired." />
 
-      <Section className="pt-0">
+      <Section className="hero-next">
         <StatRow stats={proof.stats} />
         <div className="mt-16"><Marquee speed="50s" items={proof.pedigree.map((p) => <span key={p} className="text-2xl font-medium tracking-tight text-fg/60">{p}</span>)} /></div>
       </Section>
 
-      <Section band="sand" index="01" label="founders">
-        <SectionHead eyebrow="Founders" title={<>Led by people who have <em className="serif-em">carried the number.</em></>} />
+      <Section band="sand">
+        <SectionHead title={<>Led by people who have <em className="serif-em">carried the number.</em></>} />
         <div className="mt-12 grid gap-4 md:grid-cols-2">
           {authors.map((a, i) => (
             <Reveal key={a.slug} delay={i * 90}>
@@ -59,12 +53,11 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section index="02" label="principles">
-        <SectionHead eyebrow="Principles" title={<>Four rules we do not <em className="serif-em">bend.</em></>} />
+      <Section>
+        <SectionHead title={<>Four rules we do not <em className="serif-em">bend.</em></>} />
         <div className="mt-12 grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-rule bg-rule md:grid-cols-2">
           {principles.map((p, i) => (
             <Reveal key={p.t} delay={i * 70} className="bg-paper p-8">
-              <div className="font-mono text-[0.72rem] text-ember">0{i + 1}</div>
               <h3 className="mt-6 text-xl font-medium tracking-tight">{p.t}</h3>
               <p className="mt-3 leading-relaxed text-muted">{p.b}</p>
             </Reveal>
@@ -72,8 +65,8 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section index="03" label="timeline" className="pt-0">
-        <SectionHead eyebrow="Timeline" title={<>From programmes to <em className="serif-em">platform.</em></>} />
+      <Section className="pt-0">
+        <SectionHead title={<>From programmes to <em className="serif-em">platform.</em></>} />
         <ol className="mt-12 border-l border-rule">
           {timeline.map((t, i) => (
             <Reveal key={t.t} as="li" delay={i * 60} className="relative grid gap-2 py-6 pl-8 md:grid-cols-12">
@@ -87,7 +80,7 @@ export default function AboutPage() {
 
       <Section band="sand" tight>
         <div className="grid gap-10 md:grid-cols-12">
-          <div className="md:col-span-5"><Eyebrow className="mb-4">Where we are</Eyebrow><h2 className="h3">Bengaluru, working in your time zone.</h2></div>
+          <div className="md:col-span-5"><h2 className="h2 balance">Bengaluru, working in your time zone.</h2></div>
           <div className="grid gap-6 text-sm md:col-span-7 md:grid-cols-2">
             <div><div className="eyebrow mb-2">Headquarters</div><p><Copy text={site.contact.hq} /></p></div>
             <div><div className="eyebrow mb-2">Office</div><p><Copy text={site.contact.office2} /></p></div>

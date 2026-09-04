@@ -13,7 +13,7 @@ export function Mark({ className }: { className?: string }) {
 
 export function Logo({ className }: { className?: string }) {
   return (
-    <Link href="/" className={cn("group inline-flex items-center gap-2.5", className)} aria-label="LeadStrategus home">
+    <Link href="/" className={cn("group inline-flex shrink-0 items-center gap-2.5", className)} aria-label="LeadStrategus home">
       <Mark />
       <span className="font-display text-[1.12rem] font-semibold tracking-[-0.03em]">
         Lead<span className="font-normal">Strategus</span>

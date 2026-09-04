@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { Stat } from "@/components/ui/Stat";
 import { Accordion } from "@/components/ui/Accordion";
-import { Eyebrow } from "@/components/ui/Section";
 import { PracticeGlyph } from "@/components/visual/PracticeGlyph";
 import type { CaseStudy, FAQ, Practice } from "@/content/types";
 import { proof } from "@/content/site";
@@ -15,11 +14,10 @@ export function PracticeCard({ p, i }: { p: Practice; i: number }) {
   return (
     <Reveal delay={i * 70} className="h-full">
       <Link href={`/practices/${p.slug}`} className="card card-hover group relative flex h-full flex-col overflow-hidden p-6 md:p-8">
-        <div className="flex items-start justify-between gap-4">
-          <span className="font-mono text-[0.7rem] text-ember-ink">{p.index}</span>
+        <div className="flex justify-end">
           <PracticeGlyph slug={p.slug} className="h-14 w-20 shrink-0 opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
         </div>
-        <h3 className="mt-8 font-display text-[1.55rem] font-semibold tracking-[-0.03em] md:text-[1.75rem]">{p.name}</h3>
+        <h3 className="mt-7 font-display text-[1.55rem] font-semibold tracking-[-0.03em] md:text-[1.75rem]">{p.name}</h3>
         <p className="mt-2.5 text-muted">{p.tagline}</p>
         <ul className="mt-6 flex flex-wrap gap-1.5">
           {p.services.slice(0, 4).map((s) => (
@@ -81,11 +79,10 @@ export function StatRow({ stats, className }: { stats: { value: string; suffix?:
   );
 }
 
-export function FAQBlock({ items, eyebrow = "Questions", title = "Asked often, answered plainly.", tone = "ember" }: { items: FAQ[]; eyebrow?: string; title?: string; tone?: "ember" | "ion" }) {
+export function FAQBlock({ items, title = "Asked often, answered plainly.", tone = "ember" }: { items: FAQ[]; title?: string; tone?: "ember" | "ion" }) {
   return (
     <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
       <div className="lg:col-span-4">
-        <Eyebrow tone={tone} className="mb-4">{eyebrow}</Eyebrow>
         <h2 className="h2 balance">{title}</h2>
       </div>
       <div className="lg:col-span-8"><Accordion items={items} tone={tone} /></div>
@@ -121,7 +118,7 @@ export function ProofBar() {
     <div className="border-y border-rule bg-sand">
       <div className="container-x flex flex-col gap-4 py-5 md:flex-row md:items-center md:justify-between md:gap-8">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <span className="eyebrow shrink-0">Leadership from</span>
+          <span className="shrink-0 font-mono text-[0.68rem] uppercase tracking-[0.15em] text-muted">Leadership from</span>
           <ul className="flex flex-wrap gap-x-5 gap-y-1 font-display text-[0.95rem] font-semibold tracking-tight">
             {proof.pedigree.map((p) => <li key={p}>{p}</li>)}
           </ul>

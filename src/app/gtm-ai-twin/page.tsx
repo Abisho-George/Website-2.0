@@ -1,7 +1,7 @@
 import { Sparkles, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
-import { Section, Eyebrow } from "@/components/ui/Section";
+import { Section } from "@/components/ui/Section";
 import { Copy } from "@/components/ui/Copy";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { CTABand, FAQBlock } from "@/components/site/Blocks";
@@ -31,11 +31,6 @@ export default function TwinPage() {
         <div className="container-x relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-6">
             <Reveal>
-              <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-ember-wash px-3.5 py-1.5 font-mono text-[0.66rem] uppercase tracking-[0.15em] text-ember-ink">
-                <Sparkles className="size-3.5" /> Special service
-              </span>
-            </Reveal>
-            <Reveal delay={70}>
               <h1 className="display text-[2.8rem] sm:text-[3.8rem] md:text-[4.9rem]">{twin.h1}<br /><em>{twin.h1em}</em></h1>
             </Reveal>
             <Reveal delay={140}><p className="lede mt-7 max-w-xl">{twin.lede}</p></Reveal>
@@ -54,22 +49,17 @@ export default function TwinPage() {
         </div>
       </div>
 
-      <Section tight index="—" label="the chain">
+      <Section tight>
         <Reveal>
-          <Eyebrow tone="ember" className="mb-4">What it takes over</Eyebrow>
           <h2 className="h2 max-w-3xl balance">Six agents, one hand-off chain. <em className="serif-em">From first signal to booked meeting.</em></h2>
         </Reveal>
         <Reveal delay={90} className="mt-12"><TwinDiagram /></Reveal>
       </Section>
 
       {/* 01 · what is it */}
-      <Section band="sand" id="what" index="01" label="what is it" className="scroll-mt-32">
+      <Section band="sand" id="what" className="scroll-mt-32">
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-14">
-          <div className="lg:col-span-4">
-            <div className="display text-[3.5rem] text-ember md:text-[4.5rem]">01</div>
-            <Eyebrow className="mt-2">{twin.what.title}</Eyebrow>
-          </div>
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-12">
             <Reveal><h2 className="h2 balance">{twin.what.h}</h2></Reveal>
             <div className="mt-7 space-y-5 text-[1.05rem] leading-relaxed text-muted md:text-lg">
               {twin.what.paras.map((p, i) => <Reveal key={i} delay={i * 60}><p>{p}</p></Reveal>)}
@@ -89,20 +79,15 @@ export default function TwinPage() {
       </Section>
 
       {/* 02 · why now */}
-      <Section id="why-now" index="02" label="why now" className="scroll-mt-32">
+      <Section id="why-now" className="scroll-mt-32">
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-14">
-          <div className="lg:col-span-4">
-            <div className="display text-[3.5rem] text-ember md:text-[4.5rem]">02</div>
-            <Eyebrow className="mt-2">{twin.why.title}</Eyebrow>
-          </div>
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-12">
             <Reveal><h2 className="h2 balance">{twin.why.h}</h2></Reveal>
             <ol className="mt-11 grid gap-x-10 gap-y-9 md:grid-cols-2">
               {twin.why.reasons.map((r, i) => (
                 <Reveal key={r.n} as="li" delay={i * 70}>
                   <div className="mb-4 flex items-center gap-3">
-                    <span className="font-mono text-[0.7rem] text-ember-ink">{r.n}</span>
-                    <span className="h-px flex-1 bg-rule" />
+                    <span className="h-px w-10 bg-ember" />
                   </div>
                   <h3 className="font-display text-[1.2rem] font-semibold leading-snug tracking-[-0.025em] md:text-[1.32rem]">{r.t}</h3>
                   <p className="mt-3 leading-relaxed text-muted"><Copy text={r.b} /></p>
@@ -114,12 +99,10 @@ export default function TwinPage() {
       </Section>
 
       {/* 03 · why us */}
-      <Section band="sand" id="why-us" index="03" label="why us" className="scroll-mt-32">
+      <Section band="sand" id="why-us" className="scroll-mt-32">
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-4">
-            <div className="display text-[3.5rem] text-ember md:text-[4.5rem]">03</div>
-            <Eyebrow className="mt-2">{twin.whyUs.title}</Eyebrow>
-            <p className="mt-8 text-sm text-muted">Leadership from</p>
+            <p className="text-sm text-muted">Leadership from</p>
             <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1 font-display text-[0.95rem] font-semibold tracking-tight">{proof.pedigree.map((p) => <li key={p}>{p}</li>)}</ul>
           </div>
           <div className="lg:col-span-8">
@@ -127,7 +110,6 @@ export default function TwinPage() {
             <div className="mt-11 grid gap-4 md:grid-cols-2">
               {twin.whyUs.points.map((p, i) => (
                 <Reveal key={p.t} delay={i * 60} className="card card-hover p-6">
-                  <div className="flex size-8 items-center justify-center rounded-full border border-ember/40 font-mono text-[0.66rem] text-ember-ink">{String(i + 1).padStart(2, "0")}</div>
                   <h3 className="mt-5 font-display text-[1.08rem] font-semibold tracking-tight">{p.t}</h3>
                   <p className="mt-2 text-[0.92rem] leading-relaxed text-muted">{p.b}</p>
                 </Reveal>
@@ -138,17 +120,15 @@ export default function TwinPage() {
       </Section>
 
       {/* build */}
-      <Section id="build" index="04" label="the build" className="scroll-mt-32">
+      <Section id="build" className="scroll-mt-32">
         <Reveal>
-          <Eyebrow tone="ember" className="mb-4">How it&apos;s built</Eyebrow>
           <h2 className="h2 max-w-3xl balance"><Copy text="[[Six weeks]] from kickoff to a supervised live run." /></h2>
         </Reveal>
         <ol className="rail rail--swipe mt-12 md:grid-cols-4">
           {twin.build.map((b, i) => (
             <li key={b.t} className="relative">
               <div className="mb-5 flex items-center gap-3">
-                <span className="flex size-8 items-center justify-center rounded-full border border-ember/40 bg-paper font-mono text-[0.66rem] text-ember-ink">0{i + 1}</span>
-                <span className="h-px flex-1 bg-rule" />
+                <span className="h-px w-10 bg-ember" />
               </div>
               <div className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-ember-ink">{b.wk}</div>
               <div className="mt-1.5 font-display text-xl font-semibold tracking-tight">{b.t}</div>
@@ -162,7 +142,6 @@ export default function TwinPage() {
       <Section band="ink" id="pricing" tight className="scroll-mt-32">
         <Reveal className="grid gap-8 md:grid-cols-12 md:items-center">
           <div className="md:col-span-5">
-            <Eyebrow className="mb-4 text-ember-2">Pricing signal</Eyebrow>
             <h2 className="h3">{twin.pricing.model}</h2>
           </div>
           <div className="md:col-span-7">
@@ -173,7 +152,7 @@ export default function TwinPage() {
         </Reveal>
       </Section>
 
-      <Section id="faq" index="05" label="questions" className="scroll-mt-32"><FAQBlock items={twinFaq} title="What people ask before they build one." /></Section>
+      <Section id="faq" className="scroll-mt-32"><FAQBlock items={twinFaq} title="What people ask before they build one." /></Section>
 
       <CTABand
         title={<>Your GTM team, <em>twinned.</em></>}

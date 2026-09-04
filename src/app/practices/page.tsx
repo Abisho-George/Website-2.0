@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { Section, SectionHead, Eyebrow } from "@/components/ui/Section";
+import { Section, SectionHead } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
+import { PageHero } from "@/components/site/PageHero";
 import { Button } from "@/components/ui/Button";
 import { CTABand } from "@/components/site/Blocks";
 import { practices } from "@/content/practices";
@@ -12,23 +13,15 @@ export const metadata = buildMetadata({ title: "Practices", description: "GTM St
 export default function PracticesHub() {
   return (
     <>
-      <section className="relative overflow-hidden pt-[var(--nav-h)]">
-        <div className="grid-bg pointer-events-none absolute inset-0" />
-        <div className="container-x relative py-20 md:py-28">
-          <Reveal><Eyebrow className="mb-6">Practices</Eyebrow></Reveal>
-          <Reveal delay={80}><h1 className="display max-w-4xl text-[3rem] md:text-[5.4rem]">Four practices. <em className="text-ember">One</em> operating model.</h1></Reveal>
-          <Reveal delay={160}><p className="lede mt-7 max-w-2xl">They share an account universe, a messaging system and a weekly pipeline review, so adding a second practice compounds the first rather than starting over.</p></Reveal>
-        </div>
-      </section>
+      <PageHero art="practices" title={<>Four practices. <em>One</em> operating model.</>} lede="They share an account universe, a messaging system and a weekly pipeline review, so adding a second practice compounds the first rather than starting over." />
 
-      <Section className="pt-0">
+      <Section className="hero-next">
         <div className="divide-y divide-rule border-y border-rule">
           {practices.map((p, i) => (
             <Reveal key={p.slug} delay={i * 60}>
-              <Link href={`/practices/${p.slug}`} className="group grid gap-6 py-10 md:grid-cols-12 md:items-start">
-                <div className="font-mono text-[0.8rem] text-ember md:col-span-1">{p.index}</div>
+              <Link href={`/practices/${p.slug}`} className="group grid gap-6 py-9 md:grid-cols-11 md:items-start">
                 <div className="md:col-span-5">
-                  <h2 className="text-[1.8rem] font-medium tracking-tight transition-colors group-hover:text-ember md:text-[2.2rem]">{p.name}</h2>
+                  <h2 className="font-display text-[1.7rem] font-semibold tracking-[-0.03em] transition-colors group-hover:text-ember-ink md:text-[2.1rem]">{p.name}</h2>
                   <p className="mt-2 text-muted">{p.tagline}</p>
                 </div>
                 <div className="md:col-span-5">
@@ -50,7 +43,7 @@ export default function PracticesHub() {
       </Section>
 
       <Section band="sand" tight>
-        <SectionHead eyebrow="Not sure which?" title="Start with a diagnostic." lede="Two weeks, fixed fee, and you leave with a written view of what is stalling pipeline and which practice would move it. The fee is credited against whatever you do next." />
+        <SectionHead title="Start with a diagnostic." lede="Two weeks, fixed fee, and you leave with a written view of what is stalling pipeline and which practice would move it. The fee is credited against whatever you do next." />
         <Button href="/book" variant="paper" className="mt-8">Book a strategy call</Button>
       </Section>
 

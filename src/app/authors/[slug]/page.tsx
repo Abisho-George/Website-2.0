@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
-import { Section, Eyebrow } from "@/components/ui/Section";
+import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { Copy, strip } from "@/components/ui/Copy";
 import { Breadcrumb, CTABand } from "@/components/site/Blocks";
@@ -26,7 +26,6 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
           <Breadcrumb items={[{ label: "About", href: "/about" }, { label: a.name }]} />
           <div className="mt-10 grid gap-10 lg:grid-cols-12">
             <div className="lg:col-span-8">
-              <Reveal><Eyebrow tone="ember" className="mb-5">{a.role}</Eyebrow></Reveal>
               <Reveal delay={60}><h1 className="display text-[3rem] md:text-[5rem]">{a.name}</h1></Reveal>
               <div className="mt-8 max-w-2xl space-y-5 text-lg leading-relaxed text-muted">{a.long.map((p, i) => <Reveal key={i} delay={i * 60}><p><Copy text={p} /></p></Reveal>)}</div>
               {a.linkedin && <a href={a.linkedin} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center gap-2 text-sm link-u">LinkedIn <ArrowUpRight className="size-4" /></a>}

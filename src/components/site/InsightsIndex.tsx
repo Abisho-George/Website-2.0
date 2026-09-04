@@ -13,7 +13,7 @@ export function InsightsIndex({ items, clusters }: { items: Insight[]; clusters:
   return (
     <div className="grid gap-12 lg:grid-cols-12">
       <aside className="lg:col-span-3">
-        <div className="eyebrow mb-4">Topics</div>
+        <div className="mb-4 font-display text-lg font-semibold tracking-tight">Topics</div>
         <ul className="space-y-1">
           <li><button data-filter="cluster" data-value="all" onClick={() => setActive("all")} className={cn("w-full rounded-lg px-3 py-2 text-left text-sm transition-colors", active === "all" ? "bg-white/6 text-fg" : "text-muted hover:text-fg")}>All insights</button></li>
           {clusters.map((c) => (

@@ -1,5 +1,6 @@
-import { Section, Eyebrow } from "@/components/ui/Section";
+import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
+import { PageHero } from "@/components/site/PageHero";
 import { Button } from "@/components/ui/Button";
 import { Copy } from "@/components/ui/Copy";
 import { site } from "@/content/site";
@@ -17,15 +18,8 @@ const roles = [
 export default function CareersPage() {
   return (
     <>
-      <section className="relative overflow-hidden pt-[var(--nav-h)]">
-        <div className="grid-bg pointer-events-none absolute inset-0" />
-        <div className="container-x relative py-20 md:py-28">
-          <Reveal><Eyebrow className="mb-6">Careers</Eyebrow></Reveal>
-          <Reveal delay={80}><h1 className="display max-w-4xl text-[3rem] md:text-[5.4rem]">Learn GTM by <em className="text-ember">running it.</em></h1></Reveal>
-          <Reveal delay={160}><p className="lede mt-7 max-w-2xl">A small firm where every person owns a number, works directly with founders who have led marketing at AWS and Gartner, and now builds agents alongside the programmes they run.</p></Reveal>
-        </div>
-      </section>
-      <Section className="pt-0">
+      <PageHero art="contact" title={<>Learn GTM by <em>running it.</em></>} lede="A small firm where every person owns a number, works directly with founders who have led marketing at AWS and Gartner, and now builds agents alongside the programmes they run." />
+      <Section className="hero-next">
         <div className="eyebrow mb-6">Open roles · Bengaluru, hybrid</div>
         <div className="divide-y divide-rule border-y border-rule">
           {roles.map((r, i) => (

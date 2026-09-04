@@ -1,4 +1,4 @@
-import { Section, Eyebrow } from "@/components/ui/Section";
+import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { Copy } from "@/components/ui/Copy";
 import { ContactForm } from "@/components/site/ContactForm";
@@ -17,7 +17,6 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
       <section className="relative pt-[var(--nav-h)]">
         <div className="container-x grid gap-14 py-16 md:py-24 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <Reveal><Eyebrow tone={isTwin ? "ion" : "ember"} className="mb-6">Contact</Eyebrow></Reveal>
             <Reveal delay={80}><h1 className="display text-[2.8rem] md:text-[4.4rem]">Tell us what is <em className={isTwin ? "text-ember-ink" : "text-ember"}>not converting.</em></h1></Reveal>
             <Reveal delay={160}><p className="lede mt-6">Enquiries are routed to the practice lead, not a shared inbox. You will hear from a founder within one working day.</p></Reveal>
             <Reveal delay={220} className="mt-10 space-y-6 text-sm">

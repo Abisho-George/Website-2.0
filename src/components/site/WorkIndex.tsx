@@ -10,12 +10,12 @@ export function WorkIndex({ items }: { items: CaseStudy[] }) {
   const [practice, setPractice] = useState("All");
   const [vertical, setVertical] = useState("All");
   const shown = items.filter((i) => (practice === "All" || i.practice === practice) && (vertical === "All" || i.vertical === vertical));
-  const pill = (active: boolean) => cn("rounded-full border px-3 py-1.5 text-[0.78rem] transition-colors", active ? "border-fg bg-fg text-ink" : "border-line text-muted hover:border-line-strong hover:text-fg");
+  const pill = (active: boolean) => cn("rounded-full border px-3 py-1.5 text-[0.78rem] transition-colors", active ? "border-ink bg-ink text-paper" : "border-rule text-muted hover:border-rule-strong hover:text-fg");
   return (
     <div>
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div className="flex flex-wrap items-center gap-2"><span className="eyebrow mr-2">Practice</span>{practicesList.map((p) => <button key={p} data-filter="practice" data-value={p} onClick={() => setPractice(p)} className={pill(practice === p)}>{p}</button>)}</div>
-        <div className="flex flex-wrap items-center gap-2"><span className="eyebrow mr-2">Sector</span>{verticals.map((v) => <button key={v} data-filter="vertical" data-value={v} onClick={() => setVertical(v)} className={pill(vertical === v)}>{v}</button>)}</div>
+        <div className="flex flex-wrap items-center gap-2"><span className="mr-2 font-mono text-[0.66rem] uppercase tracking-[0.15em] text-muted">Practice</span>{practicesList.map((p) => <button key={p} data-filter="practice" data-value={p} onClick={() => setPractice(p)} className={pill(practice === p)}>{p}</button>)}</div>
+        <div className="flex flex-wrap items-center gap-2"><span className="mr-2 font-mono text-[0.66rem] uppercase tracking-[0.15em] text-muted">Sector</span>{verticals.map((v) => <button key={v} data-filter="vertical" data-value={v} onClick={() => setVertical(v)} className={pill(vertical === v)}>{v}</button>)}</div>
       </div>
       <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {shown.map((c, i) => <div key={c.slug} data-item data-practice={c.practice} data-vertical={c.vertical}><CaseTile c={c} i={i} /></div>)}

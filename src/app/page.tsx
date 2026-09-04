@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
-import { Section, SectionHead, Eyebrow } from "@/components/ui/Section";
+import { Section, SectionHead } from "@/components/ui/Section";
 import { Marquee } from "@/components/ui/Marquee";
 import { Copy } from "@/components/ui/Copy";
 import { JsonLd } from "@/components/ui/JsonLd";
@@ -43,7 +43,6 @@ export default function Home() {
         <SignalField className="absolute inset-0 h-full w-full" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(105deg,white_0%,rgba(255,255,255,.92)_38%,rgba(255,255,255,.45)_62%,transparent_86%)]" />
         <div className="container-x relative flex min-h-[min(760px,82svh)] flex-col justify-center py-16 md:py-20">
-          <Reveal><Eyebrow className="mb-7">B2B go-to-market · Bengaluru → Global · est. 2018</Eyebrow></Reveal>
           <Reveal delay={70}>
             <h1 className="display max-w-[15ch] text-[3rem] sm:text-[4.4rem] md:text-[5.8rem] xl:text-[7rem]">
               Go-to-market,<br /><em>engineered.</em>
@@ -64,19 +63,15 @@ export default function Home() {
       <ProofBar />
 
       {/* 02 · thesis */}
-      <Section index="02" label="the shift">
+      <Section>
         <SectionHead
-          eyebrow="The thesis"
           title={<>The buyer moved. <em className="serif-em">Most GTM didn&apos;t.</em></>}
           lede="Three shifts changed what works in B2B pipeline. Everything we do is built around them."
         />
         <ol className="mt-14 grid gap-x-10 gap-y-10 md:grid-cols-3">
           {shifts.map((s, i) => (
             <Reveal key={s.n} as="li" delay={i * 80} className="relative">
-              <div className="mb-6 flex items-center gap-4">
-                <span className="font-mono text-[0.72rem] text-ember-ink">{s.n}</span>
-                <span className="h-px flex-1 bg-rule" />
-              </div>
+              <div className="mb-6 h-px w-12 bg-ember" />
               <h3 className="font-display text-[1.3rem] font-semibold leading-[1.15] tracking-[-0.028em] md:text-[1.5rem]">{s.t}</h3>
               <p className="mt-3.5 leading-relaxed text-muted">{s.b}</p>
             </Reveal>
@@ -85,10 +80,10 @@ export default function Home() {
       </Section>
 
       {/* 03 · the arithmetic */}
-      <Section band="sand" index="03" label="the arithmetic">
+      <Section band="sand">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <SectionHead eyebrow="Why targeting is the whole job" title={<>A market of ten thousand is a shortlist of <em className="serif-em">two hundred.</em></>} />
+            <SectionHead title={<>A market of ten thousand is a shortlist of <em className="serif-em">two hundred.</em></>} />
             <p className="lede mt-5">Pipeline is an arithmetic problem before it is a creative one. Every stage below throws work away — so the only question that matters is whether you threw away the right accounts.</p>
             <p className="mt-5 text-sm text-muted">Typical shape of a programme we run in its second quarter. Your numbers will differ; the shape rarely does.</p>
             <Button href="/practices/revenue-intelligence" variant="outline" className="mt-8">How we rank accounts</Button>
@@ -100,9 +95,9 @@ export default function Home() {
       </Section>
 
       {/* 04 · practices */}
-      <Section index="04" label="practices">
+      <Section>
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <SectionHead eyebrow="Practices" title={<>Four practices.<br />One <em className="serif-em">operating model.</em></>} lede="Start with the one your pipeline needs. Most clients add a second within a year, because they share the same account universe, messaging system and weekly review." />
+          <SectionHead title={<>Four practices.<br />One <em className="serif-em">operating model.</em></>} lede="Start with the one your pipeline needs. Most clients add a second within a year, because they share the same account universe, messaging system and weekly review." />
           <Link href="/practices" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ember-ink">All practices <ArrowRight className="size-4" /></Link>
         </div>
         <div className="mt-12 grid gap-4 md:grid-cols-2">
@@ -111,13 +106,12 @@ export default function Home() {
       </Section>
 
       {/* 05 · GTM AI Twin — the one ink moment */}
-      <Section band="ink" index="05" label="ai twin" className="overflow-hidden">
+      <Section band="ink" className="overflow-hidden">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_70%_at_85%_40%,rgba(255,90,31,.2),transparent_70%)]" />
         <div className="grid-bg pointer-events-none absolute inset-0 opacity-45" />
         <div className="relative grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-6">
             <Reveal>
-              <Eyebrow className="mb-6 text-ember-2">Special service · GTM AI Twin</Eyebrow>
               <h2 className="display text-[2.4rem] md:text-[3.7rem]">A twin of your GTM team. <em>Made of agents.</em></h2>
               <p className="lede mt-6">Custom AI agents that take over go-to-market end to end: identify the prospect, research the account, reach out in your voice, handle the replies, book the meeting. You keep the judgement. The twin keeps the pipeline moving.</p>
               <ul className="mt-8 grid gap-2.5 text-sm text-[#c3b9ac] sm:grid-cols-2">
@@ -136,13 +130,13 @@ export default function Home() {
       </Section>
 
       {/* 06 · operating model */}
-      <Section band="sand" index="06" label="how it runs">
-        <SectionHead eyebrow="How it runs" title={<>Diagnose. Design. Deploy. <em className="serif-em">Run.</em></>} lede="Every practice, the Twin included, runs on the same four phases and the same weekly report." />
+      <Section band="sand">
+        <SectionHead title={<>Diagnose. Design. Deploy. <em className="serif-em">Run.</em></>} lede="Every practice, the Twin included, runs on the same four phases and the same weekly report." />
         <ol className="mt-12 grid gap-8 md:grid-cols-4 md:gap-6">
           {phases.map((ph, i) => (
             <Reveal key={ph.p} as="li" delay={i * 70} className="relative">
               <div className="mb-5 flex items-center gap-3">
-                <span className="flex size-8 items-center justify-center rounded-full border border-ember/40 bg-paper font-mono text-[0.68rem] text-ember-ink">0{i + 1}</span>
+                <span className="h-px w-10 bg-ember" />
                 <span className="h-px flex-1 bg-rule" />
                 <span className="font-mono text-[0.66rem] uppercase tracking-[0.13em] text-dim">{ph.d}</span>
               </div>
@@ -161,9 +155,9 @@ export default function Home() {
       </Section>
 
       {/* 07 · work */}
-      <Section index="07" label="work">
+      <Section>
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <SectionHead eyebrow="Work" title={<>Programmes that produced <em className="serif-em">meetings.</em></>} lede="Anonymised by default. Every number traces to a client review or a signed-off study before it ships." />
+          <SectionHead title={<>Programmes that produced <em className="serif-em">meetings.</em></>} lede="Anonymised by default. Every number traces to a client review or a signed-off study before it ships." />
           <Link href="/work" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ember-ink">All work <ArrowRight className="size-4" /></Link>
         </div>
         <div className="rail rail--swipe mt-12 lg:grid-cols-3">
@@ -172,10 +166,10 @@ export default function Home() {
       </Section>
 
       {/* 08 · operators */}
-      <Section index="08" label="the firm" className="pt-0">
+      <Section className="pt-0">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
-            <SectionHead eyebrow="Who you work with" title={<>Operators, <em className="serif-em">not an agency.</em></>} lede="The founders ran marketing for global vendors in India before starting LeadStrategus in 2018. Every engagement is led by someone who has carried the number." />
+            <SectionHead title={<>Operators, <em className="serif-em">not an agency.</em></>} lede="The founders ran marketing for global vendors in India before starting LeadStrategus in 2018. Every engagement is led by someone who has carried the number." />
             <Button href="/about" variant="outline" className="mt-8">About the firm</Button>
           </div>
           <div className="lg:col-span-7">
@@ -200,8 +194,8 @@ export default function Home() {
       </Section>
 
       {/* 09 · portal */}
-      <Section band="kraft" index="09" label="two sides">
-        <SectionHead eyebrow="Two addresses" title={<>There is a <em className="serif-em">second</em> LeadStrategus.</>} lede="This site is the people. The agents have their own address. Move the seam to see the other side, then cross over." />
+      <Section band="kraft">
+        <SectionHead title={<>There is a <em className="serif-em">second</em> LeadStrategus.</>} lede="This site is the people. The agents have their own address. Move the seam to see the other side, then cross over." />
         <Reveal className="mt-11"><Portal /></Reveal>
         <p className="mt-3 text-right font-mono text-[0.66rem] uppercase tracking-[0.13em] text-dim">
           <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-ember-ink">leadstrategus.ai ↗</a>
@@ -209,9 +203,9 @@ export default function Home() {
       </Section>
 
       {/* 10 · insights */}
-      <Section index="10" label="insights">
+      <Section>
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <SectionHead eyebrow="Insights" title={<>Written from the <em className="serif-em">pipeline.</em></>} />
+          <SectionHead title={<>Written from the <em className="serif-em">pipeline.</em></>} />
           <Link href="/insights" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ember-ink">All insights <ArrowRight className="size-4" /></Link>
         </div>
         <div className="mt-10 divide-y divide-rule border-y border-rule">
@@ -231,7 +225,7 @@ export default function Home() {
       </Section>
 
       {/* 11 · faq */}
-      <Section band="sand" index="11" label="questions"><FAQBlock items={homeFaq} /></Section>
+      <Section band="sand"><FAQBlock items={homeFaq} /></Section>
 
       {/* 12 · cta */}
       <CTABand
