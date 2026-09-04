@@ -41,7 +41,7 @@ export function Wordmark({ tone = "dark", className }: { tone?: "dark" | "light"
   return (
     <span className={cn("brand-wordmark text-[1.18rem] leading-none", className)}>
       <span style={{ color: tone === "light" ? brand.colors.redLight : brand.colors.red }}>Lead</span>
-      <span style={{ color: tone === "light" ? "#f6f2ec" : brand.colors.blue }}>Strategus</span>
+      <span style={{ color: tone === "light" ? "#ffffff" : brand.colors.blue }}>Strategus</span>
     </span>
   );
 }

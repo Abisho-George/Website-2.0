@@ -42,7 +42,10 @@
 
     /* nav scroll state */
     var nav = app.querySelector("[data-nav]");
-    var onScroll = function () { if (!nav) return; var s = window.scrollY > 24; nav.classList.toggle("bg-ink/70", s); nav.classList.toggle("backdrop-blur-xl", s); nav.classList.toggle("bg-transparent", !s && !nav.dataset.open); };
+    var onScroll = function () {
+      if (!nav) return;
+      nav.classList.toggle("shadow-[0_10px_30px_-18px_rgba(23,18,13,.65)]", window.scrollY > 20);
+    };
     window.onscroll = onScroll; onScroll();
 
     /* services + resources panels (click to open, Escape or outside click to close) */
@@ -87,8 +90,8 @@
     if (toggle && drawer) {
       toggle.addEventListener("click", function () {
         var open = drawer.classList.contains("opacity-0");
-        if (open) { cls(drawer, ["pointer-events-none", "opacity-0"], ["pointer-events-auto", "opacity-100"]); nav.classList.add("bg-ink"); nav.classList.remove("bg-transparent"); nav.dataset.open = "1"; document.body.style.overflow = "hidden"; }
-        else { cls(drawer, ["pointer-events-auto", "opacity-100"], ["pointer-events-none", "opacity-0"]); nav.classList.remove("bg-ink"); delete nav.dataset.open; document.body.style.overflow = ""; onScroll(); }
+        if (open) { cls(drawer, ["pointer-events-none", "opacity-0"], ["pointer-events-auto", "opacity-100"]); nav.dataset.open = "1"; document.body.style.overflow = "hidden"; }
+        else { cls(drawer, ["pointer-events-auto", "opacity-100"], ["pointer-events-none", "opacity-0"]); delete nav.dataset.open; document.body.style.overflow = ""; }
         toggle.setAttribute("aria-expanded", String(open));
       });
     }

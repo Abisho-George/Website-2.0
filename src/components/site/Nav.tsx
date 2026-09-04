@@ -62,7 +62,7 @@ export function Nav() {
       aria-haspopup="true"
       className={cn(
         "inline-flex h-[var(--nav-h)] items-center gap-1.5 px-3.5 text-[0.9rem] transition-colors",
-        isActive || open === id ? "text-white" : "text-[#b3a89a] hover:text-white",
+        isActive || open === id ? "text-white" : "text-[#ddd6cc] hover:text-white",
       )}
     >
       {label}
@@ -75,34 +75,34 @@ export function Nav() {
     <header
       ref={navRef}
       data-nav
-      className={cn("fixed inset-x-0 top-0 z-50 bg-ink text-[#f6f2ec] transition-shadow duration-300", scrolled && "shadow-[0_10px_30px_-18px_rgba(23,18,13,.65)]")}
+      className={cn("fixed inset-x-0 top-0 z-50 bg-ink text-white transition-shadow duration-300", scrolled && "shadow-[0_10px_30px_-18px_rgba(23,18,13,.65)]")}
     >
       <div className="brand-rule absolute inset-x-0 bottom-0" aria-hidden />
       <div className="container-x flex h-[var(--nav-h)] items-center justify-between gap-4">
         <Logo tone="light" />
 
         <nav className="hidden items-center lg:flex">
-          <Link href="/" className={cn("relative inline-flex h-[var(--nav-h)] items-center px-3.5 text-[0.9rem] transition-colors", active("/") ? "text-white" : "text-[#b3a89a] hover:text-white")}>
+          <Link href="/" className={cn("relative inline-flex h-[var(--nav-h)] items-center px-3.5 text-[0.9rem] transition-colors", active("/") ? "text-white" : "text-[#ddd6cc] hover:text-white")}>
             Home
             <span className={cn("absolute inset-x-3 bottom-0 h-[2px] bg-ember transition-transform duration-300", active("/") ? "scale-x-100" : "scale-x-0")} />
           </Link>
 
           <div className="relative">{trigger("services", "Services", active("/services") || active("/practices"))}</div>
 
-          <Link href="/gtm-ai-twin" className={cn("relative mx-2.5 inline-flex h-9 items-center gap-1.5 rounded-full px-4 text-[0.9rem] font-medium transition-all duration-300", active("/gtm-ai-twin") ? "bg-ember text-white" : "bg-white/10 text-ember-2 hover:bg-ember hover:text-white")}>
+          <Link href="/gtm-ai-twin" className={cn("relative mx-2.5 inline-flex h-9 items-center gap-1.5 rounded-full px-4 text-[0.9rem] font-medium transition-all duration-300", active("/gtm-ai-twin") ? "bg-ember text-white" : "bg-white/12 text-ember-2 hover:bg-ember hover:text-white")}>
             <Sparkles className="size-3.5" /> GTM AI Twin
           </Link>
 
           <div className="relative">{trigger("resources", "Resources", active("/insights") || active("/resources") || active("/work") || active("/faq") || active("/pricing"))}</div>
 
-          <Link href="/about" className={cn("relative inline-flex h-[var(--nav-h)] items-center px-3.5 text-[0.9rem] transition-colors", active("/about") ? "text-white" : "text-[#b3a89a] hover:text-white")}>
+          <Link href="/about" className={cn("relative inline-flex h-[var(--nav-h)] items-center px-3.5 text-[0.9rem] transition-colors", active("/about") ? "text-white" : "text-[#ddd6cc] hover:text-white")}>
             About
             <span className={cn("absolute inset-x-3 bottom-0 h-[2px] bg-ember transition-transform duration-300", active("/about") ? "scale-x-100" : "scale-x-0")} />
           </Link>
         </nav>
 
         <div className="hidden items-center gap-4 lg:flex">
-          <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="font-mono text-[0.7rem] uppercase tracking-[0.13em] text-[#b3a89a] transition-colors hover:text-ember-2">.ai ↗</a>
+          <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="font-mono text-[0.7rem] uppercase tracking-[0.13em] text-[#ddd6cc] transition-colors hover:text-ember-2">.ai ↗</a>
           <Button href="/book" size="sm">Book a strategy call</Button>
         </div>
 
