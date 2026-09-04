@@ -18,16 +18,18 @@ export function Footer() {
             </a>
           </div>
           <div className="md:col-span-2">
-            <div className="eyebrow mb-4">Practices</div>
+            <div className="eyebrow mb-4">Services</div>
             <ul className="space-y-2.5 text-sm">
               {practices.map((p) => <li key={p.slug}><Link href={`/practices/${p.slug}`} className="text-muted transition-colors hover:text-fg">{p.name}</Link></li>)}
+              <li><Link href="/services" className="text-muted transition-colors hover:text-fg">All services</Link></li>
+              <li><Link href="/pricing" className="text-muted transition-colors hover:text-fg">Pricing</Link></li>
               <li><Link href="/gtm-ai-twin" className="font-medium text-ember-ink">GTM AI Twin</Link></li>
             </ul>
           </div>
           <div className="md:col-span-2">
             <div className="eyebrow mb-4">Company</div>
             <ul className="space-y-2.5 text-sm">
-              {[["/about", "About"], ["/work", "Work"], ["/insights", "Insights"], ["/careers", "Careers"], ["/contact", "Contact"], ["/book", "Book a call"]].map(([h, l]) => (
+              {[["/about", "About"], ["/work", "Work"], ["/insights", "Blog"], ["/resources", "Resources"], ["/faq", "FAQ"], ["/careers", "Careers"], ["/contact", "Contact"], ["/book", "Book a call"]].map(([h, l]) => (
                 <li key={h}><Link href={h} className="text-muted transition-colors hover:text-fg">{l}</Link></li>
               ))}
             </ul>

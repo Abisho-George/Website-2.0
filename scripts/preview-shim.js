@@ -45,13 +45,42 @@
     var onScroll = function () { if (!nav) return; var s = window.scrollY > 24; nav.classList.toggle("bg-ink/70", s); nav.classList.toggle("backdrop-blur-xl", s); nav.classList.toggle("bg-transparent", !s && !nav.dataset.open); };
     window.onscroll = onScroll; onScroll();
 
-    /* mega menu */
-    var trigger = app.querySelector("[data-mega-trigger]"); var panel = app.querySelector("[data-mega-panel]");
-    if (trigger && panel) {
-      var show = function () { cls(panel, ["pointer-events-none", "translate-y-2", "opacity-0"], ["pointer-events-auto", "translate-y-0", "opacity-100"]); };
-      var hide = function () { cls(panel, ["pointer-events-auto", "translate-y-0", "opacity-100"], ["pointer-events-none", "translate-y-2", "opacity-0"]); };
-      trigger.addEventListener("mouseenter", show); trigger.closest("nav").addEventListener("mouseleave", hide);
-    }
+    /* services + resources panels (click to open, Escape or outside click to close) */
+    var panels = {
+      services: app.querySelector('[data-mega-panel="services"]'),
+      resources: app.querySelector('[data-mega-panel="resources"]'),
+    };
+    var openPanel = null;
+    var showPanel = function (key) {
+      Object.keys(panels).forEach(function (k) {
+        var el = panels[k]; if (!el) return;
+        var on = k === key;
+        cls(el, on ? ["pointer-events-none", "opacity-0"] : ["pointer-events-auto", "opacity-100"],
+                on ? ["pointer-events-auto", "opacity-100"] : ["pointer-events-none", "opacity-0"]);
+        el.classList.toggle("-translate-y-3", !on);
+        el.classList.toggle("translate-y-0", on);
+      });
+      openPanel = key;
+      app.querySelectorAll("[aria-haspopup]").forEach(function (b) {
+        var mine = (b.textContent || "").trim().toLowerCase().indexOf(key || "\u0000") === 0;
+        b.setAttribute("aria-expanded", String(!!key && mine));
+        var chev = b.querySelector("svg:last-child");
+        if (chev) chev.classList.toggle("rotate-180", !!key && mine);
+      });
+    };
+    showPanel(null);
+    app.querySelectorAll("[aria-haspopup]").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var key = (btn.textContent || "").trim().toLowerCase().indexOf("service") === 0 ? "services" : "resources";
+        showPanel(openPanel === key ? null : key);
+      });
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") showPanel(null); });
+    document.addEventListener("mousedown", function (e) {
+      var nav = app.querySelector("[data-nav]");
+      if (openPanel && nav && !nav.contains(e.target)) showPanel(null);
+    });
 
     /* mobile drawer */
     var toggle = app.querySelector("[data-menu-toggle]"); var drawer = app.querySelector("[data-drawer]");

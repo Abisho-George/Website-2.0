@@ -11,6 +11,7 @@ import { Stat } from "@/components/ui/Stat";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { Breadcrumb, CaseTile, CTABand, FAQBlock } from "@/components/site/Blocks";
 import { practices, getPractice } from "@/content/practices";
+import { servicesFor } from "@/content/services";
 import { getCase } from "@/content/work";
 import { buildMetadata, serviceJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
@@ -46,7 +47,15 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
             </div>
             <Reveal delay={200} className="card h-fit p-6 lg:col-span-4">
               <div className="mb-4 font-display text-lg font-semibold tracking-tight">Inside this practice</div>
-              <ul className="space-y-2.5 text-[0.95rem]">{p.services.map((s) => <li key={s} className="flex gap-3"><span className="mt-[9px] size-1.5 shrink-0 rounded-full bg-ember" />{s}</li>)}</ul>
+              <ul className="space-y-1">{servicesFor(p.slug).map((sv) => (
+                <li key={sv.slug}>
+                  <Link href={`/services/${sv.slug}`} className="group -mx-2 flex items-start gap-2.5 rounded-lg px-2 py-1.5 text-[0.93rem] transition-colors hover:bg-sand">
+                    <span className="mt-[9px] size-1.5 shrink-0 rounded-full bg-ember" />
+                    <span className="flex-1">{sv.name}</span>
+                    <ArrowRight className="mt-[3px] size-3.5 shrink-0 text-dim transition-all group-hover:translate-x-0.5 group-hover:text-ember-ink" />
+                  </Link>
+                </li>
+              ))}</ul>
               <HeroArt variant={p.slug as "gtm-strategy"} className="mt-7 hidden h-auto w-full border-t border-rule pt-6 sm:block" />
             </Reveal>
           </div>
