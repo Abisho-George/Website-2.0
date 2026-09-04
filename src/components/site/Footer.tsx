@@ -7,11 +7,11 @@ import { Copy } from "@/components/ui/Copy";
 
 export function Footer() {
   return (
-    <footer className="band band--sand border-t border-rule">
+    <footer className="band band--sand relative border-t border-rule">
       <div className="container-x pb-10 pt-16">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-4">
-            <Logo />
+            <Logo tone="dark" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">B2B go-to-market, engineered. Strategy, demand generation, intelligence, enablement and custom AI agents — from Bengaluru to wherever you sell.</p>
             <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="group mt-6 inline-flex items-center gap-2 rounded-full border border-ember/40 bg-ember-wash px-4 py-2 text-sm font-medium text-ember-ink transition-all hover:bg-ember hover:text-white">
               The agents live at leadstrategus.ai <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

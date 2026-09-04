@@ -33,6 +33,13 @@
   --color-ember-deep: #9a3412;
   --color-ember-wash: #fff3ec;
 
+  /* brand marks — from the logo. Orange stays the UI accent; these carry identity. */
+  --color-brand-red: #e4121f;
+  --color-brand-red-2: #ff4452;
+  --color-brand-blue: #2438c8;
+  --color-brand-blue-2: #1667f0;
+  --color-brand-navy: #141c7a;
+
   --color-ion: #0e6e60;
   --color-ion-2: #5eead4;
   --color-ion-deep: #0a4f45;
@@ -376,3 +383,17 @@ body.ph-hidden [data-placeholder] { text-decoration: none; cursor: inherit; }
   .ha [data-rise] { transform: none; animation: none; }
   .ha [data-flow], .ha [data-breathe], .ha [data-drift], .ha__sweep { animation: none; }
 }
+
+
+/* ---------- brand ---------- */
+/* the logo's own colours, carried through as a signature rule */
+.brand-rule {
+  height: 3px;
+  background: linear-gradient(90deg,
+    var(--color-brand-red) 0%,
+    var(--color-brand-red) 18%,
+    var(--color-brand-navy) 34%,
+    var(--color-brand-blue) 58%,
+    var(--color-brand-blue-2) 100%);
+}
+.brand-wordmark { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.035em; }

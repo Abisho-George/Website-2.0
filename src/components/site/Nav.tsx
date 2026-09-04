@@ -37,8 +37,9 @@ export function Nav() {
         scrolled && "shadow-[0_10px_30px_-18px_rgba(23,18,13,.65)]",
       )}
     >
+      <div className="brand-rule absolute inset-x-0 bottom-0" aria-hidden />
       <div className="container-x flex h-[var(--nav-h)] items-center justify-between gap-4">
-        <Logo />
+        <Logo tone="light" />
 
         <nav className="hidden items-center gap-0.5 lg:flex" onMouseLeave={() => setMega(false)}>
           {nav.primary.map((item) =>
