@@ -14,7 +14,7 @@ const base =
   "group inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight whitespace-nowrap transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-offset-2 disabled:opacity-50";
 const sizes = { sm: "h-9 px-4 text-[0.85rem]", md: "h-11 px-5 text-[0.94rem]", lg: "h-[52px] px-7 text-[1rem]" };
 const variants = {
-  primary: "bg-ember text-white hover:bg-ember-ink hover:shadow-[0_14px_34px_-16px_rgba(255,90,31,.9)]",
+  primary: "bg-ember text-white hover:bg-ember-ink hover:shadow-[0_14px_34px_-16px_rgba(228,18,31,.9)]",
   ion: "bg-ion text-white hover:bg-ion-deep hover:shadow-[0_14px_34px_-16px_rgba(14,110,96,.9)]",
   ghost: "text-fg hover:bg-sand",
   outline: "border border-rule-strong text-fg hover:border-fg hover:bg-sand",

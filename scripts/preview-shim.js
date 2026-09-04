@@ -196,7 +196,7 @@
     var spawn = function (p) { var q = p || {}; q.x = -0.04 - Math.random() * 0.22; q.y = 0.1 + Math.random() * 0.8; q.vx = 0.0010 + Math.random() * 0.0012; q.vy = (Math.random() - 0.5) * 0.0003; q.stage = 0; q.alive = true; q.t = 0; q.seed = Math.random(); q.fading = 0; return q; };
     var resize = function () { dpr = Math.min(2, window.devicePixelRatio || 1); w = canvas.clientWidth; h = canvas.clientHeight; canvas.width = w * dpr; canvas.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ps = []; for (var k = 0; k < N(); k++) { var p = spawn(); p.x = Math.random() * 1.15 - 0.15; p.stage = gates.filter(function (g) { return p.x > g; }).length; if (p.stage === 3) p.alive = Math.random() < 0.4; ps.push(p); } };
-    var ember = function (a) { return "rgba(255,90,31," + a + ")"; }, ink = function (a) { return "rgba(23,18,13," + a + ")"; };
+    var ember = function (a) { return "rgba(228,18,31," + a + ")"; }, ink = function (a) { return "rgba(23,18,13," + a + ")"; };
     var draw = function (time) {
       ctx.clearRect(0, 0, w, h);
       var meet = { x: w * 0.945, y: h * 0.5 };

@@ -20,7 +20,7 @@ export default function OG() {
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 92, letterSpacing: -4, lineHeight: 1, fontWeight: 700 }}>Go-to-market,</div>
-          <div style={{ fontSize: 92, letterSpacing: -4, lineHeight: 1, fontWeight: 700, color: "#ff5a1f" }}>engineered.</div>
+          <div style={{ fontSize: 92, letterSpacing: -4, lineHeight: 1, fontWeight: 700, color: "#e4121f" }}>engineered.</div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", fontSize: 21, color: "#6e645a" }}>
           <div>Strategy · Demand Generation · Intelligence · Enablement · GTM AI Twin</div>

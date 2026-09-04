@@ -31,7 +31,7 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
 
       {/* 1 · hero */}
       <section className="relative overflow-hidden pt-[var(--nav-h)]">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_50%_at_85%_20%,rgba(255,107,61,.14),transparent_70%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_50%_at_85%_20%,rgba(228,18,31,.14),transparent_70%)]" />
         <div className="container-x relative py-16 md:py-24">
           <Breadcrumb items={[{ label: "Practices", href: "/practices" }, { label: p.short }]} />
           <div className="mt-10 grid gap-10 lg:grid-cols-12">

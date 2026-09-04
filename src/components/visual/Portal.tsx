@@ -35,7 +35,7 @@ export function Portal() {
         </div>
       </div>
       <div data-portal-agents className="absolute inset-0 bg-ink text-[#f6f2ec] transition-[clip-path] duration-200 ease-out" style={{ clipPath: `inset(0 0 0 ${x}%)` }}>
-        <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_78%_50%,rgba(255,90,31,.22),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_78%_50%,rgba(228,18,31,.22),transparent_70%)]" />
         <div className="grid-bg band--ink absolute inset-0 opacity-70" />
         <div className="relative flex h-full flex-col justify-between p-6 text-right md:p-10">
           <div className="font-mono text-[0.66rem] uppercase tracking-[0.15em] text-[#b3a89a]">leadstrategus<span className="text-ember-2">.ai</span> · the other side</div>
@@ -50,7 +50,7 @@ export function Portal() {
           </div>
         </div>
       </div>
-      <div data-portal-divider className="pointer-events-none absolute inset-y-0 w-px bg-ember shadow-[0_0_18px_rgba(255,90,31,.7)] transition-[left] duration-200 ease-out" style={{ left: `${x}%` }}>
+      <div data-portal-divider className="pointer-events-none absolute inset-y-0 w-px bg-ember shadow-[0_0_18px_rgba(228,18,31,.7)] transition-[left] duration-200 ease-out" style={{ left: `${x}%` }}>
         <div className="absolute left-1/2 top-1/2 flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-ember/50 bg-paper font-mono text-[0.6rem] text-ember-ink shadow-lg">⇆</div>
       </div>
     </div>

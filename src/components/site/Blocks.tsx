@@ -93,7 +93,7 @@ export function FAQBlock({ items, title = "Asked often, answered plainly.", tone
 export function CTABand({ title, lede, primary, secondary, tone = "ember" }: { title: React.ReactNode; lede?: string; primary: { label: string; href: string }; secondary?: { label: string; href: string; external?: boolean }; tone?: "ember" | "ion" }) {
   return (
     <section className="band band--ink relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_90%_at_50%_115%,rgba(255,90,31,.32),transparent_70%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_90%_at_50%_115%,rgba(228,18,31,.32),transparent_70%)]" />
       <div className="grid-bg pointer-events-none absolute inset-0 opacity-50" />
       <div className="container-x section-y relative">
         <Reveal className="mx-auto max-w-4xl text-center">

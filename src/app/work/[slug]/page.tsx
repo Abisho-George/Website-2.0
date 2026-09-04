@@ -23,7 +23,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Work", path: "/work" }, { name: strip(c.title), path: `/work/${c.slug}` }])} />
       <section className="relative overflow-hidden pt-[var(--nav-h)]">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_50%_at_90%_10%,rgba(255,107,61,.12),transparent_70%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_50%_at_90%_10%,rgba(228,18,31,.12),transparent_70%)]" />
         <div className="container-x relative py-16 md:py-24">
           <Breadcrumb items={[{ label: "Work", href: "/work" }, { label: c.vertical }]} />
           <div className="mt-10 grid gap-10 lg:grid-cols-12">

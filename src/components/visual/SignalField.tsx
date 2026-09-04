@@ -38,7 +38,7 @@ export function SignalField({ className }: { className?: string }) {
       });
     };
     const ink = (a: number) => `rgba(23,18,13,${a})`;
-    const ember = (a: number) => `rgba(255,90,31,${a})`;
+    const ember = (a: number) => `rgba(228,18,31,${a})`;
 
     const draw = (time: number) => {
       ctx.clearRect(0, 0, w, h);

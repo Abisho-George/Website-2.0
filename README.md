@@ -48,6 +48,6 @@ Any text wrapped in `[[double brackets]]` is an **invented or unverified fact**.
 
 ## Design system
 
-Tokens in `src/app/globals.css` (`@theme`). Dark-first: ink surfaces, paper sections for rhythm, **ember** (orange) as the firm's accent and **ion** (mint) reserved for the AI Twin so it reads as a distinct thing everywhere it appears. Type: Geist Sans, Geist Mono, Instrument Serif italics for emphasis.
+Tokens in `src/app/globals.css` (`@theme`). Light-first: white and warm sand grounds, ink reserved for occasional bands (the AI Twin spotlight, pricing, CTA) rather than the page background. The accent is the **brand red taken from the logo** (`#e4121f`), so the interface and the identity share one palette; the logo's navy and blue appear in the mark and the rule beneath the navigation. Type: Bricolage Grotesque for display, Geist Sans for body, Geist Mono for data and labels.
 
 Signature components in `src/components/visual/`: `SignalField` (hero canvas: prospects flowing through identify → qualify → book), `TwinRunLog` (live agent run), `Portal` (cursor-driven `.com ⇆ .ai` split), `TwinDiagram`.

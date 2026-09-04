@@ -107,7 +107,7 @@ export default function Home() {
 
       {/* 05 · GTM AI Twin — the one ink moment */}
       <Section band="ink" className="overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_70%_at_85%_40%,rgba(255,90,31,.2),transparent_70%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_70%_at_85%_40%,rgba(228,18,31,.2),transparent_70%)]" />
         <div className="grid-bg pointer-events-none absolute inset-0 opacity-45" />
         <div className="relative grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-6">

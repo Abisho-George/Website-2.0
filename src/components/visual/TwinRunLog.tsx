@@ -31,7 +31,7 @@ export function TwinRunLog({ className }: { className?: string }) {
     <div className={cn("overflow-hidden rounded-[var(--radius-lg)] border border-ink-2/25 bg-ink text-[#f6f2ec] shadow-[0_30px_70px_-40px_rgba(23,18,13,.8)]", className)}>
       <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
         <div className="flex items-center gap-2">
-          <span className="size-2 rounded-full bg-ember shadow-[0_0_10px_rgba(255,90,31,.9)]" />
+          <span className="size-2 rounded-full bg-ember shadow-[0_0_10px_rgba(228,18,31,.9)]" />
           <span className="font-mono text-[0.68rem] uppercase tracking-[0.15em] text-[#b3a89a]">gtm-ai-twin · live run</span>
         </div>
         <span className="font-mono text-[0.66rem] text-[#7d7264]">illustrative</span>

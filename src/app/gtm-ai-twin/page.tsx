@@ -26,7 +26,7 @@ export default function TwinPage() {
       <JsonLd data={[serviceJsonLd({ name: "GTM AI Twin", description: twin.lede, path: "/gtm-ai-twin" }), faqJsonLd(twinFaq), breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "GTM AI Twin", path: "/gtm-ai-twin" }])]} />
 
       <section className="band relative overflow-hidden pt-[var(--nav-h)]">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_60%_at_78%_28%,rgba(255,90,31,.14),transparent_70%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_60%_at_78%_28%,rgba(228,18,31,.14),transparent_70%)]" />
         <div className="grid-bg pointer-events-none absolute inset-0" />
         <div className="container-x relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-6">
