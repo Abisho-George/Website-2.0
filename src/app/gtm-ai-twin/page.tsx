@@ -6,7 +6,7 @@ import { Copy } from "@/components/ui/Copy";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { CTABand, FAQBlock } from "@/components/site/Blocks";
 import { TwinRunLog } from "@/components/visual/TwinRunLog";
-import { TwinDiagram } from "@/components/visual/TwinDiagram";
+import { AgentMap } from "@/components/visual/AgentMap";
 import { twin } from "@/content/twin";
 import { twinFaq } from "@/content/faq";
 import { proof } from "@/content/site";
@@ -18,7 +18,7 @@ export const metadata = buildMetadata({
   path: "/gtm-ai-twin",
 });
 
-const anchors = [["what", "What is it"], ["why-now", "Why now"], ["why-us", "Why LeadStrategus"], ["build", "How it's built"], ["pricing", "Pricing"], ["faq", "FAQ"]];
+const anchors = [["agents", "The agents"], ["what", "What is it"], ["why-now", "Why now"], ["why-us", "Why LeadStrategus"], ["build", "How it's built"], ["pricing", "Pricing"], ["faq", "FAQ"]];
 
 export default function TwinPage() {
   return (
@@ -31,12 +31,19 @@ export default function TwinPage() {
         <div className="container-x relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-6">
             <Reveal>
-              <h1 className="display text-[2.8rem] sm:text-[3.8rem] md:text-[4.9rem]">{twin.h1}<br /><em>{twin.h1em}</em></h1>
+              <h1 className="display text-[2.4rem] sm:text-[3.2rem] md:text-[4.2rem]">{twin.h1}<br /><em>{twin.h1em}</em></h1>
             </Reveal>
-            <Reveal delay={140}><p className="lede mt-7 max-w-xl">{twin.lede}</p></Reveal>
-            <Reveal delay={210} className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <Reveal delay={90}>
+              <p className="mt-5 font-display text-[1.15rem] font-medium leading-snug tracking-[-0.02em] md:text-[1.45rem]">
+                The heavy lifting done by <span className="text-ember-ink">AI agents</span>.{" "}
+                <br className="hidden sm:block" />
+                The decision making done by <span className="text-ember-ink">you</span>.
+              </p>
+            </Reveal>
+            <Reveal delay={160}><p className="lede mt-6 max-w-xl">{twin.lede}</p></Reveal>
+            <Reveal delay={220} className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Button href="/contact?type=gtm-ai-twin" size="lg">Scope my twin</Button>
-              <Button href="#what" size="lg" variant="outline">How it works</Button>
+              <Button href="#agents" size="lg" variant="outline">See the agents</Button>
             </Reveal>
           </div>
           <div className="lg:col-span-6"><Reveal delay={170}><TwinRunLog /></Reveal></div>
@@ -49,11 +56,15 @@ export default function TwinPage() {
         </div>
       </div>
 
-      <Section tight>
+      <Section id="agents" className="scroll-mt-[calc(var(--nav-h)+56px)]">
         <Reveal>
-          <h2 className="h2 max-w-3xl balance">Six agents, one hand-off chain. <em className="serif-em">From first signal to booked meeting.</em></h2>
+          <h2 className="h2 max-w-4xl balance">{twin.agentsIntro.h}</h2>
+          <p className="lede mt-5 max-w-3xl">{twin.agentsIntro.p}</p>
         </Reveal>
-        <Reveal delay={90} className="mt-12"><TwinDiagram /></Reveal>
+        <Reveal delay={80} className="mt-12"><AgentMap /></Reveal>
+        <p className="mt-6 max-w-3xl text-[0.8rem] leading-relaxed text-dim">
+          <Copy text="[[Agent names, coverage and live/in-build status shown here are indicative and are being reconciled with the leadstrategus.ai roster.]]" />
+        </p>
       </Section>
 
       {/* 01 · what is it */}

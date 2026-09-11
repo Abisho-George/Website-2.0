@@ -96,6 +96,40 @@
       });
     }
 
+    /* agent map — hover on a pointer device, tap on touch */
+    (function () {
+      var map = app.querySelector("#agents"); if (!map) return;
+      var cards = [].slice.call(map.querySelectorAll("button[aria-expanded]"));
+      var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      var onCls = ["border-ember", "bg-ember-wash", "shadow-[0_12px_30px_-20px_rgba(228,18,31,.5)]"];
+      var offCls = ["border-rule", "bg-paper", "hover:border-rule-strong"];
+      var set = function (card, on) {
+        cls(card, on ? offCls : onCls, on ? onCls : offCls);
+        card.setAttribute("aria-expanded", String(on));
+        var body = card.querySelector(".grid");
+        if (body) cls(body, on ? ["grid-rows-[0fr]"] : ["grid-rows-[1fr]"], on ? ["grid-rows-[1fr]"] : ["grid-rows-[0fr]"]);
+        var lead = card.querySelector("p");
+        if (lead) lead.classList.toggle("line-clamp-2", !on);
+      };
+      var clear = function () { cards.forEach(function (c) { set(c, false); }); };
+      cards.forEach(function (card) {
+        set(card, false);
+        card.addEventListener("click", function (e) {
+          e.preventDefault();
+          var was = card.getAttribute("aria-expanded") === "true";
+          clear(); if (!was) set(card, true);
+        });
+        if (canHover) {
+          card.addEventListener("mouseenter", function () { clear(); set(card, true); });
+          card.addEventListener("mouseleave", function () { set(card, false); });
+        }
+      });
+      var hint = [].slice.call(map.querySelectorAll("span")).filter(function (n) {
+        return (n.textContent || "").indexOf("agent for detail") >= 0;
+      })[0];
+      if (hint) hint.textContent = canHover ? "Hover an agent for detail" : "Tap an agent for detail";
+    })();
+
     /* accordion */
     app.querySelectorAll("[data-accordion-item]").forEach(function (item) {
       var btn = item.querySelector("button"), body = item.querySelector("[data-accordion-body]"), icon = item.querySelector("[data-accordion-icon]");

@@ -1,10 +1,15 @@
 /** Content for the GTM AI Twin special service page. */
 export const twin = {
   eyebrow: "Special service · GTM AI Twin",
-  h1: "A twin of your GTM team.",
-  h1em: "Made of agents.",
+  h1: "A twin of your",
+  h1em: "demand gen best practices.",
+  sub: "The heavy lifting done by AI agents. The decision making done by you.",
   lede:
-    "We build custom AI agents that take over your go-to-market end to end: identifying the right prospects, researching them, reaching out in your voice, handling replies, and booking qualified meetings on your calendar. You keep the judgement. The twin keeps the pipeline moving.",
+    "We build custom AI agents that give you best practices for outbound demand generation: identifying the best prospects in the market right now, finding the right opening to talk with them, and reaching out authentically — with you always in the loop.",
+  agentsIntro: {
+    h: "We have an agent for practically everything that is manual and painful.",
+    p: "Every step below used to be somebody's afternoon. The agents do the heavy lifting inside guard-rails you set, and hand back the decisions that need context — the delicate ones, the judgement calls — to you.",
+  },
   stages: [
     { key: "identify", agent: "Prospecting Agent", verb: "Identify", body: "Scans your addressable market continuously, ranks accounts on fit and live buying signals, and refreshes the universe as companies change." },
     { key: "research", agent: "Research Agent", verb: "Research", body: "Builds a brief on every account and contact: hiring, tech stack, funding, leadership changes, public priorities, and the angle that makes an approach relevant." },
@@ -15,11 +20,11 @@ export const twin = {
   ],
   what: {
     title: "What is it",
-    h: "Not a tool. A team that happens to be software.",
+    h: "Not a tool. Your demand gen best practices, run by agents.",
     paras: [
-      "A GTM AI Twin is a set of purpose-built agents, designed and trained on your ICP, your closed-won history and your voice, that runs the repeatable seventy percent of go-to-market on its own: finding accounts, researching them, reaching out, handling replies and booking meetings.",
-      "Each agent owns one stage and hands to the next, the way a good SDR team does, except it works every account, every day, with a research brief behind every message. Where judgement is required, the twin escalates to a named human with the full context, and learns from what they decide.",
-      "It is built on our own agent platform at leadstrategus.ai and configured for you by the people who have run human GTM programmes for eight years. That combination is the product: agents that already know what a good meeting looks like.",
+      "A GTM AI Twin is a set of purpose-built agents, configured on your ICP, your closed-won history and your voice, that carry the manual weight of outbound demand generation: building the universe, researching accounts, finding the opening, writing and sending, handling replies and booking the meeting.",
+      "Each agent owns one painful job and hands to the next. The division of labour is the point: the agents do the heavy lifting, and every decision that needs context — is this angle credible, is this account worth pushing, is this reply going badly — comes back to a named human with the full thread.",
+      "It is built on our own agent platform at leadstrategus.ai and configured for you by people who have run human demand generation programmes for eight years. That combination is the product: agents that already know what a good meeting looks like.",
     ],
     notList: [
       "Not a subscription to a generic AI SDR",
@@ -28,10 +33,10 @@ export const twin = {
       "Not a replacement for your positioning or your closers",
     ],
     isList: [
-      "Custom agents for each stage of your motion",
-      "Trained on your ICP, wins, losses and voice",
+      "An agent for each manual step of outbound demand gen",
+      "Configured on your ICP, wins, losses and voice",
       "Wired into your CRM, email, LinkedIn and calendar",
-      "Supervised until it earns autonomy, then handed over",
+      "Guard-rails you set, with the judgement calls left to you",
     ],
   },
   why: {
