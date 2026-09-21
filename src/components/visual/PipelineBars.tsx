@@ -3,10 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * The arithmetic of a pipeline, running live: a cohort of accounts enters at
- * the top and is thinned at every stage. The sweep repeats so the funnel is
- * always in motion, and each stage's count is derived from the same numbers
- * the bar widths use.
+ * The arithmetic of a pipeline, scrubbed by scroll: as this card moves up
+ * the viewport, each stage fills in step with the scroll position — the
+ * reader's own scrolling drives the funnel, rather than a timer. A scan
+ * line and a rotating "now scoring" ticker keep it reading as a live
+ * process rather than a chart that happened to load filled in.
  */
 const STAGES = [
   { label: "Addressable accounts", pct: 100, note: "the market as it really is" },
@@ -16,91 +17,154 @@ const STAGES = [
   { label: "Meeting held", pct: 2.1, note: "on a rep's calendar" },
 ];
 
+// Illustrative only — a rotating "currently scoring" ticker, same convention
+// as the run log on the GTM AI Twin page (synthetic, and labelled as such).
+const SCANNING = [
+  { name: "Northwind Logistics", fit: 0.91 },
+  { name: "Bracknell Systems", fit: 0.84 },
+  { name: "Vantage Cloud", fit: 0.88 },
+  { name: "Fenwick Analytics", fit: 0.79 },
+  { name: "Solara Health", fit: 0.93 },
+  { name: "Marlowe Data", fit: 0.86 },
+];
+
 const COHORT = 10_000;
-const STEP_MS = 620;
-const HOLD_MS = 2600;
+const OVERLAP = 1.35; // >1 lets adjacent stages fill slightly concurrently, so it reads as one wave, not five isolated steps
 
 export function PipelineBars({ className }: { className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [live, setLive] = useState(0); // how many stages have filled
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const stagesRef = useRef<HTMLDivElement>(null);
+  const targetRef = useRef(0);
+  const shownRef = useRef(0);
+  const rafRef = useRef<number>(0);
+  const [progress, setProgress] = useState(0);
   const [reduced, setReduced] = useState(false);
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setReduced(true);
-      setLive(STAGES.length);
-      return;
-    }
-    let timer: number;
-    let visible = false;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches) { setReduced(true); setProgress(1); return; }
 
-    const advance = () => {
-      setLive((n) => {
-        const next = n >= STAGES.length ? 0 : n + 1;
-        timer = window.setTimeout(advance, next === STAGES.length ? HOLD_MS : next === 0 ? 260 : STEP_MS);
-        return next;
-      });
+    const computeTarget = () => {
+      const el = wrapRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const startY = vh * 0.88; // scrub begins as the card enters the lower part of the viewport
+      const endY = vh * 0.22;   // fully filled once it has climbed to the upper fifth
+      const p = (startY - rect.top) / (startY - endY);
+      targetRef.current = Math.min(1, Math.max(0, p));
     };
 
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting === visible) return;
-      visible = e.isIntersecting;
-      if (visible) timer = window.setTimeout(advance, 220);
-      else { clearTimeout(timer); setLive(0); }
-    }, { threshold: 0.25 });
+    const loop = () => {
+      shownRef.current += (targetRef.current - shownRef.current) * 0.16;
+      if (Math.abs(targetRef.current - shownRef.current) < 0.0008) shownRef.current = targetRef.current;
+      setProgress(shownRef.current);
+      rafRef.current = requestAnimationFrame(loop);
+    };
 
-    io.observe(el);
-    return () => { io.disconnect(); clearTimeout(timer); };
+    computeTarget();
+    window.addEventListener("scroll", computeTarget, { passive: true });
+    window.addEventListener("resize", computeTarget);
+    rafRef.current = requestAnimationFrame(loop);
+
+    return () => {
+      window.removeEventListener("scroll", computeTarget);
+      window.removeEventListener("resize", computeTarget);
+      cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
+  const scanning = !reduced && progress > 0.02 && progress < 0.999;
+
+  // the rotating "now scoring" line — only while the funnel is actively filling
+  useEffect(() => {
+    if (!scanning) return;
+    const id = window.setInterval(() => setTick((t) => t + 1), 1650);
+    return () => clearInterval(id);
+  }, [scanning]);
+
+  const current = SCANNING[tick % SCANNING.length];
+  const complete = !reduced && progress >= 0.999;
+
   return (
-    <div ref={ref} className={cn("flex flex-col gap-4", className)}>
-      {STAGES.map((s, i) => {
-        const on = i < live;
-        const isLast = i === STAGES.length - 1;
-        const count = Math.round((COHORT * s.pct) / 100);
-        return (
-          <div key={s.label}>
-            <div className="flex items-baseline justify-between gap-4">
-              <span className={cn("text-[0.92rem] font-medium transition-colors duration-500", on ? "text-fg" : "text-dim")}>
-                {s.label}
-              </span>
-              <span className="tnum shrink-0 font-mono text-[0.76rem] text-muted">
-                <span className={cn("transition-opacity duration-500", on ? "opacity-100" : "opacity-0")}>
-                  {count.toLocaleString("en-IN")}
-                </span>
-                <span className="ml-2 text-dim">{s.pct}%</span>
-              </span>
-            </div>
-
-            <div className="relative mt-2 h-[11px] overflow-hidden rounded-full bg-kraft">
-              <div
-                className={cn(
-                  "relative h-full rounded-full",
-                  reduced ? "" : "transition-[width,opacity] duration-[700ms] ease-out",
-                )}
-                style={{
-                  width: on || reduced ? `${s.pct}%` : "0%",
-                  opacity: on || reduced ? 1 : 0,
-                  background: isLast
-                    ? "var(--color-ember)"
-                    : `color-mix(in srgb, var(--color-ember) ${30 + i * 16}%, var(--color-ink) 10%)`,
-                }}
-              >
-                {/* the flow inside the bar never stops while the stage is live */}
-                {!reduced && on && <span className="pipe-flow absolute inset-0 rounded-full" />}
-              </div>
-            </div>
-
-            <p className="mt-1.5 text-[0.78rem] text-dim">{s.note}</p>
+    <div ref={wrapRef} data-pipeline className={cn("relative", className)}>
+      {/* live header */}
+      <div className="mb-5 flex items-center justify-between gap-3 border-b border-rule pb-4">
+        <div className="flex items-center gap-2">
+          <span className="size-2 rounded-full bg-ember shadow-[0_0_10px_rgba(228,18,31,.7)]" />
+          <span className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-muted">Live · market scan</span>
+        </div>
+        <div data-pipeline-ticker className="h-4 overflow-hidden text-right font-mono text-[0.68rem] text-dim">
+          <div
+            key={scanning ? current.name : "idle"}
+            className={cn("transition-all duration-500", scanning ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0")}
+          >
+            {scanning && <>now scoring · {current.name} <span className="text-ember-ink">{current.fit.toFixed(2)}</span></>}
           </div>
-        );
-      })}
+        </div>
+      </div>
 
-      <p className="mt-1 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-dim">
-        {reduced ? "cohort of 10,000 accounts" : "live · cohort of 10,000 accounts, replayed"}
+      {/* the stages, with a scan line swept top-to-bottom in step with scroll progress */}
+      <div ref={stagesRef} data-pipeline-stages className="relative flex flex-col gap-4">
+        {!reduced && (
+          <div
+            aria-hidden
+            data-pipeline-scanline
+            className="pointer-events-none absolute inset-x-0 z-10 h-px bg-gradient-to-r from-transparent via-ember to-transparent transition-opacity duration-300"
+            style={{ top: `${progress * 100}%`, opacity: progress > 0.004 && progress < 0.996 ? 0.85 : 0 }}
+          />
+        )}
+
+        {STAGES.map((s, i) => {
+          const local = reduced ? 1 : Math.min(1, Math.max(0, progress * STAGES.length * OVERLAP - i * OVERLAP));
+          const isLast = i === STAGES.length - 1;
+          const livePct = s.pct * local;
+          const count = Math.round((COHORT * s.pct) / 100 * local);
+          const on = local > 0.02;
+          return (
+            <div key={s.label} data-pipeline-stage data-i={i} data-pct={s.pct}>
+              <div className="flex items-baseline justify-between gap-4">
+                <span data-pipeline-label className={cn("text-[0.92rem] font-medium transition-colors duration-300", on ? "text-fg" : "text-dim")}>
+                  {s.label}
+                </span>
+                <span className="tnum shrink-0 font-mono text-[0.76rem] text-muted">
+                  <span data-pipeline-count className={cn("transition-opacity duration-300", on ? "opacity-100" : "opacity-0")}>
+                    {count.toLocaleString("en-IN")}
+                  </span>
+                  <span data-pipeline-pct className="ml-2 text-dim">{local >= 0.999 ? s.pct : livePct.toFixed(1)}%</span>
+                </span>
+              </div>
+
+              <div className="relative mt-2 h-[11px] overflow-hidden rounded-full bg-kraft">
+                <div
+                  data-pipeline-bar
+                  className="relative h-full rounded-full"
+                  style={{
+                    width: `${livePct}%`,
+                    background: isLast
+                      ? "var(--color-ember)"
+                      : `color-mix(in srgb, var(--color-ember) ${30 + i * 16}%, var(--color-ink) 10%)`,
+                  }}
+                >
+                  {!reduced && (
+                    <span
+                      data-pipeline-flow
+                      className="pipe-flow absolute inset-0 rounded-full"
+                      style={{ opacity: on && local < 1 ? 1 : 0 }}
+                    />
+                  )}
+                </div>
+              </div>
+
+              <p className="mt-1.5 text-[0.78rem] text-dim">{s.note}</p>
+            </div>
+          );
+        })}
+      </div>
+
+      <p data-pipeline-caption className="mt-4 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-dim">
+        {reduced ? "cohort of 10,000 accounts" : complete ? "cohort of 10,000 accounts · run complete" : "cohort of 10,000 accounts · scroll to run the funnel"}
       </p>
     </div>
   );

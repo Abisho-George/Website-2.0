@@ -207,6 +207,93 @@
       portal.addEventListener("mouseleave", function () { setX(54); });
     }
 
+    /* pipeline funnel — scroll-scrubbed bars, mirrors PipelineBars.tsx */
+    var pipeline = app.querySelector("[data-pipeline]");
+    if (pipeline) {
+      var PSTAGES = [{ pct: 100 }, { pct: 34 }, { pct: 12 }, { pct: 5.5 }, { pct: 2.1 }];
+      var PSCAN = [
+        { name: "Northwind Logistics", fit: 0.91 }, { name: "Bracknell Systems", fit: 0.84 },
+        { name: "Vantage Cloud", fit: 0.88 }, { name: "Fenwick Analytics", fit: 0.79 },
+        { name: "Solara Health", fit: 0.93 }, { name: "Marlowe Data", fit: 0.86 },
+      ];
+      var PCOHORT = 10000, POVERLAP = 1.35;
+      var pRows = [].slice.call(pipeline.querySelectorAll("[data-pipeline-stage]"));
+      var pScanline = pipeline.querySelector("[data-pipeline-scanline]");
+      var pTicker = pipeline.querySelector("[data-pipeline-ticker]");
+      var pCaption = pipeline.querySelector("[data-pipeline-caption]");
+
+      var paintStage = function (row, local, pct) {
+        var livePct = pct * local;
+        var count = Math.round((PCOHORT * pct) / 100 * local);
+        var on = local > 0.02;
+        var label = row.querySelector("[data-pipeline-label]");
+        var countEl = row.querySelector("[data-pipeline-count]");
+        var pctEl = row.querySelector("[data-pipeline-pct]");
+        var bar = row.querySelector("[data-pipeline-bar]");
+        var flow = row.querySelector("[data-pipeline-flow]");
+        if (label) cls(label, on ? ["text-dim"] : ["text-fg"], on ? ["text-fg"] : ["text-dim"]);
+        if (countEl) { countEl.style.opacity = on ? "1" : "0"; countEl.textContent = count.toLocaleString("en-IN"); }
+        if (pctEl) pctEl.textContent = (local >= 0.999 ? pct : livePct.toFixed(1)) + "%";
+        if (bar) bar.style.width = livePct + "%";
+        if (flow) flow.style.opacity = on && local < 1 ? "1" : "0";
+      };
+
+      if (reduced) {
+        pRows.forEach(function (row) { paintStage(row, 1, parseFloat(row.getAttribute("data-pct"))); });
+        if (pScanline) pScanline.style.opacity = "0";
+        if (pTicker) pTicker.innerHTML = "";
+        if (pCaption) pCaption.textContent = "cohort of 10,000 accounts";
+      } else {
+        var pTarget = 0, pShown = 0, pRaf = 0, pTickTimer = null, pTickIndex = 0, pTickerOn = false;
+
+        var pComputeTarget = function () {
+          var rect = pipeline.getBoundingClientRect();
+          var vh = window.innerHeight;
+          var startY = vh * 0.88, endY = vh * 0.22;
+          pTarget = Math.max(0, Math.min(1, (startY - rect.top) / (startY - endY)));
+        };
+
+        var pSetTicker = function (on) {
+          if (on === pTickerOn) return;
+          pTickerOn = on;
+          if (on) {
+            var tick = function () {
+              var cur = PSCAN[pTickIndex % PSCAN.length]; pTickIndex++;
+              pTicker.innerHTML = '<div class="transition-all duration-500 translate-y-0 opacity-100">now scoring &middot; ' + cur.name + ' <span class="text-ember-ink">' + cur.fit.toFixed(2) + '</span></div>';
+            };
+            tick();
+            pTickTimer = setInterval(tick, 1650);
+          } else {
+            if (pTickTimer) { clearInterval(pTickTimer); pTickTimer = null; }
+            pTicker.innerHTML = '<div class="transition-all duration-500 translate-y-1 opacity-0"></div>';
+          }
+        };
+
+        var pFrame = function () {
+          pShown += (pTarget - pShown) * 0.16;
+          if (Math.abs(pTarget - pShown) < 0.0008) pShown = pTarget;
+          var progress = pShown;
+
+          if (pTicker) pSetTicker(progress > 0.02 && progress < 0.999);
+          if (pScanline) { pScanline.style.top = (progress * 100) + "%"; pScanline.style.opacity = (progress > 0.004 && progress < 0.996) ? "0.85" : "0"; }
+          pRows.forEach(function (row) {
+            var i = parseInt(row.getAttribute("data-i"), 10);
+            var pct = parseFloat(row.getAttribute("data-pct"));
+            var local = Math.max(0, Math.min(1, progress * PSTAGES.length * POVERLAP - i * POVERLAP));
+            paintStage(row, local, pct);
+          });
+          if (pCaption) pCaption.textContent = progress >= 0.999 ? "cohort of 10,000 accounts \u00b7 run complete" : "cohort of 10,000 accounts \u00b7 scroll to run the funnel";
+
+          if (pipeline.isConnected) pRaf = requestAnimationFrame(pFrame);
+        };
+
+        pComputeTarget();
+        var prevScrollForPipeline = window.onscroll;
+        window.onscroll = function () { if (prevScrollForPipeline) prevScrollForPipeline(); pComputeTarget(); };
+        pRaf = requestAnimationFrame(pFrame);
+      }
+    }
+
     /* run log */
     var log = app.querySelector("[data-run-log]");
     if (log) {
