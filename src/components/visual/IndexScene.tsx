@@ -1,5 +1,5 @@
 import { StaggerItem } from "@/components/motion/Stagger";
-import { strip } from "@/components/ui/Copy";
+import { Copy } from "@/components/ui/Copy";
 import { stagger } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -88,7 +88,7 @@ function Atlas({ columns }: { columns: Column[] }) {
       {columns.map((col, ci) => (
         <div key={`${ci}-${col.head}`} className="min-w-0">
           <p className="truncate border-t border-scene-line pt-2 font-mono text-micro uppercase tracking-[0.16em] text-scene-line-2">
-            {strip(col.head)}
+            <Copy text={col.head} />
           </p>
           <ul className="mt-3 space-y-1.5">
             {col.items.slice(0, MAX_ITEMS).map((it, i) => (
@@ -98,7 +98,7 @@ function Atlas({ columns }: { columns: Column[] }) {
                 <span className="shrink-0 font-mono text-micro tabular-nums text-scene-line">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="min-w-0 truncate font-display text-sm text-faint">{strip(it)}</span>
+                <span className="min-w-0 truncate font-display text-sm text-faint"><Copy text={it} /></span>
               </SceneLine>
             ))}
           </ul>
@@ -114,9 +114,9 @@ function Ledger({ rows }: { rows: Row[] }) {
     <ul className="ml-auto w-full max-w-lg">
       {rows.slice(0, MAX_ROWS).map((r, i) => (
         <SceneLine key={`${i}-${r.label}`} i={i} still={flagged(r.value)} className="flex items-baseline gap-3 border-b border-scene-line py-2">
-          <span className="min-w-0 truncate font-display text-sm text-faint">{strip(r.label)}</span>
+          <span className="min-w-0 truncate font-display text-sm text-faint"><Copy text={r.label} /></span>
           <span className="min-w-3 flex-1 self-center border-b border-dashed border-scene-line" />
-          <span className="datum shrink-0 text-subtitle text-scene-line-2">{strip(r.value)}</span>
+          <span className="datum shrink-0 text-subtitle text-scene-line-2"><Copy text={r.value} /></span>
         </SceneLine>
       ))}
     </ul>
@@ -127,11 +127,13 @@ function Ledger({ rows }: { rows: Row[] }) {
  * One line of the scene.
  *
  * Callers pass their content through UNCHANGED, brackets and all, so this layer
- * cannot drift away from the page it is standing behind. The brackets are
- * stripped for display — a decorative duplicate must not repeat the flag the
- * real figure already carries below — and a flagged line is held still instead,
- * which is the only way an unverified number can be marked in a layer that has
- * no room to say so.
+ * cannot drift away from the page it is standing behind — and it renders them
+ * through <Copy>, so an unverified figure keeps its flag here too. Stripping
+ * the brackets would have made this the one place on the site where an
+ * invented number is presented as a plain fact; on /work the ledger's first
+ * eight rows are all placeholders. The scene is aria-hidden, so the duplicate
+ * underline costs a screen reader nothing. A flagged line is also held still
+ * rather than staggered in.
  */
 function SceneLine({
   i,

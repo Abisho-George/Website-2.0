@@ -213,7 +213,7 @@ export function AgentConsole({ className }: { className?: string }) {
         <div ref={logRef} data-agent-log className="px-4 py-3 font-mono text-micro leading-[1.9] sm:py-5 sm:text-label">
           {runLog.map((l, i) => (
             <div key={i} data-line className="flex flex-wrap gap-x-2 sm:flex-nowrap sm:gap-x-3">
-              <span className="shrink-0 text-kraft-2/45 sm:w-[6.2rem]">▸ {l.agent}</span>
+              <span className="shrink-0 text-kraft-2/65 sm:w-[6.2rem]">▸ {l.agent}</span>
               {/* the caret rides inside the text box, so it sits after the last
                   character typed however the line has wrapped */}
               <span className={cn("min-w-0 break-words text-kraft-2", l.tone && TONE[l.tone])}>

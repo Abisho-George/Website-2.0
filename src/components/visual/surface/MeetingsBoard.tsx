@@ -79,7 +79,10 @@ export function MeetingsBoard({ className }: { className?: string }) {
 
   return (
     <SurfaceFrame title="meetings · this week" reel={landed / ordered.length} className={className}>
-      <div ref={gridRef} className="md:grid md:grid-cols-5">
+      {/* `.reveal`'s transition applies in both directions, so clearing the
+          week by removing `.in` would play every entrance backwards. The
+          clearing frame suppresses the transition instead. */}
+      <div ref={gridRef} data-clearing={landed === 0 ? "" : undefined} className="md:grid md:grid-cols-5">
         {meetingDays.map((d) => (
           <div
             key={d}

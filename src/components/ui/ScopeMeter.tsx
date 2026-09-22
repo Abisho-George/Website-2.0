@@ -18,18 +18,25 @@ import { cn } from "@/lib/utils";
  * proposal does not. Days do convert — seven of them are a week, exactly.
  *
  * Tokens: none added. The ticks are `.spec` / `.spec__ticks` / `.spec__tick`
- * from globals.css, which light in sequence on `.card:hover` from the `data-on`
- * and `--i` supplied below. The one addition is a resting opacity on the unlit
- * ticks — without it every tick is the same colour until a pointer arrives, and
- * a meter that only reads on hover reads not at all on a phone.
+ * from globals.css, which light to ember in sequence on `.card:hover` from the
+ * `data-on` and `--i` supplied below. At rest the lit ticks carry --color-dim
+ * and the unlit ones fade back: a meter that only reads under a pointer reads
+ * not at all on a phone.
  */
 
 /** "4–5 weeks" → 5. The upper bound, because a meter that under-draws the scope
  *  is the error a buyer notices after signing rather than before. */
 const WEEKS = /(\d+(?:\.\d+)?)\s*(?:[–—-]\s*(\d+(?:\.\d+)?)\s*)?weeks?\b/i;
 const DAYS = /(\d+(?:\.\d+)?)\s*days?\b/i;
+/** A tail that means the engagement does not stop where the number does. */
+const OPEN_ENDED = /\b(then|ongoing|onward|onwards|minimum|quarterly|monthly|retainer|per\s|each\s)/i;
 
 export function parseWeeks(timeline: string): number | null {
+  // An open-ended tail outranks any figure in front of it. "3 weeks to build,
+  // then ongoing" is a retainer, and drawing it as the shortest bar on the
+  // page states the opposite of what the engagement is.
+  if (OPEN_ENDED.test(timeline)) return null;
+
   const weeks = WEEKS.exec(timeline);
   if (weeks) return whole(Number(weeks[2] ?? weeks[1]));
 
@@ -71,7 +78,9 @@ export function ScopeMeter({
         {Array.from({ length: max }, (_, i) => (
           <i
             key={i}
-            className={cn("spec__tick", i >= lit && "opacity-30")}
+            // lit ticks read at rest; sinking the unlit ones instead left the
+            // whole meter at 1.37:1 on a white card, which is no meter at all
+            className={cn("spec__tick", i < lit ? "bg-dim" : "opacity-40")}
             data-on={i < lit ? "" : undefined}
             style={{ "--i": i } as React.CSSProperties}
           />

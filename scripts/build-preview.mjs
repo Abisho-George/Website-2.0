@@ -22,10 +22,10 @@ const clean = (b) => b.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<scrip
 css = css.replace(/@font-face\s*\{[^}]*\}/g, "");
 const shim = readFileSync(new URL("./preview-shim.js", import.meta.url), "utf8");
 const out = `<title>LeadStrategus 2.0</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Serif:ital@0;1&display=swap">
 <style>
 ${css}
-:root { --font-geist-sans: "Geist"; --font-geist-mono: "Geist Mono"; }
+:root { --font-geist-sans: "Geist"; --font-geist-mono: "Geist Mono"; --font-serif: "Instrument Serif", Georgia, serif; }
 @supports (font-variation-settings: normal) { :root { --font-display: "Bricolage Grotesque", system-ui, sans-serif; } }
 html { color-scheme: light; }
 body { background: #ffffff; color: #17120d; }
