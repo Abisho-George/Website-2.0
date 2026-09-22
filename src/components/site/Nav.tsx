@@ -10,6 +10,7 @@ import { servicesFor } from "@/content/services";
 import { PracticeGlyph } from "@/components/visual/PracticeGlyph";
 import { Logo } from "./Logo";
 import { Button } from "@/components/ui/Button";
+import { RailIndicator } from "@/components/motion/RailIndicator";
 
 const resourceLinks = [
   { href: "/insights", label: "Blog & Insights", note: "Writing from the pipeline" },
@@ -55,19 +56,28 @@ export function Nav() {
   const active = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
 
+  // Which nav section the current route belongs to. The GTM AI Twin pill is
+  // deliberately not on the rail — it carries its own filled state.
+  const railKey =
+    active("/") ? "home"
+    : active("/services") || active("/practices") ? "services"
+    : active("/insights") || active("/resources") || active("/work") || active("/faq") || active("/pricing") ? "resources"
+    : active("/about") ? "about"
+    : null;
+
   const trigger = (id: "services" | "resources", label: string, isActive: boolean) => (
     <button
+      data-rail-item={id}
       onClick={() => setOpen(open === id ? null : id)}
       aria-expanded={open === id}
       aria-haspopup="true"
       className={cn(
-        "inline-flex h-[var(--nav-h)] items-center gap-1.5 px-3.5 text-[0.9rem] transition-colors",
+        "inline-flex h-[var(--nav-h)] items-center gap-1.5 px-3.5 text-[0.9rem] transition-colors duration-[var(--dur-1)]",
         isActive || open === id ? "text-white" : "text-[#ddd6cc] hover:text-white",
       )}
     >
       {label}
-      <ChevronDown className={cn("size-3.5 transition-transform duration-300", open === id && "rotate-180")} />
-      <span className={cn("absolute inset-x-3 bottom-0 h-[2px] bg-ember transition-transform duration-300", isActive ? "scale-x-100" : "scale-x-0")} />
+      <ChevronDown className={cn("size-3.5 transition-transform duration-[var(--dur-1)] ease-overshoot", open === id && "rotate-180")} />
     </button>
   );
 
@@ -75,16 +85,15 @@ export function Nav() {
     <header
       ref={navRef}
       data-nav
-      className={cn("fixed inset-x-0 top-0 z-50 bg-ink text-white transition-shadow duration-300", scrolled && "shadow-[0_10px_30px_-18px_rgba(23,18,13,.65)]")}
+      className={cn("fixed inset-x-0 top-0 z-50 bg-ink text-white transition-shadow duration-300", scrolled && "shadow-e2")}
     >
       <div className="brand-rule absolute inset-x-0 bottom-0" aria-hidden />
       <div className="container-x flex h-[var(--nav-h)] items-center justify-between gap-4">
         <Logo tone="light" />
 
-        <nav className="hidden items-center lg:flex">
-          <Link href="/" className={cn("relative inline-flex h-[var(--nav-h)] items-center px-3.5 text-[0.9rem] transition-colors", active("/") ? "text-white" : "text-[#ddd6cc] hover:text-white")}>
+        <nav className="rail-track hidden items-center lg:flex">
+          <Link data-rail-item="home" href="/" className={cn("inline-flex h-[var(--nav-h)] items-center px-3.5 text-[0.9rem] transition-colors duration-[var(--dur-1)]", active("/") ? "text-white" : "text-[#ddd6cc] hover:text-white")}>
             Home
-            <span className={cn("absolute inset-x-3 bottom-0 h-[2px] bg-ember transition-transform duration-300", active("/") ? "scale-x-100" : "scale-x-0")} />
           </Link>
 
           <div className="relative">{trigger("services", "Services", active("/services") || active("/practices"))}</div>
@@ -95,10 +104,13 @@ export function Nav() {
 
           <div className="relative">{trigger("resources", "Resources", active("/insights") || active("/resources") || active("/work") || active("/faq") || active("/pricing"))}</div>
 
-          <Link href="/about" className={cn("relative inline-flex h-[var(--nav-h)] items-center px-3.5 text-[0.9rem] transition-colors", active("/about") ? "text-white" : "text-[#ddd6cc] hover:text-white")}>
+          <Link data-rail-item="about" href="/about" className={cn("inline-flex h-[var(--nav-h)] items-center px-3.5 text-[0.9rem] transition-colors duration-[var(--dur-1)]", active("/about") ? "text-white" : "text-[#ddd6cc] hover:text-white")}>
             About
-            <span className={cn("absolute inset-x-3 bottom-0 h-[2px] bg-ember transition-transform duration-300", active("/about") ? "scale-x-100" : "scale-x-0")} />
           </Link>
+
+          {/* One accent that travels between sections, rather than one bar
+              fading out while another fades in three links away. */}
+          <RailIndicator active={railKey} />
         </nav>
 
         <div className="hidden items-center gap-4 lg:flex">
@@ -115,8 +127,8 @@ export function Nav() {
       <div
         data-mega-panel="services"
         className={cn(
-          "absolute inset-x-0 top-full hidden origin-top border-b border-rule bg-paper text-ink shadow-[0_40px_80px_-40px_rgba(23,18,13,.45)] transition-all duration-300 lg:block",
-          open === "services" ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-3 opacity-0",
+          "absolute inset-x-0 top-full hidden origin-top border-b border-rule bg-paper text-ink shadow-e4 transition-all duration-[var(--dur-1)] ease-standard lg:block",
+          open === "services" ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0",
         )}
       >
         <div className="container-x grid gap-8 py-9 xl:grid-cols-12">
@@ -172,11 +184,11 @@ export function Nav() {
       <div
         data-mega-panel="resources"
         className={cn(
-          "absolute left-1/2 top-full hidden w-[560px] -translate-x-1/2 pt-2 transition-all duration-250 lg:block",
-          open === "resources" ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-3 opacity-0",
+          "absolute left-1/2 top-full hidden w-[560px] -translate-x-1/2 pt-2 transition-all duration-[var(--dur-1)] ease-standard lg:block",
+          open === "resources" ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0",
         )}
       >
-        <div className="overflow-hidden rounded-[var(--radius-lg)] border border-rule bg-paper p-2 text-ink shadow-[0_30px_70px_-28px_rgba(23,18,13,.5)]">
+        <div className="overflow-hidden rounded-[var(--radius-lg)] border border-rule bg-paper p-2 text-ink shadow-e4">
           <div className="grid grid-cols-2 gap-1">
             {resourceLinks.map((r) => (
               <Link key={r.href} href={r.href} className="rounded-xl p-3.5 transition-colors hover:bg-sand">
