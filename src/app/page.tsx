@@ -63,7 +63,7 @@ export default function Home() {
       <ProofBar />
 
       {/* 02 · thesis */}
-      <Section>
+      <Section n="02" label="Thesis" width="text" pad="loose">
         <SectionHead
           title={<>The buyer moved. <em className="serif-em">Most GTM didn&apos;t.</em></>}
           lede="Three shifts changed what works in B2B pipeline. Everything we do is built around them."
@@ -80,7 +80,7 @@ export default function Home() {
       </Section>
 
       {/* 03 · the arithmetic */}
-      <Section band="sand">
+      <Section n="03" label="The arithmetic" band="sand">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <SectionHead title={<>A market of ten thousand is a shortlist of <em className="serif-em">two hundred.</em></>} />
@@ -95,7 +95,7 @@ export default function Home() {
       </Section>
 
       {/* 04 · practices */}
-      <Section>
+      <Section n="04" label="Practices">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHead title={<>Four practices.<br />One <em className="serif-em">operating model.</em></>} lede="Start with the one your pipeline needs. Most clients add a second within a year, because they share the same account universe, messaging system and weekly review." />
           <Link href="/practices" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ember-ink">All practices <ArrowRight className="size-4" /></Link>
@@ -106,7 +106,7 @@ export default function Home() {
       </Section>
 
       {/* 05 · GTM AI Twin — the one ink moment */}
-      <Section band="ink" className="overflow-hidden">
+      <Section n="05" label="GTM AI Twin" band="ink" className="overflow-hidden">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_70%_at_85%_40%,rgba(228,18,31,.2),transparent_70%)]" />
         <div className="grid-bg pointer-events-none absolute inset-0 opacity-45" />
         <div className="relative grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
@@ -130,7 +130,7 @@ export default function Home() {
       </Section>
 
       {/* 06 · operating model */}
-      <Section band="sand">
+      <Section n="06" label="Operating model" band="sand">
         <SectionHead title={<>Diagnose. Design. Deploy. <em className="serif-em">Run.</em></>} lede="Every practice, the Twin included, runs on the same four phases and the same weekly report." />
         <ol className="mt-12 grid gap-8 md:grid-cols-4 md:gap-6">
           {phases.map((ph, i) => (
@@ -155,7 +155,7 @@ export default function Home() {
       </Section>
 
       {/* 07 · work */}
-      <Section>
+      <Section n="07" label="Work">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHead title={<>Programmes that produced <em className="serif-em">meetings.</em></>} lede="Anonymised by default. Every number traces to a client review or a signed-off study before it ships." />
           <Link href="/work" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ember-ink">All work <ArrowRight className="size-4" /></Link>
@@ -166,7 +166,7 @@ export default function Home() {
       </Section>
 
       {/* 08 · operators */}
-      <Section className="pt-0">
+      <Section n="08" label="Operators">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
             <SectionHead title={<>Operators, <em className="serif-em">not an agency.</em></>} lede="The founders ran marketing for global vendors in India before starting LeadStrategus in 2018. Every engagement is led by someone who has carried the number." />
@@ -194,7 +194,7 @@ export default function Home() {
       </Section>
 
       {/* 09 · portal */}
-      <Section band="kraft">
+      <Section n="09" label="The other side" band="kraft">
         <SectionHead title={<>There is a <em className="serif-em">second</em> LeadStrategus.</>} lede="This site is the people. The agents have their own address. Move the seam to see the other side, then cross over." />
         <Reveal className="mt-11"><Portal /></Reveal>
         <p className="mt-3 text-right font-mono text-[0.66rem] uppercase tracking-[0.13em] text-dim">

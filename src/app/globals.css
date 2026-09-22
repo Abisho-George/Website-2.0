@@ -327,33 +327,40 @@ body {
 }
 @media (max-width: 1023px) { .spine { display: none; } }
 
-/* section markers sit on the spine, tying sections into one sequence */
+/* Section markers are children of .spine, so they are offset from the
+   hairline itself: -4px centres a 9px dot on a 1px line. */
 .marker {
   position: absolute;
-  left: calc(var(--gutter) / 2 - 4px);
+  left: -4px;
   display: none;
   align-items: center;
+  white-space: nowrap;
 }
 @media (min-width: 1024px) { .marker { display: flex; } }
 .marker__dot {
-  width: 9px; height: 9px; border-radius: 999px;
-  background: var(--color-paper);
-  box-shadow: inset 0 0 0 1.5px var(--color-rule-strong);
-  transition: background var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-overshoot);
+  width: 7px; height: 7px; margin-left: 1px; border-radius: 999px;
+  background: var(--color-rule-strong);
+  transition: background var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-overshoot), transform var(--dur-2) var(--ease-overshoot);
 }
-.band--ink .marker__dot { background: var(--color-ink); }
-.marker__label {
-  margin-left: 14px;
+.marker--on .marker__dot {
+  background: var(--color-ember);
+  box-shadow: 0 0 0 4px var(--color-ember-wash);
+  transform: scale(1.25);
+}
+/* The number sits in the left margin, so it only appears at the widest
+   gutter — below 1280px it would run into the first column of content. */
+.marker__n {
+  margin-left: 13px;
   font-family: var(--font-mono);
   font-size: var(--text-micro);
-  letter-spacing: .14em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .1em;
   color: var(--color-faint);
   opacity: 0;
-  transform: translateX(-4px);
-  transition: opacity var(--dur-2) var(--ease-standard), transform var(--dur-2) var(--ease-standard);
+  transition: opacity var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard);
 }
-.marker--on .marker__dot { background: var(--color-ember); box-shadow: 0 0 0 4px var(--color-ember-wash); }
-.marker--on .marker__label { opacity: 1; transform: none; color: var(--color-dim); }
+@media (min-width: 1280px) { .marker__n { opacity: .7; } }
+.marker--on .marker__n { opacity: 1; color: var(--color-ember-ink); }
 
 /* ---------- type ----------
    Bricolage is an optical-size design: the same letterform is drawn with
@@ -818,6 +825,9 @@ html:not(.js) [data-reveal] { opacity: 1 !important; transform: none !important;
 .scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
 .tnum { font-variant-numeric: tabular-nums; }
+/* a reader must be able to stop a moving strip — WCAG 2.2.2 */
+.marquee:hover .marquee__row,
+.marquee:focus-within .marquee__row { animation-play-state: paused; }
 .datum { font-variant-numeric: tabular-nums slashed-zero; font-family: var(--font-display); }
 
 /* mobile: turn tight grids into swipeable rails */
