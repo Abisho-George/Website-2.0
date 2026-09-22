@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { Copy } from "@/components/ui/Copy";
 import { CTABand, FAQBlock } from "@/components/site/Blocks";
 import { PageHero } from "@/components/site/PageHero";
+import { IndexScene } from "@/components/visual/IndexScene";
 import { practices } from "@/content/practices";
 import { services, servicesFor } from "@/content/services";
 import { twin } from "@/content/twin";
@@ -39,6 +40,13 @@ export default function PricingPage() {
         art="work"
         title={<>What it costs, <em>said plainly.</em></>}
         lede="Every practice and every service on this site carries a price. Here they are in one place, with the three ways we structure an engagement and what is excluded."
+        scene={<IndexScene mode="ledger" rows={services.map((s) => ({ label: s.name, value: s.pricing }))} />}
+        readout={[
+          { k: "Services priced", v: services.length },
+          { k: "Practices", v: practices.length },
+          { k: "Engagement models", v: models.length },
+          { k: "Hourly billing", v: "none" },
+        ]}
       />
 
       <Section className="hero-next">

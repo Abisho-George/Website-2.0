@@ -3,6 +3,8 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { PageHero } from "@/components/site/PageHero";
+import { services } from "@/content/services";
+import { IndexScene } from "@/components/visual/IndexScene";
 import { Button } from "@/components/ui/Button";
 import { CTABand } from "@/components/site/Blocks";
 import { practices } from "@/content/practices";
@@ -13,7 +15,18 @@ export const metadata = buildMetadata({ title: "Practices", description: "GTM St
 export default function PracticesHub() {
   return (
     <>
-      <PageHero art="practices" title={<>Four practices. <em>One</em> operating model.</>} lede="They share an account universe, a messaging system and a weekly pipeline review, so adding a second practice compounds the first rather than starting over." />
+      <PageHero
+        art="practices"
+        title={<>Four practices. <em>One</em> operating model.</>}
+        lede="They share an account universe, a messaging system and a weekly pipeline review, so adding a second practice compounds the first rather than starting over."
+        scene={<IndexScene mode="atlas" columns={practices.map((p) => ({ head: p.short, items: p.services }))} />}
+        readout={[
+          { k: "Practices", v: practices.length },
+          { k: "Services", v: services.length },
+          { k: "Phases each", v: practices[0].process.length },
+          { k: "Shared account universe", v: "one" },
+        ]}
+      />
 
       <Section className="hero-next">
         <div className="divide-y divide-rule border-y border-rule">

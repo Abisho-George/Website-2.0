@@ -1,27 +1,42 @@
-import { Reveal } from "@/components/ui/Reveal";
-import { HeroArt } from "@/components/visual/HeroArt";
-import { cn } from "@/lib/utils";
+import { HeroFrame } from "./HeroFrame";
+import type { HeroArt } from "@/components/visual/HeroArt";
 
 type Art = React.ComponentProps<typeof HeroArt>["variant"];
 
-/** Every page opens the same way: the title, the claim, and a diagram of the page's subject. */
-export function PageHero({ title, lede, art, children, className }: {
-  title: React.ReactNode; lede?: React.ReactNode; art: Art;
-  children?: React.ReactNode; className?: string;
+/**
+ * The old page opening, kept as a thin adapter over HeroFrame.
+ *
+ * Its signature is unchanged so all eight callers compile untouched while
+ * they convert one at a time; `art` is accepted and ignored, because the
+ * 320x240 hairline drawing it named is exactly what the new hero replaces —
+ * it sat in a 5-of-12 column roughly 540px wide, which guaranteed about
+ * 160px of empty column on every template.
+ *
+ * A page that has been converted passes a `scene` and a computed `readout`
+ * to HeroFrame directly. This file goes away once the last one has.
+ */
+export function PageHero({
+  title,
+  lede,
+  children,
+  className,
+  scene,
+  readout,
+  eyebrow,
+}: {
+  title: React.ReactNode;
+  lede?: React.ReactNode;
+  /** Accepted for source compatibility and deliberately unused. */
+  art?: Art;
+  children?: React.ReactNode;
+  className?: string;
+  scene?: React.ReactNode;
+  readout?: { k: string; v: React.ReactNode }[];
+  eyebrow?: React.ReactNode;
 }) {
   return (
-    <section className={cn("band relative overflow-hidden pt-[var(--nav-h)]", className)}>
-      <div className="grid-bg pointer-events-none absolute inset-0" />
-      <div className="container-x relative grid items-center gap-8 pb-10 pt-12 md:pb-14 md:pt-16 lg:grid-cols-12 lg:gap-14">
-        <div className="lg:col-span-7">
-          <Reveal><h1 className="display text-[2.7rem] sm:text-[3.6rem] md:text-[4.6rem]">{title}</h1></Reveal>
-          {lede && <Reveal delay={90}><p className="lede mt-6 max-w-2xl">{lede}</p></Reveal>}
-          {children && <Reveal delay={160}>{children}</Reveal>}
-        </div>
-        <div className="hidden lg:col-span-5 lg:block">
-          <HeroArt variant={art} className="ml-auto h-auto w-full max-w-[380px]" />
-        </div>
-      </div>
-    </section>
+    <HeroFrame size="md" title={title} lede={lede} className={className} scene={scene} readout={readout} eyebrow={eyebrow}>
+      {children}
+    </HeroFrame>
   );
 }
