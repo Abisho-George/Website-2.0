@@ -9,7 +9,7 @@ let pw; try { pw = require("playwright"); } catch { pw = require("/opt/node22/li
 const BASE = process.env.BASE ?? "http://localhost:3100";
 const OUT = process.env.OUT ?? "shots";
 mkdirSync(OUT, { recursive: true });
-const routes = ["/", "/gtm-ai-twin", "/services", "/services/webinar-as-a-service", "/services/osint-for-sales", "/practices", "/practices/demand-generation", "/work", "/work/devtools-outbound-engine", "/insights", "/insights/what-an-ai-sdr-does-all-day", "/faq", "/pricing", "/resources", "/about", "/contact", "/book", "/authors/kingshuk-hazra", "/careers", "/does-not-exist"];
+const routes = ["/", "/gtm-ai-twin", "/services", "/services/webinar-as-a-service", "/services/osint-for-sales", "/practices", "/practices/demand-generation", "/work", "/work/devtools-outbound-engine", "/insights", "/insights/what-an-ai-sdr-does-all-day", "/faq", "/pricing", "/resources", "/about", "/contact", "/book", "/authors/kingshuk-hazra", "/careers", "/contact/thanks", "/does-not-exist"];
 
 const wait = async () => { for (let i = 0; i < 60; i++) { try { const r = await fetch(BASE); if (r.ok || r.status === 404) return; } catch {} await new Promise((r) => setTimeout(r, 1000)); } throw new Error("server not up"); };
 await wait();

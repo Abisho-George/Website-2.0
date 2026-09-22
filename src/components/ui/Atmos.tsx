@@ -84,9 +84,7 @@ export function Bloom({
  * where the copy is about a system or a process. It inherits --amb-ink, so it
  * inverts inside .band--ink on its own — never give it a colour.
  *
- * `.field` is inset by -80px so the grid runs past the edge rather than
- * stopping at it, which means the parent must clip: `.band` (overflow-x: clip)
- * and `.hero` (overflow: clip) already do, anything else needs its own.
+ * It clips itself, so it is safe on any positioned parent.
  */
 export function FieldPlate({
   fx = "50%",
@@ -98,10 +96,11 @@ export function FieldPlate({
   className?: string;
 }) {
   return (
-    <div
-      aria-hidden
-      className={cn("field", className)}
-      style={{ "--fx": fx, "--fy": fy } as React.CSSProperties}
-    />
+    // It clips itself. `.field` is inset by -80px so the grid runs past the
+    // edge rather than stopping at it, and a caller who forgets to clip gets
+    // 80px of horizontal page overflow — which is how this shipped once.
+    <div aria-hidden className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)}>
+      <span className="field" style={{ "--fx": fx, "--fy": fy } as React.CSSProperties} />
+    </div>
   );
 }
