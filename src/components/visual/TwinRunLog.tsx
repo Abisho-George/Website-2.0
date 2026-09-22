@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { subscribe, useInView, useReducedMotion } from "./surface/ticker";
 
 const LINES: { agent: string; text: string; tone?: "ok" | "warn" | "win" }[] = [
   { agent: "prospecting", text: "universe refreshed · 4,212 accounts scanned · 38 moved to active tier" },
@@ -16,19 +17,32 @@ const LINES: { agent: string; text: string; tone?: "ok" | "warn" | "win" }[] = [
 
 export function TwinRunLog({ className }: { className?: string }) {
   const [n, setN] = useState(0);
+  const nRef = useRef(0);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+  const inView = useInView(wrapRef, "160px");
+
+  // Driven by the shared ticker rather than a self-scheduling setTimeout chain,
+  // so the run pauses when it scrolls away and when the tab goes to the back.
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { setN(LINES.length); return; }
-    let i = 0; let t: number;
-    const tick = () => {
-      i += 1; setN(i);
-      if (i >= LINES.length) t = window.setTimeout(() => { i = 0; setN(0); t = window.setTimeout(tick, 600); }, 5200);
-      else t = window.setTimeout(tick, 850 + Math.random() * 650);
-    };
-    t = window.setTimeout(tick, 700);
-    return () => clearTimeout(t);
-  }, []);
+    if (reduced) { setN(LINES.length); return; }
+    if (!inView) return;
+    let since = 0;
+    let wait = nRef.current === 0 ? 700 : 850;
+    return subscribe((dt) => {
+      since += dt;
+      if (since < wait) return;
+      since = 0;
+      const i = nRef.current;
+      if (i >= LINES.length) { nRef.current = 0; setN(0); wait = 600; return; }
+      const next = i + 1;
+      nRef.current = next; setN(next);
+      wait = next >= LINES.length ? 5200 : 850 + Math.random() * 650;
+    });
+  }, [reduced, inView]);
+
   return (
-    <div className={cn("overflow-hidden rounded-[var(--radius-lg)] border border-ink-2/25 bg-ink text-[#f6f2ec] shadow-[0_30px_70px_-40px_rgba(23,18,13,.8)]", className)}>
+    <div ref={wrapRef} className={cn("overflow-hidden rounded-[var(--radius-lg)] border border-ink-2/25 bg-ink text-[#f6f2ec] shadow-[0_30px_70px_-40px_rgba(23,18,13,.8)]", className)}>
       <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
         <div className="flex items-center gap-2">
           <span className="size-2 rounded-full bg-ember shadow-[0_0_10px_rgba(228,18,31,.9)]" />

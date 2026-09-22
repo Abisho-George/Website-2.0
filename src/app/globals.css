@@ -288,7 +288,10 @@ body.ph-hidden [data-placeholder] { text-decoration: none; cursor: inherit; }
 .js .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .js .reveal { opacity: 1; transform: none; transition: none; }
-  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  /* Stop animations outright rather than running them at .001ms — a 52s marquee
+     at .001ms is still a running animation, it is just illegible. Interaction
+     transitions (colour, shadow) are left alone; they are not the complaint. */
+  *, *::before, *::after { animation: none !important; }
   html { scroll-behavior: auto; }
 }
 

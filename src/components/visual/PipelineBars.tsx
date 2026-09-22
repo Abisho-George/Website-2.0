@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { subscribe, useInView, useReducedMotion } from "./surface/ticker";
 
 /**
  * The arithmetic of a pipeline, scrubbed by scroll: as this card moves up
@@ -36,46 +37,63 @@ export function PipelineBars({ className }: { className?: string }) {
   const stagesRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef(0);
   const shownRef = useRef(0);
-  const rafRef = useRef<number>(0);
   const [progress, setProgress] = useState(0);
-  const [reduced, setReduced] = useState(false);
   const [tick, setTick] = useState(0);
+  const reduced = useReducedMotion();
+  const inView = useInView(wrapRef, "200px");
+
+  const measure = () => {
+    const el = wrapRef.current;
+    if (!el) return 0;
+    const rect = el.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const startY = vh * 0.88; // scrub begins as the card enters the lower part of the viewport
+    const endY = vh * 0.22;   // fully filled once it has climbed to the upper fifth
+    return Math.min(1, Math.max(0, (startY - rect.top) / (startY - endY)));
+  };
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (mq.matches) { setReduced(true); setProgress(1); return; }
+    if (reduced) { shownRef.current = 1; setProgress(1); return; }
 
-    const computeTarget = () => {
-      const el = wrapRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const startY = vh * 0.88; // scrub begins as the card enters the lower part of the viewport
-      const endY = vh * 0.22;   // fully filled once it has climbed to the upper fifth
-      const p = (startY - rect.top) / (startY - endY);
-      targetRef.current = Math.min(1, Math.max(0, p));
-    };
-
-    const loop = () => {
-      shownRef.current += (targetRef.current - shownRef.current) * 0.16;
-      if (Math.abs(targetRef.current - shownRef.current) < 0.0008) shownRef.current = targetRef.current;
+    // Off screen there is nothing to smooth: take the value the scroll position
+    // implies and hold it, so arriving from either direction is already correct.
+    if (!inView) {
+      shownRef.current = targetRef.current = measure();
       setProgress(shownRef.current);
-      rafRef.current = requestAnimationFrame(loop);
+      return;
+    }
+
+    let unsub: (() => void) | null = null;
+    const halt = () => { unsub?.(); unsub = null; };
+
+    const frame = () => {
+      shownRef.current += (targetRef.current - shownRef.current) * 0.16;
+      if (Math.abs(targetRef.current - shownRef.current) < 0.0008) {
+        shownRef.current = targetRef.current;
+        setProgress(shownRef.current);
+        halt(); // settled — give the frame back until the reader scrolls again
+        return;
+      }
+      setProgress(shownRef.current);
     };
 
-    computeTarget();
-    window.addEventListener("scroll", computeTarget, { passive: true });
-    window.addEventListener("resize", computeTarget);
-    rafRef.current = requestAnimationFrame(loop);
+    const onScroll = () => {
+      targetRef.current = measure();
+      if (!unsub && Math.abs(targetRef.current - shownRef.current) >= 0.0008) unsub = subscribe(frame);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
 
     return () => {
-      window.removeEventListener("scroll", computeTarget);
-      window.removeEventListener("resize", computeTarget);
-      cancelAnimationFrame(rafRef.current);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      halt();
     };
-  }, []);
+  }, [reduced, inView]);
 
-  const scanning = !reduced && progress > 0.02 && progress < 0.999;
+  const scanning = !reduced && inView && progress > 0.02 && progress < 0.999;
 
   // the rotating "now scoring" line — only while the funnel is actively filling
   useEffect(() => {
