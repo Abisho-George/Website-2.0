@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 const field = "w-full rounded-xl border border-rule bg-paper px-4 py-3 text-[0.95rem] text-fg placeholder:text-dim outline-none transition-colors focus:border-ember focus:ring-2 focus:ring-ember/20";
 const label = "mb-2 block font-mono text-[0.66rem] uppercase tracking-[0.14em] text-muted";
 
-export function ContactForm({ defaultType = "gtm-ai-twin", tone = "ember" }: { defaultType?: string; tone?: "ember" | "ion" }) {
+export function ContactForm({ defaultType = "gtm-ai-twin", tone = "ember" }: { defaultType?: string; tone?: "ember" | "twin" }) {
   const [state, action, pending] = useActionState<FormState, FormData>(submitEnquiry, null);
   const err = (k: string) => state?.errors?.[k];
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
@@ -58,7 +58,7 @@ export function ContactForm({ defaultType = "gtm-ai-twin", tone = "ember" }: { d
       {siteKey && <div className="cf-turnstile" data-sitekey={siteKey} data-theme="light" />}
       {state?.message && <p className="text-sm text-ember-ink">{state.message}</p>}
       <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center">
-        <Button type="submit" size="lg" variant={tone === "ion" ? "ion" : "primary"} disabled={pending}>{pending ? "Sending…" : "Send enquiry"}</Button>
+        <Button type="submit" size="lg" variant={tone === "twin" ? "twin" : "primary"} disabled={pending}>{pending ? "Sending…" : "Send enquiry"}</Button>
         <p className="text-xs text-dim">We reply within one working day. No newsletters, no sequences.</p>
       </div>
     </form>

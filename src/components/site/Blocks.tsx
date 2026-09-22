@@ -92,7 +92,7 @@ export function StatRow({ stats, className }: { stats: { value: string; suffix?:
   );
 }
 
-export function FAQBlock({ items, title = "Asked often, answered plainly.", tone = "ember" }: { items: FAQ[]; title?: string; tone?: "ember" | "ion" }) {
+export function FAQBlock({ items, title = "Asked often, answered plainly.", tone = "ember" }: { items: FAQ[]; title?: string; tone?: "ember" | "twin" }) {
   return (
     <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
       <div className="lg:col-span-4">
@@ -103,7 +103,7 @@ export function FAQBlock({ items, title = "Asked often, answered plainly.", tone
   );
 }
 
-export function CTABand({ title, lede, primary, secondary, tone = "ember" }: { title: React.ReactNode; lede?: string; primary: { label: string; href: string }; secondary?: { label: string; href: string; external?: boolean }; tone?: "ember" | "ion" }) {
+export function CTABand({ title, lede, primary, secondary, tone = "ember" }: { title: React.ReactNode; lede?: string; primary: { label: string; href: string }; secondary?: { label: string; href: string; external?: boolean }; tone?: "ember" | "twin" }) {
   return (
     <section className="band band--ink sheen relative overflow-hidden">
       <Bloom hue="ember" at="bottom" size={78} />
@@ -115,7 +115,7 @@ export function CTABand({ title, lede, primary, secondary, tone = "ember" }: { t
           <h2 className="display-2 balance">{title}</h2>
           {lede && <p className="lede mx-auto mt-6 max-w-2xl">{lede}</p>}
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href={primary.href} size="lg" variant={tone === "ion" ? "ion" : "primary"}>{primary.label}</Button>
+            <Button href={primary.href} size="lg" variant={tone === "twin" ? "twin" : "primary"}>{primary.label}</Button>
             {secondary && (
               <Button href={secondary.href} size="lg" external={secondary.external} className="border border-white/25 text-[#f6f2ec] hover:border-white/60 hover:bg-white/5" variant="ghost">
                 {secondary.label}

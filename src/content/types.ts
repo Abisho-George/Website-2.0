@@ -7,7 +7,7 @@ export type Practice = {
   short: string;
   tagline: string;
   summary: string;
-  accent: "ember" | "ion";
+  accent: "ember" | "twin";
   problem: { title: string; points: string[] };
   deliverables: { title: string; body: string }[];
   process: { phase: string; title: string; body: string; duration: string }[];

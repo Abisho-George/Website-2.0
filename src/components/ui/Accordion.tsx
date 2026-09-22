@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Copy } from "./Copy";
 import type { FAQ } from "@/content/types";
 
-export function Accordion({ items, tone = "ember" }: { items: FAQ[]; tone?: "ember" | "ion" }) {
+export function Accordion({ items, tone = "ember" }: { items: FAQ[]; tone?: "ember" | "twin" }) {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <div className="divide-y divide-rule border-y border-rule">
@@ -20,7 +20,7 @@ export function Accordion({ items, tone = "ember" }: { items: FAQ[]; tone?: "emb
             >
               <span className="h4">{it.q}</span>
               <Plus data-accordion-icon // the overshoot curve, so the one thing the reader clicked answers physically
-                className={cn("mt-0.5 size-5 shrink-0 transition-transform duration-[var(--dur-1)] ease-overshoot", isOpen && "rotate-45", tone === "ion" ? "text-ok" : "text-ember")} />
+                className={cn("mt-0.5 size-5 shrink-0 transition-transform duration-[var(--dur-1)] ease-overshoot", isOpen && "rotate-45", tone === "twin" ? "text-ember-ink" : "text-ember")} />
             </button>
             <div data-accordion-body // 0fr -> 1fr is the layout-cheap way to animate an unknown height; do not
               // replace it with an explicit height, which measures the child every frame

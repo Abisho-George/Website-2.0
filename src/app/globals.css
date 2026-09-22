@@ -60,11 +60,6 @@
   /* done-states only. Red-for-everything turns the brand colour into an alarm. */
   --color-ok: #0e6e60;
   --color-ok-2: #5eead4;
-  /* historical names for the same two, still referenced by the `ion` tone
-     union in Button, Accordion and CTABand. Retired with that union. */
-  --color-ion: #0e6e60;
-  --color-ion-2: #5eead4;
-  --color-ion-deep: #0a4f45;
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   href?: string; children: React.ReactNode;
-  variant?: "primary" | "ion" | "ghost" | "paper" | "outline";
+  variant?: "primary" | "twin" | "ghost" | "paper" | "outline";
   size?: "sm" | "md" | "lg";
   external?: boolean; arrow?: boolean; className?: string;
   type?: "button" | "submit"; disabled?: boolean;
@@ -18,7 +18,7 @@ const sizes = { sm: "h-9 px-4 text-[0.85rem]", md: "h-11 px-5 text-[0.94rem]", l
 const variants = {
   primary: "bg-ember text-white hover:bg-ember-ink hover:shadow-e3-ember",
   // the Twin accent: ink, not teal. The teal was never in the logo.
-  ion: "bg-ink text-paper hover:bg-ink-3 focus-visible:ring-ember",
+  twin: "bg-ink text-paper hover:bg-ink-3 focus-visible:ring-ember",
   ghost: "text-fg hover:bg-sand",
   outline: "border border-rule-strong text-fg hover:border-fg hover:bg-sand",
   paper: "bg-ink text-paper hover:bg-ink-3",

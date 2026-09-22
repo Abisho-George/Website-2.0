@@ -21,7 +21,7 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
           <div className="card p-6"><div className="eyebrow mb-3">Bring</div><p className="text-muted">Your last two quarters of pipeline by source, and the three accounts you most wish you had won.</p></div>
           <div className="card p-6"><div className="eyebrow mb-3">Read</div><ul className="space-y-2 text-sm">{insightsByDate.slice(0, 2).map((i) => <li key={i.slug}><Link href={`/insights/${i.slug}`} className="link-u">{i.title}</Link></li>)}</ul></div>
         </div>
-        <div className="mt-10 flex flex-wrap gap-3"><Button href="/book" variant={isTwin ? "ion" : "primary"}>Book the call now</Button><Button href="/" variant="outline">Back to the start</Button></div>
+        <div className="mt-10 flex flex-wrap gap-3"><Button href="/book" variant={isTwin ? "twin" : "primary"}>Book the call now</Button><Button href="/" variant="outline">Back to the start</Button></div>
       </div>
     </section>
   );

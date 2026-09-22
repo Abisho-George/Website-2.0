@@ -34,7 +34,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             </Reveal>
           </div>
           <div className="lg:col-span-7">
-            <Reveal delay={120} className="card p-6 md:p-8"><ContactForm defaultType={valid ? type : "gtm-ai-twin"} tone={isTwin ? "ion" : "ember"} /></Reveal>
+            <Reveal delay={120} className="card p-6 md:p-8"><ContactForm defaultType={valid ? type : "gtm-ai-twin"} tone={isTwin ? "twin" : "ember"} /></Reveal>
           </div>
         </div>
       </section>
