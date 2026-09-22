@@ -7,27 +7,43 @@
 
    The `ember` token names are historical; they now carry the logo's red
    (#e4121f) so the interface and the identity are one palette.
+
+   Three rules this file is built on:
+     1. Depth comes from a ladder, not from one-off shadows. Every raised
+        thing picks a rung: e1 resting, e2 focal, e3 hover, e4 overlay.
+     2. Motion has five curves and four durations, and nothing invents a
+        sixth. src/lib/motion.ts mirrors the curves for JS-driven motion;
+        the two must agree or a CSS hover and a JS entrance on the same
+        card will disagree about what this site feels like.
+     3. Ambient marks — fields, blooms, grain — are primitives with
+        tokens, never a gradient typed into a className.
    ============================================================ */
 
 @theme {
   /* grounds */
   --color-paper: #ffffff;
   --color-sand: #f8f5ef;
+  --color-sand-2: #fcfaf6;       /* bottom stop of a card's interior gradient */
   --color-kraft: #efe8dc;
+  --color-kraft-2: #e2d9c9;
   --color-ink: #17120d;
   --color-ink-2: #241c13;
   --color-ink-3: #33291d;
+  --color-surface-chrome: #f6f3ed;
 
   /* text */
   --color-fg: #17120d;
+  --color-fg-soft: #4a423a;      /* body copy inside cards and open panels */
   --color-muted: #6e645a;
-  --color-dim: #9e9385;
+  --color-dim: #75695b;          /* mono labels: legible, was #9e9385 at ~3:1 */
+  --color-faint: #a89d8e;        /* decorative only — rules, disabled chrome */
 
   /* lines */
   --color-rule: #e9e2d6;
   --color-rule-strong: #d5cabaff;
   --color-line: #e9e2d6;
-  --color-line-strong: #d5cabb;
+  --color-scene-line: #cdc1ae;   /* strokes inside hero scenes */
+  --color-scene-line-2: #b9ab94;
 
   /* accents */
   --color-ember: #e4121f;        /* brand red — fills, buttons, marks */
@@ -41,10 +57,14 @@
   --color-brand-blue-2: #1667f0;
   --color-brand-navy: #141c7a;
 
+  /* done-states only. Red-for-everything turns the brand colour into an alarm. */
+  --color-ok: #0e6e60;
+  --color-ok-2: #5eead4;
+  /* historical names for the same two, still referenced by the `ion` tone
+     union in Button, Accordion and CTABand. Retired with that union. */
   --color-ion: #0e6e60;
   --color-ion-2: #5eead4;
   --color-ion-deep: #0a4f45;
-  --color-ion-wash: #e9f5f2;
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
@@ -75,16 +95,37 @@
   --radius-lg: 18px;
   --radius-xl: 28px;
 
+  /* ---------- easing ----------
+     Five curves, each with one job. src/lib/motion.ts mirrors these. */
+  --ease-entrance: cubic-bezier(0.16, 0.84, 0.28, 1);   /* anything arriving */
+  --ease-standard: cubic-bezier(0.4, 0.14, 0.2, 1);     /* state change in place */
+  --ease-crisp: cubic-bezier(0.22, 0, 0, 1);            /* mask reveals, rule draws */
+  --ease-exit: cubic-bezier(0.5, 0, 0.9, 0.35);         /* leaving, always faster */
+  --ease-overshoot: cubic-bezier(0.34, 1.28, 0.48, 1);  /* marks under ~12px only */
+
+  /* ---------- elevation ladder ----------
+     A raised thing picks a rung. Nothing writes its own shadow. */
+  --shadow-e1: 0 1px 2px -1px rgb(23 18 13 / .10), 0 3px 8px -4px rgb(23 18 13 / .07);
+  --shadow-e2: 0 2px 4px -2px rgb(23 18 13 / .10), 0 10px 22px -10px rgb(23 18 13 / .13);
+  --shadow-e3: 0 4px 8px -4px rgb(23 18 13 / .12), 0 22px 48px -24px rgb(23 18 13 / .24);
+  --shadow-e4: 0 10px 20px -12px rgb(23 18 13 / .18), 0 44px 88px -44px rgb(23 18 13 / .34);
+  /* the one ember elevation: a hovered brand surface looks lit, not just raised */
+  --shadow-e3-ember: 0 4px 8px -4px rgb(143 10 18 / .16), 0 22px 52px -26px rgb(228 18 31 / .42);
+  --shadow-e-ink: 0 30px 70px -40px rgba(23,18,13,.80), inset 0 0 0 1px rgba(255,255,255,.06);
+  /* a 1px white top lip: invisible on paper, lights every card on sand and kraft */
+  --inset-shadow-lip: inset 0 1px 0 rgb(255 255 255 / .92);
+
   --animate-marquee: marquee 52s linear infinite;
   --animate-blink: blink 1.1s steps(2, start) infinite;
-  --animate-float: float 8s ease-in-out infinite;
-  --animate-draw: draw 2.2s ease-out forwards;
+  --animate-sheen: sheen 1.15s var(--ease-crisp) both;
+  --animate-sweep: surface-sweep 4.2s var(--ease-standard) infinite;
+  --animate-rule-draw: rule-draw .62s var(--ease-crisp) both;
 
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @keyframes blink { to { visibility: hidden; } }
-  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-  @keyframes draw { to { stroke-dashoffset: 0; } }
-  @keyframes rail { from { transform: translateX(-100%); } to { transform: translateX(420%); } }
+  @keyframes sheen { from { transform: translateX(-120%) skewX(-12deg); } to { transform: translateX(220%) skewX(-12deg); } }
+  @keyframes surface-sweep { 0% { transform: translateX(-60%); } 55%, 100% { transform: translateX(160%); } }
+  @keyframes rule-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
   /* hero art */
   @keyframes ha-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
@@ -135,6 +176,56 @@
   color-scheme: light;
   --nav-h: 76px;
   --gutter: 20px;
+
+  /* ---------- duration ----------
+     Four steps. An exit is always one step faster than its entrance. */
+  --dur-1: 220ms;   /* control feedback: press, select, lift, accordion */
+  --dur-2: 380ms;   /* one element entering */
+  --dur-3: 620ms;   /* a block entering; a heading mask reveal */
+  --dur-4: 900ms;   /* hard ceiling — hero choreography only */
+
+  --stagger: 70ms;
+  --stagger-tight: 45ms;
+
+  --rise-1: 10px;   /* inline items */
+  --rise-2: 18px;   /* cards and blocks */
+  --rise-3: 28px;   /* a whole band */
+
+  /* ---------- measure and rhythm ----------
+     .container-x was pinned to 1400px for every band, which is exactly why
+     alternating ground colour read as stripes rather than as rhythm. A band
+     now chooses a measure and an amount of air. */
+  --measure-text: 720px;
+  --measure-mid: 1040px;
+  --measure-wide: 1400px;
+  --pad-tight: clamp(40px, 5vw, 72px);
+  --pad-base: clamp(64px, 8vw, 116px);
+  --pad-loose: clamp(88px, 11vw, 168px);
+
+  /* ---------- heroes ----------
+     svh, not vh, so mobile browser chrome does not push the read below the fold. */
+  --hero-h-sm: clamp(430px, 58svh, 560px);
+  --hero-h-md: clamp(510px, 70svh, 700px);
+  --hero-h-lg: clamp(580px, 84svh, 840px);
+  --scene-left: 40%;
+
+  /* ---------- the stacking contract ----------
+     Written down because three separate things were each assuming it. */
+  --z-scene: 0;
+  --z-band-content: 2;
+  --z-spine: 5;
+  --z-sticky: 30;
+  --z-nav: 50;
+
+  /* ---------- recipes ----------
+     Gradients and washes that are values, not scale steps. */
+  --edge-rest: linear-gradient(158deg, rgba(23,18,13,.11), rgba(23,18,13,.05) 45%, rgba(23,18,13,.09));
+  --edge-ember: linear-gradient(158deg, rgba(228,18,31,.34), rgba(228,18,31,.10) 55%, rgba(228,18,31,.24));
+  --color-ember-wash-lg: rgba(228,18,31,.13);   /* the one ambient red wash */
+  --color-ember-dot: rgba(228,18,31,.55);       /* every "live" indicator halo */
+  --amb-ink: 23 18 13;                          /* ambient marks on light ground */
+  --bloom-hue: 228 18 31;
+  --plate-fade: 72px;
 }
 @media (min-width: 768px) { :root { --gutter: 40px; } }
 @media (min-width: 1280px) { :root { --gutter: 56px; } }
@@ -156,37 +247,67 @@ body {
 /* ---------- layout ---------- */
 .container-x {
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--measure-wide);
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
+.container-x[data-width="text"] { max-width: calc(var(--measure-text) + var(--gutter) * 2); }
+.container-x[data-width="mid"] { max-width: calc(var(--measure-mid) + var(--gutter) * 2); }
+.container-x[data-width="full"] { max-width: none; }
 
-.section-y { padding-block: clamp(64px, 8vw, 116px); }
+.section-y { padding-block: var(--pad-base); }
+.section-y[data-pad="tight"] { padding-block: var(--pad-tight); }
+.section-y[data-pad="loose"] { padding-block: var(--pad-loose); }
 /* a band that follows a page hero starts closer to it */
 .band + .band > .container-x > :first-child { margin-top: 0; }
 .hero-next { padding-top: clamp(36px, 4.5vw, 64px); }
 .section-y-sm { padding-block: clamp(44px, 5.5vw, 80px); }
 
 /* ---------- continuity: one document, not stacked blocks ----------
-   Every band shares the same gutter and a spine that never breaks.   */
-.band { position: relative; background: var(--band, var(--color-paper)); }
+   A band's ground is painted by a masked plate rather than by the element's
+   own background, so adjacent bands dissolve into one another instead of
+   meeting at a hard line. Ink bands keep a hard edge — an ink band is
+   supposed to arrive — and get a short bleed above them instead. */
+.band { position: relative; background: transparent; overflow-x: clip; }
 .band--sand { --band: var(--color-sand); }
 .band--kraft { --band: var(--color-kraft); }
-.band--ink { --band: var(--color-ink); color: #f6f2ec; }
+/* An ink band redefines the text and rule tokens rather than asking every
+   component inside it to carry a `band--ink:` variant. `text-dim` at
+   #75695b is correct on paper and invisible on ink; one override fixes all
+   thirty-odd usages at once. */
+.band--ink {
+  --band: var(--color-ink);
+  color: #f6f2ec;
+  --amb-ink: 255 255 255;
+  --color-fg: #f6f2ec;
+  --color-fg-soft: #c3b9ac;
+  --color-muted: #b3a89a;
+  --color-dim: #9a8f80;
+  --color-faint: #7d7264;
+  --color-rule: rgba(255,255,255,.14);
+  --color-rule-strong: rgba(255,255,255,.26);
+}
 
-/* soft dissolve at band edges instead of a hard cut */
-.band::before,
-.band::after {
+.band::before {
   content: "";
   position: absolute;
-  left: 0; right: 0;
-  height: 72px;
-  pointer-events: none;
+  inset: 0;
+  background: var(--band, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--plate-fade), #000 calc(100% - var(--plate-fade)), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 var(--plate-fade), #000 calc(100% - var(--plate-fade)), transparent);
   z-index: 0;
+  pointer-events: none;
 }
-.band::before { top: 0; background: linear-gradient(to bottom, color-mix(in srgb, var(--band, #fff) 100%, transparent), transparent); }
-.band::after { bottom: 0; background: linear-gradient(to top, color-mix(in srgb, var(--band, #fff) 100%, transparent), transparent); }
-.band > .container-x { position: relative; z-index: 1; }
+.band--ink::before { -webkit-mask-image: none; mask-image: none; }
+.band--ink::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: -40px;
+  height: 40px;
+  background: linear-gradient(to top, rgba(23,18,13,.16), transparent);
+  pointer-events: none;
+}
+.band > .container-x { position: relative; z-index: var(--z-band-content); }
 
 /* the spine: a hairline that runs the whole page behind every band */
 .spine {
@@ -195,7 +316,7 @@ body {
   top: 0; bottom: 0;
   width: 1px;
   background: linear-gradient(to bottom, transparent, var(--color-rule) 6%, var(--color-rule) 94%, transparent);
-  z-index: 5;
+  z-index: var(--z-spine);
   pointer-events: none;
 }
 .spine__fill {
@@ -218,11 +339,21 @@ body {
   width: 9px; height: 9px; border-radius: 999px;
   background: var(--color-paper);
   box-shadow: inset 0 0 0 1.5px var(--color-rule-strong);
-  transition: background .35s ease, box-shadow .35s ease;
+  transition: background var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-overshoot);
 }
 .band--ink .marker__dot { background: var(--color-ink); }
-.marker__label { display: none; }
+.marker__label {
+  margin-left: 14px;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: .14em;
+  color: var(--color-faint);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--dur-2) var(--ease-standard), transform var(--dur-2) var(--ease-standard);
+}
 .marker--on .marker__dot { background: var(--color-ember); box-shadow: 0 0 0 4px var(--color-ember-wash); }
+.marker--on .marker__label { opacity: 1; transform: none; color: var(--color-dim); }
 
 /* ---------- type ----------
    Bricolage is an optical-size design: the same letterform is drawn with
@@ -252,6 +383,16 @@ body {
   letter-spacing: -0.038em;
   line-height: 0.94;
   font-size: var(--text-display-2);
+}
+
+/* figures, not headings: a proof number set at display scale */
+.display-3 {
+  font-family: var(--font-display);
+  font-weight: 620;
+  font-variation-settings: "opsz" 34;
+  letter-spacing: -0.032em;
+  line-height: 1;
+  font-size: var(--text-display-3);
 }
 
 /* The emphasis face. An <em> inside a heading is the one place this site
@@ -297,7 +438,7 @@ body {
 /* Below 480px even the display cuts are being set small; hold the optical
    size down and take the weight up so they do not go spindly. */
 @media (max-width: 480px) {
-  .display, .display-1, .display-2 {
+  .display, .display-1, .display-2, .display-3 {
     font-variation-settings: "opsz" 28;
     font-weight: 660;
     letter-spacing: -0.03em;
@@ -312,6 +453,7 @@ body {
 }
 .band--ink .lede { color: #c3b9ac; }
 .balance { text-wrap: balance; }
+.measure { max-width: var(--measure-text); }
 
 .eyebrow {
   font-family: var(--font-mono);
@@ -333,44 +475,295 @@ body {
 .eyebrow__n { font-variant-numeric: tabular-nums; color: var(--color-ember-ink); }
 .band--ink .eyebrow { color: #b3a89a; }
 
-/* ---------- surfaces ---------- */
+/* a hairline under a section head that draws itself as the head arrives */
+.rule-draw { transform-origin: left; }
+[data-inview] > .rule-draw, .rule-draw[data-inview] { animation: var(--animate-rule-draw); }
+
+/* ---------- surfaces ----------
+   A card is paper: it has a lit top edge, an interior that is not flat, and
+   a hairline that is a gradient rather than one grey line all the way round. */
 .card {
-  background: var(--color-paper);
-  border: 1px solid var(--color-rule);
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(to bottom, var(--color-paper), var(--color-sand-2));
+  border: 1px solid transparent;
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-e1), var(--inset-shadow-lip);
+  transition: transform var(--dur-1) var(--ease-standard), box-shadow var(--dur-1) var(--ease-standard);
 }
-.band--sand .card { background: var(--color-paper); }
-.band--kraft .card { background: var(--color-paper); }
-.band--ink .card { background: rgba(255,255,255,.045); border-color: rgba(255,255,255,.12); }
-.card-hover { transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease; }
-.card-hover:hover {
-  border-color: var(--color-rule-strong);
-  transform: translateY(-3px);
-  box-shadow: 0 18px 40px -24px rgba(23,18,13,.28);
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--edge-rest);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
-.band--ink .card-hover:hover { border-color: rgba(255,255,255,.3); box-shadow: none; }
+/* the hover elevation is composited: opacity on a pre-painted shadow, so a
+   card lift never repaints a blur on every frame */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: var(--shadow-e3);
+  opacity: 0;
+  transition: opacity var(--dur-1) var(--ease-standard);
+  pointer-events: none;
+  z-index: -1;
+}
+.band--sand .card, .band--kraft .card { background: linear-gradient(to bottom, var(--color-paper), var(--color-sand-2)); }
+.band--ink .card {
+  background: rgba(255,255,255,.045);
+  box-shadow: none;
+}
+.band--ink .card::before { background: linear-gradient(158deg, rgba(255,255,255,.18), rgba(255,255,255,.06) 50%, rgba(255,255,255,.13)); }
+.band--ink .card::after { box-shadow: none; }
+
+/* A card lifts when there is something in it to click. Cards that are pure
+   content do not move, because nothing invites it. */
+.card-hover:hover, .card-hover:focus-within,
+a.card:hover, a.card:focus-visible,
+.card:has(a[href]):hover, .card:has(a[href]):focus-within,
+.card:has(button):hover, .card:has(button):focus-within { transform: translateY(-3px); }
+.card-hover:hover::after, .card-hover:focus-within::after,
+a.card:hover::after, a.card:focus-visible::after,
+.card:has(a[href]):hover::after, .card:has(a[href]):focus-within::after,
+.card:has(button):hover::after, .card:has(button):focus-within::after { opacity: 1; }
+.band--ink .card-hover:hover { box-shadow: none; }
 
 .inset { background: var(--color-sand); border: 1px solid var(--color-rule); border-radius: var(--radius-lg); }
 
-.grid-bg {
-  background-image:
-    linear-gradient(to right, rgba(23,18,13,.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(23,18,13,.045) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse at center, black 25%, transparent 72%);
+/* a small raised plate behind an icon. It tilts when its card is hovered,
+   which is the one place this site is allowed a bit of physics. */
+.plate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: var(--color-sand);
+  color: var(--color-ember-ink);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 0 0 1px var(--color-rule), 0 1px 2px rgba(23,18,13,.05);
+  transition: transform var(--dur-1) var(--ease-overshoot), box-shadow var(--dur-1) var(--ease-standard), background-color var(--dur-1) var(--ease-standard);
 }
-.band--ink .grid-bg {
-  background-image:
-    linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+.plate--sm { width: 32px; height: 32px; }
+.plate--md { width: 42px; height: 42px; }
+.plate--lg { width: 54px; height: 54px; }
+.card:hover .plate {
+  transform: translateY(-3px) rotate(-3.5deg);
+  background: linear-gradient(to bottom, var(--color-ember-wash), #ffe1e3);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 0 0 1px rgba(228,18,31,.30), var(--shadow-e3-ember);
 }
+.band--ink .plate {
+  background: rgba(255,255,255,.07);
+  color: var(--color-ember-2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.10), inset 0 0 0 1px rgba(255,255,255,.14);
+}
+
+/* a row of ticks that reads as a measured quantity rather than a label */
+.spec { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: var(--text-micro); color: var(--color-dim); }
+.spec__ticks { display: flex; gap: 3px; }
+.spec__tick {
+  width: 6px; height: 10px;
+  border-radius: 1px;
+  background: var(--color-kraft-2);
+  transition: background-color var(--dur-1) var(--ease-overshoot);
+  transition-delay: calc(var(--i, 0) * 45ms);
+}
+.card:hover .spec__tick[data-on] { background: var(--color-ember); }
+
+.row-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-block: 14px;
+  transition: color var(--dur-1) var(--ease-standard);
+}
+.row-item > * { transition: transform var(--dur-1) var(--ease-standard); }
+.row-item:hover > * { transform: translateX(3px); }
+
+/* a framed product surface: chrome bar, body, optional progress reel */
+.surface {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-paper);
+  box-shadow: var(--shadow-e3), inset 0 0 0 1px var(--color-rule);
+}
+.surface--ink { background: var(--color-ink); color: #f6f2ec; box-shadow: var(--shadow-e-ink); }
+.surface__chrome {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 16px;
+  background: var(--color-surface-chrome);
+  border-bottom: 1px solid var(--color-rule);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--color-dim);
+}
+.surface--ink .surface__chrome { background: #1e1811; border-color: rgba(255,255,255,.10); color: #b3a89a; }
+.surface__reel { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: rgba(23,18,13,.08); }
+.surface--ink .surface__reel { background: rgba(255,255,255,.10); }
+.surface__reel > i { display: block; height: 100%; width: calc(var(--p, 0) * 100%); background: var(--color-ember); }
+.surface__sweep {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+  background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.55) 50%, transparent 62%);
+  animation: var(--animate-sweep);
+}
+
+/* the live dot every "running" indicator on the site uses */
+.dot-live { box-shadow: 0 0 10px var(--color-ember-dot); }
 
 .glow-ember { box-shadow: 0 0 0 1px var(--color-ember), 0 24px 60px -30px rgba(228,18,31,.6); }
-.glow-ion { box-shadow: 0 0 0 1px rgba(14,110,96,.35), 0 24px 60px -30px rgba(14,110,96,.45); }
-.band--ink .glow-ion { box-shadow: 0 0 0 1px rgba(94,234,212,.3), 0 0 70px -20px rgba(94,234,212,.35); }
 
-/* a bridge element straddles two bands so the seam reads as intentional */
-.bridge { margin-bottom: clamp(-88px, -7vw, -56px); position: relative; z-index: 2; }
+/* ---------- atmosphere ----------
+   Three primitives. A gradient typed into a className is a bug. */
+.field {
+  position: absolute;
+  inset: -80px;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgb(var(--amb-ink) / .10) 1px, transparent 0),
+    linear-gradient(to right, rgb(var(--amb-ink) / .045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--amb-ink) / .045) 1px, transparent 1px);
+  background-size: 56px 56px, 56px 56px, 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at var(--fx, 50%) var(--fy, 50%), #000 18%, transparent 74%);
+  mask-image: radial-gradient(ellipse 70% 70% at var(--fx, 50%) var(--fy, 50%), #000 18%, transparent 74%);
+}
+
+/* the pre-token grid, kept until every caller has moved to <FieldPlate/> */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgb(var(--amb-ink) / .045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--amb-ink) / .045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 25%, transparent 72%);
+  mask-image: radial-gradient(ellipse at center, black 25%, transparent 72%);
+}
+
+.bloom {
+  position: absolute;
+  pointer-events: none;
+  filter: blur(var(--blur-bloom, 64px));
+  mix-blend-mode: multiply;
+  opacity: var(--bloom-a, .9);
+  background: radial-gradient(circle, rgb(var(--bloom-hue) / .14), transparent 68%);
+}
+.band--ink .bloom { mix-blend-mode: screen; }
+@media (max-width: 767px) { .bloom { --blur-bloom: 40px; } }
+
+/* film grain, only where a scene needs a surface to sit on */
+.hero-grain { position: relative; }
+.hero-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* one specular pass across a band 250ms after it arrives, then never again */
+.sheen { position: relative; overflow: hidden; }
+.sheen__pass {
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
+}
+.sheen[data-inview] .sheen__pass { opacity: 1; animation: var(--animate-sheen); animation-delay: 250ms; }
+
+/* ---------- heroes ----------
+   A hero is a scene with copy sitting on it, not a two-column grid with a
+   drawing dropped in the right-hand cell. */
+.hero {
+  position: relative;
+  display: grid;
+  align-content: end;
+  min-height: var(--hero-h-sm);
+  padding-top: var(--nav-h);
+  overflow: clip;
+}
+.hero[data-size="md"] { min-height: var(--hero-h-md); }
+.hero[data-size="lg"] { min-height: var(--hero-h-lg); }
+.hero > .container-x { position: relative; z-index: var(--z-band-content); padding-bottom: clamp(28px, 4vw, 56px); }
+.hero__grid { display: grid; gap: 2rem; align-items: end; }
+@media (min-width: 1024px) { .hero__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 3.5rem; } }
+.hero__scene {
+  position: absolute;
+  inset: 0 0 0 var(--scene-left);
+  z-index: var(--z-scene);
+  pointer-events: none;
+}
+@media (max-width: 1023px) { .hero__scene { inset: 0; opacity: .45; } }
+
+/* feathered on two axes, so a scene ends rather than being cut off */
+.scene-mask {
+  -webkit-mask-image:
+    linear-gradient(100deg, transparent 0%, #000 26%, #000 82%, transparent 100%),
+    linear-gradient(to bottom, transparent, #000 14%, #000 82%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(100deg, transparent 0%, #000 26%, #000 82%, transparent 100%),
+    linear-gradient(to bottom, transparent, #000 14%, #000 82%, transparent);
+  mask-composite: intersect;
+}
+@supports not (mask-composite: intersect) {
+  .scene-mask { mask-image: linear-gradient(100deg, transparent 0%, #000 26%, #000 84%, transparent 100%); }
+}
+
+/* the figures under a hero: computed from content, never typed */
+.readout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  margin-top: clamp(28px, 4vw, 52px);
+  background: var(--color-rule);
+  border-block: 1px solid var(--color-rule);
+}
+@media (min-width: 768px) { .readout { grid-template-columns: repeat(4, 1fr); } }
+.readout__cell { background: var(--band, var(--color-paper)); padding: 14px 18px 16px; }
+.readout__k { font-family: var(--font-mono); font-size: var(--text-micro); letter-spacing: .14em; text-transform: uppercase; color: var(--color-dim); }
+.readout__v {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 24;
+  font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+  font-variant-numeric: tabular-nums slashed-zero;
+  margin-top: 6px;
+}
+.band--ink .readout { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.12); }
+
+/* a line of type that rises out of its own box */
+.mask-line { display: block; overflow: hidden; padding-block: 0.14em; margin-block: -0.14em; }
+
+/* an accent that travels between tabs instead of fading out and in */
+.rail-track { position: relative; }
+.rail-head {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  background: var(--color-ember);
+  border-radius: 2px;
+  will-change: transform, width;
+  pointer-events: none;
+  transition:
+    transform var(--dur-1) var(--ease-standard),
+    width var(--dur-1) var(--ease-standard),
+    height var(--dur-1) var(--ease-standard),
+    opacity var(--dur-1) var(--ease-standard);
+}
+.rail-head[data-orientation="vertical"] { top: 0; bottom: auto; left: 0; width: 2px; height: auto; }
 
 /* ---------- placeholder flagging ---------- */
 [data-placeholder] {
@@ -382,16 +775,33 @@ body {
 }
 body.ph-hidden [data-placeholder] { text-decoration: none; cursor: inherit; }
 
-/* ---------- reveal ---------- */
+/* ---------- reveal ----------
+   Two contracts live here. `.reveal` is the CSS-only one still used across
+   the site; `[data-reveal]` is what JS-driven entrances mark themselves
+   with. Both must be visible when JS never runs and when the page prints,
+   or a crawler and a printout see an empty document. */
 .js .reveal {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity .7s cubic-bezier(.22,.7,.24,1), transform .7s cubic-bezier(.22,.7,.24,1);
+  transform: translateY(var(--rise-2));
+  transition: opacity var(--dur-3) var(--ease-entrance), transform var(--dur-3) var(--ease-entrance);
   transition-delay: var(--d, 0ms);
 }
 .js .reveal.in { opacity: 1; transform: none; }
+/* a line of type rising out of its own box — no fade, the mask does the work */
+.js .reveal[data-variant="line"] {
+  opacity: 1;
+  transform: translateY(105%);
+  transition: transform var(--dur-3) var(--ease-crisp);
+  transition-delay: var(--d, 0ms);
+}
+.js .reveal[data-variant="line"].in { transform: none; }
+html:not(.js) [data-reveal] { opacity: 1 !important; transform: none !important; }
+@media print {
+  [data-reveal], .reveal { opacity: 1 !important; transform: none !important; }
+}
 @media (prefers-reduced-motion: reduce) {
   .js .reveal { opacity: 1; transform: none; transition: none; }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
   /* Stop animations outright rather than running them at .001ms — a 52s marquee
      at .001ms is still a running animation, it is just illegible. Interaction
      transitions (colour, shadow) are left alone; they are not the complaint. */
@@ -400,7 +810,7 @@ body.ph-hidden [data-placeholder] { text-decoration: none; cursor: inherit; }
 }
 
 /* ---------- misc ---------- */
-.link-u { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--color-rule-strong); transition: text-decoration-color .2s; }
+.link-u { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--color-rule-strong); transition: text-decoration-color var(--dur-1) var(--ease-standard); }
 .link-u:hover { text-decoration-color: currentColor; }
 .hairline { height: 1px; background: var(--color-rule); }
 .band--ink .hairline { background: rgba(255,255,255,.14); }
@@ -408,6 +818,7 @@ body.ph-hidden [data-placeholder] { text-decoration: none; cursor: inherit; }
 .scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
 .tnum { font-variant-numeric: tabular-nums; }
+.datum { font-variant-numeric: tabular-nums slashed-zero; font-family: var(--font-display); }
 
 /* mobile: turn tight grids into swipeable rails */
 .rail {
@@ -430,10 +841,10 @@ body.ph-hidden [data-placeholder] { text-decoration: none; cursor: inherit; }
 }
 
 /* grid children must shrink so <pre> scrolls instead of widening the page */
-[class*="col-span"], .card, .inset { min-width: 0; }
+[class*="col-span"], .card, .inset, .surface { min-width: 0; }
 
 /* ---------- prose ---------- */
-.prose-ls { font-size: 1.075rem; line-height: 1.72; color: #4a423a; max-width: 68ch; }
+.prose-ls { font-size: 1.075rem; line-height: 1.72; color: var(--color-fg-soft); max-width: 68ch; }
 .prose-ls > * + * { margin-top: 1.3em; }
 .prose-ls h2 {
   font-family: var(--font-display); font-size: 1.65rem; line-height: 1.15;
@@ -452,7 +863,6 @@ body.ph-hidden [data-placeholder] { text-decoration: none; cursor: inherit; }
   color: var(--color-fg);
 }
 
-
 /* ============================================================
    Hero art — one animated diagram per page, drawn from the
    subject of that page rather than applied as decoration.
@@ -461,7 +871,7 @@ body.ph-hidden [data-placeholder] { text-decoration: none; cursor: inherit; }
 .ha [data-draw] {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: ha-draw var(--dur) cubic-bezier(.3,.7,.3,1) forwards;
+  animation: ha-draw var(--dur) var(--ease-crisp) forwards;
   animation-delay: var(--d, 0s);
 }
 .ha [data-flow] {
@@ -472,14 +882,14 @@ body.ph-hidden [data-placeholder] { text-decoration: none; cursor: inherit; }
   opacity: 0;
   transform-box: fill-box;
   transform-origin: center;
-  animation: ha-pop .6s cubic-bezier(.2,1.3,.4,1) forwards;
+  animation: ha-pop .6s var(--ease-overshoot) forwards;
   animation-delay: var(--d, 0s);
 }
 .ha [data-rise] {
   transform-box: fill-box;
   transform-origin: bottom;
   transform: scaleY(0);
-  animation: ha-rise .9s cubic-bezier(.25,.9,.3,1) forwards;
+  animation: ha-rise .9s var(--ease-entrance) forwards;
   animation-delay: var(--d, 0s);
 }
 .ha [data-breathe] { animation: ha-breathe 2.8s ease-in-out infinite; animation-delay: var(--d, 0s); }
@@ -493,7 +903,6 @@ body.ph-hidden [data-placeholder] { text-decoration: none; cursor: inherit; }
   .ha [data-flow], .ha [data-breathe], .ha [data-drift], .ha__sweep { animation: none; }
 }
 
-
 /* ---------- brand ---------- */
 /* the logo's own colours, carried through as a signature rule */
 .brand-rule {
@@ -506,7 +915,6 @@ body.ph-hidden [data-placeholder] { text-decoration: none; cursor: inherit; }
     var(--color-brand-blue-2) 100%);
 }
 .brand-wordmark { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.035em; }
-
 
 /* the moving stripe inside a live pipeline bar */
 .pipe-flow {
