@@ -1,4 +1,4 @@
-import { Section } from "@/components/ui/Section";
+import { Section, SectionHead } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { PageHero } from "@/components/site/PageHero";
 import { IndexScene } from "@/components/visual/IndexScene";
@@ -17,7 +17,6 @@ export default function WorkPage() {
         art="work"
         title={<>Programmes that produced <em>meetings.</em></>}
         lede="Client names are withheld by default; most of our work is under NDA. Every number is traced to a client review or a signed-off study before it ships."
-        aside={<MeetingsBoard />}
         scene={<IndexScene mode="ledger" rows={caseStudies.flatMap((c) => c.stats).map((s) => ({ label: s.label, value: s.value }))} />}
         readout={[
           { k: "Case studies", v: caseStudies.length },
@@ -26,7 +25,22 @@ export default function WorkPage() {
           { k: "Numbers signed off", v: "every one" },
         ]}
       />
-      <Section className="hero-next"><WorkIndex items={caseStudies} /></Section>
+      {/* The board wants room: a five-day grid in a four-column aside breaks
+          company names one letter per line. It gets its own band, paired with
+          the sentence it illustrates. */}
+      <Section band="sand" pad="tight" n="01" label="What lands">
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="lg:col-span-5">
+            <SectionHead
+              title={<>The output is a <em>calendar,</em> not a report.</>}
+              lede="Every programme below is judged on meetings held, not on activity delivered. This is the shape of a week in one of them."
+            />
+          </div>
+          <Reveal delay={90} className="lg:col-span-7"><MeetingsBoard /></Reveal>
+        </div>
+      </Section>
+
+      <Section n="02" label="Case studies"><WorkIndex items={caseStudies} /></Section>
       <CTABand title={<>Your programme could be <em className="serif-em text-ember">next.</em></>} primary={{ label: "Book a strategy call", href: "/book" }} secondary={{ label: "See the practices", href: "/practices" }} />
     </>
   );
