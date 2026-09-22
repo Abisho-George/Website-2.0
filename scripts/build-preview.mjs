@@ -33,7 +33,6 @@ body { background: #ffffff; color: #17120d; }
 .preview-badge { position: fixed; right: 14px; bottom: 14px; z-index: 70; font: 500 11px/1 "Geist Mono", ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: #6e645a; background: rgba(255,255,255,.94); border: 1px solid #e9e2d6; border-radius: 999px; padding: 8px 12px; box-shadow: 0 8px 24px -14px rgba(23,18,13,.45); }
 .preview-badge b { color: #c10d18; font-weight: 600; }
 </style>
-<div class="spine" aria-hidden><div class="spine__fill" data-spine-fill style="height:0%"></div></div>
 <div id="app"></div>
 <div class="preview-badge">Preview · <b>${pages.length - 1} pages</b> · forms simulated</div>
 ${pages.map(([r, b]) => `<template data-route="${r}">${clean(b)}</template>`).join("\n")}

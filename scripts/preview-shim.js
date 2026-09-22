@@ -29,6 +29,18 @@
 
   function cls(el, remove, add) { remove.forEach(function (c) { el.classList.remove(c); }); add.forEach(function (c) { el.classList.add(c); }); }
 
+  /* which nav rail item the current hash route belongs to — mirrors Nav.tsx */
+  function railRoute(track) {
+    if (!track.closest("[data-nav]")) return null;
+    var p = routeFromHash();
+    var starts = function (x) { return p === x || p.indexOf(x + "/") === 0; };
+    if (p === "/") return "home";
+    if (starts("/services") || starts("/practices")) return "services";
+    if (starts("/insights") || starts("/resources") || starts("/work") || starts("/faq") || starts("/pricing")) return "resources";
+    if (starts("/about")) return "about";
+    return null;
+  }
+
   function wire() {
     /* internal links → hash routes; in-page anchors → smooth scroll */
     app.querySelectorAll("a[href]").forEach(function (a) {
@@ -44,7 +56,7 @@
     var nav = app.querySelector("[data-nav]");
     var onScroll = function () {
       if (!nav) return;
-      nav.classList.toggle("shadow-[0_10px_30px_-18px_rgba(23,18,13,.65)]", window.scrollY > 20);
+      nav.classList.toggle("shadow-e2", window.scrollY > 20);
     };
     window.onscroll = onScroll; onScroll();
 
@@ -160,9 +172,9 @@
       o.observe(el);
     });
 
-    /* filters (work + insights) */
-    var pillOn = ["border-fg", "bg-fg", "text-paper"], pillOff = ["border-rule", "text-muted"];
-    var sideOn = ["bg-sand", "text-fg"], sideOff = ["text-muted"];
+    /* filters (work + insights) — segmented controls with a travelling thumb */
+    var pillOn = ["text-paper"], pillOff = ["text-muted", "hover:text-fg"];
+    var sideOn = ["bg-sand", "text-fg", "shadow-[inset_0_0_0_1px_var(--color-rule)]"], sideOff = ["text-muted", "hover:bg-sand/60", "hover:text-fg"];
     var active = { practice: "All", vertical: "All", cluster: "all" };
     var applyFilters = function () {
       app.querySelectorAll("[data-item]").forEach(function (it) {
@@ -178,8 +190,11 @@
         var kind = b.getAttribute("data-filter"), val = b.getAttribute("data-value"); active[kind] = val;
         app.querySelectorAll('[data-filter="' + kind + '"]').forEach(function (o) {
           var on = o.getAttribute("data-value") === val;
+          o.setAttribute("aria-pressed", on ? "true" : "false");
           if (kind === "cluster") cls(o, on ? sideOff : sideOn, on ? sideOn : sideOff); else cls(o, on ? pillOff : pillOn, on ? pillOn : pillOff);
         });
+        var track = b.closest(".rail-track");
+        if (track) rails.forEach(function (r) { if (r.track === track) { r.current = val; r.place(val); } });
         applyFilters();
       });
     });
@@ -319,23 +334,86 @@
       if (reduced) LINES.forEach(line); else timers.push(setTimeout(tick, 700));
     }
 
-    /* spine progress + section markers */
-    var fill = document.querySelector("[data-spine-fill]");
-    var markers = [].slice.call(app.querySelectorAll(".marker"));
-    var onSpine = function () {
-      if (fill) {
-        var max = document.documentElement.scrollHeight - window.innerHeight;
-        fill.style.height = (max > 0 ? Math.min(1, window.scrollY / max) * 100 : 0) + "%";
-      }
-      markers.forEach(function (m) {
-        var sec = m.parentElement.getBoundingClientRect();
-        var mid = window.innerHeight / 2;
-        m.classList.toggle("marker--on", sec.top < mid && sec.bottom > mid);
+    /* spine progress + section markers — mirrors Spine.tsx, whose markers are
+       built in an effect and so are absent from the server-rendered body */
+    var spine = app.querySelector(".spine");
+    var fill = spine && spine.querySelector("[data-spine-fill]");
+    var marks = [];
+    if (spine) {
+      [].slice.call(spine.querySelectorAll(".marker")).forEach(function (m) { m.remove(); });
+      app.querySelectorAll("[data-section-n]").forEach(function (sec) {
+        var m = document.createElement("div");
+        m.className = "marker";
+        m.setAttribute("data-spine-marker", "");
+        var dot = document.createElement("span"); dot.className = "marker__dot";
+        var n = document.createElement("span"); n.className = "marker__n";
+        n.textContent = sec.getAttribute("data-section-n") || "";
+        if (sec.getAttribute("data-section-label")) n.title = sec.getAttribute("data-section-label");
+        m.appendChild(dot); m.appendChild(n);
+        spine.appendChild(m);
+        marks.push({ el: m, sec: sec });
+      });
+    }
+    var measured = [];
+    var measureSpine = function () {
+      var y = window.scrollY;
+      measured = marks.map(function (m) {
+        var r = m.sec.getBoundingClientRect();
+        return { el: m.el, top: r.top + y, bottom: r.bottom + y };
       });
     };
+    var onSpine = function () {
+      var y = window.scrollY;
+      if (fill) {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        fill.style.height = "100%";
+        fill.style.transform = "scaleY(" + (max > 0 ? Math.min(1, y / max) : 0) + ")";
+      }
+      var mid = y + window.innerHeight * 0.4;
+      measured.forEach(function (m) {
+        m.el.style.top = (m.top - y) + "px";
+        m.el.classList.toggle("marker--on", mid >= m.top && mid < m.bottom);
+      });
+    };
+    measureSpine();
+
+    /* rail indicators — mirrors RailIndicator.tsx */
+    var rails = [];
+    app.querySelectorAll(".rail-track").forEach(function (track) {
+      var head = track.querySelector(".rail-head");
+      if (!head) return;
+      var place = function (key) {
+        var el = key ? track.querySelector('[data-rail-item="' + key.replace(/"/g, '\\"') + '"]') : null;
+        if (!el) { head.style.opacity = "0"; return; }
+        var t = track.getBoundingClientRect(), r = el.getBoundingClientRect();
+        head.style.opacity = "1";
+        if (head.hasAttribute("data-fill")) {
+          head.style.transform = "translate(" + (r.left - t.left) + "px," + (r.top - t.top) + "px)";
+          head.style.width = r.width + "px";
+          head.style.height = r.height + "px";
+        } else if (head.getAttribute("data-orientation") === "vertical") {
+          head.style.transform = "translateY(" + (r.top - t.top) + "px)";
+          head.style.height = r.height + "px";
+        } else {
+          head.style.transform = "translateX(" + (r.left - t.left) + "px)";
+          head.style.width = r.width + "px";
+        }
+      };
+      // the active item is whichever one the server rendered as pressed, or the
+      // one matching the route the nav marked
+      var pressed = track.querySelector('[data-rail-item][aria-pressed="true"]');
+      var current = pressed ? pressed.getAttribute("data-rail-item") : railRoute(track);
+      head.style.transition = "none"; place(current); void head.offsetWidth; head.style.transition = "";
+      rails.push({ track: track, place: place, current: current });
+    });
+    window.addEventListener("resize", function () { measureSpine(); onSpine(); rails.forEach(function (r) { r.place(r.current); }); });
+
     var prevScroll = window.onscroll;
     window.onscroll = function () { if (prevScroll) prevScroll(); onSpine(); };
     onSpine();
+    // one late pass: fonts land and reveals fire after first paint, so the
+    // section offsets measured above move
+    setTimeout(function () { measureSpine(); onSpine(); rails.forEach(function (r) { r.place(r.current); }); }, 700);
 
     /* signal field */
     var canvas = app.querySelector("[data-signal-field]");
