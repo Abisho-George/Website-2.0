@@ -38,9 +38,9 @@ export function WorkIndex({ items }: { items: CaseStudy[] }) {
     <div className="flex flex-wrap items-center gap-2">
       <span className="mr-1 font-mono text-micro uppercase tracking-[0.15em] text-muted">{legend}</span>
       <div className="rail-track flex flex-wrap items-center gap-1 rounded-full border border-rule p-1" role="group" aria-label={legend}>
-        {/* the thumb fills the track's inner box rather than sitting on its
-            baseline, which is what turns a rail into a segmented control */}
-        <RailIndicator active={current} className="!top-1 !bottom-1 !h-auto !rounded-full !bg-ink" />
+        {/* a thumb, not a baseline rail — and it tracks both axes, because
+            these groups wrap onto a second row at most widths */}
+        <RailIndicator active={current} fill className="!bg-ink" />
         {values.map((v) => (
           <button
             key={v}

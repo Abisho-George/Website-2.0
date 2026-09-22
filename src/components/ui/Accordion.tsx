@@ -16,14 +16,17 @@ export function Accordion({ items, tone = "ember" }: { items: FAQ[]; tone?: "emb
             <button
               onClick={() => setOpen(isOpen ? null : i)}
               aria-expanded={isOpen}
-              className="flex w-full items-start justify-between gap-6 py-5 text-left transition-colors hover:text-ember-ink md:py-6"
+              className="flex w-full items-start justify-between gap-6 py-5 text-left transition-colors duration-[var(--dur-1)] ease-standard hover:text-ember-ink md:py-6"
             >
-              <span className="font-display text-[1.05rem] font-medium tracking-[-0.02em] md:text-[1.2rem]">{it.q}</span>
-              <Plus data-accordion-icon className={cn("mt-0.5 size-5 shrink-0 transition-transform duration-300", isOpen && "rotate-45", tone === "ion" ? "text-ion" : "text-ember")} />
+              <span className="h4">{it.q}</span>
+              <Plus data-accordion-icon // the overshoot curve, so the one thing the reader clicked answers physically
+                className={cn("mt-0.5 size-5 shrink-0 transition-transform duration-[var(--dur-1)] ease-overshoot", isOpen && "rotate-45", tone === "ion" ? "text-ok" : "text-ember")} />
             </button>
-            <div data-accordion-body className={cn("grid transition-[grid-template-rows] duration-300 ease-out", isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
+            <div data-accordion-body // 0fr -> 1fr is the layout-cheap way to animate an unknown height; do not
+              // replace it with an explicit height, which measures the child every frame
+              className={cn("grid transition-[grid-template-rows] duration-[var(--dur-1)] ease-standard", isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
               <div className="overflow-hidden">
-                <p className="max-w-2xl pb-6 leading-relaxed text-muted"><Copy text={it.a} /></p>
+                <p className="max-w-2xl pb-6 leading-relaxed text-fg-soft"><Copy text={it.a} /></p>
               </div>
             </div>
           </div>

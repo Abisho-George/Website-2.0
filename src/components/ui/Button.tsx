@@ -11,11 +11,14 @@ type Props = {
 };
 
 const base =
-  "group inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight whitespace-nowrap transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-offset-2 disabled:opacity-50";
+  // transition-all on a focus-ring-bearing element animates the ring too, which
+// blurs the one affordance a keyboard user has. Named properties only.
+"group inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight whitespace-nowrap transition-[background-color,box-shadow,transform,border-color,color] duration-[var(--dur-1)] ease-standard active:scale-[0.975] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-offset-2 disabled:opacity-50";
 const sizes = { sm: "h-9 px-4 text-[0.85rem]", md: "h-11 px-5 text-[0.94rem]", lg: "h-[52px] px-7 text-[1rem]" };
 const variants = {
-  primary: "bg-ember text-white hover:bg-ember-ink hover:shadow-[0_14px_34px_-16px_rgba(228,18,31,.9)]",
-  ion: "bg-ion text-white hover:bg-ion-deep hover:shadow-[0_14px_34px_-16px_rgba(14,110,96,.9)]",
+  primary: "bg-ember text-white hover:bg-ember-ink hover:shadow-e3-ember",
+  // the Twin accent: ink, not teal. The teal was never in the logo.
+  ion: "bg-ink text-paper hover:bg-ink-3 focus-visible:ring-ember",
   ghost: "text-fg hover:bg-sand",
   outline: "border border-rule-strong text-fg hover:border-fg hover:bg-sand",
   paper: "bg-ink text-paper hover:bg-ink-3",
@@ -26,7 +29,7 @@ export function Button({ href, children, variant = "primary", size = "md", exter
   const inner = (
     <>
       <span>{children}</span>
-      {arrow && <Icon className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={2.2} />}
+      {arrow && <Icon className="size-4 transition-transform duration-[var(--dur-1)] ease-standard group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={2.2} />}
     </>
   );
   const cls = cn(base, sizes[size], variants[variant], className);

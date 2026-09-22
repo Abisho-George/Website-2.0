@@ -223,8 +223,12 @@
   --edge-ember: linear-gradient(158deg, rgba(228,18,31,.34), rgba(228,18,31,.10) 55%, rgba(228,18,31,.24));
   --color-ember-wash-lg: rgba(228,18,31,.13);   /* the one ambient red wash */
   --color-ember-dot: rgba(228,18,31,.55);       /* every "live" indicator halo */
-  --amb-ink: 23 18 13;                          /* ambient marks on light ground */
-  --bloom-hue: 228 18 31;
+  /* Bare channels, because rgb(… / a) needs them and a hex cannot be used
+     with an alpha this way. Every ambient mark tints from one of these. */
+  --hue-ember: 228 18 31;
+  --hue-blue: 36 56 200;    /* --color-brand-blue */
+  --amb-ink: 23 18 13;      /* ambient marks on light ground; white on ink */
+  --bloom-hue: var(--hue-ember);
   --plate-fade: 72px;
 }
 @media (min-width: 768px) { :root { --gutter: 40px; } }
@@ -461,6 +465,12 @@ body {
 .band--ink .lede { color: #c3b9ac; }
 .balance { text-wrap: balance; }
 .measure { max-width: var(--measure-text); }
+/* a pull quote set in the emphasis face rather than the display face */
+.serif-quote {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
 
 .eyebrow {
   font-family: var(--font-mono);
@@ -689,7 +699,10 @@ a.card:hover::after, a.card:focus-visible::after,
   opacity: 0;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
 }
-.sheen[data-inview] .sheen__pass { opacity: 1; animation: var(--animate-sheen); animation-delay: 250ms; }
+/* driven either by an explicit data-inview, or simply by being inside a
+   Reveal that has arrived — which is how every band already knows */
+.sheen[data-inview] .sheen__pass,
+.reveal.in .sheen__pass { opacity: 1; animation: var(--animate-sheen); animation-delay: 250ms; }
 
 /* ---------- heroes ----------
    A hero is a scene with copy sitting on it, not a two-column grid with a
@@ -771,6 +784,9 @@ a.card:hover::after, a.card:focus-visible::after,
     opacity var(--dur-1) var(--ease-standard);
 }
 .rail-head[data-orientation="vertical"] { top: 0; bottom: auto; left: 0; width: 2px; height: auto; }
+/* the thumb shape: anchored top-left and sized to the active item's box, so a
+   control that wraps onto a second row still gets a thumb one row tall */
+.rail-head[data-fill] { top: 0; bottom: auto; left: 0; height: auto; border-radius: 999px; }
 
 /* ---------- placeholder flagging ---------- */
 [data-placeholder] {
