@@ -7,6 +7,8 @@ import type { Cluster, Insight } from "@/content/types";
 import { StaggerItem } from "@/components/motion/Stagger";
 import { RailIndicator } from "@/components/motion/RailIndicator";
 import { stagger } from "@/lib/motion";
+import { IconPlate } from "@/components/ui/IconPlate";
+import { clusterIconFor } from "@/components/icons/registry";
 
 export function InsightsIndex({ items, clusters }: { items: Insight[]; clusters: Cluster[] }) {
   const [active, setActive] = useState("all");
@@ -47,10 +49,13 @@ export function InsightsIndex({ items, clusters }: { items: Insight[]; clusters:
                 data-rail-item={c.slug}
                 aria-pressed={active === c.slug}
                 onClick={() => setActive(c.slug)}
-                className={topic(c.slug, active === c.slug)}
+                className={cn(topic(c.slug, active === c.slug), "flex items-center gap-2.5")}
               >
-                {c.name}
-                <span className="ml-2 font-mono text-[0.68rem] text-dim">{items.filter((i) => i.cluster === c.slug).length}</span>
+                {/* the cluster mark, so four topic names are distinguishable
+                    while scanning rather than only while reading */}
+                <IconPlate icon={clusterIconFor(c.slug)} presentation="bare" size="sm" />
+                <span className="min-w-0 flex-1 truncate text-left">{c.name}</span>
+                <span className="font-mono text-[0.68rem] text-dim">{items.filter((i) => i.cluster === c.slug).length}</span>
               </button>
             </li>
           ))}

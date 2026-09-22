@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+import { Shapes, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -7,6 +7,9 @@ import { cn } from "@/lib/utils";
  * Three presentations, one geometry: the glyph is drawn at the same size and
  * the same stroke in all three, so a plate in a card and a bare mark beside a
  * line of label type read as the same family rather than as two icon sets.
+ * Note `className` cannot resize a plate — `.plate--*` is unlayered CSS and
+ * outranks a utility — so size comes from `size`, and className is for
+ * position only.
  *
  *   plate  the raised sand plate from globals.css — the card and list-row mark
  *   ring   a hairline circle, for marks on an already-busy surface
@@ -21,9 +24,10 @@ import { cn } from "@/lib/utils";
  * No tokens were added to globals.css for this component.
  */
 
-/** One stroke for every icon on the site. Heavier than lucide's default so a
- *  20px glyph holds up next to Bricolage at 620 weight. */
-const STROKE = 1.75;
+/** The stroke for every icon mounted through this component. Heavier than
+ *  lucide's default so a 20px glyph holds up next to Bricolage at 620 weight.
+ *  Exported so the handful of direct lucide call sites can match it. */
+export const ICON_STROKE = 1.75;
 
 /** `.plate--*` carries only width/height, so the ring borrows it for its box
  *  and the two presentations cannot drift apart. */
@@ -31,18 +35,22 @@ const box = { sm: "plate--sm", md: "plate--md", lg: "plate--lg" } as const;
 const glyph = { sm: "size-4", md: "size-5", lg: "size-6" } as const;
 
 export function IconPlate({
-  icon: Icon,
+  icon,
   presentation = "plate",
   size = "md",
   className,
   label,
+  ...rest
 }: {
-  icon: LucideIcon;
+  /** Undefined is allowed: a content entry can outrun its mark, and a missing
+   *  glyph should cost a neutral placeholder rather than the whole page. */
+  icon: LucideIcon | undefined;
   presentation?: "plate" | "bare" | "ring";
   size?: "sm" | "md" | "lg";
   className?: string;
   label?: string;
-}) {
+} & Omit<React.HTMLAttributes<HTMLSpanElement>, "className">) {
+  const Icon = icon ?? Shapes;
   const shell =
     presentation === "plate"
       ? cn("plate", box[size])
@@ -55,8 +63,8 @@ export function IconPlate({
   const a11y = label ? { role: "img", "aria-label": label } : { "aria-hidden": true };
 
   return (
-    <span className={cn(shell, "shrink-0", className)} {...a11y}>
-      <Icon className={glyph[size]} strokeWidth={STROKE} aria-hidden />
+    <span className={cn(shell, "shrink-0", className)} {...a11y} {...rest}>
+      <Icon className={glyph[size]} strokeWidth={ICON_STROKE} aria-hidden />
     </span>
   );
 }

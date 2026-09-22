@@ -117,10 +117,23 @@ export const clusterIcon: Record<string, LucideIcon> = {
 };
 
 /**
- * Service mark for a slug. Never undefined: a card rendered for a service
- * added to content before it was given a mark still gets a plate, and the
+ * Total accessors for every map.
+ *
+ * tsconfig does not set noUncheckedIndexedAccess, so `practiceIcon[slug]` types
+ * as LucideIcon even when the key is absent — which means a practice or cluster
+ * added to content before it is given a mark compiles cleanly and then crashes
+ * at render. Go through these instead of indexing the records directly. The
  * neutral fallback reads as "unclassified" rather than as the wrong mechanism.
  */
 export function iconFor(slug: string): LucideIcon {
   return serviceIcon[slug] ?? Shapes;
+}
+export function practiceIconFor(slug: string): LucideIcon {
+  return practiceIcon[slug] ?? Shapes;
+}
+export function clusterIconFor(slug: string): LucideIcon {
+  return clusterIcon[slug] ?? Shapes;
+}
+export function resourceIconFor(kind: string): LucideIcon {
+  return (resourceIcon as Record<string, LucideIcon>)[kind] ?? Shapes;
 }

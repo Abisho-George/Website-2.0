@@ -10,7 +10,7 @@ import { HeroFrame } from "@/components/site/HeroFrame";
 import { ServiceGrid } from "@/components/site/ServiceGrid";
 import { IndexScene } from "@/components/visual/IndexScene";
 import { PracticeGlyph } from "@/components/visual/PracticeGlyph";
-import { practiceIcon } from "@/components/icons/registry";
+import { practiceIconFor } from "@/components/icons/registry";
 import { practices } from "@/content/practices";
 import { services, servicesFor } from "@/content/services";
 import { buildMetadata } from "@/lib/seo";
@@ -62,7 +62,7 @@ export default function ServicesHub() {
             <Reveal className="relative flex flex-wrap items-end justify-between gap-x-8 gap-y-5 pb-6">
               <div className="flex min-w-0 items-center gap-5">
                 <span className="display-2 leading-none text-kraft-2" aria-hidden>{p.index}</span>
-                <IconPlate icon={practiceIcon[p.slug]} size="lg" />
+                <IconPlate icon={practiceIconFor(p.slug)} size="lg" />
                 <div className="min-w-0">
                   <h2 className="h2">{p.name}</h2>
                   <p className="mt-1.5 text-muted">{p.tagline}</p>

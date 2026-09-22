@@ -9,7 +9,7 @@ import { Accordion } from "@/components/ui/Accordion";
 import { IconPlate } from "@/components/ui/IconPlate";
 import { Bloom, FieldPlate } from "@/components/ui/Atmos";
 import { StaggerItem } from "@/components/motion/Stagger";
-import { practiceIcon } from "@/components/icons/registry";
+import { practiceIconFor } from "@/components/icons/registry";
 import { PracticeGlyph } from "@/components/visual/PracticeGlyph";
 import type { CaseStudy, FAQ, Practice } from "@/content/types";
 import { proof } from "@/content/site";
@@ -22,7 +22,7 @@ export function PracticeCard({ p, i }: { p: Practice; i: number }) {
             corner, which is a smudge. At watermark scale it is a drawing. */}
         <PracticeGlyph slug={p.slug} className="pointer-events-none absolute -right-6 -top-4 h-40 w-56 opacity-[0.08] transition-opacity duration-[var(--dur-2)] group-hover:opacity-[0.14]" />
         <div className="relative flex items-center justify-between gap-4">
-          <IconPlate icon={practiceIcon[p.slug]} presentation="plate" size="lg" />
+          <IconPlate icon={practiceIconFor(p.slug)} presentation="plate" size="lg" />
           <span className="font-mono text-micro tracking-[0.16em] text-faint">{p.index}</span>
         </div>
         <h3 className="h3 relative mt-7">{p.name}</h3>

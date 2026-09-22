@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Lock } from "lucide-react";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
+import { IconPlate } from "@/components/ui/IconPlate";
+import { resourceIconFor } from "@/components/icons/registry";
 import { Button } from "@/components/ui/Button";
 import { Copy } from "@/components/ui/Copy";
 import { CTABand } from "@/components/site/Blocks";
@@ -31,17 +33,19 @@ export default function ResourcesPage() {
           {resources.map((r, i) => {
             const inner = (
               <>
-                <div className="flex items-center justify-between gap-3">
-                  <span className="rounded-full border border-rule bg-sand px-2.5 py-1 font-mono text-[0.64rem] uppercase tracking-[0.13em] text-muted">{r.kind}</span>
-                  {r.gated
-                    ? <Lock className="size-3.5 text-dim" aria-label="Requires an email" />
-                    : <ArrowUpRight className="size-4 text-dim transition-colors group-hover:text-ember-ink" />}
+                <div className="flex items-start justify-between gap-3">
+                  <IconPlate icon={resourceIconFor(r.kind)} size="lg" />
+                  <ArrowUpRight className="size-4 text-dim transition-colors duration-[var(--dur-1)] group-hover:text-ember-ink" />
                 </div>
-                <h2 className="mt-6 font-display text-[1.2rem] font-semibold leading-snug tracking-tight"><Copy text={r.title} /></h2>
+                <p className="mt-5 font-mono text-micro uppercase tracking-[0.15em] text-dim">{r.kind}</p>
+                <h2 className="h4 mt-1.5"><Copy text={r.title} /></h2>
                 <p className="mt-2.5 text-[0.9rem] leading-relaxed text-muted">{r.blurb}</p>
                 <p className="mt-3 text-[0.82rem] leading-relaxed text-dim"><Copy text={r.detail} /></p>
-                <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-medium text-ember-ink">
-                  {r.cta} <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-medium text-ember-ink">
+                  {r.cta} <ArrowRight className="size-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-0.5" />
+                  {/* the lock belongs beside the call to action it qualifies,
+                      not orphaned in the opposite corner of the card */}
+                  {r.gated && <Lock className="size-3.5 text-dim" aria-label="Requires a work email" />}
                 </span>
               </>
             );
