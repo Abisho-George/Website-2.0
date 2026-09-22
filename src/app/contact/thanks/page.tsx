@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { Bloom, FieldPlate } from "@/components/ui/Atmos";
 import { enquiryLabel } from "@/lib/enquiry";
 import { buildMetadata } from "@/lib/seo";
 import { insightsByDate } from "@/content/insights";
@@ -11,7 +12,7 @@ export default async function ThanksPage({ searchParams }: { searchParams: Promi
   const isTwin = type === "gtm-ai-twin";
   return (
     <section className="relative flex min-h-[85vh] items-center pt-[var(--nav-h)]">
-      <div className="grid-bg pointer-events-none absolute inset-0" />
+      <FieldPlate />
       <div className="container-x relative py-20">
         <p className={`eyebrow mb-6 ${isTwin ? "text-ember-ink" : "text-ember"}`}>Received · {enquiryLabel(type ?? "")}</p>
         <h1 className="display max-w-4xl text-[3rem] md:text-[5rem]">Got it. A founder will reply <em className={isTwin ? "text-ember-ink" : "text-ember"}>within a working day.</em></h1>

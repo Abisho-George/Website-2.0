@@ -7,10 +7,13 @@ import { Marquee } from "@/components/ui/Marquee";
 import { Copy } from "@/components/ui/Copy";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { CaseTile, CTABand, FAQBlock, PracticeCard, ProofBar, StatRow } from "@/components/site/Blocks";
+import { HeroFrame } from "@/components/site/HeroFrame";
 import { SignalField } from "@/components/visual/SignalField";
-import { TwinRunLog } from "@/components/visual/TwinRunLog";
+import { AgentConsole } from "@/components/visual/surface/AgentConsole";
+import { MeetingsBoard } from "@/components/visual/surface/MeetingsBoard";
 import { PipelineBars } from "@/components/visual/PipelineBars";
 import { Portal } from "@/components/visual/Portal";
+import { Bloom, FieldPlate } from "@/components/ui/Atmos";
 import { practices } from "@/content/practices";
 import { featuredCases } from "@/content/work";
 import { insightsByDate, getCluster } from "@/content/insights";
@@ -38,27 +41,22 @@ export default function Home() {
     <>
       <JsonLd data={faqJsonLd(homeFaq)} />
 
-      {/* 01 · hero */}
-      <section className="band relative overflow-hidden pt-[var(--nav-h)]">
-        <SignalField className="absolute inset-0 h-full w-full" />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(105deg,white_0%,rgba(255,255,255,.92)_38%,rgba(255,255,255,.45)_62%,transparent_86%)]" />
-        <div className="container-x relative flex min-h-[min(760px,82svh)] flex-col justify-center py-16 md:py-20">
-          <Reveal delay={70}>
-            <h1 className="display max-w-[15ch] text-[3rem] sm:text-[4.4rem] md:text-[5.8rem] xl:text-[7rem]">
-              Go-to-market,<br /><em>engineered.</em>
-            </h1>
-          </Reveal>
-          <Reveal delay={140}>
-            <p className="lede mt-7 max-w-2xl">
-              LeadStrategus designs, runs and now automates B2B revenue engines — from positioning and intent intelligence to demand generation, enablement, and custom AI agents that book the meetings. Built by operators who ran marketing at AWS, Gartner and SAP.
-            </p>
-          </Reveal>
-          <Reveal delay={210} className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+      {/* 01 · hero — the scene is the page's subject drawn live, not decoration.
+           No scrim: the field is built with its left third empty instead of
+           being bleached there to buy the headline legibility. */}
+      <HeroFrame
+        size="lg"
+        n="01"
+        lines={["Go-to-market,", <em key="e">engineered.</em>]}
+        lede="LeadStrategus designs, runs and now automates B2B revenue engines — from positioning and intent intelligence to demand generation, enablement, and custom AI agents that book the meetings. Built by operators who ran marketing at AWS, Gartner and SAP."
+        scene={<SignalField className="h-full w-full" />}
+        actions={
+          <>
             <Button href="/book" size="lg">Book a strategy call</Button>
             <Button href="/gtm-ai-twin" size="lg" variant="outline"><Sparkles className="size-4 text-ember" /> Meet the GTM AI Twin</Button>
-          </Reveal>
-        </div>
-      </section>
+          </>
+        }
+      />
 
       <ProofBar />
 
@@ -107,8 +105,8 @@ export default function Home() {
 
       {/* 05 · GTM AI Twin — the one ink moment */}
       <Section n="05" label="GTM AI Twin" band="ink" className="overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_70%_at_85%_40%,rgba(228,18,31,.2),transparent_70%)]" />
-        <div className="grid-bg pointer-events-none absolute inset-0 opacity-45" />
+        <Bloom hue="ember" at="br" size={70} />
+        <FieldPlate fx="78%" fy="45%" />
         <div className="relative grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-6">
             <Reveal>
@@ -125,7 +123,7 @@ export default function Home() {
               </div>
             </Reveal>
           </div>
-          <div className="lg:col-span-6"><Reveal delay={110}><TwinRunLog /></Reveal></div>
+          <div className="lg:col-span-6"><Reveal delay={110}><AgentConsole /></Reveal></div>
         </div>
       </Section>
 

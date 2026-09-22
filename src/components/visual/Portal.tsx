@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { site } from "@/content/site";
+import { Bloom, FieldPlate } from "@/components/ui/Atmos";
 
 /**
  * The firm has two addresses. Drag the seam: paper on the left is the people,
@@ -24,7 +25,7 @@ export function Portal() {
       className="relative h-[420px] w-full touch-pan-y overflow-hidden rounded-[var(--radius-xl)] border border-rule md:h-[500px]"
     >
       <div className="absolute inset-0 bg-sand text-ink">
-        <div className="grid-bg absolute inset-0 opacity-80" />
+        <FieldPlate />
         <div className="relative flex h-full flex-col justify-between p-6 md:p-10">
           <div className="font-mono text-[0.66rem] uppercase tracking-[0.15em] text-muted">leadstrategus<span className="text-ember-ink">.com</span> · you are here</div>
           <div>
@@ -35,8 +36,8 @@ export function Portal() {
         </div>
       </div>
       <div data-portal-agents className="absolute inset-0 bg-ink text-[#f6f2ec] transition-[clip-path] duration-200 ease-out" style={{ clipPath: `inset(0 0 0 ${x}%)` }}>
-        <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_78%_50%,rgba(228,18,31,.22),transparent_70%)]" />
-        <div className="grid-bg band--ink absolute inset-0 opacity-70" />
+        <Bloom hue="ember" at="center" size={80} />
+        <FieldPlate />
         <div className="relative flex h-full flex-col justify-between p-6 text-right md:p-10">
           <div className="font-mono text-[0.66rem] uppercase tracking-[0.15em] text-[#b3a89a]">leadstrategus<span className="text-ember-2">.ai</span> · the other side</div>
           <div>

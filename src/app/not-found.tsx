@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/Button";
+import { Bloom, FieldPlate } from "@/components/ui/Atmos";
 
 export default function NotFound() {
   return (
     <section className="relative flex min-h-[80vh] items-center">
-      <div className="grid-bg pointer-events-none absolute inset-0" />
+      <FieldPlate />
       <div className="container-x relative py-32">
         <p className="eyebrow mb-6">404 · not in the universe</p>
         <h1 className="display text-[3rem] md:text-[5.5rem]">This page didn&apos;t <em>qualify.</em></h1>

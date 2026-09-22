@@ -5,8 +5,9 @@ import { Section } from "@/components/ui/Section";
 import { Copy } from "@/components/ui/Copy";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { CTABand, FAQBlock } from "@/components/site/Blocks";
-import { TwinRunLog } from "@/components/visual/TwinRunLog";
+import { AgentConsole } from "@/components/visual/surface/AgentConsole";
 import { AgentMap } from "@/components/visual/AgentMap";
+import { Bloom, FieldPlate } from "@/components/ui/Atmos";
 import { twin } from "@/content/twin";
 import { twinFaq } from "@/content/faq";
 import { proof } from "@/content/site";
@@ -26,8 +27,8 @@ export default function TwinPage() {
       <JsonLd data={[serviceJsonLd({ name: "GTM AI Twin", description: twin.lede, path: "/gtm-ai-twin" }), faqJsonLd(twinFaq), breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "GTM AI Twin", path: "/gtm-ai-twin" }])]} />
 
       <section className="band relative overflow-hidden pt-[var(--nav-h)]">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_60%_at_78%_28%,rgba(228,18,31,.14),transparent_70%)]" />
-        <div className="grid-bg pointer-events-none absolute inset-0" />
+        <Bloom hue="ember" at="tr" size={64} />
+        <FieldPlate fx="74%" fy="30%" />
         <div className="container-x relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-6">
             <Reveal>
@@ -46,7 +47,7 @@ export default function TwinPage() {
               <Button href="#agents" size="lg" variant="outline">See the agents</Button>
             </Reveal>
           </div>
-          <div className="lg:col-span-6"><Reveal delay={170}><TwinRunLog /></Reveal></div>
+          <div className="lg:col-span-6"><Reveal delay={170}><AgentConsole /></Reveal></div>
         </div>
       </section>
 

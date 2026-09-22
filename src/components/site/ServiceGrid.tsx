@@ -174,6 +174,10 @@ function RowCard({ service, i }: { service: Service; i: number }) {
  * `.rail`'s unlayered `display: grid` would beat the layered `md:contents` and
  * strand the compacts in a nested grid — so the two utilities below stand in
  * for what `.rail` would have set.
+ *
+ * The rail bleeds a gutter's width either side so the cards run to the edge of
+ * the screen, which means this belongs inside a `.container-x`. Anywhere else
+ * and the bleed has nothing to bleed into.
  */
 export function ServiceGrid({
   services,

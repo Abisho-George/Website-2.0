@@ -8,6 +8,7 @@ import { Copy, strip } from "@/components/ui/Copy";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { Breadcrumb, CTABand, FAQBlock } from "@/components/site/Blocks";
 import { HeroArt } from "@/components/visual/HeroArt";
+import { Bloom, FieldPlate } from "@/components/ui/Atmos";
 import { services, getService, servicesFor } from "@/content/services";
 import { getPractice } from "@/content/practices";
 import { buildMetadata, serviceJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
@@ -33,7 +34,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       ]} />
 
       <section className="band relative overflow-hidden pt-[var(--nav-h)]">
-        <div className="grid-bg pointer-events-none absolute inset-0" />
+        <FieldPlate />
         <div className="container-x relative py-12 md:py-16">
           <Breadcrumb items={[{ label: "Services", href: "/services" }, { label: practice.short, href: `/practices/${practice.slug}` }, { label: s.name }]} />
           <div className="mt-9 grid items-center gap-10 lg:grid-cols-12 lg:gap-14">

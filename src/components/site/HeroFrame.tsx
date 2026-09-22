@@ -39,6 +39,8 @@ export function HeroFrame({
   band = "paper",
   className,
   children,
+  n,
+  label,
 }: {
   size?: Size;
   /** Inline content — it is set inside the page's own <p class="eyebrow">. */
@@ -60,6 +62,9 @@ export function HeroFrame({
   band?: Band;
   className?: string;
   children?: React.ReactNode;
+  /** Registers the hero with the spine as the page's first numbered section. */
+  n?: string;
+  label?: string;
 }) {
   const rung = RUNG[size];
   const heading = lines?.length ? (
@@ -78,6 +83,8 @@ export function HeroFrame({
   return (
     <section
       data-size={size}
+      data-section-n={n}
+      data-section-label={label}
       className={cn("hero band", band !== "paper" && `band--${band}`, className)}
       style={sceneLeft ? ({ "--scene-left": sceneLeft } as React.CSSProperties) : undefined}
     >

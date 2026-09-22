@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { subscribe, useInView, useReducedMotion } from "./surface/ticker";
+import { scanAccounts } from "@/content/synthetic";
 
 /**
  * The arithmetic of a pipeline, scrubbed by scroll: as this card moves up
@@ -16,17 +17,6 @@ const STAGES = [
   { label: "Showing a buying signal", pct: 12, note: "intent, triggers, OSINT" },
   { label: "Engaged", pct: 5.5, note: "replied to a researched approach" },
   { label: "Meeting held", pct: 2.1, note: "on a rep's calendar" },
-];
-
-// Illustrative only — a rotating "currently scoring" ticker, same convention
-// as the run log on the GTM AI Twin page (synthetic, and labelled as such).
-const SCANNING = [
-  { name: "Northwind Logistics", fit: 0.91 },
-  { name: "Bracknell Systems", fit: 0.84 },
-  { name: "Vantage Cloud", fit: 0.88 },
-  { name: "Fenwick Analytics", fit: 0.79 },
-  { name: "Solara Health", fit: 0.93 },
-  { name: "Marlowe Data", fit: 0.86 },
 ];
 
 const COHORT = 10_000;
@@ -102,7 +92,7 @@ export function PipelineBars({ className }: { className?: string }) {
     return () => clearInterval(id);
   }, [scanning]);
 
-  const current = SCANNING[tick % SCANNING.length];
+  const current = scanAccounts[tick % scanAccounts.length];
   const complete = !reduced && progress >= 0.999;
 
   return (

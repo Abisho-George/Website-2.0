@@ -2,6 +2,7 @@ import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { PageHero } from "@/components/site/PageHero";
 import { IndexScene } from "@/components/visual/IndexScene";
+import { MeetingsBoard } from "@/components/visual/surface/MeetingsBoard";
 import { CTABand } from "@/components/site/Blocks";
 import { WorkIndex } from "@/components/site/WorkIndex";
 import { caseStudies } from "@/content/work";
@@ -16,6 +17,7 @@ export default function WorkPage() {
         art="work"
         title={<>Programmes that produced <em>meetings.</em></>}
         lede="Client names are withheld by default; most of our work is under NDA. Every number is traced to a client review or a signed-off study before it ships."
+        aside={<MeetingsBoard />}
         scene={<IndexScene mode="ledger" rows={caseStudies.flatMap((c) => c.stats).map((s) => ({ label: s.label, value: s.value }))} />}
         readout={[
           { k: "Case studies", v: caseStudies.length },

@@ -7,6 +7,7 @@ import { Copy, strip } from "@/components/ui/Copy";
 import { Stat } from "@/components/ui/Stat";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { Breadcrumb, CaseTile, CTABand, Quote } from "@/components/site/Blocks";
+import { Bloom, FieldPlate } from "@/components/ui/Atmos";
 import { caseStudies, getCase } from "@/content/work";
 import { buildMetadata, breadcrumbJsonLd } from "@/lib/seo";
 
@@ -23,7 +24,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Work", path: "/work" }, { name: strip(c.title), path: `/work/${c.slug}` }])} />
       <section className="relative overflow-hidden pt-[var(--nav-h)]">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_50%_at_90%_10%,rgba(228,18,31,.12),transparent_70%)]" />
+        <Bloom hue="ember" at="tr" size={56} />
         <div className="container-x relative py-16 md:py-24">
           <Breadcrumb items={[{ label: "Work", href: "/work" }, { label: c.vertical }]} />
           <div className="mt-10 grid gap-10 lg:grid-cols-12">

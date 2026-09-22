@@ -23,6 +23,7 @@ export function PageHero({
   scene,
   readout,
   eyebrow,
+  aside,
 }: {
   title: React.ReactNode;
   lede?: React.ReactNode;
@@ -33,9 +34,10 @@ export function PageHero({
   scene?: React.ReactNode;
   readout?: { k: string; v: React.ReactNode }[];
   eyebrow?: React.ReactNode;
+  aside?: React.ReactNode;
 }) {
   return (
-    <HeroFrame size="md" title={title} lede={lede} className={className} scene={scene} readout={readout} eyebrow={eyebrow}>
+    <HeroFrame size="md" title={title} lede={lede} className={className} scene={scene} readout={readout} eyebrow={eyebrow} aside={aside}>
       {children}
     </HeroFrame>
   );
