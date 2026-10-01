@@ -2,7 +2,7 @@
  * Brand assets.
  *
  * To use the real artwork, drop the files into /public/brand and fill in the
- * paths below — nothing else needs to change:
+ * paths below, nothing else needs to change:
  *
  *   public/brand/mark.svg       the shield (square, transparent)
  *   public/brand/wordmark.svg   "LeadStrategus" in full colour, for light grounds

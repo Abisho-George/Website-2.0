@@ -49,7 +49,7 @@ export function ContactForm({ defaultType = "gtm-ai-twin", tone = "ember" }: { d
         <select id="budget" name="budget" defaultValue="" className={cn(field, "appearance-none")}>
           <option value="">Prefer not to say yet</option>
           <option>Under ₹3 L / $4k per month</option>
-          <option>₹3–8 L / $4–10k per month</option>
+          <option>₹3 to 8 L / $4k to $10k per month</option>
           <option>₹8 L+ / $10k+ per month</option>
           <option>Project / one-time</option>
         </select>

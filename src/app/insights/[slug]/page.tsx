@@ -15,7 +15,13 @@ import { formatDate, readingTime } from "@/lib/utils";
 export function generateStaticParams() { return insights.map((i) => ({ slug: i.slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const i = getInsight((await params).slug); if (!i) return {};
-  return buildMetadata({ title: i.title, description: i.dek, path: `/insights/${i.slug}`, type: "article" });
+  const author = getAuthor(i.author);
+  const cluster = getCluster(i.cluster);
+  return buildMetadata({
+    title: i.title, description: i.dek, path: `/insights/${i.slug}`, type: "article",
+    published: i.date, authors: author ? [author.name] : undefined, section: cluster?.name,
+    keywords: [cluster?.name ?? "", "B2B go-to-market", "demand generation"].filter(Boolean),
+  });
 }
 
 export default async function InsightPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -25,7 +31,7 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
   const mins = readingTime(i.body.join(" "));
   return (
     <>
-      <JsonLd data={[articleJsonLd({ title: i.title, description: i.dek, path: `/insights/${i.slug}`, date: i.date, author: author?.name ?? "LeadStrategus" }), breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Insights", path: "/insights" }, { name: i.title, path: `/insights/${i.slug}` }])]} />
+      <JsonLd data={[articleJsonLd({ title: i.title, description: i.dek, path: `/insights/${i.slug}`, date: i.date, author: author?.name ?? "LeadStrategus", authorSlug: author?.slug, section: cluster?.name }), breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Insights", path: "/insights" }, { name: i.title, path: `/insights/${i.slug}` }])]} />
       <section className="relative pt-[var(--nav-h)]">
         <div className="container-x py-16 md:py-24">
           <Breadcrumb items={[{ label: "Insights", href: "/insights" }, { label: cluster?.name ?? "" }]} />
@@ -33,7 +39,7 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
             <Reveal><h1 className="display text-[2.4rem] md:text-[3.8rem] balance">{i.title}</h1></Reveal>
             <Reveal delay={80}><p className="lede mt-6">{i.dek}</p></Reveal>
             <Reveal delay={140} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-y border-rule py-4 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted">
-              {author && <Link href={`/authors/${author.slug}`} className="text-fg hover:text-ember">{author.name}</Link>}
+              {author && <Link href={`/about#${author.slug}`} rel="author" className="text-fg hover:text-ember">{author.name}</Link>}
               <span>{formatDate(i.date)}</span><span>{mins} min read</span>
             </Reveal>
           </div>
@@ -43,8 +49,13 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
         <div className="mx-auto max-w-3xl"><InsightBody body={i.body} /></div>
         {author && (
           <div className="mx-auto mt-16 max-w-3xl">
-            <Link href={`/authors/${author.slug}`} className="card card-hover flex gap-5 p-6">
-              <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-ember-wash font-display text-lg font-semibold text-ember-ink">{author.name.split(" ").map((s) => s[0]).join("")}</div>
+            <Link href={`/about#${author.slug}`} rel="author" className="card flex gap-5 p-6">
+              {author.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={author.image} alt={`${author.name}, ${author.role} of LeadStrategus`} width={56} height={56} loading="lazy" className="size-14 shrink-0 rounded-full object-cover" />
+              ) : (
+                <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-ember-wash font-display text-lg font-semibold text-ember-ink">{author.name.split(" ").map((s) => s[0]).join("")}</div>
+              )}
               <div>
                 <div className="text-lg font-medium tracking-tight">{author.name}</div>
                 <div className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ember">{author.role}</div>

@@ -11,8 +11,8 @@ import { cn } from "@/lib/utils";
  * for a vertical topic list, and for anything that reflows.
  *
  * Two shapes:
- *   rail (default)  a 2px accent on the track's baseline — nav underlines
- *   fill            the active item's whole box — a segmented-control thumb
+ *   rail (default)  a 2px accent on the track's baseline, nav underlines
+ *   fill            the active item's whole box, a segmented-control thumb
  *
  * `fill` tracks both axes, which matters the moment a control wraps: anchoring
  * a thumb to the track's top and bottom makes it span every row at once.

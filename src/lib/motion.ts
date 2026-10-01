@@ -7,10 +7,10 @@
  * same card must agree about what this site feels like; if one changes here,
  * change the other there.
  *
- *   entrance   decelerating — anything ARRIVING
+ *   entrance   decelerating, anything ARRIVING
  *   standard   state changes that happen in place and do not travel
  *   crisp      near-instant start, long hard stop: mask reveals, rule draws
- *   exit       accelerating — leaving, always one step faster than entering
+ *   exit       accelerating, leaving, always one step faster than entering
  *   overshoot  one small bounce, allowed only on marks under ~12px
  *
  * Nothing here imports an animation library. Every entrance on this site is a
@@ -54,7 +54,7 @@ export const rise = { 1: 10, 2: 18, 3: 28 } as const;
 
 /**
  * Per-frame lerp factors for values that follow rather than animate to a
- * target — a scroll scrub, an indicator chasing the active tab. Higher is
+ * target, a scroll scrub, an indicator chasing the active tab. Higher is
  * tighter. These are frame-rate dependent by design: they are only ever used
  * through the shared ticker, which clamps dt.
  */

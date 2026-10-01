@@ -5,10 +5,10 @@ export const twin = {
   h1em: "demand gen best practices.",
   sub: "The heavy lifting done by AI agents. The decision making done by you.",
   lede:
-    "We build custom AI agents that give you best practices for outbound demand generation: identifying the best prospects in the market right now, finding the right opening to talk with them, and reaching out authentically — with you always in the loop.",
+    "We build custom AI agents that give you best practices for outbound demand generation: identifying the best prospects in the market right now, finding the right opening to talk with them, and reaching out authentically, with you always in the loop.",
   agentsIntro: {
     h: "We have an agent for practically everything that is manual and painful.",
-    p: "Every step below used to be somebody's afternoon. The agents do the heavy lifting inside guard-rails you set, and hand back the decisions that need context — the delicate ones, the judgement calls — to you.",
+    p: "Every step below used to be somebody's afternoon. The agents do the heavy lifting inside guard-rails you set, and hand back the decisions that need context (the delicate ones, the judgement calls) to you.",
   },
   stages: [
     { key: "identify", agent: "Prospecting Agent", verb: "Identify", body: "Scans your addressable market continuously, ranks accounts on fit and live buying signals, and refreshes the universe as companies change." },
@@ -23,7 +23,7 @@ export const twin = {
     h: "Not a tool. Your demand gen best practices, run by agents.",
     paras: [
       "A GTM AI Twin is a set of purpose-built agents, configured on your ICP, your closed-won history and your voice, that carry the manual weight of outbound demand generation: building the universe, researching accounts, finding the opening, writing and sending, handling replies and booking the meeting.",
-      "Each agent owns one painful job and hands to the next. The division of labour is the point: the agents do the heavy lifting, and every decision that needs context — is this angle credible, is this account worth pushing, is this reply going badly — comes back to a named human with the full thread.",
+      "Each agent owns one painful job and hands to the next. The division of labour is the point: the agents do the heavy lifting, and every decision that needs context (is this angle credible, is this account worth pushing, is this reply going badly?) comes back to a named human with the full thread.",
       "It is built on our own agent platform at leadstrategus.ai and configured for you by people who have run human demand generation programmes for eight years. That combination is the product: agents that already know what a good meeting looks like.",
     ],
     notList: [
@@ -45,7 +45,7 @@ export const twin = {
     reasons: [
       { n: "01", t: "The technology crossed the line this year", b: "Agents can now research an account across dozens of sources, reason over your CRM history, write in a specific voice and hold a multi-turn conversation reliably enough to be trusted with first contact. Two years ago none of that was true in production." },
       { n: "02", t: "Buyers have stopped answering generic outbound", b: "Reply rates on template sequences have collapsed. What still works is research-led relevance, one message at a time, and that was never affordable at scale with humans. It is the natural job of an agent." },
-      { n: "03", t: "The economics of the SDR team have broken", b: "A fully loaded SDR in the US costs [[$90–120k]] a year, ramps for three months and stays for [[fourteen]]. The twin runs every account in your universe for [[less than one of them]] and does not resign." },
+      { n: "03", t: "The economics of the SDR team have broken", b: "A fully loaded SDR in the US costs [[$90k to $120k]] a year, ramps for three months and stays for [[fourteen]]. The twin runs every account in your universe for [[less than one of them]] and does not resign." },
       { n: "04", t: "Proprietary GTM systems compound", b: "Every conversation the twin has makes the next one better: messaging, qualification, timing. The companies that build this now will have a two-year data lead on those that wait for it to arrive in a tool." },
     ],
   },
@@ -62,9 +62,9 @@ export const twin = {
     ],
   },
   build: [
-    { wk: "Weeks 1–2", t: "Foundation", b: "ICP, signal taxonomy, account universe, messaging system, CRM and deliverability set-up. The same foundation work that makes any GTM programme succeed." },
-    { wk: "Weeks 3–4", t: "Agent design & training", b: "Each agent configured on your data and voice, with qualification rules, escalation paths and guard-rails. Dry runs against historical deals." },
-    { wk: "Weeks 5–6", t: "Supervised run", b: "Live, with a human approving every outbound message and reply for the first fortnight. Autonomy increases as accuracy is proven." },
+    { wk: "Weeks 1 to 2", t: "Foundation", b: "ICP, signal taxonomy, account universe, messaging system, CRM and deliverability set-up. The same foundation work that makes any GTM programme succeed." },
+    { wk: "Weeks 3 to 4", t: "Agent design & training", b: "Each agent configured on your data and voice, with qualification rules, escalation paths and guard-rails. Dry runs against historical deals." },
+    { wk: "Weeks 5 to 6", t: "Supervised run", b: "Live, with a human approving every outbound message and reply for the first fortnight. Autonomy increases as accuracy is proven." },
     { wk: "Week 7 →", t: "Handover & run", b: "The twin runs; we review weekly, tune monthly, and your team owns the escalations. Optional managed operation if you would rather not." },
   ],
   pricing: {

@@ -8,7 +8,7 @@ import { subscribe, useInView, useReducedMotion } from "./ticker";
 /**
  * The twin at work: an agent rail on the left, a log that types itself in on
  * the right. The nearest thing to the product footage this site does not have,
- * and the honest version of it — every word in it is synthetic and the frame
+ * and the honest version of it, every word in it is synthetic and the frame
  * says so.
  *
  * Only one ambient surface may animate per viewport, so this and MeetingsBoard
@@ -34,7 +34,7 @@ import { subscribe, useInView, useReducedMotion } from "./ticker";
  * paper band does not.
  */
 
-const CPS = 55; // characters a second — a person reading over an operator's shoulder
+const CPS = 55; // characters a second, a person reading over an operator's shoulder
 const LEAD = 420; // ms before the first line, so arriving on the surface is not instant
 const LINE_GAP = 280; // ms of quiet between lines
 const HOLD = 4600; // ms the finished run stays up before it runs again
@@ -194,7 +194,7 @@ export function AgentConsole({ className }: { className?: string }) {
       <div className="sm:grid sm:grid-cols-[auto_minmax(0,1fr)]">
         {/* The roster, so the log reads as a division of labour rather than one
             machine muttering. A wrapped strip on a narrow screen, a rail beside
-            the log from 640px — the same seven elements either way. */}
+            the log from 640px, the same seven elements either way. */}
         <div
           ref={railRef}
           className="flex flex-wrap gap-x-3 gap-y-1 border-b border-kraft-2/15 px-4 py-3 sm:flex-col sm:gap-y-2 sm:border-b-0 sm:border-r sm:py-5"

@@ -18,7 +18,7 @@ assets: {
 }
 ```
 
-SVG is strongly preferred — the mark is rendered from 28px in the nav up to
+SVG is strongly preferred, the mark is rendered from 28px in the nav up to
 512px in the app icon, and a raster will soften at the large end. If you only
 have PNG, supply the mark at 512×512 and the wordmark at roughly 1000×160,
 and change the file extensions above to match.

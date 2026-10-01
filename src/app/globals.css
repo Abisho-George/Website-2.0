@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 /* ============================================================
-   LeadStrategus 2.0 — light system
+   LeadStrategus 2.0, light system
    Ground: white and warm sand. Accent: the brand red from the logo.
-   Ink is used as a deliberate, occasional band — never the ground.
+   Ink is used as a deliberate, occasional band, never the ground.
 
    The `ember` token names are historical; they now carry the logo's red
    (#e4121f) so the interface and the identity are one palette.
@@ -15,7 +15,7 @@
         sixth. src/lib/motion.ts mirrors the curves for JS-driven motion;
         the two must agree or a CSS hover and a JS entrance on the same
         card will disagree about what this site feels like.
-     3. Ambient marks — fields, blooms, grain — are primitives with
+     3. Ambient marks, fields, blooms, grain, are primitives with
         tokens, never a gradient typed into a className.
    ============================================================ */
 
@@ -36,7 +36,7 @@
   --color-fg-soft: #4a423a;      /* body copy inside cards and open panels */
   --color-muted: #6e645a;
   --color-dim: #75695b;          /* mono labels: legible, was #9e9385 at ~3:1 */
-  --color-faint: #a89d8e;        /* decorative only — rules, disabled chrome */
+  --color-faint: #a89d8e;        /* decorative only, rules, disabled chrome */
 
   /* lines */
   --color-rule: #e9e2d6;
@@ -46,7 +46,7 @@
   --color-scene-line-2: #b9ab94;
 
   /* accents */
-  --color-ember: #e4121f;        /* brand red — fills, buttons, marks */
+  --color-ember: #e4121f;        /* brand red, fills, buttons, marks */
   --color-ember-2: #ff4452;      /* lighter, for dark grounds */
   --color-ember-ink: #c10d18;    /* small text on light (6.4:1) */
   --color-ember-deep: #8f0a12;
@@ -64,8 +64,7 @@
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
   --font-display: "Bricolage Grotesque Variable", "Bricolage Fallback", "Bricolage Grotesque", var(--font-geist-sans), system-ui, sans-serif;
-  /* The emphasis face. Used only inside <em> in headings and for pull quotes —
-     never for running text. One idea, one face. */
+  /* The emphasis face. Used only inside <em> in headings and for pull quotes, never for running text. One idea, one face. */
   --font-serif: "Instrument Serif", "Instrument Fallback", ui-serif, Georgia, "Times New Roman", serif;
 
   /* ---------- type scale ----------
@@ -135,7 +134,7 @@
 
 /* ---------- metric-matched fallbacks ----------
    Both faces load with font-display: swap, so the first paint of the
-   homepage h1 — the LCP element — is drawn in a fallback. These two rules
+   homepage h1, the LCP element, is drawn in a fallback. These two rules
    make that fallback occupy almost exactly the space the real face will,
    so the swap does not reflow the headline.
 
@@ -146,7 +145,7 @@
        size-adjust 1523/1678 = 90.76%; overrides are divided by that ratio
        because they are expressed relative to the adjusted em.
      Instrument Serif italic advance 1277  ascent .99  descent .31
-     Times/Georgia/Liberation Serif  advance 1452 — 1277/1452 = 87.96%
+     Times/Georgia/Liberation Serif  advance 1452 to 1277/1452 = 87.96%
    Arial, Helvetica and Liberation Sans share metrics, as do Times, Georgia
    and Liberation Serif, so one rule each covers Windows, macOS and Linux. */
 @font-face {
@@ -177,7 +176,7 @@
   --dur-1: 220ms;   /* control feedback: press, select, lift, accordion */
   --dur-2: 380ms;   /* one element entering */
   --dur-3: 620ms;   /* a block entering; a heading mask reveal */
-  --dur-4: 900ms;   /* hard ceiling — hero choreography only */
+  --dur-4: 900ms;   /* hard ceiling, hero choreography only */
 
   --stagger: 70ms;
   --stagger-tight: 45ms;
@@ -265,11 +264,13 @@ body {
 /* ---------- continuity: one document, not stacked blocks ----------
    A band's ground is painted by a masked plate rather than by the element's
    own background, so adjacent bands dissolve into one another instead of
-   meeting at a hard line. Ink bands keep a hard edge — an ink band is
-   supposed to arrive — and get a short bleed above them instead. */
+   meeting at a hard line. Ink bands keep a hard edge, an ink band is
+   supposed to arrive, and get a short bleed above them instead. */
 .band { position: relative; background: transparent; overflow-x: clip; }
 .band--sand { --band: var(--color-sand); }
 .band--kraft { --band: var(--color-kraft); }
+/* the light accent band: a wash of the brand red, for closing calls to action */
+.band--blush { --band: var(--color-ember-wash); }
 /* An ink band redefines the text and rule tokens rather than asking every
    component inside it to carry a `band--ink:` variant. `text-dim` at
    #75695b is correct on paper and invisible on ink; one override fixes all
@@ -347,7 +348,7 @@ body {
   transform: scale(1.25);
 }
 /* The number sits in the left margin, so it only appears at the widest
-   gutter — below 1280px it would run into the first column of content. */
+   gutter, below 1280px it would run into the first column of content. */
 .marker__n {
   margin-left: 13px;
   font-family: var(--font-mono);
@@ -402,7 +403,7 @@ body {
 }
 
 /* The emphasis face. An <em> inside a heading is the one place this site
-   changes voice — it marks the word the sentence is actually about. */
+   changes voice, it marks the word the sentence is actually about. */
 .display em, .display-1 em, .display-2 em, .h2 em, .h3 em, .serif-em {
   font-family: var(--font-serif);
   font-style: italic;
@@ -695,7 +696,7 @@ a.card:hover::after, a.card:focus-visible::after,
   background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
 }
 /* driven either by an explicit data-inview, or simply by being inside a
-   Reveal that has arrived — which is how every band already knows */
+   Reveal that has arrived, which is how every band already knows */
 .sheen[data-inview] .sheen__pass,
 .reveal.in .sheen__pass { opacity: 1; animation: var(--animate-sheen); animation-delay: 250ms; }
 
@@ -783,6 +784,16 @@ a.card:hover::after, a.card:focus-visible::after,
    control that wraps onto a second row still gets a thumb one row tall */
 .rail-head[data-fill] { top: 0; bottom: auto; left: 0; height: auto; border-radius: 999px; }
 
+/* ---------- founders ----------
+   A founder's details open in place from their name. Native <details>, so the
+   only work here is the label swap, the chevron and a short fade on open. */
+.founder .founder__less { display: none; }
+.founder[open] .founder__more { display: none; }
+.founder[open] .founder__less { display: inline; }
+.founder[open] .founder__chev { transform: rotate(180deg); }
+.founder[open] .founder__body { animation: founder-in var(--dur-2) var(--ease-entrance) both; }
+@keyframes founder-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
 /* ---------- placeholder flagging ---------- */
 [data-placeholder] {
   text-decoration: underline dashed;
@@ -808,7 +819,7 @@ body.ph-hidden [data-placeholder] { text-decoration: none; cursor: inherit; }
 /* A surface that loops its entrance clears by removing `.in`. Without this the
    transition runs in reverse and the week fades out one slot at a time. */
 .js [data-clearing] .reveal { transition: none; }
-/* a line of type rising out of its own box — no fade, the mask does the work */
+/* a line of type rising out of its own box, no fade, the mask does the work */
 .js .reveal[data-variant="line"] {
   opacity: 1;
   transform: translateY(105%);
@@ -823,7 +834,7 @@ html:not(.js) [data-reveal] { opacity: 1 !important; transform: none !important;
 @media (prefers-reduced-motion: reduce) {
   .js .reveal { opacity: 1; transform: none; transition: none; }
   [data-reveal] { opacity: 1 !important; transform: none !important; }
-  /* Stop animations outright rather than running them at .001ms — a 52s marquee
+  /* Stop animations outright rather than running them at .001ms, a 52s marquee
      at .001ms is still a running animation, it is just illegible. Interaction
      transitions (colour, shadow) are left alone; they are not the complaint. */
   *, *::before, *::after { animation: none !important; }
@@ -839,7 +850,7 @@ html:not(.js) [data-reveal] { opacity: 1 !important; transform: none !important;
 .scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
 .tnum { font-variant-numeric: tabular-nums; }
-/* a reader must be able to stop a moving strip — WCAG 2.2.2 */
+/* a reader must be able to stop a moving strip, WCAG 2.2.2 */
 .marquee:hover .marquee__row,
 .marquee:focus-within .marquee__row { animation-play-state: paused; }
 .datum { font-variant-numeric: tabular-nums slashed-zero; font-family: var(--font-display); }
@@ -888,7 +899,7 @@ html:not(.js) [data-reveal] { opacity: 1 !important; transform: none !important;
 }
 
 /* ============================================================
-   Hero art — one animated diagram per page, drawn from the
+   Hero art, one animated diagram per page, drawn from the
    subject of that page rather than applied as decoration.
    ============================================================ */
 .ha { --dur: 1.5s; overflow: visible; }

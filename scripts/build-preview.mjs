@@ -8,6 +8,9 @@ await wait();
 const sm = await (await fetch(`${BASE}/sitemap.xml`)).text();
 const routes = [...sm.matchAll(/<loc>https?:\/\/[^/]+([^<]*)<\/loc>/g)].map((m) => m[1].replace(/\/+$/, "") || "/");
 routes.push("/contact/thanks");
+// sample case studies are kept out of the sitemap, so find them from the index
+const workIndex = await (await fetch(`${BASE}/work`)).text();
+for (const m of workIndex.matchAll(/href="(\/work\/[^"#?]+)"/g)) if (!routes.includes(m[1])) routes.push(m[1]);
 const pages = [];
 let css = "";
 for (const r of routes) {
@@ -18,7 +21,16 @@ for (const r of routes) {
 }
 const nf = await (await fetch(BASE + "/__preview_404__")).text();
 pages.push(["/__404", nf.match(/<body[^>]*>([\s\S]*)<\/body>/)?.[1] ?? ""]);
-const clean = (b) => b.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<script[^>]*\/>/g, "").replace(/<next-route-announcer[\s\S]*?<\/next-route-announcer>/g, "");
+// local images (the founders' photos) travel inside the file as data URIs
+const images = new Map();
+for (const [, b] of pages) for (const m of b.matchAll(/src="(\/(?:founders|brand)\/[^"]+\.(?:jpe?g|png|svg|webp))"/g)) images.set(m[1], null);
+for (const src of images.keys()) {
+  const r = await fetch(BASE + src);
+  const type = r.headers.get("content-type") ?? "image/jpeg";
+  images.set(src, `data:${type};base64,${Buffer.from(await r.arrayBuffer()).toString("base64")}`);
+}
+const inline = (b) => b.replace(/src="(\/(?:founders|brand)\/[^"]+)"/g, (all, src) => (images.get(src) ? `src="${images.get(src)}"` : all));
+const clean = (b) => inline(b).replace(/<script[\s\S]*?<\/script>/g, "").replace(/<script[^>]*\/>/g, "").replace(/<next-route-announcer[\s\S]*?<\/next-route-announcer>/g, "");
 css = css.replace(/@font-face\s*\{[^}]*\}/g, "");
 const shim = readFileSync(new URL("./preview-shim.js", import.meta.url), "utf8");
 const out = `<title>LeadStrategus 2.0</title>

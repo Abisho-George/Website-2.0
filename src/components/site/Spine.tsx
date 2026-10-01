@@ -6,14 +6,13 @@ type Mark = { n: string; label: string; top: number; bottom: number };
 
 /**
  * A hairline that runs the full height of every page, filling with the accent
- * as you scroll. It never breaks between sections — the device that makes the
+ * as you scroll. It never breaks between sections: the device that makes the
  * page read as one continuous document rather than stacked blocks.
  *
- * It also carries the page's section numbers. Any <Section n="03" label="…">
- * puts a marker on the spine at its own offset, which lights as that section
- * comes into view. Those numbers spent months as code comments in page.tsx;
- * on the spine they turn eleven stacked bands into one numbered document,
- * using the site's best existing device rather than inventing another.
+ * It also carries a marker for each section. Any <Section n="03" label="…">
+ * puts a dot on the spine at its own offset, which lights as that section
+ * comes into view. The number registers the section but is not printed: the
+ * client asked for no section numbering in the page.
  */
 export function Spine() {
   const fill = useRef<HTMLDivElement>(null);
@@ -90,7 +89,6 @@ export function Spine() {
           className={`marker${i === active ? " marker--on" : ""}`}
         >
           <span className="marker__dot" />
-          <span className="marker__n" title={m.label || undefined}>{m.n}</span>
         </div>
       ))}
     </div>

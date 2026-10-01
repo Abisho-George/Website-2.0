@@ -20,10 +20,15 @@ export type FormState = { errors?: Record<string, string>; message?: string } | 
 /** Route enquiries by type. Configure env vars to deliver; otherwise the enquiry is logged server-side. */
 function inboxFor(type: string) {
   const map: Record<string, string | undefined> = {
+    // env names predate the family restructure and are kept so a configured
+    // deployment keeps routing; the new families fall back to the default
     "gtm-ai-twin": process.env.CONTACT_TO_TWIN,
+    "leadstrategus-ai": process.env.CONTACT_TO_TWIN,
     "demand-generation": process.env.CONTACT_TO_DEMAND,
+    events: process.env.CONTACT_TO_DEMAND,
     "gtm-strategy": process.env.CONTACT_TO_STRATEGY,
-    "revenue-intelligence": process.env.CONTACT_TO_INTEL,
+    "positioning-content": process.env.CONTACT_TO_STRATEGY,
+    "account-intelligence": process.env.CONTACT_TO_INTEL,
     enablement: process.env.CONTACT_TO_ENABLEMENT,
   };
   return map[type] ?? process.env.CONTACT_TO_DEFAULT ?? "hello@leadstrategus.com";

@@ -7,7 +7,7 @@ type As = "div" | "ul" | "ol" | "section";
 
 /**
  * A group whose children arrive in sequence. Replaces the `delay={i * 70}`
- * arithmetic written by hand at a dozen call sites — same 70ms beat, but
+ * arithmetic written by hand at a dozen call sites, same 70ms beat, but
  * capped, so a list of twenty rows does not put the last one 1.4s behind the
  * first.
  *

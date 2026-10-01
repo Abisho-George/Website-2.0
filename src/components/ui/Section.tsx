@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-type Band = "paper" | "sand" | "kraft" | "ink";
+type Band = "paper" | "sand" | "kraft" | "ink" | "blush";
 type Width = "text" | "mid" | "wide" | "full";
 type Pad = "tight" | "base" | "loose";
 
@@ -47,7 +47,7 @@ export function Section({
 /**
  * The head of a band. `split` puts the title and the lede in separate columns,
  * which is the difference between four sections that look identical and four
- * that look composed — all twenty-four uses of this used to be the same
+ * that look composed, all twenty-four uses of this used to be the same
  * left-aligned max-w-3xl block.
  */
 export function SectionHead({

@@ -1,570 +1,94 @@
+/**
+ * Every LeadStrategus service, transcribed from the master service portfolio
+ * ("Full MECE Service Portfolio & Website Copy, 2026").
+ *
+ * This file is GENERATED from that document by
+ * scripts/content/gen_services.py, so the page copy is the document's own
+ * wording. The only edits are typographic: em and en dashes are replaced with
+ * a comma (or "to" in a numeric range), and the all-caps taglines are set in
+ * sentence case with acronyms preserved. Edit the document, then regenerate,
+ * rather than hand-editing a service here.
+ *
+ *   what      A / What is the service?
+ *   whyNow    B / Why is it important now?
+ *   whyUs     C / Why LeadStrategus?
+ *   close     the recommended page close
+ *   stages    the service's span on the master value chain
+ *   sourceProof, editorialNote
+ *             carried from the document for the team, never rendered. The
+ *             service pages show sample case studies until named proof is
+ *             published (see work.ts).
+ */
+export type ServiceGroupSlug =
+  | "gtm-strategy" | "account-intelligence" | "positioning-content" | "demand-generation"
+  | "enablement" | "events" | "leadstrategus-ai" | "expotofunnel" | "revenue-operations";
+
+export type Stage = "DECIDE" | "DISCOVER" | "PRIORITISE" | "POSITION" | "ENGAGE" | "MEET" | "CONVERT" | "LEARN / SCALE";
+
+export const valueChain: Stage[] = ["DECIDE", "DISCOVER", "PRIORITISE", "POSITION", "ENGAGE", "MEET", "CONVERT", "LEARN / SCALE"];
+
 export type Service = {
   slug: string;
+  /** Position in the master portfolio document, which is also the canonical order. */
+  num: number;
   name: string;
-  practiceSlug: "gtm-strategy" | "demand-generation" | "revenue-intelligence" | "enablement";
   tagline: string;
-  summary: string;
-  forWho: string;
-  includes: string[];
-  deliverables: string[];
-  timeline: string;
-  pricing: string;
-  faq: { q: string; a: string }[];
-  legacyPath?: string;
+  group: ServiceGroupSlug;
+  /** The document's own horizontal-role notation, e.g. "DISCOVER → LEARN / SCALE". */
+  role: string;
+  stages: Stage[];
+  what: string;
+  whyNow: string;
+  whyUs: string[];
+  close: string;
+  seoTerms: string[];
+  sourceProof: string[];
+  editorialNote?: string;
+  /** A service with its own page elsewhere on the site. */
+  href?: string;
+  /** Slugs from the previous build that 301 here. */
+  legacy?: string[];
 };
 
 export const services: Service[] = [
-  /* ---------------- GTM Strategy & Positioning ---------------- */
-  {
-    slug: "gtm-setup",
-    name: "GTM Setup",
-    practiceSlug: "gtm-strategy",
-    tagline: "Stand up a go-to-market motion for a new product or a new market.",
-    summary:
-      "For companies launching into a market they have not sold to before. We size the opportunity bottom-up, define the segment worth attacking first, write the positioning and build the ninety-day plan the team runs on.",
-    forWho: "Companies entering a new geography, launching a second product, or selling to a new buyer for the first time.",
-    includes: [
-      "Bottom-up market sizing with three demand scenarios",
-      "ICP and buying-group definition, with disqualifiers",
-      "Positioning narrative and category choice",
-      "Channel and motion design against your budget and headcount",
-      "The 90-day operating plan: owners, targets, weekly rituals",
-    ],
-    deliverables: ["Market map and sizing model", "Positioning narrative (one page)", "90-day operating plan", "Enablement kit for the team"],
-    timeline: "5 weeks",
-    pricing: "[[₹6.5 L / $8k]] fixed fee",
-    faq: [
-      { q: "How is this different from a strategy deck?", a: "It ends with an operating plan and an enablement kit, not a recommendation. We can also stay on to run the first quarter through our Demand Generation practice." },
-      { q: "Do you need our CRM?", a: "Yes. The diagnosis starts with your closed-won and closed-lost history; without it we would be guessing." },
-    ],
-  },
-  {
-    slug: "repositioning",
-    name: "Repositioning",
-    practiceSlug: "gtm-strategy",
-    tagline: "Reset the story when growth has stalled or the product has moved.",
-    summary:
-      "Pipeline slows for a reason, and it is usually upstream of the campaigns. We find out which comparison your buyers are actually making, then move it — because the comparison set decides both the win rate and the price.",
-    forWho: "Companies whose win rate has fallen, whose deals stall against a status quo, or who have pivoted the product but not the story.",
-    includes: [
-      "Win/loss interviews with customers and lost prospects",
-      "Competitive and alternative analysis, including 'do nothing'",
-      "New positioning narrative and messaging hierarchy",
-      "Sales and marketing message rollout",
-      "Before/after messaging tests on live pipeline",
-    ],
-    deliverables: ["Win/loss findings", "Positioning narrative", "Persona-level messaging matrix", "Rollout plan"],
-    timeline: "5–6 weeks",
-    pricing: "[[₹6.5 L / $8k]] fixed fee",
-    faq: [
-      { q: "Will this change our brand?", a: "Rarely. Positioning is about the comparison a buyer draws; visual identity usually stays as it is." },
-      { q: "How do you prove it worked?", a: "We test the new messaging against the old on live pipeline before rollout, and track win rate by segment afterwards." },
-    ],
-  },
-  {
-    slug: "icp-definition",
-    name: "ICP & Segmentation",
-    practiceSlug: "gtm-strategy",
-    tagline: "Decide who you are actually for, and who you are not.",
-    summary:
-      "Most ICPs are firmographic filters that let everyone through. We build one from the behaviour of your best customers, with explicit disqualifiers, so every downstream programme spends effort where it converts.",
-    forWho: "Teams whose campaigns reach the wrong accounts, or who cannot explain why some deals close in weeks and others never do.",
-    includes: [
-      "Closed-won and closed-lost cohort analysis",
-      "Fit attributes weighted against real outcomes",
-      "Buying-group map: economic buyer, champion, blocker",
-      "Trigger events that predict a purchase",
-      "Explicit disqualification rules",
-    ],
-    deliverables: ["ICP definition and scoring model", "Buying-group map", "Trigger taxonomy", "Target account list, tiered"],
-    timeline: "3 weeks",
-    pricing: "[[₹3.2 L / $3.9k]]",
-    faq: [
-      { q: "How many customers do you need to analyse?", a: "Thirty closed-won deals is comfortable; we can work with fifteen. Below that the model is opinion rather than evidence." },
-    ],
-  },
-  {
-    slug: "pricing-and-packaging",
-    name: "Pricing & Packaging",
-    practiceSlug: "gtm-strategy",
-    tagline: "Tiers, metrics and anchors tested against what buyers will actually pay.",
-    summary:
-      "Pricing is a positioning decision expressed in numbers. We interview real buyers on willingness to pay, model the alternatives they price you against, and design tiers your sales team can defend without discounting.",
-    forWho: "Companies discounting to close, leaving money on the table at the top end, or adding a second product.",
-    includes: [
-      "Willingness-to-pay interviews with buyers and churned accounts",
-      "Value-metric selection",
-      "Tier and packaging design",
-      "Discount policy and floor pricing",
-      "Migration plan for existing customers",
-    ],
-    deliverables: ["Pricing model", "Packaging and tier definition", "Objection and discount playbook", "Customer migration plan"],
-    timeline: "4 weeks",
-    pricing: "[[₹4.5 L / $5.5k]]",
-    faq: [
-      { q: "Do you raise prices?", a: "Sometimes. More often we change what is bundled so the buyer compares you to something more valuable." },
-    ],
-  },
-  {
-    slug: "india-entry",
-    name: "India Market Entry",
-    practiceSlug: "gtm-strategy",
-    tagline: "For global SaaS selling into India for the first time.",
-    summary:
-      "The founders led India marketing for global technology vendors before starting this firm. We know which playbooks transfer, which quietly fail, and how long the first two reference customers really take.",
-    forWho: "Global B2B software companies opening India, or partners building an Indian practice.",
-    includes: [
-      "Bottom-up sizing of the Indian mid-market for your category",
-      "Interviews with Indian CIOs, CTOs and buyers in your segment",
-      "Localised pricing and packaging",
-      "Wedge offer selection and reference-customer strategy",
-      "Hiring sequence: what to outsource, what to hire, and when",
-    ],
-    deliverables: ["India market assessment", "Wedge positioning", "Localised pricing", "First-year operating plan"],
-    timeline: "6 weeks",
-    pricing: "[[₹7.5 L / $9k]]",
-    faq: [
-      { q: "Should we hire a country manager first?", a: "Usually not. Build the motion with a small outsourced team, prove it, then hire the person who will scale what already works." },
-      { q: "Can you run the first quarter too?", a: "Yes — most India entry clients continue into a Demand Generation retainer for the first two quarters." },
-    ],
-  },
-  {
-    slug: "founder-brand",
-    name: "Founder & CEO Branding",
-    practiceSlug: "gtm-strategy",
-    tagline: "Make the person buyers already trust visible where they look.",
-    summary:
-      "In B2B the founder is often the most credible asset the company has and the least used. We build a point of view, a publishing cadence and an engagement routine — with the founder's own ideas, approved by them, in their voice.",
-    forWho: "Founders and CXOs whose expertise is real but invisible outside their existing network.",
-    includes: [
-      "Point-of-view development sessions",
-      "Content calendar and publishing cadence",
-      "Ghost-writing with founder approval on everything",
-      "Comment and engagement routine on target accounts",
-      "Speaking and podcast pipeline",
-    ],
-    deliverables: ["Point-of-view document", "Monthly content calendar", "Published posts", "Engagement report"],
-    timeline: "Ongoing, 3-month minimum",
-    pricing: "[[₹1.6 L / $1.9k per month]]",
-    faq: [
-      { q: "Will it sound like me?", a: "It has to, or it does not work. Nothing publishes without your approval, and the ideas are yours — we provide structure, cadence and editing." },
-    ],
-  },
-
-  /* ---------------- Demand Generation ---------------- */
-  {
-    slug: "account-based-marketing",
-    name: "Account-Based Marketing",
-    practiceSlug: "demand-generation",
-    tagline: "Win the twenty accounts that decide your year.",
-    summary:
-      "A tier-1 programme built around named accounts: deep research on each, multi-threaded outreach across the buying group, and content made for one company rather than a segment. Includes Event ABM, where the meeting happens in person.",
-    forWho: "Enterprise and upper mid-market teams where a handful of named accounts represent most of the target.",
-    includes: [
-      "OSINT brief on every tier-1 account",
-      "Buying-group mapping and multi-threading plan",
-      "Account-specific content and points of view",
-      "Executive-to-executive outreach programmes",
-      "Event ABM: pre-event outreach, on-site meetings, 24-hour follow-up",
-    ],
-    deliverables: ["Account dossiers", "Multi-threading plan per account", "Account-specific assets", "Weekly engagement report"],
-    timeline: "One quarter minimum",
-    pricing: "[[₹4.5 L / $5.5k per month]]",
-    faq: [
-      { q: "How many accounts can you run?", a: "Twenty to fifty in tier 1, depending on depth. Beyond that it stops being ABM and becomes segmented outbound." },
-      { q: "What is Event ABM?", a: "We build the programme around an industry event your buyers already attend: research and outreach eight weeks out, scheduling and briefs on site, follow-up within a day." },
-    ],
-    legacyPath: "/account-based-marketing",
-  },
-  {
-    slug: "social-selling",
-    name: "Social Selling",
-    practiceSlug: "demand-generation",
-    tagline: "Pipeline from your leaders' profiles, not an SDR's sequence.",
-    summary:
-      "Buyers who ignore cold email will reply to a comment from a credible peer. We run research-led engagement from your executives' real LinkedIn profiles: what they publish, who they engage, and the conversations that follow.",
-    forWho: "Companies with credible leaders and a buyer who is unreachable by phone or email.",
-    includes: [
-      "Profile optimisation for the leaders in the programme",
-      "Target account and buying-group monitoring",
-      "Research-led commenting and direct messaging",
-      "Content cadence, approved by the executive",
-      "Handover of conversations to sales with context",
-    ],
-    deliverables: ["Optimised profiles", "Weekly content and engagement", "Conversation log", "Meetings with briefs"],
-    timeline: "Three months minimum",
-    pricing: "[[₹2.8 L / $3.4k per month]]",
-    faq: [
-      { q: "Do you post as our executives?", a: "With their approval on every post and message. Programmes where the executive is not involved read as fake and do not produce meetings." },
-      { q: "How many profiles?", a: "Two to five works well. One is fragile; more than five is hard to keep authentic." },
-    ],
-    legacyPath: "/social-selling",
-  },
-  {
-    slug: "outbound-sequencing",
-    name: "Outbound & Sales Messaging",
-    practiceSlug: "demand-generation",
-    tagline: "Sequences written from customer interviews, not templates.",
-    summary:
-      "Multi-channel outbound run by a pod that owns a meetings target: warmed domains, persona-level messaging, research behind every first touch, and a weekly review of what changed and why.",
-    forWho: "Teams whose reply rates have collapsed, or who have never had a repeatable outbound motion.",
-    includes: [
-      "Dedicated sending domains, warmed and monitored",
-      "Persona-level value propositions from customer interviews",
-      "Six-step multi-channel sequences",
-      "Reply handling and objection library",
-      "Weekly pipeline review with the CRO",
-    ],
-    deliverables: ["Messaging system", "Sequence library", "Deliverability report", "Meetings with account briefs"],
-    timeline: "Three months minimum",
-    pricing: "[[₹3.5 L / $4.2k per month]]",
-    faq: [
-      { q: "Will you send from our domain?", a: "Never the primary one. We set up and warm dedicated domains so your main domain's reputation is never at risk." },
-      { q: "Do you guarantee meetings?", a: "We commit to a target and report against it weekly. We do not sell pay-per-meeting, because it produces bad meetings." },
-    ],
-  },
-  {
-    slug: "content-marketing",
-    name: "Content & Technical Writing",
-    practiceSlug: "demand-generation",
-    tagline: "Content a technical buyer will finish reading.",
-    summary:
-      "Strategy and production for B2B technology companies, including the deeply technical pieces most agencies cannot write: architecture explainers, benchmark studies, migration guides and documentation-adjacent content.",
-    forWho: "Companies selling to engineers, architects and technical evaluators.",
-    includes: [
-      "Content strategy mapped to buying stages",
-      "Search and community-driven topic selection",
-      "Technical writing by people who can read your docs",
-      "Distribution plan, not just publication",
-      "Repurposing into sequences, social and sales assets",
-    ],
-    deliverables: ["Content strategy", "Editorial calendar", "Published pieces", "Distribution and performance report"],
-    timeline: "Ongoing",
-    pricing: "[[₹2.2 L / $2.7k per month]]",
-    faq: [
-      { q: "Can you write about our product without us?", a: "No, and you should distrust anyone who says otherwise. We need an hour a fortnight with someone technical." },
-    ],
-  },
-  {
-    slug: "webinar-as-a-service",
-    name: "Webinar-as-a-Service",
-    practiceSlug: "demand-generation",
-    tagline: "You turn up and speak. We handle everything else.",
-    summary:
-      "Topic selection from real demand data, audience acquisition, production, hosting, moderation and a scored attendee list delivered to sales within a day. The format that most reliably builds a first marketing database.",
-    forWho: "Companies with genuine expertise and no audience to show it to.",
-    includes: [
-      "Topic selection from search and community demand",
-      "Audience acquisition: paid, partner and organic",
-      "Landing page, registration and reminder flow",
-      "Production, hosting and live moderation",
-      "Scored attendee list and post-event nurture",
-    ],
-    deliverables: ["Registrant and attendee database", "Recording and clips", "Scored follow-up list", "Post-event nurture sequence"],
-    timeline: "6 weeks per session",
-    pricing: "[[₹3.8 L / $4.6k per webinar]]",
-    faq: [
-      { q: "What attendance should we expect?", a: "We plan for [[40–50%]] of registrants attending live. The number that matters more is how many were in your ICP." },
-      { q: "Can you run a series?", a: "Yes, and a quarterly series compounds: each session builds the audience for the next." },
-    ],
-    legacyPath: "/webinar-as-a-service",
-  },
-  {
-    slug: "quiz-as-a-service",
-    name: "Quiz-as-a-Service",
-    practiceSlug: "demand-generation",
-    tagline: "An assessment your buyer wants to take, that tells you where they are.",
-    summary:
-      "A scored assessment on a topic your buyers care about — maturity, readiness, risk. It qualifies interest better than a content download, because the answers tell you what the account actually needs.",
-    forWho: "Companies who need a top-of-funnel offer better than a gated PDF.",
-    includes: [
-      "Assessment design and scoring model",
-      "Question set reviewed with your subject experts",
-      "Landing page, logic and results experience",
-      "Audience acquisition",
-      "Answers piped into your CRM as qualification data",
-    ],
-    deliverables: ["Live assessment", "Scored respondent database", "Per-respondent results report", "Follow-up sequences by score band"],
-    timeline: "4 weeks",
-    pricing: "[[₹2.6 L / $3.2k]]",
-    faq: [
-      { q: "How is this better than an ebook?", a: "The respondent gets a personalised result they value, and you get structured data about their situation instead of an email address." },
-    ],
-    legacyPath: "/quiz-as-a-service",
-  },
-  {
-    slug: "lead-generation-in-a-box",
-    name: "Lead Generation in a Box",
-    practiceSlug: "demand-generation",
-    tagline: "Fixed scope, fixed price, one segment, six weeks.",
-    summary:
-      "A complete demand programme for a single segment, priced up front. It exists so you can prove a motion works before funding a retainer — and if it does not, you find out for a known number.",
-    forWho: "Companies who want evidence before committing to an ongoing programme.",
-    includes: [
-      "Account universe for one segment",
-      "Messaging system from customer interviews",
-      "Six-week outbound and social campaign",
-      "Weekly reporting",
-      "Full handover: lists, sequences, playbook",
-    ],
-    deliverables: ["Account universe", "Messaging system", "Campaign results", "Handover playbook"],
-    timeline: "6 weeks",
-    pricing: "[[₹4.2 L / $5.1k]] fixed",
-    faq: [
-      { q: "What if it does not work?", a: "You get the universe, the messaging and an honest written account of why, which is worth more than another quarter of guessing." },
-    ],
-    legacyPath: "/lead-generation-in-a-box",
-  },
-  {
-    slug: "event-lead-generation",
-    name: "Third-Party Event Lead Generation",
-    practiceSlug: "demand-generation",
-    tagline: "Make the conference you already sponsor pay for itself.",
-    summary:
-      "Most event spend produces a badge scan list and no pipeline. We work the eight weeks before, the days during and the week after, so your team arrives with a calendar rather than a booth and hope.",
-    forWho: "Companies sponsoring or attending industry events without a systematic meeting plan.",
-    includes: [
-      "Attendee research and target list",
-      "Pre-event outreach eight weeks out",
-      "On-site meeting scheduling and rep briefs",
-      "Booth conversation framework",
-      "Follow-up within 24 hours, then nurture",
-    ],
-    deliverables: ["Target attendee list", "Booked on-site meetings", "Rep briefing pack", "Post-event pipeline report"],
-    timeline: "10 weeks around the event",
-    pricing: "[[₹3.2 L / $3.9k per event]]",
-    faq: [
-      { q: "Do you attend?", a: "Not usually. We prepare your team and run the scheduling and follow-up remotely, which is where the value is." },
-    ],
-  },
-  {
-    slug: "product-marketing-as-a-service",
-    name: "Product Marketing-as-a-Service",
-    practiceSlug: "demand-generation",
-    tagline: "A product marketing function without the hire.",
-    summary:
-      "Launches, positioning, competitive enablement, sales collateral and win/loss — run as a fractional function for companies not yet ready for a full-time product marketer.",
-    forWho: "Companies shipping faster than they can market, with no PMM in the team.",
-    includes: [
-      "Launch planning and execution",
-      "Messaging and value proposition maintenance",
-      "Competitive battlecards, kept current",
-      "Sales collateral and demo narratives",
-      "Win/loss programme",
-    ],
-    deliverables: ["Launch plans", "Messaging library", "Battlecards", "Sales collateral", "Quarterly win/loss report"],
-    timeline: "Ongoing, quarterly commitment",
-    pricing: "[[₹3.4 L / $4.1k per month]]",
-    faq: [
-      { q: "How much of our time does it take?", a: "Roughly three hours a week from product and one from sales leadership." },
-    ],
-  },
-
-  /* ---------------- Revenue Intelligence ---------------- */
-  {
-    slug: "database-as-a-service",
-    name: "Database-as-a-Service",
-    practiceSlug: "revenue-intelligence",
-    tagline: "A living account universe, not a list that decays in your CRM.",
-    summary:
-      "Your total addressable accounts, assembled from twenty-plus sources, deduplicated against your CRM, verified on delivery and re-verified on a schedule — because a purchased list loses much of its value within a year.",
-    forWho: "Teams whose reps spend their week cleaning data instead of selling.",
-    includes: [
-      "Universe built from twenty-plus sources",
-      "Deduplication against your CRM",
-      "Human verification for tier-1 accounts",
-      "Monthly re-verification and quarterly refresh",
-      "CRM hygiene: duplicates, decay and gaps fixed at source",
-    ],
-    deliverables: ["Verified account universe in your CRM", "Contact routes per account", "Monthly accuracy report"],
-    timeline: "3 weeks to build, then ongoing",
-    pricing: "[[₹1.8 L / $2.2k]] build, then monthly",
-    faq: [
-      { q: "Is this GDPR and DPDP compliant?", a: "Yes. Public and licensed sources, lawful basis recorded per record, suppression lists honoured. We will walk your DPO through the pipeline." },
-      { q: "What accuracy do you deliver?", a: "[[94%]] on delivery, re-verified monthly. We publish the number in every report, including when it drops." },
-    ],
-  },
-  {
-    slug: "intent-account-intelligence",
-    name: "Intent & Account Intelligence",
-    practiceSlug: "revenue-intelligence",
-    tagline: "A weekly ranked list of who to call, and what to say.",
-    summary:
-      "Third-party intent tuned to your own closed-won history, combined with first-party engagement and public trigger events. The output is a ranked feed with the evidence attached, not a dashboard nobody opens.",
-    forWho: "Teams paying for intent data that produces the same accounts as their competitors'.",
-    includes: [
-      "Signal taxonomy agreed with sales leadership",
-      "Model tuned against your closed-won history",
-      "Third-party intent plus first-party engagement",
-      "Public triggers: leadership changes, hiring, funding, migrations",
-      "Weekly ranked feed with suggested first message",
-    ],
-    deliverables: ["Tuned scoring model", "Weekly ranked account feed", "Evidence and suggested opener per account"],
-    timeline: "2 weeks to switch on",
-    pricing: "Monthly subscription from [[₹1.4 L / $1.7k]]",
-    faq: [
-      { q: "Which intent vendor do you use?", a: "We combine third-party intent with signals we monitor ourselves. The tuning to your win history is what stops the feed looking like everyone else's." },
-    ],
-  },
-  {
-    slug: "osint-for-sales",
-    name: "OSINT for Sales",
-    practiceSlug: "revenue-intelligence",
-    tagline: "Everything public about an account, structured into an angle.",
-    summary:
-      "Open-source intelligence applied to accounts: filings, hiring, tech stack, leadership changes, public commitments and executive priorities, assembled into a two-page brief with the one angle that connects your offer to something they have already committed to.",
-    forWho: "Enterprise sales teams whose reps have fifteen minutes to prepare for a conversation that needs four hours.",
-    includes: [
-      "Account priorities and the evidence for them",
-      "Buying group with verified contact routes",
-      "Technology stack and detected migrations",
-      "Hiring and organisational signals",
-      "The angle, and the likely objection",
-    ],
-    deliverables: ["Two-page account brief", "Buying-group map", "Suggested opener and objection handling"],
-    timeline: "48 hours per brief",
-    pricing: "[[₹14,000 / $170 per brief]], volume rates available",
-    faq: [
-      { q: "Is this legal?", a: "Entirely. It is public information, gathered systematically. We never reference anything a prospect would be surprised you know." },
-      { q: "Can our reps not just Google this?", a: "They could, in about four hours per account. The point is that they do not have four hours." },
-    ],
-    legacyPath: "/open-source-intelligence-in-sales-and-marketing",
-  },
-  {
-    slug: "market-research",
-    name: "Market Research & Forecasting",
-    practiceSlug: "revenue-intelligence",
-    tagline: "Numbers you can defend in a board meeting.",
-    summary:
-      "Bottom-up market sizing, demand scenarios and competitive landscapes for board decks, fundraising and market-entry decisions — built from account counts and primary interviews rather than analyst percentages.",
-    forWho: "Founders and CROs who need a defensible number for a board, an investor or a market-entry decision.",
-    includes: [
-      "Bottom-up TAM/SAM/SOM from account counts",
-      "Primary interviews with buyers in the segment",
-      "Three demand scenarios with stated assumptions",
-      "Competitive landscape and share estimates",
-      "Board-ready presentation of the findings",
-    ],
-    deliverables: ["Sizing model, with assumptions exposed", "Interview findings", "Competitive landscape", "Board presentation"],
-    timeline: "4–5 weeks",
-    pricing: "[[₹4.8 L / $5.8k]]",
-    faq: [
-      { q: "Do you use analyst reports?", a: "As a cross-check, never as the basis. A top-down percentage of someone else's number is not a forecast." },
-    ],
-  },
-  {
-    slug: "competitive-intelligence",
-    name: "Competitive Intelligence",
-    practiceSlug: "revenue-intelligence",
-    tagline: "Know what they ship, what they charge and what they say in the room.",
-    summary:
-      "A maintained view of the competitors you actually meet in deals: pricing, positioning shifts, release cadence, hiring and the arguments their reps use — with battlecards your sellers will keep open during calls.",
-    forWho: "Teams losing deals to the same two or three names and guessing why.",
-    includes: [
-      "Competitor tracking: product, pricing, positioning, hiring",
-      "Loss interviews where you lost to them",
-      "Battlecards with real objection handling",
-      "Quarterly landscape update",
-      "Alerting on material moves",
-    ],
-    deliverables: ["Competitor profiles", "Battlecards", "Quarterly update", "Loss analysis"],
-    timeline: "3 weeks to build, then quarterly",
-    pricing: "[[₹2.4 L / $2.9k]] build, then quarterly",
-    faq: [
-      { q: "How do you get pricing?", a: "From public sources, published rate cards, procurement disclosures and, most usefully, structured loss interviews with prospects who saw both quotes." },
-    ],
-  },
-
-  /* ---------------- Enablement ---------------- */
-  {
-    slug: "sales-coaching",
-    name: "Founder & Sales Coaching",
-    practiceSlug: "enablement",
-    tagline: "Codify how your best deals actually close.",
-    summary:
-      "Fortnightly coaching for founders and first sales hires, working on live pipeline. Every session changes something in the CRM. Over twelve weeks it becomes a playbook the next hire can run.",
-    forWho: "Founders still carrying every deal, and the first one or two sales hires learning to.",
-    includes: [
-      "Call reviews and ride-alongs",
-      "Discovery and qualification frameworks",
-      "Demo narrative development",
-      "Deal clinics on live pipeline",
-      "The written playbook, produced as you go",
-    ],
-    deliverables: ["Sales playbook", "Coaching scorecard", "Deal review cadence", "Manager coaching handover"],
-    timeline: "12 weeks",
-    pricing: "[[₹2.4 L / $2.9k per cohort]]",
-    faq: [
-      { q: "Is this classroom training?", a: "No. Every session works on real deals in your pipeline. Participants leave with something changed in the CRM, not a certificate." },
-    ],
-  },
-  {
-    slug: "marketing-training",
-    name: "Marketing Excellence Training",
-    practiceSlug: "enablement",
-    tagline: "Move a marketing team from brand activity to pipeline ownership.",
-    summary:
-      "A cohort programme that teaches a marketing team to plan, measure and defend pipeline contribution — with the operating cadence, metrics and templates to keep running it after we leave.",
-    forWho: "Marketing teams measured on activity who are now being asked for pipeline.",
-    includes: [
-      "Pipeline metrics and attribution that survive scrutiny",
-      "Campaign planning and prioritisation",
-      "Content engine the team can run without an agency",
-      "Sales and marketing service-level agreement",
-      "Operating cadence and reporting templates",
-    ],
-    deliverables: ["Marketing operating system", "Metric definitions", "Campaign templates", "Reporting pack"],
-    timeline: "8 weeks",
-    pricing: "[[₹3.1 L / $3.7k per cohort]]",
-    faq: [
-      { q: "Who should attend?", a: "The whole marketing team plus one sales leader. Programmes without sales in the room do not change the SLA." },
-    ],
-  },
-  {
-    slug: "ai-in-gtm-training",
-    name: "AI in GTM Adoption",
-    practiceSlug: "enablement",
-    tagline: "Get the tools you already bought actually used.",
-    summary:
-      "Tool selection, prompts and workflows, guard-rails, and the habit-building that makes AI stick in a revenue team — taught by people who run AI agents in production for clients, not by a slide deck.",
-    forWho: "Teams whose AI tooling was bought and never adopted, or who are about to buy.",
-    includes: [
-      "Tool selection and stack rationalisation",
-      "Workflow design for research, writing and sequencing",
-      "Prompt libraries for your ICP and voice",
-      "Guard-rails: what must never be automated",
-      "Adoption tracking and manager reinforcement",
-    ],
-    deliverables: ["Workflow library", "Prompt library", "Guard-rail policy", "Adoption report"],
-    timeline: "6 weeks",
-    pricing: "[[₹2.8 L / $3.4k per cohort]]",
-    faq: [
-      { q: "How is this different from the GTM AI Twin?", a: "This teaches your team to use AI well. The Twin is custom agents we build and run that take the work over. Many clients do the training first." },
-    ],
-  },
-  {
-    slug: "change-management",
-    name: "GTM Change Management",
-    practiceSlug: "enablement",
-    tagline: "Make the new motion survive contact with the existing team.",
-    summary:
-      "New territory models, new segments, new tooling and new comp plans fail on adoption far more often than on design. We run the communication, training and reinforcement that decides whether the change holds.",
-    forWho: "Companies rolling out a new GTM motion, structure or system.",
-    includes: [
-      "Stakeholder and resistance mapping",
-      "Communication plan and rollout sequencing",
-      "Manager enablement, so it survives our exit",
-      "Reinforcement rituals and scorecards",
-      "90-day adoption review",
-    ],
-    deliverables: ["Change plan", "Communication kit", "Manager enablement pack", "Adoption scorecard"],
-    timeline: "90 days",
-    pricing: "[[₹3.6 L / $4.4k]]",
-    faq: [
-      { q: "When should you be involved?", a: "Before the design is final. Changes designed without an adoption plan are the ones that get quietly abandoned in month four." },
-    ],
-  },
+  {"slug": "gtm-setup", "num": 3, "name": "GTM Setup", "tagline": "Build the revenue roadmap before you build the pipeline", "group": "gtm-strategy", "role": "DECIDE", "stages": ["DECIDE"], "what": "We help companies define where to play, whom to target, how to position the offer and how to sequence the route to market. A GTM engagement connects market evidence, buyer understanding, competitive context, channels, commercial priorities and an execution roadmap.", "whyNow": "GTM decisions are increasingly made in markets where categories, technologies, competitors and buyer expectations shift quickly. The cost of entering the wrong segment or geography is much higher than the cost of doing the decision work properly first.", "whyUs": ["LeadStrategus combines research, strategy, sales and marketing rather than handing over a market report and stopping there.", "The work is designed around decisions, gates, owners and actions, not information volume.", "GTM intelligence can flow directly into account targeting, positioning, demand generation and sales enablement."], "close": "Start with the decisions that determine the pipeline, not the pipeline activity itself.", "seoTerms": ["GTM setup", "go-to-market strategy", "market entry", "market expansion", "GTM roadmap"], "sourceProof": ["Dover, GTM strategy covering market, buyer, competition, channels, decision gates, investment priorities and roadmap.", "Indus Net Technologies, US financial-services micro-market reconstruction, 100-company segmentation and four buyer personas."], "legacy": ["icp-definition", "india-entry"]},
+  {"slug": "repositioning", "num": 4, "name": "Repositioning", "tagline": "When the market has moved, reposition the business", "group": "gtm-strategy", "role": "DECIDE", "stages": ["DECIDE"], "what": "We help companies revisit their market position, target audience, value proposition, competitive frame and route to market when the existing GTM story is no longer producing the expected response.", "whyNow": "Growth stalls when a company keeps selling the old story to a market that has changed. Repositioning needs evidence about buyers, competition, category movement and the company’s own strengths before the new narrative is chosen.", "whyUs": ["Research-first repositioning: the proposition is grounded in market and buyer evidence.", "LeadStrategus connects repositioning to messaging, product marketing and demand generation.", "The team can move from diagnosis into execution rather than leaving the client with a strategy deck."], "close": "Rebuild the market story around what the buyer needs now, and what you can credibly own.", "seoTerms": ["Repositioning", "positioning strategy", "category repositioning", "GTM reset"], "sourceProof": ["Dover, market/buyer/competition analysis feeding product, bundling, channels and roadmap.", "Retigence, broader sales/marketing reset including pitching, content and message sequences."], "legacy": ["pricing-and-packaging"]},
+  {"slug": "market-intelligence", "num": 5, "name": "Market Intelligence & Assessment", "tagline": "Understand the market before you commit", "group": "gtm-strategy", "role": "DECIDE / DISCOVER", "stages": ["DECIDE", "DISCOVER"], "what": "We reconstruct markets and assess their structure, size, players, technology/application patterns, buyers, competition and opportunity spaces to support commercial decisions.", "whyNow": "Static market reports age quickly. Leadership needs market understanding that connects directly to target segments, buying structures and the decisions the business must make.", "whyUs": ["Deep research discipline combining proprietary sources, databases, social intelligence and human analysis.", "Ability to move from market-level evidence to account and buyer implications.", "Experience across Fortune 500s, startups and consulting-led research requirements."], "close": "See the market as a commercial system, not a spreadsheet of market-size numbers.", "seoTerms": ["Market research", "market assessment", "market intelligence", "competitive intelligence"], "sourceProof": ["Alibaba Cloud, top 115 companies analysed and Malaysia cloud-market share estimation.", "Indus Net Technologies, 100-company segmentation and four buyer personas.", "AskMeIdentity, managed IAM market/customer mapping across the US and India."], "legacy": ["competitive-intelligence"]},
+  {"slug": "research-and-forecasting", "num": 6, "name": "Research & Forecasting", "tagline": "Turn market data into forward-looking decisions", "group": "gtm-strategy", "role": "DECIDE / DISCOVER", "stages": ["DECIDE", "DISCOVER"], "what": "We combine primary and secondary research, market signals, buyer evidence and analysis to identify patterns, scenarios and forward-looking implications for GTM decisions.", "whyNow": "Forecasting is difficult when signals are fragmented. Companies need structured assumptions, evidence and scenarios rather than false precision.", "whyUs": ["LeadStrategus combines quantitative and qualitative research with commercial interpretation.", "Primary research can include surveys, interviews and buyer conversations where evidence is missing.", "The output is designed to inform GTM action, not simply publish a forecast."], "close": "Know what the evidence says today, and what it could mean next.", "seoTerms": ["Research", "forecasting", "market forecasting", "primary research", "secondary research"], "sourceProof": ["Ernst & Young, 3,010 respondents, CHRO interviews, analysis, storyboarding and final market-facing report.", "Alibaba Cloud, market reconstruction and share estimation."], "legacy": ["market-research"]},
+  {"slug": "scenario-planning", "num": 7, "name": "Scenario Planning", "tagline": "Prepare the GTM for more than one future", "group": "gtm-strategy", "role": "DECIDE", "stages": ["DECIDE"], "what": "We build structured scenarios around market, technology, buyer, competitive and commercial changes so leadership can identify trigger points, risks, options and actions.", "whyNow": "Planning around one forecast creates fragility. Scenario thinking is useful when market direction, regulation, technology or buyer behaviour can change the economics of a GTM decision.", "whyUs": ["Scenario planning is connected to concrete decision gates and actions.", "Research and intelligence provide the evidence base rather than hypothetical storytelling.", "Scenarios can flow into investment sequencing, target selection and roadmap design."], "close": "Don't predict one future. Build a GTM that knows what to do when the evidence changes.", "seoTerms": ["Scenario planning", "strategic scenarios", "GTM scenarios", "decision planning"], "sourceProof": ["Dover, decision-gate and investment-sequencing work is the closest documented proof in the source set.", "Alibaba Cloud, market reconstruction and competitive intelligence provide the evidence base for forward-looking assessment."], "editorialNote": "Proof is adjacent rather than a dedicated named scenario-planning case; keep this transparent."},
+  {"slug": "founder-brand", "num": 8, "name": "Founder & CEO Personal Branding", "tagline": "Turn executive authority into market relevance", "group": "gtm-strategy", "role": "POSITION / ENGAGE", "stages": ["POSITION", "ENGAGE"], "what": "We help founders and senior executives develop a credible market-facing narrative, thought-leadership position and content/engagement system aligned to the company’s GTM objectives.", "whyNow": "Buyers increasingly encounter companies through people, ideas and points of view before they enter a formal sales process. Executive visibility works best when it is tied to a market thesis rather than generic personal promotion.", "whyUs": ["LeadStrategus links executive positioning to GTM, thought leadership and demand generation.", "The wider social-selling methodology uses research and targeted engagement rather than generic posting.", "Content can be built around actual customer problems, market evidence and commercial conversations."], "close": "Build an executive point of view that gives the market a reason to listen, and the sales team a reason to start the conversation.", "seoTerms": ["Founder branding", "CEO branding", "executive thought leadership", "personal branding"], "sourceProof": ["Retigence, pitching, content and message-sequence work as part of a broader sales/marketing reset.", "LeadStrategus social-selling source material documents thought-leadership-led engagement with target prospects."]},
+  {"slug": "account-prospect-intelligence", "num": 9, "name": "Database / Account & Prospect Intelligence", "tagline": "Build the market you can actually sell into", "group": "account-intelligence", "role": "DISCOVER", "stages": ["DISCOVER"], "what": "We build curated, ICP-matched company and prospect universes using geography, industry, size, revenue, role and other client-defined parameters, with enrichment and validation.", "whyNow": "Generic databases are abundant. The commercial challenge is deciding which accounts belong in your addressable market and which people inside them deserve attention.", "whyUs": ["Research plus human validation rather than list extraction alone.", "Multi-parameter targeting and enrichment can create a precision account universe.", "The output feeds ABM, intent research, outreach and AI demand-generation workflows."], "close": "Don't buy another list. Build an addressable market your sales team can reason about.", "seoTerms": ["Database-as-a-Service", "account database", "prospect database", "ICP list", "target account list"], "sourceProof": ["Stibo Systems, 200+ target companies and 600+ prospects as part of ABM pipeline build.", "AskMeIdentity, target-account research and IAM market/customer mapping."], "legacy": ["database-as-a-service"]},
+  {"slug": "intent-account-intelligence", "num": 10, "name": "Intent-Based Account Intelligence", "tagline": "Know which accounts matter, and why now", "group": "account-intelligence", "role": "PRIORITISE", "stages": ["PRIORITISE"], "what": "We identify and interpret buying signals across firmographics, technographics, hiring, search, engagement and trigger events, then enrich and prioritise accounts for contextual outreach.", "whyNow": "Data without timing creates noise. Sales teams need to distinguish accounts that fit from accounts that are actually changing or showing evidence of a buying window.", "whyUs": ["The LeadStrategus framework combines tools with a human analytics layer and expert validation.", "Intent is connected to account prioritisation and messaging rather than treated as a standalone score.", "The same intelligence can feed ABM, social selling and AI agents."], "close": "Move from “this account fits” to “this account is worth attention now.”", "seoTerms": ["Intent data", "buying intent", "HIPO accounts", "buying signals", "account prioritisation"], "sourceProof": ["Stibo Systems, competitor-user identification and buying-signal research across 200+ target companies / 600+ prospects.", "Speridian, research-led targeting and personalised messaging producing 20+ qualified leads and ~20 meetings in four months."]},
+  {"slug": "osint-for-sales", "num": 11, "name": "OSINT / Market & Account Intelligence", "tagline": "Turn public evidence into commercial intelligence", "group": "account-intelligence", "role": "DISCOVER / PRIORITISE", "stages": ["DISCOVER", "PRIORITISE"], "what": "We use open-source intelligence methods across public data, social intelligence, databases, research and analytical techniques to answer specific commercial questions about markets, accounts and buyers.", "whyNow": "The amount of public information is growing faster than sales teams can interpret it. The advantage is not finding more information; it is connecting fragments into a usable hypothesis.", "whyUs": ["The source material describes LeadStrategus as a research partner to consulting firms and Fortune 500s.", "Researchers combine proprietary databases, social intelligence, wargaming and targeted digging.", "The output is data storytelling and actionable commercial intelligence."], "close": "Find the signal inside the noise, then turn it into a question Sales can act on.", "seoTerms": ["OSINT", "open-source intelligence", "social intelligence", "account research", "market intelligence"], "sourceProof": ["Indus Net, micro-market research and segmentation.", "AskMeIdentity, market/customer mapping and target-account research.", "Stibo Systems, account and competitor-user intelligence."]},
+  {"slug": "product-marketing-as-a-service", "num": 12, "name": "Product Marketing-as-a-Service", "tagline": "Make a complex product easy to understand and buy", "group": "positioning-content", "role": "POSITION", "stages": ["POSITION"], "what": "We build a 360-degree understanding of the product, market, audience and context, then position the product so the right buyers can understand its relevance, capabilities and commercial value.", "whyNow": "Strong products often underperform because the market cannot understand the context, differentiation or value quickly enough. Product marketing has to connect product truth with buyer reality.", "whyUs": ["Research-first product understanding rather than storytelling alone.", "Ability to translate complex products into simple, impactful commercial communication.", "Product marketing is connected to GTM, content and demand generation."], "close": "Make the product understandable in the buyer’s world, not just in the product team’s world.", "seoTerms": ["Product marketing", "product commercialisation", "product positioning", "product messaging"], "sourceProof": ["Retigence, sales/marketing reset including pitching and content.", "Ernst & Young, research translated into a market-facing report and story."]},
+  {"slug": "pitch-deck", "num": 13, "name": "Pitch Deck", "tagline": "Make the story easy to follow, and hard to forget", "group": "positioning-content", "role": "POSITION", "stages": ["POSITION"], "what": "We create pitch decks that combine narrative, evidence, visual structure, audience psychology and commercial sequencing to communicate who you are, why the problem matters and why the audience should care.", "whyNow": "Buyers see hundreds of decks. A deck that simply lists features, claims and competitor comparisons is easy to ignore. The narrative has to create understanding and momentum.", "whyUs": ["Source material documents a collective 40 years of pitch-deck experience.", "The team combines storytelling, sales, strategy, marketing, consulting, research, customer success, presentation and UX perspectives.", "LeadStrategus can connect the deck to the broader GTM and demand-generation narrative."], "close": "Don't make the audience work to understand the story. Build the story so the next question comes naturally.", "seoTerms": ["Pitch deck", "sales deck", "investor deck", "corporate deck", "presentation design"], "sourceProof": ["Retigence, pitching as part of a broader sales/marketing reset.", "Ernst & Young, storyboarding and market-facing report work demonstrates the research-to-narrative capability."]},
+  {"slug": "sales-deck", "num": 14, "name": "Sales Deck / Revenue Narrative", "tagline": "Give sales a story they can carry", "group": "positioning-content", "role": "POSITION / ENGAGE", "stages": ["POSITION", "ENGAGE"], "what": "We develop the core commercial narrative and sales-deck system: problem, context, value, proof, differentiation, objections and next step, adapted to the buying journey.", "whyNow": "Sales teams struggle when every salesperson tells a different story or when the corporate deck is too broad to support a real sales conversation.", "whyUs": ["Research, strategy and sales perspectives are combined in the narrative.", "The narrative can be modularised for personas, industries and sales stages.", "The same message architecture can power decks, content, outreach and executive thought leadership."], "close": "Give every sales conversation the same strategic spine, without making every conversation sound scripted.", "seoTerms": ["Sales deck", "sales narrative", "commercial narrative", "messaging", "value proposition"], "sourceProof": ["Retigence, pitching, content and message-sequence development.", "Dover, market, buyer and decision-gate intelligence feeding commercial narrative."]},
+  {"slug": "content-marketing", "num": 15, "name": "Content Marketing / Revenue Content", "tagline": "Create content that moves the buyer, not just the algorithm", "group": "positioning-content", "role": "POSITION / ENGAGE", "stages": ["POSITION", "ENGAGE"], "what": "We create strategic company narratives and buyer-focused content across decks, whitepapers, visual assets, videos, social posts, webinars, podcasts and interviews, tied to business goals and audience context.", "whyNow": "Content volume is easy; relevant content is not. B2B content has to help buyers understand a problem, form a point of view and move toward a commercial conversation.", "whyUs": ["LeadStrategus starts with the solution, audience persona and daily context before producing content.", "A defined methodology includes deliverables, content calendar and monitoring.", "Content is designed to connect with demand generation rather than operate as a publishing factory."], "close": "Research first. Story second. Distribution third. Commercial relevance throughout.", "seoTerms": ["Content marketing", "revenue content", "whitepapers", "infographics", "videos", "social content", "thought leadership"], "sourceProof": ["Ernst & Young, primary/secondary research, survey design, interviews, analysis, storyboarding and final market-facing report.", "Retigence, content and message-sequence development."]},
+  {"slug": "sales-messaging", "num": 16, "name": "Sales Messaging & Thought Leadership", "tagline": "Give buyers a reason to engage before they are ready to buy", "group": "positioning-content", "role": "POSITION / ENGAGE", "stages": ["POSITION", "ENGAGE"], "what": "We develop research-backed messages and thought-leadership themes that help target buyers understand a problem, challenge assumptions and create a reason for conversation.", "whyNow": "Buyers increasingly research before engaging Sales. Generic product messaging arrives too early; useful points of view create context and credibility before the sales ask.", "whyUs": ["Messaging is built around audience, context and buyer journey.", "LeadStrategus combines content with social selling and ABM, so thought leadership can be targeted rather than broadcast-only.", "The approach is “always be helping” rather than interruption-led outreach."], "close": "Earn attention with something useful enough to change the conversation.", "seoTerms": ["Sales messaging", "thought leadership", "buyer messaging", "personalised messaging", "POV content"], "sourceProof": ["Speridian, personalised messaging in a research-led ABM programme.", "SOA IT Solutions, LinkedIn social selling with ~70 deep conversations and meeting interest.", "Retigence, message-sequence development."]},
+  {"slug": "account-based-marketing", "num": 17, "name": "Account Based Marketing", "tagline": "Focus the pipeline on accounts that can matter", "group": "demand-generation", "role": "PRIORITISE / ENGAGE", "stages": ["PRIORITISE", "ENGAGE"], "what": "We identify the accounts that matter, research the people and buying context inside them, build personalised engagement and create qualified conversations through coordinated digital and human touchpoints.", "whyNow": "Broad demand programmes can create activity without creating revenue. ABM focuses scarce sales and marketing attention where account fit and commercial potential justify it.", "whyUs": ["Scientific account selection plus human personalisation.", "Account intelligence, thought leadership, social engagement and outreach work as one programme.", "LeadStrategus can connect online engagement with events and live meetings."], "close": "Stop fishing in the whole ocean. Build the pipeline around the accounts that deserve attention.", "seoTerms": ["ABM", "account-based marketing", "account-based demand generation", "ABM campaigns"], "sourceProof": ["Stibo Systems, 200+ target companies, 600+ prospects, competitor-user and buying-signal research.", "Speridian, 20+ qualified leads and close to 20 meetings in four months.", "Healthcare ABM example, new geography opened and CXO relationships developed through social engagement."]},
+  {"slug": "social-selling", "num": 18, "name": "Social Selling", "tagline": "Build relationships before you ask for the meeting", "group": "demand-generation", "role": "ENGAGE", "stages": ["ENGAGE"], "what": "We use LinkedIn and professional networks to identify target companies and prospects, engage with relevant content, build context, send personalised messages and develop conversations that can lead to meetings.", "whyNow": "Buyers are harder to reach with generic cold outreach. Social channels create an opportunity to build familiarity and relevance before making a direct commercial ask.", "whyUs": ["LeadStrategus combines account research, buying signals, thought leadership and personalised outreach.", "The source material documents expertise across healthcare, document software, testing and media.", "The methodology is designed around sustained relationship-building rather than one-off message blasts."], "close": "Warm the relationship before you warm the lead.", "seoTerms": ["Social selling", "LinkedIn social selling", "executive social selling", "LinkedIn ABM"], "sourceProof": ["SOA IT Solutions, 1,801 LinkedIn requests, 26% connection rate, ~70 deep conversations and meeting interest.", "Speridian, contextual social selling within research-led ABM."]},
+  {"slug": "lead-generation-in-a-box", "num": 19, "name": "Lead Generation in a Box / Managed Demand Generation", "tagline": "A complete pipeline motion without building the whole team", "group": "demand-generation", "role": "ENGAGE / MEET", "stages": ["ENGAGE", "MEET"], "what": "We provide an on-demand demand-generation programme covering ideation, account and prospect intelligence, campaign planning, messaging/content, execution and lead qualification / inside-sales touch.", "whyNow": "Teams need pipeline but may not have the time, skills or capacity to build every part of the demand-generation engine internally. Outsourcing only execution often fails when the agency does not understand the product or buyer.", "whyUs": ["End-to-end coverage from intelligence through campaign execution and qualification.", "Research-led, customer-centric approach rather than spray-and-pray outreach.", "Experience across Fortune 500s, startups and multiple geographies."], "close": "Plug in the missing parts of the pipeline engine, without building them all yourself.", "seoTerms": ["Lead Generation in a Box", "managed demand generation", "pipeline-as-a-service", "outsourced demand generation"], "sourceProof": ["Speridian, 20+ qualified leads and ~20 meetings in four months.", "SOA IT Solutions, 1,801 requests, 26% connection and ~70 deep conversations."], "legacy": ["outbound-sequencing"]},
+  {"slug": "digital-only-sales-funnel", "num": 20, "name": "Digital Only Sales Funnel", "tagline": "Build a buyer-first digital funnel without relying on meetings", "group": "demand-generation", "role": "ENGAGE / MEET", "stages": ["ENGAGE", "MEET"], "what": "We combine buyer-first intent, research, content, social selling, personalised messaging and selected digital tools to build a sales funnel that can progress without requiring face-to-face or telephone interaction at every stage.", "whyNow": "Digital-first buying is now normal. Email filters, call blocking and buyer self-education mean that companies need a deliberate digital engagement model rather than simply more outbound volume.", "whyUs": ["The methodology explicitly includes GTM, PMF, competitive analysis, value proposition, buyer journey, messaging and content.", "Research-based account intelligence and thought leadership are central to the model.", "The approach is designed to reduce blind spots and improve visibility into funnel state."], "close": "Build the digital context first. Make the sales conversation a continuation, not an interruption.", "seoTerms": ["DOSF", "digital-only sales funnel", "digital demand generation", "buyer-first funnel"], "sourceProof": ["SOA IT Solutions, LinkedIn-led digital/social selling and conversation generation.", "Speridian, personalised, research-led digital engagement."]},
+  {"slug": "sales-marketing-consulting", "num": 21, "name": "Sales & Marketing Consulting", "tagline": "Fix the system around the sales team, not just the salesperson", "group": "enablement", "role": "CONVERT / LEARN", "stages": ["CONVERT", "LEARN / SCALE"], "what": "We diagnose GTM, sales and marketing problems and provide practical consulting across strategy, process, messaging, pipeline, inside sales, field sales and execution.", "whyNow": "Revenue problems often cross departmental boundaries. More leads, more content or more sales training will not solve a broken positioning, handoff or qualification system.", "whyUs": ["LeadStrategus operates across the full GTM stack, enabling system-level diagnosis.", "Consulting can move into implementation rather than stopping at recommendations.", "The wider service portfolio connects consulting to intelligence, demand generation and enablement."], "close": "Find the constraint in the system, then fix the constraint, not the symptom.", "seoTerms": ["Sales consulting", "marketing consulting", "GTM consulting", "revenue consulting"], "sourceProof": ["Retigence, sales/marketing reset including hiring, onboarding, knowledge transfer, social selling, pitching, content and message sequences.", "Dover, strategy-to-execution GTM architecture."], "legacy": ["change-management"]},
+  {"slug": "diagnostic-workshops", "num": 22, "name": "Diagnostic Workshops", "tagline": "Find the revenue bottleneck before you train around it", "group": "enablement", "role": "CONVERT / LEARN", "stages": ["CONVERT", "LEARN / SCALE"], "what": "We run structured diagnostic workshops to identify gaps across GTM, positioning, demand generation, sales process, messaging, capability and execution, then define practical interventions.", "whyNow": "Training is often prescribed before the real problem is understood. A diagnostic creates a shared fact base and prioritises the changes that matter most.", "whyUs": ["Diagnostic workshops sit at the intersection of strategy, sales and marketing.", "The output can become a roadmap for coaching, training, process change or outsourced execution.", "LeadStrategus can test recommendations through actual pipeline programmes."], "close": "Diagnose first. Train second. Execute against the real constraint.", "seoTerms": ["Diagnostic workshop", "GTM audit", "sales audit", "marketing audit", "revenue diagnostic"], "sourceProof": ["Retigence, broader reset spanning people, process, messaging and sales/marketing execution.", "Dover, decision architecture and roadmap work."]},
+  {"slug": "inside-sales-setup", "num": 23, "name": "Inside Sales Setup", "tagline": "Build the human layer between marketing and sales", "group": "enablement", "role": "MEET / CONVERT", "stages": ["MEET", "CONVERT"], "what": "We design or improve inside-sales capability covering targeting, research, messaging, qualification, outreach, meeting setting, handoff and operating rhythm.", "whyNow": "Marketing-generated leads often fail when nobody owns the transition from interest to qualified conversation. A disciplined inside-sales layer can create a measurable bridge.", "whyUs": ["LeadStrategus already combines account intelligence, messaging and meeting generation.", "The model can incorporate social, email and research rather than a single-channel call-centre motion.", "Inside sales can be designed as part of the wider demand-generation engine."], "close": "Create the operating layer that turns interest into a sales-ready conversation.", "seoTerms": ["Inside sales", "SDR setup", "BDR setup", "appointment setting", "lead qualification"], "sourceProof": ["SOA IT Solutions, outbound/social-selling programme with 1,801 requests and ~70 deep conversations.", "Speridian, qualified leads and meetings from research-led demand generation."]},
+  {"slug": "field-sales-enablement", "num": 24, "name": "Field Sales Enablement", "tagline": "Equip sales to convert better, not just work harder", "group": "enablement", "role": "CONVERT", "stages": ["CONVERT"], "what": "We equip field-sales teams with the research, messaging, content, account context, tools and coaching needed to prepare for and progress real customer conversations.", "whyNow": "Complex B2B selling involves multiple stakeholders, longer cycles and more information. Salespeople need contextual intelligence and usable commercial assets, not generic product training alone.", "whyUs": ["Enablement can draw directly from account and buying intelligence.", "The narrative and content work gives sales a coherent commercial story.", "Coaching can be grounded in actual accounts and conversations."], "close": "Give the salesperson the context, story and next-best action before the meeting begins.", "seoTerms": ["Field sales enablement", "sales enablement", "sales playbook", "sales tools"], "sourceProof": ["Retigence, sales/marketing reset with knowledge transfer, pitching, content and message sequences.", "Dover, buyer/decision-gate work that can inform field-sales engagement."]},
+  {"slug": "coaching-and-training", "num": 25, "name": "Coaching, Mentoring & Training", "tagline": "Turn GTM knowledge into repeatable sales behaviour", "group": "enablement", "role": "CONVERT / LEARN", "stages": ["CONVERT", "LEARN / SCALE"], "what": "We provide practical sales and marketing coaching, mentoring and training around GTM, social selling, demand generation, tools, messaging and execution.", "whyNow": "Knowledge does not automatically become behaviour. Teams need practice, feedback and operating routines tied to real pipeline work.", "whyUs": ["The source material describes diagnostic workshops, field coaching and mentoring.", "Training can be linked to actual demand-generation workflows and tools.", "The focus is practical application rather than classroom-only theory."], "close": "Train against the work your team actually has to do, then coach until the behaviour sticks.", "seoTerms": ["Sales training", "marketing training", "coaching", "mentoring", "social-selling training", "DOSF training"], "sourceProof": ["Retigence, knowledge transfer, onboarding and sales/marketing reset.", "DOSF source material, training and mentoring around the digital funnel methodology and tools."], "legacy": ["sales-coaching", "marketing-training", "ai-in-gtm-training"]},
+  {"slug": "channel-strategy", "num": 26, "name": "Channel Strategy", "tagline": "Design the partner route to market", "group": "enablement", "role": "DECIDE / CONVERT", "stages": ["DECIDE", "CONVERT"], "what": "We help companies assess, structure and improve channel routes to market, including partner roles, target segments, messaging, enablement and commercial execution.", "whyNow": "Partner ecosystems can accelerate market access, but unclear roles and weak enablement can create channel conflict or low partner productivity.", "whyUs": ["LeadStrategus combines market intelligence with GTM and sales enablement.", "Channel decisions can be tied to segment, buyer and commercial economics.", "Execution can extend into partner messaging and enablement."], "close": "Make the channel an intentional route to market, not a collection of partner logos.", "seoTerms": ["Channel strategy", "partner GTM", "partner enablement", "indirect sales strategy"], "sourceProof": ["Dover, documented channel, investment and roadmap work provides adjacent proof.", "Indus Net Technologies, market and buyer segmentation provides the underlying GTM evidence discipline."], "editorialNote": "Proof is adjacent rather than a dedicated named channel-strategy case; retain transparency."},
+  {"slug": "event-abm", "num": 27, "name": "Event ABM", "tagline": "Turn events into targeted account interactions", "group": "events", "role": "ENGAGE / MEET", "stages": ["ENGAGE", "MEET"], "what": "We use account intelligence, intent and personalised outreach to identify the right prospects for a conference, trade show, roundtable or other event, then orchestrate conversations before, during and after the event.", "whyNow": "Events generate value only when the right people engage in meaningful conversations. Event ABM brings the precision of account-based marketing into a time-bound environment.", "whyUs": ["Research and intent precede event invitations.", "The model combines digital pre-engagement with offline conversations.", "Post-event follow-through is part of the pipeline motion."], "close": "Don't optimise the booth. Optimise the conversations you want the booth to create.", "seoTerms": ["Event ABM", "conference ABM", "trade show ABM", "event demand generation"], "sourceProof": ["BSMA Summit 2024 to 280 companies reached, 75 connected, 18 meeting requests and 12 Fortune 50 opportunities; source states 5× qualified meetings vs standard attendance.", "Stibo Systems, ABM/account intelligence capability provides the targeting foundation."]},
+  {"slug": "custom-events", "num": 28, "name": "Custom Events", "tagline": "Design smaller, higher-value demand moments", "group": "events", "role": "ENGAGE / MEET", "stages": ["ENGAGE", "MEET"], "what": "We design targeted customer events, roundtables, workshops and other high-value interactions around a defined audience, business question and commercial objective.", "whyNow": "Large events can create reach but dilute relevance. Smaller, curated formats can create deeper conversations when the audience, content and follow-up are engineered together.", "whyUs": ["Audience acquisition is connected to account and prospect intelligence.", "Content and event logistics are handled as part of one programme.", "The commercial objective remains visible through meeting generation and follow-up."], "close": "Design the room around the conversation you need, not the other way around.", "seoTerms": ["Custom events", "executive roundtables", "workshops", "customer events"], "sourceProof": ["Event-based service model, curated prospects, compelling conversations, research, marketing assets and event dynamics.", "BSMA Summit 2024, documented event-pipeline outcomes."]},
+  {"slug": "webinar-as-a-service", "num": 29, "name": "Webinar-as-a-Service", "tagline": "Build the audience, content and pipeline around the webinar", "group": "events", "role": "ENGAGE / MEET", "stages": ["ENGAGE", "MEET"], "what": "We handle audience acquisition, content and speakers, logistics, event execution, post-event database, messaging and reporting for webinar programmes.", "whyNow": "Webinars are easy to run and hard to make commercially useful. The audience, topic, speaker, follow-up and sales motion have to be designed as one system.", "whyUs": ["LeadStrategus covers pre-event acquisition and post-event follow-through.", "Content can be tied to thought leadership and buyer problems.", "The programme can connect to account targeting and demand generation."], "close": "Treat the webinar as the middle of a demand programme, not the end of one.", "seoTerms": ["Webinar-as-a-Service", "webinar marketing", "webinar lead generation", "virtual events"], "sourceProof": ["Source material documents the full Webinar-as-a-Service workflow, but does not provide a named quantified webinar case.", "Content and demand-generation case evidence can support the underlying methodology."]},
+  {"slug": "quiz-as-a-service", "num": 30, "name": "Quiz-as-a-Service", "tagline": "Use interaction to create qualified engagement", "group": "events", "role": "ENGAGE", "stages": ["ENGAGE"], "what": "We design quiz-based campaigns covering audience acquisition, quiz content, hosting/logistics, post-event lead generation and incentive/prize mechanics.", "whyNow": "Interactive formats can create stronger engagement than passive content when the interaction is tied to a meaningful buyer question and a clear follow-up path.", "whyUs": ["End-to-end delivery includes acquisition, content, hosting and post-event lead generation.", "The format can be connected to customer education and data capture.", "LeadStrategus can combine campaign content with broader demand-generation execution."], "close": "Turn passive attention into an interaction that tells you something useful about the buyer.", "seoTerms": ["Quiz-as-a-Service", "interactive campaign", "lead-generation quiz", "engagement campaign"], "sourceProof": ["Source material documents the full Quiz-as-a-Service workflow but does not provide a named quantified case.", "Use as a tactical service/module rather than a major top-level proposition."]},
+  {"slug": "event-lead-generation", "num": 31, "name": "3rd-Party Event-Based Lead Generation", "tagline": "Make trade shows and conferences a pipeline channel", "group": "events", "role": "DISCOVER / ENGAGE / MEET", "stages": ["DISCOVER", "ENGAGE", "MEET"], "what": "We help companies maximise third-party event participation through curated target prospects, pre-event research and outreach, conversation preparation, on-ground support and post-event pipeline follow-through.", "whyNow": "Trade shows are often treated as attendance exercises. The commercial value comes from having the right conversations with the right people before the event is over.", "whyUs": ["End-to-end pre/during/post event support.", "Research and personalised outreach create context before the meeting.", "This capability has now evolved into the dedicated ExpoToFunnel product."], "close": "Don't just attend the show. Arrive with a meeting agenda.", "seoTerms": ["Third-party event lead generation", "conference lead generation", "trade show lead generation", "CXO meetings"], "sourceProof": ["BSMA Summit 2024 to 280 companies reached, 75 connected, 18 meeting requests and 12 Fortune 50 opportunities.", "Conference service model, curated event shortlist, target attendees, personalised outreach, dossiers and post-event pipeline."]},
+  {"slug": "ai-agent-build", "num": 32, "name": "AI Agent Build", "tagline": "Automate one painful demand-gen workflow", "group": "leadstrategus-ai", "role": "DISCOVER → OPERATE", "stages": ["DISCOVER", "PRIORITISE", "POSITION", "ENGAGE", "MEET", "CONVERT", "LEARN / SCALE"], "what": "We design and deploy one or a small number of purpose-built AI agents for a specific manual demand-generation workflow, such as discovery, research, enrichment, signal interpretation or operations.", "whyNow": "Many companies do not need a complete AI system on day one. A focused agent can remove repetitive work while creating evidence for a broader transformation.", "whyUs": ["Built on LeadStrategus demand-generation methodology rather than a generic chatbot model.", "Agents can be configured to the client’s logic, data and workflow.", "Human supervision and guardrails remain part of deployment."], "close": "Start with the workflow that is costing your team the most time, then automate it properly.", "seoTerms": ["AI agent build", "custom AI agent", "demand-gen automation", "sales automation"], "sourceProof": ["Current LeadStrategus.ai platform includes individual agent capabilities; named quantified AI deployment cases are a proof gap to build.", "Underlying methodology proof: Stibo, Speridian, SOA IT Solutions and others."]},
+  {"slug": "gtm-ai-twin", "num": 33, "name": "GTM AI Twin", "tagline": "Encode your demand-gen best practices into a connected system", "group": "leadstrategus-ai", "role": "DISCOVER → LEARN / SCALE", "stages": ["DISCOVER", "PRIORITISE", "POSITION", "ENGAGE", "MEET", "CONVERT", "LEARN / SCALE"], "what": "A connected set of AI agents configured on the client’s ICP, closed-won patterns, voice, qualification rules and demand-generation workflows, with human judgement retained at critical gates.", "whyNow": "AI becomes valuable when it understands the company’s actual commercial logic. Generic agents can generate activity; a GTM AI Twin is designed to reproduce the context and operating rules behind good decisions.", "whyUs": ["The architecture connects discovery, signals, prioritisation, messaging, monitoring, meetings and operations.", "It is configured around client-specific ICP and winning patterns.", "The model retains human judgement rather than treating automation as the objective."], "close": "Encode how your best people think about demand generation, then let agents carry the repeatable load.", "seoTerms": ["GTM AI Twin", "AI demand generation", "AI SDR", "AI sales engine", "AI revenue engine"], "sourceProof": ["LeadStrategus.ai publishes client testimonials from Indus Net, Stibo Systems, Retigence, EY, Speridian, AskMeIdentity and SOA IT Solutions.", "Specific AI outcome case studies should be added before making strong ROI claims."], "href": "/gtm-ai-twin"},
+  {"slug": "ai-demand-gen-system", "num": 34, "name": "Full AI Demand Gen System", "tagline": "From account discovery to revenue operations", "group": "leadstrategus-ai", "role": "DISCOVER → CONVERT → OPERATE", "stages": ["DISCOVER", "PRIORITISE", "POSITION", "ENGAGE", "MEET", "CONVERT", "LEARN / SCALE"], "what": "We build the connected AI demand-generation system across account discovery, buying intent, prioritisation, outreach, monitoring/reactivation, meeting conversion and operations.", "whyNow": "Demand generation is a chain. Automating one step while leaving the rest fragmented often creates another handoff problem. A connected system can preserve context from signal to conversation.", "whyUs": ["Seven-stage architecture connects the full motion.", "Human judgement, guardrails and supervised live running are part of the implementation model.", "Can be built, deployed and optionally operated by LeadStrategus."], "close": "Build the system once. Let the agents run the repeatable work. Keep people where judgement matters.", "seoTerms": ["Full AI demand generation", "AI pipeline", "AI revenue engine", "autonomous demand generation"], "sourceProof": ["Platform proof currently exists as architecture and client testimonials; dedicated quantified AI deployment case studies should be created.", "Existing client proof demonstrates the demand-generation logic being encoded, not necessarily AI-generated outcomes."]},
+  {"slug": "event-discovery", "num": 35, "name": "Event Discovery & Ranking", "tagline": "Find the shows where your ICP actually concentrates", "group": "expotofunnel", "role": "DECIDE / DISCOVER", "stages": ["DECIDE", "DISCOVER"], "what": "ExpoToFunnel helps companies identify and rank relevant trade shows using an indexed event universe and ICP relevance, creating a more deliberate event-selection process.", "whyNow": "Event calendars are huge and budgets are finite. Choosing the wrong event can waste travel, booth and sales capacity before outreach even begins.", "whyUs": ["Dedicated event universe and ranking proposition.", "Event selection is treated as a GTM decision, not just a directory search.", "The product creates the starting point for buyer matching and meeting generation."], "close": "Choose the show because the buyers are there, not because the show is famous.", "seoTerms": ["Trade show ranking", "event discovery", "conference selection", "event intelligence"], "sourceProof": ["ExpoToFunnel currently positions itself around a large indexed event universe and event ranking.", "BSMA Summit 2024 provides adjacent evidence of the meeting-generation model."]},
+  {"slug": "buyer-matching", "num": 36, "name": "Buyer Matching & Meeting Generation", "tagline": "Match the event to the buyers you actually want", "group": "expotofunnel", "role": "PRIORITISE / ENGAGE / MEET", "stages": ["PRIORITISE", "ENGAGE", "MEET"], "what": "We identify ICP-fit attendees or target accounts, use buying-intent/contextual research, conduct outreach and work toward confirmed meetings before the event.", "whyNow": "Badge scans are not pipeline. The valuable unit is a named buyer with a reason to talk and a scheduled conversation.", "whyUs": ["Combines event selection, account intelligence, intent and human outreach.", "Confirmed meetings are treated as a commercial output, not generic lead capture.", "Meeting briefs provide context for the sales team."], "close": "Know who you want to meet before you enter the hall.", "seoTerms": ["Event buyer matching", "conference meetings", "trade show meetings", "CXO meetings"], "sourceProof": ["BSMA Summit 2024 to 18 meeting requests and 12 Fortune 50 opportunities from the documented programme.", "ExpoToFunnel attending and exhibiting motions provide the commercial model."]},
+  {"slug": "meeting-intelligence", "num": 37, "name": "Meeting Intelligence & Follow-Through", "tagline": "Turn a booked event meeting into a better sales conversation", "group": "expotofunnel", "role": "POSITION / MEET / CONVERT", "stages": ["POSITION", "MEET", "CONVERT"], "what": "We provide per-meeting research and conversation briefs, plus follow-through that helps the sales team convert event conversations into useful next steps.", "whyNow": "Even a booked meeting can be wasted if the salesperson lacks context about the account, buyer, trigger and likely conversation angle.", "whyUs": ["Research and talking-point briefs are part of the event-revenue proposition.", "LeadStrategus combines account intelligence with human conversation preparation.", "Post-event follow-up keeps the event connected to pipeline rather than ending at the meeting."], "close": "The meeting is not the outcome. The useful next step is.", "seoTerms": ["Meeting briefs", "event intelligence", "conversation intelligence", "post-event follow-up"], "sourceProof": ["BSMA Summit 2024, event programme includes on-ground account/prospect intelligence and meeting preparation.", "ExpoToFunnel model explicitly connects booked meetings with conversation briefs and follow-through."]},
+  {"slug": "revenue-operations", "num": 38, "name": "Revenue Operations / GTM Operations", "tagline": "Make the pipeline engine measurable and operable", "group": "revenue-operations", "role": "LEARN / SCALE", "stages": ["LEARN / SCALE"], "what": "We help connect CRM, data hygiene, lead routing, reporting, process design and funnel diagnostics so the GTM system can operate consistently and improve over time.", "whyNow": "Demand generation becomes harder to scale when data is fragmented, handoffs are unclear and reporting cannot explain what is actually happening in the funnel.", "whyUs": ["The existing AI architecture includes normalisation, deduplication, CRM updates and reporting.", "LeadStrategus already spans research, demand generation and enablement, providing context for process design.", "This capability can become a standalone commercial offer when the delivery model and proof base are mature enough."], "close": "Make the revenue engine observable before trying to optimise it.", "seoTerms": ["RevOps", "revenue operations", "GTM operations", "CRM hygiene", "funnel optimisation", "pipeline reporting"], "sourceProof": ["Current source material supports the capability through AI ops and broader GTM work, but does not provide a dedicated named RevOps case study.", "Treat as a capability/offer under development until dedicated proof is available."], "editorialNote": "Do not over-promote as a mature standalone service until dedicated case evidence exists."},
 ];
 
+export const serviceHref = (s: Service) => s.href ?? `/services/${s.slug}`;
 export const getService = (slug: string) => services.find((s) => s.slug === slug);
-export const servicesFor = (practiceSlug: string) => services.filter((s) => s.practiceSlug === practiceSlug);
+export const servicesFor = (group: ServiceGroupSlug) => services.filter((s) => s.group === group);

@@ -11,10 +11,14 @@ import { Bloom, FieldPlate } from "@/components/ui/Atmos";
 import { StaggerItem } from "@/components/motion/Stagger";
 import { practiceIconFor } from "@/components/icons/registry";
 import { PracticeGlyph } from "@/components/visual/PracticeGlyph";
-import type { CaseStudy, FAQ, Practice } from "@/content/types";
+import type { CaseStudy, FAQ } from "@/content/types";
+import type { Group } from "@/content/practices";
+import { getGroup } from "@/content/practices";
+import { servicesFor, serviceHref } from "@/content/services";
 import { proof } from "@/content/site";
 
-export function PracticeCard({ p, i }: { p: Practice; i: number }) {
+export function PracticeCard({ p, i }: { p: Group; i: number }) {
+  const members = servicesFor(p.slug);
   return (
     <StaggerItem i={i} className="h-full">
       <Link href={`/practices/${p.slug}`} className="card group relative flex h-full flex-col overflow-hidden p-6 md:p-8">
@@ -23,16 +27,15 @@ export function PracticeCard({ p, i }: { p: Practice; i: number }) {
         <PracticeGlyph slug={p.slug} className="pointer-events-none absolute -right-6 -top-4 h-40 w-56 opacity-[0.08] transition-opacity duration-[var(--dur-2)] group-hover:opacity-[0.14]" />
         <div className="relative flex items-center justify-between gap-4">
           <IconPlate icon={practiceIconFor(p.slug)} presentation="plate" size="lg" />
-          <span className="font-mono text-micro tracking-[0.16em] text-faint">{p.index}</span>
         </div>
         <h3 className="h3 relative mt-7">{p.name}</h3>
         <p className="relative mt-2.5 text-muted">{p.tagline}</p>
         <ul className="relative mt-6 flex flex-wrap gap-1.5">
-          {p.services.slice(0, 4).map((s) => (
-            <li key={s} className="rounded-full border border-rule bg-sand px-2.5 py-1 text-[0.72rem] text-muted">{s}</li>
+          {members.slice(0, 4).map((s) => (
+            <li key={s.slug} className="rounded-full border border-rule bg-sand px-2.5 py-1 text-[0.72rem] text-muted">{s.name}</li>
           ))}
-          {p.services.length > 4 && (
-            <li className="rounded-full px-2.5 py-1 font-mono text-[0.72rem] text-dim">+{p.services.length - 4} more</li>
+          {members.length > 4 && (
+            <li className="rounded-full px-2.5 py-1 font-mono text-[0.72rem] text-dim">+{members.length - 4} more</li>
           )}
         </ul>
         <span className="relative mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-ember-ink">
@@ -49,7 +52,7 @@ export function CaseTile({ c, i = 0, compact }: { c: CaseStudy; i?: number; comp
       <Link href={`/work/${c.slug}`} className={cn("card group flex h-full flex-col p-6", !compact && "md:p-7")}>
         <div className="flex items-center justify-between gap-3 font-mono text-[0.66rem] uppercase tracking-[0.13em] text-muted">
           <span>{c.vertical}</span>
-          <span className="text-dim">{c.region}</span>
+          {c.sample ? <span className="rounded-full border border-rule-strong bg-sand px-2 py-0.5 normal-case tracking-normal text-muted">Sample</span> : <span className="text-dim">{c.region}</span>}
         </div>
         <h3 className={cn("mt-5 font-display font-semibold tracking-[-0.028em]", compact ? "text-[1.12rem] leading-snug" : "h3")}><Copy text={c.title} /></h3>
         {!compact && <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted">{c.summary}</p>}
@@ -62,7 +65,7 @@ export function CaseTile({ c, i = 0, compact }: { c: CaseStudy; i?: number; comp
           ))}
         </div>
         <div className="mt-5 flex items-center gap-1.5 text-sm text-muted transition-colors group-hover:text-ember-ink">
-          <span>{c.practice}</span><ArrowRight className="size-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-1" />
+          <span>{getGroup(c.group)?.short}</span><ArrowRight className="size-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-1" />
         </div>
       </Link>
     </StaggerItem>
@@ -104,20 +107,23 @@ export function FAQBlock({ items, title = "Asked often, answered plainly.", tone
 }
 
 export function CTABand({ title, lede, primary, secondary, tone = "ember" }: { title: React.ReactNode; lede?: string; primary: { label: string; href: string }; secondary?: { label: string; href: string; external?: boolean }; tone?: "ember" | "twin" }) {
+  // a full-sentence title (a service page's close) steps down a rung so it
+  // reads as a statement rather than a poster
+  const long = typeof title === "string" && title.length > 70;
   return (
-    <section className="band band--ink sheen relative overflow-hidden">
+    <section className="band band--blush sheen relative overflow-hidden">
       <Bloom hue="ember" at="bottom" size={78} />
       <FieldPlate fy="70%" />
       <div className="container-x section-y relative">
         <Reveal className="mx-auto max-w-4xl text-center">
           {/* one specular pass as the band arrives, then never again */}
           <span aria-hidden className="sheen__pass" />
-          <h2 className="display-2 balance">{title}</h2>
+          <h2 className={long ? "h2 balance" : "display-2 balance"}>{title}</h2>
           {lede && <p className="lede mx-auto mt-6 max-w-2xl">{lede}</p>}
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button href={primary.href} size="lg" variant={tone === "twin" ? "twin" : "primary"}>{primary.label}</Button>
             {secondary && (
-              <Button href={secondary.href} size="lg" external={secondary.external} className="border border-white/25 text-[#f6f2ec] hover:border-white/60 hover:bg-white/5" variant="ghost">
+              <Button href={secondary.href} size="lg" external={secondary.external} className="border border-rule-strong bg-paper text-fg hover:border-fg/40" variant="ghost">
                 {secondary.label}
               </Button>
             )}

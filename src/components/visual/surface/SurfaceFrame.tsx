@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
  * The frame every ambient product surface sits in: a chrome bar, a body, and
  * an optional reel showing how far through its loop the surface is.
  *
- * The frame — not the caller — prints SYNTHETIC_NOTE, and prints it whether or
+ * The frame, not the caller, prints SYNTHETIC_NOTE, and prints it whether or
  * not a `status` was passed. A surface that renders invented data has to say
  * so on its face, and a label a caller can replace with "live" by supplying a
  * status of its own is not a guarantee, it is a default. This one is the only
@@ -23,7 +23,7 @@ export function SurfaceFrame({
   className,
 }: {
   title: string;
-  /** Extra chrome, right — set beside the note, never instead of it. */
+  /** Extra chrome, right, set beside the note, never instead of it. */
   status?: React.ReactNode;
   tone?: "paper" | "ink";
   /** 0..1. Omit it and no reel is drawn. */

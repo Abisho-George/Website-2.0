@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /**
- * A slow horizontal strip. Pauses on hover and on keyboard focus — a moving
+ * A slow horizontal strip. Pauses on hover and on keyboard focus, a moving
  * strip a reader cannot stop is a WCAG 2.2.2 failure, and this one carries
  * the verticals list on the homepage.
  *

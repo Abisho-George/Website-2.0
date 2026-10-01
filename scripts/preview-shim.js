@@ -10,7 +10,7 @@
   function routeFromHash() {
     var h = location.hash || "";
     if (h.indexOf("#/") !== 0) return "/";
-    var p = h.slice(1).split("?")[0].replace(/\/+$/, "");
+    var p = h.slice(1).split("?")[0].split("#")[0].replace(/\/+$/, "");
     return p || "/";
   }
   function queryFromHash() {
@@ -25,11 +25,21 @@
     document.body.style.overflow = "";
     window.scrollTo(0, 0);
     wire();
+    /* a second fragment (#/about#kingshuk-hazra) names an element on the page:
+       open the founder details inside it and bring it into view, as OpenOnHash does */
+    var frag = (location.hash.slice(1).split("?")[0].split("#")[1] || "");
+    if (frag) {
+      var host = document.getElementById(decodeURIComponent(frag));
+      if (host) {
+        var d = host.querySelector("[data-founder]"); if (d) d.open = true;
+        setTimeout(function () { host.scrollIntoView({ block: "start" }); }, 60);
+      }
+    }
   }
 
   function cls(el, remove, add) { remove.forEach(function (c) { el.classList.remove(c); }); add.forEach(function (c) { el.classList.add(c); }); }
 
-  /* which nav rail item the current hash route belongs to — mirrors Nav.tsx */
+  /* which nav rail item the current hash route belongs to, mirrors Nav.tsx */
   function railRoute(track) {
     if (!track.closest("[data-nav]")) return null;
     var p = routeFromHash();
@@ -108,7 +118,7 @@
       });
     }
 
-    /* agent map — hover on a pointer device, tap on touch */
+    /* agent map, hover on a pointer device, tap on touch */
     (function () {
       var map = app.querySelector("#agents"); if (!map) return;
       var cards = [].slice.call(map.querySelectorAll("button[aria-expanded]"));
@@ -172,7 +182,7 @@
       o.observe(el);
     });
 
-    /* filters (work + insights) — segmented controls with a travelling thumb */
+    /* filters (work + insights), segmented controls with a travelling thumb */
     var pillOn = ["text-paper"], pillOff = ["text-muted", "hover:text-fg"];
     var sideOn = ["bg-sand", "text-fg", "shadow-[inset_0_0_0_1px_var(--color-rule)]"], sideOff = ["text-muted", "hover:bg-sand/60", "hover:text-fg"];
     var active = { practice: "All", vertical: "All", cluster: "all" };
@@ -222,7 +232,7 @@
       portal.addEventListener("mouseleave", function () { setX(54); });
     }
 
-    /* pipeline funnel — scroll-scrubbed bars, mirrors PipelineBars.tsx */
+    /* pipeline funnel, scroll-scrubbed bars, mirrors PipelineBars.tsx */
     var pipeline = app.querySelector("[data-pipeline]");
     if (pipeline) {
       var PSTAGES = [{ pct: 100 }, { pct: 34 }, { pct: 12 }, { pct: 5.5 }, { pct: 2.1 }];
@@ -334,7 +344,7 @@
       if (reduced) LINES.forEach(line); else timers.push(setTimeout(tick, 700));
     }
 
-    /* spine progress + section markers — mirrors Spine.tsx, whose markers are
+    /* spine progress + section markers, mirrors Spine.tsx, whose markers are
        built in an effect and so are absent from the server-rendered body */
     var spine = app.querySelector(".spine");
     var fill = spine && spine.querySelector("[data-spine-fill]");
@@ -346,10 +356,7 @@
         m.className = "marker";
         m.setAttribute("data-spine-marker", "");
         var dot = document.createElement("span"); dot.className = "marker__dot";
-        var n = document.createElement("span"); n.className = "marker__n";
-        n.textContent = sec.getAttribute("data-section-n") || "";
-        if (sec.getAttribute("data-section-label")) n.title = sec.getAttribute("data-section-label");
-        m.appendChild(dot); m.appendChild(n);
+        m.appendChild(dot);
         spine.appendChild(m);
         marks.push({ el: m, sec: sec });
       });
@@ -377,7 +384,7 @@
     };
     measureSpine();
 
-    /* rail indicators — mirrors RailIndicator.tsx */
+    /* rail indicators, mirrors RailIndicator.tsx */
     var rails = [];
     app.querySelectorAll(".rail-track").forEach(function (track) {
       var head = track.querySelector(".rail-head");

@@ -3,7 +3,7 @@ import { useEffect, useRef, type CanvasHTMLAttributes } from "react";
 import { subscribe } from "./surface/ticker";
 
 export type SceneEnv = {
-  /** CSS pixels — the context is already scaled by dpr, so draw in these. */
+  /** CSS pixels, the context is already scaled by dpr, so draw in these. */
   w: number;
   h: number;
   dpr: number;
@@ -22,7 +22,7 @@ export type Scene = {
 };
 
 type Props = {
-  /** Built once, on the first client render — see the lazy ref idiom in callers. */
+  /** Built once, on the first client render, see the lazy ref idiom in callers. */
   scene: Scene;
   /** Below this width the scene is told to run cheap. */
   lowPowerWidth?: number;
@@ -33,8 +33,7 @@ type Props = {
 /**
  * Hosts a canvas scene and owns everything a canvas on a long page must do and
  * usually doesn't: clamp devicePixelRatio, redraw on resize, draw exactly one
- * frame and stop under prefers-reduced-motion, and — the part that matters —
- * run only while it is actually on screen and the tab is in front.
+ * frame and stop under prefers-reduced-motion, and, the part that matters, * run only while it is actually on screen and the tab is in front.
  *
  * Scenes never call requestAnimationFrame; they subscribe to the one shared
  * ticker, so a page with several of them still has a single loop.

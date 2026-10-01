@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
  *
  * Two variants, both driven by the same class so one observer and one CSS
  * contract cover every entrance on the site:
- *   rise  fade up by --rise-2 — blocks, cards, rows
- *   line  a line of type rising out of its own box — headings, inside .mask-line
+ *   rise  fade up by --rise-2, blocks, cards, rows
+ *   line  a line of type rising out of its own box, headings, inside .mask-line
  */
 export function Reveal({
   children,

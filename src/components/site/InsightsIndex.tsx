@@ -15,7 +15,7 @@ export function InsightsIndex({ items, clusters }: { items: Insight[]; clusters:
   const shown = items.filter((i) => active === "all" || i.cluster === active);
   const name = (s: string) => clusters.find((c) => c.slug === s)?.name ?? s;
 
-  // the selected topic used to be bg-white/6 — white at 6% on a white ground,
+  // the selected topic used to be bg-white/6, white at 6% on a white ground,
   // which is to say no selected state at all
   const topic = (slug: string, on: boolean) =>
     cn(

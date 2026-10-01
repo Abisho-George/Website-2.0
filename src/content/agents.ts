@@ -1,5 +1,5 @@
 /**
- * The agent catalogue — the list that lives on leadstrategus.ai, brought onto
+ * The agent catalogue, the list that lives on leadstrategus.ai, brought onto
  * this page. One agent per manual, painful step of outbound demand generation.
  *
  * PLACEHOLDER: the names, coverage and especially the `status` of each agent
@@ -11,7 +11,7 @@ export type AgentStatus = "live" | "building";
 export type Agent = {
   slug: string;
   name: string;
-  /** What it does — revealed on hover or tap. */
+  /** What it does, revealed on hover or tap. */
   does: string;
   /** The manual, painful process it removes. */
   replaces: string;
@@ -60,7 +60,7 @@ export const agentPhases: AgentPhase[] = [
       {
         slug: "buying-group",
         name: "Buying Group Agent",
-        does: "Maps the committee on each account — economic buyer, champion, blocker, influencer — with verified routes to each.",
+        does: "Maps the committee on each account (economic buyer, champion, blocker, influencer) with verified routes to each.",
         replaces: "Single-threading into one contact and losing the deal when they change jobs.",
         youDecide: "Who to lead with, and when to go above or around a stalled champion.",
         status: "live",
@@ -93,7 +93,7 @@ export const agentPhases: AgentPhase[] = [
         name: "Angle Agent",
         does: "Finds the one connection between something the account has already committed to publicly and what you actually do.",
         replaces: "Opening lines that reference the company's website and impress nobody.",
-        youDecide: "Whether the angle is credible coming from you — the judgement call that decides the reply.",
+        youDecide: "Whether the angle is credible coming from you: the judgement call that decides the reply.",
         status: "live",
       },
       {
@@ -107,7 +107,7 @@ export const agentPhases: AgentPhase[] = [
       {
         slug: "competitive",
         name: "Competitive Watch Agent",
-        does: "Tracks the vendors you actually meet in deals — pricing moves, positioning shifts, hiring — and keeps the battlecard current.",
+        does: "Tracks the vendors you actually meet in deals (pricing moves, positioning shifts, hiring) and keeps the battlecard current.",
         replaces: "A battlecard written once, eighteen months ago, that reps quietly stopped opening.",
         youDecide: "Which comparisons to pick a fight over and which to refuse.",
         status: "building",
@@ -130,7 +130,7 @@ export const agentPhases: AgentPhase[] = [
       {
         slug: "writing",
         name: "Outreach Writing Agent",
-        does: "Writes each message from that account's brief, in your voice, one at a time — no merge fields, no template with a name slotted in.",
+        does: "Writes each message from that account's brief, in your voice, one at a time. No merge fields, no template with a name slotted in.",
         replaces: "A sequence written once and sent to four thousand people who can tell.",
         youDecide: "The voice, and approval on every send until the agent has earned autonomy.",
         status: "live",
@@ -209,7 +209,7 @@ export const agentPhases: AgentPhase[] = [
       {
         slug: "reporting",
         name: "Reporting Agent",
-        does: "Reports the same five numbers every week — accounts engaged, meetings booked, meetings held, opportunities created, what changed — and what it learned.",
+        does: "Reports the same five numbers every week (accounts engaged, meetings booked, meetings held, opportunities created, what changed) and what it learned.",
         replaces: "A dashboard of activity metrics that answers no question anyone asked.",
         youDecide: "What to do about the numbers. That was always the job.",
         status: "building",

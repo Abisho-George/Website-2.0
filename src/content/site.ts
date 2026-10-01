@@ -8,7 +8,7 @@ export const site = {
   legalName: "LeadStrategus Private Limited",
   tagline: "Go-to-market, engineered",
   description:
-    "LeadStrategus is a Bengaluru-headquartered B2B go-to-market firm. We design, run and automate revenue engines for technology companies — from positioning and intent intelligence to demand generation, enablement and custom AI agents that book the meetings.",
+    "LeadStrategus is a Bengaluru-headquartered B2B go-to-market firm. We design, run and automate revenue engines for technology companies, from positioning and intent intelligence to demand generation, enablement and custom AI agents that book the meetings.",
   url: "https://leadstrategus.com",
   aiUrl: "https://leadstrategus.ai",
   founded: 2018,

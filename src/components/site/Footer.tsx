@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { site } from "@/content/site";
-import { practices } from "@/content/practices";
+import { families, platforms } from "@/content/practices";
 import { Logo } from "./Logo";
 import { Copy } from "@/components/ui/Copy";
 
@@ -12,7 +12,7 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-4">
             <Logo tone="dark" />
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">B2B go-to-market, engineered. Strategy, demand generation, intelligence, enablement and custom AI agents — from Bengaluru to wherever you sell.</p>
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">B2B go-to-market, engineered. Strategy, demand generation, intelligence, enablement and custom AI agents, from Bengaluru to wherever you sell.</p>
             <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="group mt-6 inline-flex items-center gap-2 rounded-full border border-ember/40 bg-ember-wash px-4 py-2 text-sm font-medium text-ember-ink transition-all hover:bg-ember hover:text-white">
               The agents live at leadstrategus.ai <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
@@ -20,7 +20,7 @@ export function Footer() {
           <div className="md:col-span-2">
             <div className="eyebrow mb-4">Services</div>
             <ul className="space-y-2.5 text-sm">
-              {practices.map((p) => <li key={p.slug}><Link href={`/practices/${p.slug}`} className="text-muted transition-colors hover:text-fg">{p.name}</Link></li>)}
+              {[...families, ...platforms].map((g) => <li key={g.slug}><Link href={`/practices/${g.slug}`} className="text-muted transition-colors hover:text-fg">{g.short}</Link></li>)}
               <li><Link href="/services" className="text-muted transition-colors hover:text-fg">All services</Link></li>
               <li><Link href="/pricing" className="text-muted transition-colors hover:text-fg">Pricing</Link></li>
               <li><Link href="/gtm-ai-twin" className="font-medium text-ember-ink">GTM AI Twin</Link></li>
@@ -29,7 +29,7 @@ export function Footer() {
           <div className="md:col-span-2">
             <div className="eyebrow mb-4">Company</div>
             <ul className="space-y-2.5 text-sm">
-              {[["/about", "About"], ["/work", "Work"], ["/insights", "Blog"], ["/resources", "Resources"], ["/faq", "FAQ"], ["/careers", "Careers"], ["/contact", "Contact"], ["/book", "Book a call"]].map(([h, l]) => (
+              {[["/about", "About"], ["/work", "Case studies"], ["/insights", "Blog"], ["/resources", "Resources"], ["/faq", "FAQ"], ["/careers", "Careers"], ["/contact", "Contact"], ["/book", "Book a call"]].map(([h, l]) => (
                 <li key={h}><Link href={h} className="text-muted transition-colors hover:text-fg">{l}</Link></li>
               ))}
             </ul>

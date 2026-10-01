@@ -5,8 +5,7 @@ import { agentPhases, liveCount, buildingCount, type Agent } from "@/content/age
 
 /**
  * The agent catalogue as a map: four phases across, the agents that do the
- * manual work stacked under each. Hover on a pointer device, tap on touch —
- * either way the card opens to show what the agent does, the painful manual
+ * manual work stacked under each. Hover on a pointer device, tap on touch, * either way the card opens to show what the agent does, the painful manual
  * process it removes, and the contextual decision it leaves to you.
  */
 export function AgentMap() {
@@ -19,7 +18,7 @@ export function AgentMap() {
 
   return (
     <div>
-      {/* phase rail — the flow, before the detail */}
+      {/* phase rail, the flow, before the detail */}
       <ol className="mb-10 hidden items-center gap-3 md:flex">
         {agentPhases.map((p, i) => (
           <li key={p.key} className="flex flex-1 items-center gap-3">

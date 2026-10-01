@@ -6,13 +6,15 @@ import { MeetingsBoard } from "@/components/visual/surface/MeetingsBoard";
 import { CTABand } from "@/components/site/Blocks";
 import { WorkIndex } from "@/components/site/WorkIndex";
 import { caseStudies } from "@/content/work";
-import { buildMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { buildMetadata, pageJsonLd } from "@/lib/seo";
 
-export const metadata = buildMetadata({ title: "Work", description: "Anonymised B2B go-to-market case studies: outbound engines, social selling, ABM, webinar programmes, GTM repositioning and revenue intelligence.", path: "/work" });
+export const metadata = buildMetadata({ title: "Case studies by service", description: "B2B go-to-market case studies organised by service: GTM strategy, account intelligence, ABM, social selling, events, enablement and AI agents. Each follows situation, question, what we did, evidence and outcome.", path: "/work", keywords: ["B2B case studies", "go-to-market case studies", "ABM case study", "social selling case study", "demand generation results", "event ABM case study"] });
 
 export default function WorkPage() {
   return (
     <>
+      <JsonLd data={pageJsonLd({ type: "CollectionPage", name: "Case studies", description: metadata.description as string, path: "/work" })} />
       <PageHero
         art="work"
         title={<>Programmes that produced <em>meetings.</em></>}

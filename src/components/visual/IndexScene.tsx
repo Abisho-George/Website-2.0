@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
  * the real list behind the headline makes the hero say what the page holds
  * before the reader has scrolled a pixel.
  *
- * Type, so DOM and CSS — type rasterised into a canvas is blurry on a retina
+ * Type, so DOM and CSS, type rasterised into a canvas is blurry on a retina
  * screen, unselectable by the theme, and invisible to a band override. Colours
  * are the scene tokens; nothing here writes a value.
  *
@@ -24,7 +24,7 @@ type Column = { head: string; items: string[] };
 type Row = { label: string; value: string };
 
 /**
- * A background layer only has to READ as the list — the page carries the whole
+ * A background layer only has to READ as the list, the page carries the whole
  * of it. Capping keeps the composition inside the hero at every height instead
  * of trailing off under the mask.
  */
@@ -127,7 +127,7 @@ function Ledger({ rows }: { rows: Row[] }) {
  * One line of the scene.
  *
  * Callers pass their content through UNCHANGED, brackets and all, so this layer
- * cannot drift away from the page it is standing behind — and it renders them
+ * cannot drift away from the page it is standing behind, and it renders them
  * through <Copy>, so an unverified figure keeps its flag here too. Stripping
  * the brackets would have made this the one place on the site where an
  * invented number is presented as a plain fact; on /work the ledger's first

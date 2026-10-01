@@ -15,7 +15,7 @@ import { subscribe, useInView, useReducedMotion } from "./ticker";
  *
  * The narrow composition is the designed one, not a shrunk desktop: at 390px a
  * fifth of the width is 70px and holds no company name at all, so below 768px
- * a day becomes a row — its label in a narrow left column, its slots stacked
+ * a day becomes a row, its label in a narrow left column, its slots stacked
  * beside it. Same markup, two arrangements, no hidden layout on either.
  *
  * Entrances are `.reveal`/`.in`, the site's one entrance contract: a slot that

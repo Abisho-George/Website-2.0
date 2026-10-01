@@ -1,14 +1,14 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Atmosphere — the ambient marks as primitives, so a page never types a
+ * Atmosphere, the ambient marks as primitives, so a page never types a
  * gradient into a className again. Both are decorative: aria-hidden,
  * pointer-events: none, and drawn entirely from the tokens in globals.css.
  *
  * Which one, and why it matters: these do different jobs and a band wearing
  * both reads as noise rather than as atmosphere.
- *   Bloom       light. One soft source tinting a corner — warmth, depth, focus.
- *   FieldPlate  structure. A measured grid — "this is a system", not a mood.
+ *   Bloom       light. One soft source tinting a corner, warmth, depth, focus.
+ *   FieldPlate  structure. A measured grid, "this is a system", not a mood.
  *
  * Two things this file knows that its callers do not:
  *   1. globals.css is unlayered, so its rules outrank Tailwind's utilities.
@@ -23,8 +23,7 @@ import { cn } from "@/lib/utils";
 type Hue = "ember" | "ink" | "blue";
 type At = "tl" | "tr" | "bl" | "br" | "top" | "bottom" | "center";
 
-/* ember is already the :root value of --bloom-hue and ink tracks --amb-ink —
-   which flips to white inside .band--ink — so neither is restated here. */
+/* ember is already the :root value of --bloom-hue and ink tracks --amb-ink, which flips to white inside .band--ink, so neither is restated here. */
 const HUE: Record<Hue, string | undefined> = {
   ember: undefined,
   ink: "var(--amb-ink)",
@@ -46,7 +45,7 @@ const AT: Record<At, React.CSSProperties> = {
 };
 
 /**
- * A soft light source for a band or a hero — one per composition, in the corner
+ * A soft light source for a band or a hero, one per composition, in the corner
  * the layout is already heaviest in. Reach for this when a ground needs warmth
  * or a focal point; reach for FieldPlate when it needs to look measured.
  */
@@ -64,7 +63,7 @@ export function Bloom({
   className?: string;
 }) {
   /* Square, off the parent's width. CSS has no parent-min unit without
-     container-type on the parent — which the caller owns — and sizing off
+     container-type on the parent, which the caller owns, and sizing off
      width is the choice that cannot widen a 390px page. */
   const style: React.CSSProperties = {
     ...AT[at],
@@ -82,7 +81,7 @@ export function Bloom({
 /**
  * The measured grid behind a hero or a proof band: structure, not mood. Use it
  * where the copy is about a system or a process. It inherits --amb-ink, so it
- * inverts inside .band--ink on its own — never give it a colour.
+ * inverts inside .band--ink on its own, never give it a colour.
  *
  * It clips itself, so it is safe on any positioned parent.
  */
@@ -98,7 +97,7 @@ export function FieldPlate({
   return (
     // It clips itself. `.field` is inset by -80px so the grid runs past the
     // edge rather than stopping at it, and a caller who forgets to clip gets
-    // 80px of horizontal page overflow — which is how this shipped once.
+    // 80px of horizontal page overflow, which is how this shipped once.
     <div aria-hidden className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)}>
       <span className="field" style={{ "--fx": fx, "--fy": fy } as React.CSSProperties} />
     </div>

@@ -2,65 +2,95 @@ import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
-import { PageHero } from "@/components/site/PageHero";
-import { services } from "@/content/services";
-import { IndexScene } from "@/components/visual/IndexScene";
 import { Button } from "@/components/ui/Button";
+import { IconPlate } from "@/components/ui/IconPlate";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { PageHero } from "@/components/site/PageHero";
 import { CTABand } from "@/components/site/Blocks";
-import { practices } from "@/content/practices";
-import { buildMetadata } from "@/lib/seo";
+import { IndexScene } from "@/components/visual/IndexScene";
+import { PracticeGlyph } from "@/components/visual/PracticeGlyph";
+import { practiceIconFor } from "@/components/icons/registry";
+import { pagedGroups, families, platforms } from "@/content/practices";
+import { services, servicesFor, serviceHref } from "@/content/services";
+import { buildMetadata, breadcrumbJsonLd, serviceListJsonLd } from "@/lib/seo";
 
-export const metadata = buildMetadata({ title: "Practices", description: "GTM Strategy, Demand Generation, Revenue Intelligence and Enablement: four B2B go-to-market practices on one operating model, plus the GTM AI Twin.", path: "/practices" });
+export const metadata = buildMetadata({
+  title: "Service families",
+  description: "Six LeadStrategus service families on one revenue engine: GTM strategy, account intelligence, positioning and content, demand generation and ABM, sales enablement and event-led demand generation, plus the LeadStrategus.ai and ExpoToFunnel platforms.",
+  path: "/practices",
+  keywords: families.map((f) => f.name),
+});
 
-export default function PracticesHub() {
+export default function FamiliesHub() {
   return (
     <>
+      <JsonLd
+        data={[
+          serviceListJsonLd("LeadStrategus service families", "/practices", pagedGroups.map((g) => ({ name: g.name, path: `/practices/${g.slug}` }))),
+          breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Service families", path: "/practices" }]),
+        ]}
+      />
+
       <PageHero
-        art="practices"
-        title={<>Four practices. <em>One</em> operating model.</>}
-        lede="They share an account universe, a messaging system and a weekly pipeline review, so adding a second practice compounds the first rather than starting over."
-        scene={<IndexScene mode="atlas" columns={practices.map((p) => ({ head: p.short, items: p.services }))} />}
+        title={<>Six families. <em>One</em> revenue engine.</>}
+        lede="Each family owns one part of the value chain, from deciding where to play to converting and scaling. They share one account universe and one commercial logic, so a second family compounds the first."
+        scene={<IndexScene mode="atlas" columns={families.slice(0, 4).map((f) => ({ head: f.short, items: servicesFor(f.slug).map((s) => s.name) }))} />}
         readout={[
-          { k: "Practices", v: practices.length },
+          { k: "Families", v: families.length },
           { k: "Services", v: services.length },
-          { k: "Phases each", v: practices[0].process.length },
-          { k: "Shared account universe", v: "one" },
+          { k: "Platforms", v: platforms.length },
+          { k: "Value-chain stages", v: 8 },
         ]}
       />
 
       <Section className="hero-next">
         <div className="divide-y divide-rule border-y border-rule">
-          {practices.map((p, i) => (
-            <Reveal key={p.slug} delay={i * 60}>
-              <Link href={`/practices/${p.slug}`} className="group grid gap-6 py-9 md:grid-cols-11 md:items-start">
-                <div className="md:col-span-5">
-                  <h2 className="font-display text-[1.7rem] font-semibold tracking-[-0.03em] transition-colors group-hover:text-ember-ink md:text-[2.1rem]">{p.name}</h2>
-                  <p className="mt-2 text-muted">{p.tagline}</p>
+          {pagedGroups.map((g, i) => (
+            <Reveal key={g.slug} delay={Math.min(i, 6) * 50}>
+              <div className="group grid gap-6 py-9 md:grid-cols-12 md:items-start">
+                <div className="flex gap-5 md:col-span-5">
+                  <PracticeGlyph slug={g.slug} className="hidden h-16 w-24 shrink-0 opacity-80 sm:block" />
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-3">
+                      <IconPlate icon={practiceIconFor(g.slug)} size="sm" />
+                      <Link href={`/practices/${g.slug}`} className="h3 transition-colors hover:text-ember-ink">{g.name}</Link>
+                    </div>
+                    <p className="mt-2 text-muted">{g.tagline}</p>
+                  </div>
                 </div>
-                <div className="md:col-span-5">
-                  <ul className="flex flex-wrap gap-1.5">{p.services.map((s) => <li key={s} className="rounded-full border border-rule px-2.5 py-1 text-[0.72rem] text-muted">{s}</li>)}</ul>
-                </div>
-                <div className="md:col-span-1 md:justify-self-end"><ArrowRight className="size-5 text-dim transition-all group-hover:translate-x-1 group-hover:text-fg" /></div>
-              </Link>
+                <ul className="flex flex-wrap gap-1.5 md:col-span-6">
+                  {servicesFor(g.slug).map((s) => (
+                    <li key={s.slug}>
+                      <Link href={serviceHref(s)} className="inline-block rounded-full border border-rule px-2.5 py-1 text-[0.76rem] text-muted transition-colors hover:border-ember/40 hover:text-ember-ink">
+                        {s.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <Link href={`/practices/${g.slug}`} aria-label={`About ${g.name}`} className="hidden md:col-span-1 md:block md:justify-self-end">
+                  <ArrowRight className="size-5 text-dim transition-all group-hover:translate-x-1 group-hover:text-fg" />
+                </Link>
+              </div>
             </Reveal>
           ))}
         </div>
+
         <Reveal className="glow-ember mt-10 grid gap-6 rounded-[var(--radius-xl)] border border-ember/30 bg-paper p-8 md:grid-cols-12 md:items-center md:p-10">
           <div className="md:col-span-8">
-            <div className="flex items-center gap-2 text-ember-ink"><Sparkles className="size-4" /><span className="font-mono text-[0.7rem] uppercase tracking-[0.14em]">Special service</span></div>
-            <h2 className="mt-3 text-[1.8rem] font-medium tracking-tight md:text-[2.2rem]">GTM AI Twin</h2>
-            <p className="mt-2 max-w-xl text-muted">Custom agents that take over the whole motion, from identifying the prospect to booking the meeting. Every practice above feeds it.</p>
+            <div className="flex items-center gap-2 text-ember-ink"><Sparkles className="size-4" /><span className="font-mono text-micro uppercase tracking-[0.14em]">Special service</span></div>
+            <h2 className="h3 mt-3">GTM AI Twin</h2>
+            <p className="mt-2 max-w-xl text-muted">Encode your demand-gen best practices into a connected system, with human judgement retained at the gates that matter.</p>
           </div>
-          <div className="md:col-span-4 md:justify-self-end"><Button href="/gtm-ai-twin" variant="primary">Explore the Twin</Button></div>
+          <div className="md:col-span-4 md:justify-self-end"><Button href="/gtm-ai-twin">Explore the Twin</Button></div>
         </Reveal>
       </Section>
 
-      <Section band="sand" tight>
-        <SectionHead title="Start with a diagnostic." lede="Two weeks, fixed fee, and you leave with a written view of what is stalling pipeline and which practice would move it. The fee is credited against whatever you do next." />
-        <Button href="/book" variant="paper" className="mt-8">Book a strategy call</Button>
+      <Section band="sand" pad="tight">
+        <SectionHead title="Start with a diagnostic." lede="Find the revenue bottleneck before you train around it. You leave with a written view of what is stalling the pipeline and which family would move it." />
+        <Button href="/services/diagnostic-workshops" className="mt-8">See diagnostic workshops</Button>
       </Section>
 
-      <CTABand title={<>Which practice does your pipeline <em className="serif-em text-ember">need first?</em></>} primary={{ label: "Book a strategy call", href: "/book" }} secondary={{ label: "Send an enquiry", href: "/contact" }} />
+      <CTABand title={<>One engine, <em>built around your pipeline.</em></>} primary={{ label: "Book a strategy call", href: "/book" }} secondary={{ label: "See every service", href: "/services" }} />
     </>
   );
 }

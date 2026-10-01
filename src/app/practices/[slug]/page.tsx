@@ -1,158 +1,149 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight } from "lucide-react";
-import { Section } from "@/components/ui/Section";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { Section, SectionHead } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
-import { Copy, strip } from "@/components/ui/Copy";
-import { Artifact } from "@/components/ui/Artifact";
-import { HeroArt } from "@/components/visual/HeroArt";
-import { Stat } from "@/components/ui/Stat";
+import { Copy } from "@/components/ui/Copy";
+import { IconPlate } from "@/components/ui/IconPlate";
 import { JsonLd } from "@/components/ui/JsonLd";
-import { Breadcrumb, CaseTile, CTABand, FAQBlock } from "@/components/site/Blocks";
-import { Bloom, FieldPlate } from "@/components/ui/Atmos";
-import { practices, getPractice } from "@/content/practices";
-import { servicesFor } from "@/content/services";
-import { getCase } from "@/content/work";
-import { buildMetadata, serviceJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
+import { FieldPlate } from "@/components/ui/Atmos";
+import { Breadcrumb, CTABand, FAQBlock } from "@/components/site/Blocks";
+import { HeroFrame } from "@/components/site/HeroFrame";
+import { ServiceGrid } from "@/components/site/ServiceGrid";
+import { ValueChain } from "@/components/site/ValueChain";
+import { CaseTeaser } from "@/components/site/CaseTeaser";
+import { practiceIconFor } from "@/components/icons/registry";
+import { pagedGroups, getGroup } from "@/content/practices";
+import { servicesFor, serviceHref, valueChain } from "@/content/services";
+import { caseStudies } from "@/content/work";
+import { site } from "@/content/site";
+import { enquiryFor } from "@/lib/enquiry";
+import { buildMetadata, breadcrumbJsonLd, faqJsonLd, serviceListJsonLd } from "@/lib/seo";
 
-export function generateStaticParams() { return practices.map((p) => ({ slug: p.slug })); }
+export function generateStaticParams() {
+  return pagedGroups.map((g) => ({ slug: g.slug }));
+}
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const p = getPractice((await params).slug); if (!p) return {};
-  return buildMetadata({ title: p.name, description: strip(p.summary), path: `/practices/${p.slug}` });
+  const g = getGroup((await params).slug);
+  if (!g) return {};
+  const members = servicesFor(g.slug);
+  return buildMetadata({
+    title: g.name,
+    description: `${g.tagline} ${g.summary}`,
+    path: `/practices/${g.slug}`,
+    keywords: [g.name, ...members.map((s) => s.name), ...members.flatMap((s) => s.seoTerms.slice(0, 2))],
+  });
 }
 
-export default async function PracticePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const p = getPractice(slug); if (!p) notFound();
-  const related = p.relatedWork.map(getCase).filter(Boolean);
-  const others = practices.filter((x) => x.slug !== p.slug);
+export default async function FamilyPage({ params }: { params: Promise<{ slug: string }> }) {
+  const g = getGroup((await params).slug);
+  if (!g || g.kind === "capability") notFound();
+  const members = servicesFor(g.slug);
+  const memberSlugs = new Set(members.map((s) => s.slug));
+  // the stages this family covers, in chain order
+  const stages = valueChain.filter((st) => members.some((s) => s.stages.includes(st)));
+  const cases = caseStudies.filter((c) => c.services.some((x) => memberSlugs.has(x))).slice(0, 4);
+  const path = `/practices/${g.slug}`;
+
   return (
     <>
-      <JsonLd data={[serviceJsonLd({ name: p.name, description: strip(p.summary), path: `/practices/${p.slug}` }), faqJsonLd(p.faq), breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Practices", path: "/practices" }, { name: p.name, path: `/practices/${p.slug}` }])]} />
+      <JsonLd
+        data={[
+          serviceListJsonLd(g.name, path, members.map((s) => ({ name: s.name, path: serviceHref(s) }))),
+          breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Services", path: "/services" }, { name: g.name, path }]),
+          ...(g.faq.length ? [faqJsonLd(g.faq)] : []),
+        ]}
+      />
 
-      {/* 1 · hero */}
-      <section className="relative overflow-hidden pt-[var(--nav-h)]">
-        <Bloom hue="ember" at="tr" size={58} />
-        <div className="container-x relative py-16 md:py-24">
-          <Breadcrumb items={[{ label: "Practices", href: "/practices" }, { label: p.short }]} />
-          <div className="mt-10 grid gap-10 lg:grid-cols-12">
-            <div className="lg:col-span-8">
-              <Reveal><h1 className="display mt-4 text-[2.8rem] md:text-[4.8rem]">{p.name}</h1></Reveal>
-              <Reveal delay={120}><p className="mt-6 font-display text-[1.5rem] italic leading-tight text-muted md:text-[2rem]">{p.tagline}</p></Reveal>
-              <Reveal delay={180}><p className="lede mt-7 max-w-2xl">{p.summary}</p></Reveal>
-              <Reveal delay={240} className="mt-10 flex flex-wrap gap-3">
-                <Button href={`/contact?type=${p.slug}`} size="lg">Talk about {p.short}</Button>
-                <Button href="#pricing" variant="outline" size="lg">Pricing signal</Button>
-              </Reveal>
+      <HeroFrame
+        size="md"
+        breadcrumb={<Breadcrumb items={[{ label: "Services", href: "/services" }, { label: g.short }]} />}
+        title={g.name}
+        lede={g.summary}
+        scene={<FieldPlate fx="80%" fy="35%" />}
+        actions={
+          <>
+            <Button href={`/contact?type=${enquiryFor(g.slug)}`} size="lg">Talk to us about {g.short}</Button>
+            {g.slug === "leadstrategus-ai" ? (
+              <Button href={site.aiUrl} external size="lg" variant="outline">Visit LeadStrategus.ai</Button>
+            ) : (
+              <Button href="/book" size="lg" variant="outline">Book a strategy call</Button>
+            )}
+          </>
+        }
+        aside={
+          <div className="card p-6">
+            <div className="flex items-center gap-3">
+              <IconPlate icon={practiceIconFor(g.slug)} size="md" />
+              <p className="font-display text-[1.05rem] font-medium leading-snug text-ember-ink">{g.tagline}</p>
             </div>
-            <Reveal delay={200} className="card h-fit p-6 lg:col-span-4">
-              <div className="mb-4 font-display text-lg font-semibold tracking-tight">Inside this practice</div>
-              <ul className="space-y-1">{servicesFor(p.slug).map((sv) => (
-                <li key={sv.slug}>
-                  <Link href={`/services/${sv.slug}`} className="group -mx-2 flex items-start gap-2.5 rounded-lg px-2 py-1.5 text-[0.93rem] transition-colors hover:bg-sand">
-                    <span className="mt-[9px] size-1.5 shrink-0 rounded-full bg-ember" />
-                    <span className="flex-1">{sv.name}</span>
-                    <ArrowRight className="mt-[3px] size-3.5 shrink-0 text-dim transition-all group-hover:translate-x-0.5 group-hover:text-ember-ink" />
-                  </Link>
-                </li>
-              ))}</ul>
-              <HeroArt variant={p.slug as "gtm-strategy"} className="mt-7 hidden h-auto w-full border-t border-rule pt-6 sm:block" />
-            </Reveal>
+            <ValueChain stages={stages} className="mt-5" />
           </div>
-        </div>
-      </section>
+        }
+      />
 
-      {/* 3 · problem */}
-      <Section band="sand">
-        <div className="grid gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-5"><Reveal><h2 className="h2 balance">{p.problem.title}</h2></Reveal></div>
-          <ul className="space-y-6 lg:col-span-7">
-            {p.problem.points.map((pt, i) => (
-              <Reveal key={i} as="li" delay={i * 80} className="flex gap-5 border-t border-rule pt-6 text-lg leading-snug">
-                <span className="mt-[13px] size-1.5 shrink-0 rounded-full bg-ember" /><span><Copy text={pt} /></span>
-              </Reveal>
-            ))}
-          </ul>
-        </div>
+      <Section className="hero-next">
+        <SectionHead title={`${members.length} services in ${g.short}`} />
+        <ServiceGrid services={members} className="mt-10" />
+        {g.slug === "leadstrategus-ai" && (
+          <p className="mt-8 text-[0.95rem] text-muted">
+            The GTM AI Twin has its own page.{" "}
+            <Link href="/gtm-ai-twin" className="link-u text-fg">See how it works</Link>, or{" "}
+            <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="link-u inline-flex items-center gap-1 text-fg">
+              visit LeadStrategus.ai <ArrowUpRight className="size-3.5" />
+            </a>
+            .
+          </p>
+        )}
       </Section>
 
-      {/* 4 · deliverables */}
-      <Section>
-        <Reveal><h2 className="h2 max-w-3xl balance">Deliverables, not decks.</h2></Reveal>
-        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {p.deliverables.map((d, i) => (
-            <Reveal key={d.title} delay={i * 60} className="card card-hover p-6">
-              <h3 className="mt-5 text-lg font-medium tracking-tight">{d.title}</h3>
-              <p className="mt-2 text-[0.92rem] leading-relaxed text-muted">{d.body}</p>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      {/* 5 · process */}
-      <Section className="pt-0">
-        <Reveal><h2 className="h2 max-w-3xl balance">Four phases. Weekly reviews. No surprises.</h2></Reveal>
-        <ol className="mt-12 grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-rule bg-rule md:grid-cols-4">
-          {p.process.map((s, i) => (
-            <Reveal key={s.phase} as="li" delay={i * 80} className="bg-paper p-7">
-              <div className="flex items-center justify-between font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted"><span>Phase {s.phase}</span><span className="text-ember">{s.duration}</span></div>
-              <div className="mt-8 text-xl font-medium tracking-tight">{s.title}</div>
-              <p className="mt-3 text-[0.9rem] leading-relaxed text-muted">{s.body}</p>
-            </Reveal>
-          ))}
-        </ol>
-      </Section>
-
-      {/* 6 · sample output + 7 · outcomes */}
-      <Section className="pt-0">
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
-          <div className="lg:col-span-7">
-            <Reveal><h2 className="h3 mb-8 max-w-xl">What a deliverable actually looks like.</h2></Reveal>
-            <Reveal delay={80}><Artifact {...p.sampleOutput} /></Reveal>
+      {cases.length > 0 && (
+        <Section band="sand">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <Reveal><h2 className="h2 balance">Case studies</h2></Reveal>
+            <Link href="/work" className="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ember-ink">
+              All case studies <ArrowRight className="size-4" />
+            </Link>
           </div>
-          <div className="lg:col-span-5">
-            <Reveal><h2 className="h3 mb-8 max-w-sm">Numbers we are prepared to be measured on.</h2></Reveal>
-            <div className="space-y-8 border-l border-rule pl-6">
-              {p.outcomes.map((o, i) => <Reveal key={o.label} delay={i * 80}><Stat value={o.value} label={o.label} size="md" /></Reveal>)}
-            </div>
+          <div className="mt-10 grid gap-4 md:grid-cols-2">
+            {cases.map((c, i) => <CaseTeaser key={c.slug} c={c} i={i} />)}
           </div>
-        </div>
-      </Section>
-
-      {/* 8 · pricing */}
-      <Section band="sand" id="pricing" tight className="scroll-mt-28">
-        <Reveal className="grid gap-8 rounded-[var(--radius-xl)] border border-ember/30 bg-paper p-8 glow-ember md:grid-cols-12 md:p-12">
-          <div className="md:col-span-5"><h2 className="h3">{p.pricing.model}</h2></div>
-          <div className="md:col-span-7">
-            <div className="flex items-baseline gap-3"><span className="text-sm text-muted">from</span><span className="display text-[1.8rem] md:text-[2.4rem]"><Copy text={p.pricing.from} /></span></div>
-            <p className="mt-4 text-muted"><Copy text={p.pricing.note} /></p>
-            <Button href={`/contact?type=${p.slug}`} className="mt-8">Get a scoped proposal</Button>
-          </div>
-        </Reveal>
-      </Section>
-
-      {/* 9 · FAQ + related */}
-      <Section><FAQBlock items={p.faq} title={`Questions about ${p.short}.`} /></Section>
-      {related.length > 0 && (
-        <Section className="pt-0">
-          <div className="flex items-end justify-between"><h2 className="h3">Related work</h2><Link href="/work" className="inline-flex items-center gap-2 text-sm text-muted hover:text-fg">All work <ArrowRight className="size-4" /></Link></div>
-          <div className="mt-8 grid gap-4 md:grid-cols-2">{related.map((c, i) => c && <CaseTile key={c.slug} c={c} i={i} compact />)}</div>
         </Section>
       )}
-      <Section band="sand" tight>
-        <h2 className="h3 mb-6">Other practices</h2>
-        <div className="grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-rule bg-rule md:grid-cols-3">
-          {others.map((o) => (
-            <Link key={o.slug} href={`/practices/${o.slug}`} className="group bg-paper p-6 transition-colors hover:bg-kraft">
-              <div className="font-mono text-[0.7rem] text-ember">{o.index}</div>
-              <div className="mt-3 text-lg font-medium tracking-tight">{o.name}</div>
-              <p className="mt-1 text-sm text-muted">{o.tagline}</p>
-            </Link>
-          ))}
-        </div>
-      </Section>
-      <CTABand title={<>Ready to talk <em className="serif-em text-ember">{p.short}?</em></>} primary={{ label: "Book a strategy call", href: "/book" }} secondary={{ label: "Send an enquiry", href: `/contact?type=${p.slug}` }} />
+
+      {g.pricing && (
+        <Section pad="tight" width="mid">
+          <Reveal className="card grid gap-6 p-7 md:grid-cols-12 md:items-center md:p-9">
+            <div className="md:col-span-8">
+              <h2 className="h3">How it is priced</h2>
+              <p className="mt-2 text-fg-soft">{g.pricing.model}</p>
+              <p className="mt-2 text-sm text-muted">{g.pricing.note}</p>
+            </div>
+            <div className="md:col-span-4 md:text-right">
+              <p className="text-sm text-muted">From</p>
+              <p className="display-3"><Copy text={g.pricing.from} /></p>
+              <Link href="/pricing" className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-ember-ink">
+                All pricing <ArrowRight className="size-4" />
+              </Link>
+            </div>
+          </Reveal>
+        </Section>
+      )}
+
+      {g.faq.length > 0 && (
+        <Section band="sand">
+          <FAQBlock items={g.faq} title={`${g.short}, answered plainly.`} />
+        </Section>
+      )}
+
+      <CTABand
+        title={<>{g.tagline.replace(/\.$/, "")}<em>.</em></>}
+        primary={{ label: "Book a strategy call", href: "/book" }}
+        secondary={{ label: "See every service", href: "/services" }}
+      />
     </>
   );
 }

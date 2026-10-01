@@ -9,7 +9,7 @@ let pw; try { pw = require("playwright"); } catch { pw = require("/opt/node22/li
 const BASE = process.env.BASE ?? "http://localhost:3100";
 const OUT = process.env.OUT ?? "shots";
 mkdirSync(OUT, { recursive: true });
-const routes = ["/", "/gtm-ai-twin", "/services", "/services/webinar-as-a-service", "/services/osint-for-sales", "/practices", "/practices/demand-generation", "/work", "/work/devtools-outbound-engine", "/insights", "/insights/what-an-ai-sdr-does-all-day", "/faq", "/pricing", "/resources", "/about", "/contact", "/book", "/authors/kingshuk-hazra", "/careers", "/contact/thanks", "/does-not-exist"];
+const routes = ["/", "/gtm-ai-twin", "/services", "/services/webinar-as-a-service", "/services/osint-for-sales", "/practices", "/practices/demand-generation", "/work", "/work/devtools-outbound-engine", "/insights", "/insights/what-an-ai-sdr-does-all-day", "/faq", "/pricing", "/resources", "/about", "/contact", "/book", "/services/gtm-setup", "/careers", "/contact/thanks", "/does-not-exist"];
 
 const wait = async () => { for (let i = 0; i < 60; i++) { try { const r = await fetch(BASE); if (r.ok || r.status === 404) return; } catch {} await new Promise((r) => setTimeout(r, 1000)); } throw new Error("server not up"); };
 await wait();
@@ -50,7 +50,7 @@ for (const [name, vp] of [["desktop", { width: 1440, height: 900 }], ["mobile", 
     const res = await page.goto(BASE + r, { waitUntil: "networkidle" });
     const seen = await page.evaluate(settle);
     revealsSeen += seen.legacy + seen.flagged;
-    if (!seen.styled) { errors.push(`${name} ${r}: stylesheet did not load — measurements below are meaningless`); continue; }
+    if (!seen.styled) { errors.push(`${name} ${r}: stylesheet did not load, measurements below are meaningless`); continue; }
     const file = `${OUT}/${name}${r === "/" ? "_home" : r.replace(/\//g, "_")}.png`;
     await page.screenshot({ path: file, fullPage: true });
     const sw = await page.evaluate(() => document.documentElement.scrollWidth);
@@ -80,7 +80,7 @@ const stuck = [];
         return `${a.constructor.name}<${a.animationName ?? a.transitionProperty ?? "?"}> on ${sel}`;
       }),
     );
-    if (running.length) stuck.push(`${r}: ${running.length} animating — ${running.slice(0, 4).join("; ")}`);
+    if (running.length) stuck.push(`${r}: ${running.length} animating, ${running.slice(0, 4).join("; ")}`);
     console.log(`reduced ${r} animations=${running.length}`);
   }
   await ctx.close();
@@ -89,7 +89,7 @@ const stuck = [];
 await browser.close();
 
 console.log(`\nreveal targets found across the sweep: ${revealsSeen}`);
-if (!revealsSeen) errors.push("no .reveal or [data-reveal] elements found anywhere — the reveal selector has drifted and this harness was failing open");
+if (!revealsSeen) errors.push("no .reveal or [data-reveal] elements found anywhere, the reveal selector has drifted and this harness was failing open");
 if (stuck.length) { console.log("\nANIMATING UNDER prefers-reduced-motion:"); stuck.forEach((s) => console.log(" -", s)); }
 if (overflows.length) { console.log("\nHORIZONTAL OVERFLOW:"); overflows.forEach((o) => console.log(" -", o)); }
 if (errors.length) { console.log("\nERRORS:"); errors.forEach((e) => console.log(" -", e)); }

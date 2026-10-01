@@ -8,47 +8,56 @@ import { Copy } from "@/components/ui/Copy";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { CaseTile, CTABand, FAQBlock, PracticeCard, ProofBar, StatRow } from "@/components/site/Blocks";
 import { HeroFrame } from "@/components/site/HeroFrame";
+import { FounderGrid } from "@/components/site/Founders";
 import { SignalField } from "@/components/visual/SignalField";
 import { AgentConsole } from "@/components/visual/surface/AgentConsole";
 import { MeetingsBoard } from "@/components/visual/surface/MeetingsBoard";
 import { PipelineBars } from "@/components/visual/PipelineBars";
 import { Portal } from "@/components/visual/Portal";
 import { Bloom, FieldPlate } from "@/components/ui/Atmos";
-import { practices } from "@/content/practices";
+import { families } from "@/content/practices";
 import { featuredCases } from "@/content/work";
 import { insightsByDate, getCluster } from "@/content/insights";
 import { authors } from "@/content/authors";
 import { homeFaq } from "@/content/faq";
 import { proof, site } from "@/content/site";
-import { faqJsonLd } from "@/lib/seo";
+import { buildMetadata, faqJsonLd, pageJsonLd, serviceListJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
 
+
+export const metadata = buildMetadata({
+  absoluteTitle: "LeadStrategus | B2B GTM Strategy, Demand Generation and AI Agents",
+  description: site.description,
+  path: "/",
+  keywords: ["B2B go-to-market", "GTM strategy", "B2B demand generation", "account-based marketing", "account intelligence", "sales enablement", "event-led demand generation", "AI agents for sales", "GTM AI Twin", "B2B marketing agency India", "LeadStrategus"],
+});
+
 const shifts = [
-  { n: "01", t: "Buyers finish researching before they talk to you.", b: "Your first touch has to be relevant to a decision already in motion. That means intent, triggers and open-source intelligence — not a purchased list." },
+  { n: "01", t: "Buyers finish researching before they talk to you.", b: "Your first touch has to be relevant to a decision already in motion. That means intent, triggers and open-source intelligence, not a purchased list." },
   { n: "02", t: "Attention is the only scarce input left.", b: "Generic outbound is filtered before it is read. What still earns a reply is research-led relevance from a person with credibility: social selling, content, events." },
-  { n: "03", t: "Execution is becoming software.", b: "The repeatable seventy percent of go-to-market can now be run by agents. Deciding which accounts deserve effort is the human job — and the whole advantage." },
+  { n: "03", t: "Execution is becoming software.", b: "The repeatable seventy percent of go-to-market can now be run by agents. Deciding which accounts deserve effort is the human job, and the whole advantage." },
 ];
 
 const phases = [
   { p: "Diagnose", d: "2 weeks", b: "Pipeline archaeology, customer interviews, motion audit. We find out what actually converts." },
-  { p: "Design", d: "2–4 weeks", b: "ICP, positioning, universe, messaging system, channel mix and the operating plan." },
-  { p: "Deploy", d: "4–8 weeks", b: "Pods, programmes or agents go live under weekly review. Learning before volume." },
+  { p: "Design", d: "2 to 4 weeks", b: "ICP, positioning, universe, messaging system, channel mix and the operating plan." },
+  { p: "Deploy", d: "4 to 8 weeks", b: "Pods, programmes or agents go live under weekly review. Learning before volume." },
   { p: "Run", d: "Ongoing", b: "Accountable to meetings and opportunities, reported every week, tuned every month." },
 ];
 
 export default function Home() {
   return (
     <>
-      <JsonLd data={faqJsonLd(homeFaq)} />
+      <JsonLd data={[...pageJsonLd({ name: site.name, description: site.description, path: "/" }), serviceListJsonLd("LeadStrategus service families", "/", families.map((f) => ({ name: f.name, path: `/practices/${f.slug}` }))), faqJsonLd(homeFaq)]} />
 
-      {/* 01 · hero — the scene is the page's subject drawn live, not decoration.
+      {/* 01 · hero, the scene is the page's subject drawn live, not decoration.
            No scrim: the field is built with its left third empty instead of
            being bleached there to buy the headline legibility. */}
       <HeroFrame
         size="lg"
         n="01"
         lines={["Go-to-market,", <em key="e">engineered.</em>]}
-        lede="LeadStrategus designs, runs and now automates B2B revenue engines — from positioning and intent intelligence to demand generation, enablement, and custom AI agents that book the meetings. Built by operators who ran marketing at AWS, Gartner and SAP."
+        lede="LeadStrategus designs, runs and now automates B2B revenue engines: from positioning and intent intelligence to demand generation, enablement, and custom AI agents that book the meetings. Built by operators who ran marketing at AWS, Gartner and SAP."
         scene={<SignalField className="h-full w-full" />}
         actions={
           <>
@@ -82,9 +91,9 @@ export default function Home() {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <SectionHead title={<>A market of ten thousand is a shortlist of <em className="serif-em">two hundred.</em></>} />
-            <p className="lede mt-5">Pipeline is an arithmetic problem before it is a creative one. Every stage below throws work away — so the only question that matters is whether you threw away the right accounts.</p>
+            <p className="lede mt-5">Pipeline is an arithmetic problem before it is a creative one. Every stage below throws work away, so the only question that matters is whether you threw away the right accounts.</p>
             <p className="mt-5 text-sm text-muted">Typical shape of a programme we run in its second quarter. Your numbers will differ; the shape rarely does.</p>
-            <Button href="/practices/revenue-intelligence" variant="outline" className="mt-8">How we rank accounts</Button>
+            <Button href="/practices/account-intelligence" variant="outline" className="mt-8">How we rank accounts</Button>
           </div>
           <div className="lg:col-span-7">
             <Reveal className="card p-6 md:p-8"><PipelineBars /></Reveal>
@@ -92,19 +101,19 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* 04 · practices */}
-      <Section n="04" label="Practices">
+      {/* 04 · families */}
+      <Section n="04" label="Families">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <SectionHead title={<>Four practices.<br />One <em className="serif-em">operating model.</em></>} lede="Start with the one your pipeline needs. Most clients add a second within a year, because they share the same account universe, messaging system and weekly review." />
-          <Link href="/practices" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ember-ink">All practices <ArrowRight className="size-4" /></Link>
+          <SectionHead title={<>Six families.<br />One <em className="serif-em">revenue engine.</em></>} lede="From deciding where to play to converting the meetings that follow. Start with the family your pipeline needs; most clients add a second, because they share one account universe and one commercial logic." />
+          <Link href="/services" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ember-ink">All services <ArrowRight className="size-4" /></Link>
         </div>
-        <div className="mt-12 grid gap-4 md:grid-cols-2">
-          {practices.map((p, i) => <PracticeCard key={p.slug} p={p} i={i} />)}
+        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {families.map((p, i) => <PracticeCard key={p.slug} p={p} i={i} />)}
         </div>
       </Section>
 
-      {/* 05 · GTM AI Twin — the one ink moment */}
-      <Section n="05" label="GTM AI Twin" band="ink" className="overflow-hidden">
+      {/* 05 · GTM AI Twin */}
+      <Section n="05" label="GTM AI Twin" band="blush" className="overflow-hidden">
         <Bloom hue="ember" at="br" size={70} />
         <FieldPlate fx="78%" fy="45%" />
         <div className="relative grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
@@ -112,14 +121,14 @@ export default function Home() {
             <Reveal>
               <h2 className="display text-[2.4rem] md:text-[3.7rem]">A twin of your GTM team. <em>Made of agents.</em></h2>
               <p className="lede mt-6">Custom AI agents that take over go-to-market end to end: identify the prospect, research the account, reach out in your voice, handle the replies, book the meeting. You keep the judgement. The twin keeps the pipeline moving.</p>
-              <ul className="mt-8 grid gap-2.5 text-sm text-[#c3b9ac] sm:grid-cols-2">
+              <ul className="mt-8 grid gap-2.5 text-sm text-fg-soft sm:grid-cols-2">
                 {["Built on your ICP, wins and voice", "Wired into CRM, email, LinkedIn, calendar", "Supervised until it earns autonomy", "Accountable to meetings, not activity"].map((t) => (
                   <li key={t} className="flex items-start gap-2.5"><span className="mt-[7px] size-1.5 shrink-0 rounded-full bg-ember" />{t}</li>
                 ))}
               </ul>
               <div className="mt-9 flex flex-wrap gap-3">
                 <Button href="/gtm-ai-twin" size="lg">Explore the Twin</Button>
-                <Button href="/contact?type=gtm-ai-twin" size="lg" variant="ghost" className="border border-white/25 text-[#f6f2ec] hover:border-white/60 hover:bg-white/5">Scope mine</Button>
+                <Button href="/contact?type=gtm-ai-twin" size="lg" variant="ghost" className="border border-rule-strong bg-paper text-fg hover:border-fg/40">Scope mine</Button>
               </div>
             </Reveal>
           </div>
@@ -171,19 +180,7 @@ export default function Home() {
             <Button href="/about" variant="outline" className="mt-8">About the firm</Button>
           </div>
           <div className="lg:col-span-7">
-            <div className="grid gap-4 sm:grid-cols-2">
-              {authors.map((a, i) => (
-                <Reveal key={a.slug} delay={i * 80} className="h-full">
-                  <Link href={`/authors/${a.slug}`} className="card card-hover group flex h-full flex-col p-6">
-                    <div className="flex size-14 items-center justify-center rounded-full bg-ember-wash font-display text-xl font-semibold text-ember-ink">{a.name.split(" ").map((s) => s[0]).join("")}</div>
-                    <div className="mt-6 font-display text-xl font-semibold tracking-tight">{a.name}</div>
-                    <div className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-ember-ink">{a.role}</div>
-                    <p className="mt-4 text-sm leading-relaxed text-muted"><Copy text={a.bio} /></p>
-                    <span className="mt-auto inline-flex items-center gap-1 pt-5 text-sm text-muted transition-colors group-hover:text-ember-ink">Profile <ArrowUpRight className="size-4" /></span>
-                  </Link>
-                </Reveal>
-              ))}
-            </div>
+            <FounderGrid authors={authors} />
           </div>
         </div>
         <div className="mt-14 border-y border-rule py-5">

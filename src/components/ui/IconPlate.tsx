@@ -7,11 +7,11 @@ import { cn } from "@/lib/utils";
  * Three presentations, one geometry: the glyph is drawn at the same size and
  * the same stroke in all three, so a plate in a card and a bare mark beside a
  * line of label type read as the same family rather than as two icon sets.
- * Note `className` cannot resize a plate — `.plate--*` is unlayered CSS and
- * outranks a utility — so size comes from `size`, and className is for
+ * Note `className` cannot resize a plate, `.plate--*` is unlayered CSS and
+ * outranks a utility, so size comes from `size`, and className is for
  * position only.
  *
- *   plate  the raised sand plate from globals.css — the card and list-row mark
+ *   plate  the raised sand plate from globals.css, the card and list-row mark
  *   ring   a hairline circle, for marks on an already-busy surface
  *   bare   the glyph alone, inline beside text (size="sm" matches label/micro)
  *

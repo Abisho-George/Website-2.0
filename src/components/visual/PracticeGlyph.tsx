@@ -31,7 +31,7 @@ export function PracticeGlyph({ slug, className }: { slug: string; className?: s
       </svg>
     );
 
-  if (slug === "revenue-intelligence")
+  if (slug === "account-intelligence" || slug === "revenue-intelligence")
     // Signal rising out of noise: a scatter with one column spiking.
     return (
       <svg {...common}>
@@ -44,7 +44,63 @@ export function PracticeGlyph({ slug, className }: { slug: string; className?: s
       </svg>
     );
 
-  // enablement — a skill curve lifting after coaching starts
+  if (slug === "positioning-content")
+    // Scattered claims resolved into one line a buyer can follow.
+    return (
+      <svg {...common}>
+        {[[14, 18], [26, 58], [38, 30], [22, 44], [34, 66], [18, 30]].map(([x, y], i) => (
+          <circle key={i} cx={x} cy={y} r="2.2" fill={line} />
+        ))}
+        <path d="M46 40 H108" stroke={acc} strokeWidth="2" />
+        <path d="M40 22 L46 40 L40 58" stroke={line} strokeWidth="1" />
+        <circle cx="108" cy="40" r="3.4" fill={acc} />
+      </svg>
+    );
+
+  if (slug === "events")
+    // A calendar of moments, one of them chosen and booked.
+    return (
+      <svg {...common}>
+        {Array.from({ length: 15 }).map((_, i) => {
+          const x = 14 + (i % 5) * 20, y = 14 + Math.floor(i / 5) * 20, hot = i === 8;
+          return <rect key={i} x={x} y={y} width="12" height="12" rx="2.5" fill={hot ? acc : "none"} fillOpacity={hot ? 0.9 : 0} stroke={hot ? acc : line} strokeWidth="1" />;
+        })}
+      </svg>
+    );
+
+  if (slug === "leadstrategus-ai")
+    // Connected agents, one of them carrying the work.
+    return (
+      <svg {...common}>
+        {[[20, 20], [20, 60], [60, 40], [100, 20], [100, 60]].map(([x, y], i, a) =>
+          a.slice(i + 1).map(([x2, y2], j) => <line key={`${i}-${j}`} x1={x} y1={y} x2={x2} y2={y2} stroke={line} strokeWidth="1" />),
+        )}
+        {[[20, 20], [20, 60], [100, 20], [100, 60]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r="3.2" fill={line} />)}
+        <circle cx="60" cy="40" r="5" fill={acc} />
+      </svg>
+    );
+
+  if (slug === "expotofunnel")
+    // A crowded show floor narrowing to one booked conversation.
+    return (
+      <svg {...common}>
+        <path d="M12 12 H108 L70 44 V68 H50 V44 Z" stroke={line} strokeWidth="1.2" />
+        {[[30, 22], [52, 20], [74, 24], [92, 18], [60, 32]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r="2" fill={line} />)}
+        <circle cx="60" cy="60" r="4" fill={acc} />
+      </svg>
+    );
+
+  if (slug !== "enablement")
+    // the capability layer, or anything not yet given its own drawing: a dial
+    return (
+      <svg {...common}>
+        <path d="M24 60 A 36 36 0 0 1 96 60" stroke={line} strokeWidth="1.5" />
+        <line x1="60" y1="60" x2="84" y2="34" stroke={acc} strokeWidth="2" />
+        <circle cx="60" cy="60" r="3.4" fill={acc} />
+      </svg>
+    );
+
+  // enablement, a skill curve lifting after coaching starts
   return (
     <svg {...common}>
       <path d="M10 60 C 30 58, 40 54, 52 50" stroke={line} strokeWidth="1.5" />

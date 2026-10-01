@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { CaseTile } from "./Blocks";
 import { RailIndicator } from "@/components/motion/RailIndicator";
 import type { CaseStudy } from "@/content/types";
+import { getGroup } from "@/content/practices";
 
 /**
  * Two segmented controls over the case studies. They were loose rows of
@@ -15,12 +16,14 @@ import type { CaseStudy } from "@/content/types";
  * survivors re-enter on the entrance curve, and the count of matches is
  * announced, because a silent grid change is invisible to a screen reader.
  */
+const familyOf = (c: CaseStudy) => getGroup(c.group)?.short ?? "Other";
+
 export function WorkIndex({ items }: { items: CaseStudy[] }) {
-  const practicesList = useMemo(() => ["All", ...Array.from(new Set(items.map((i) => i.practice)))], [items]);
+  const practicesList = useMemo(() => ["All", ...Array.from(new Set(items.map(familyOf)))], [items]);
   const verticals = useMemo(() => ["All", ...Array.from(new Set(items.map((i) => i.vertical)))], [items]);
   const [practice, setPractice] = useState("All");
   const [vertical, setVertical] = useState("All");
-  const shown = items.filter((i) => (practice === "All" || i.practice === practice) && (vertical === "All" || i.vertical === vertical));
+  const shown = items.filter((i) => (practice === "All" || familyOf(i) === practice) && (vertical === "All" || i.vertical === vertical));
 
   const option = (on: boolean) =>
     cn(
@@ -38,7 +41,7 @@ export function WorkIndex({ items }: { items: CaseStudy[] }) {
     <div className="flex flex-wrap items-center gap-2">
       <span className="mr-1 font-mono text-micro uppercase tracking-[0.15em] text-muted">{legend}</span>
       <div className="rail-track flex flex-wrap items-center gap-1 rounded-full border border-rule p-1" role="group" aria-label={legend}>
-        {/* a thumb, not a baseline rail — and it tracks both axes, because
+        {/* a thumb, not a baseline rail, and it tracks both axes, because
             these groups wrap onto a second row at most widths */}
         <RailIndicator active={current} fill className="!bg-ink" />
         {values.map((v) => (
@@ -61,7 +64,7 @@ export function WorkIndex({ items }: { items: CaseStudy[] }) {
   return (
     <div>
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        {group("Practice", practicesList, practice, setPractice, "practice")}
+        {group("Family", practicesList, practice, setPractice, "practice")}
         {group("Sector", verticals, vertical, setVertical, "vertical")}
       </div>
 
@@ -69,7 +72,7 @@ export function WorkIndex({ items }: { items: CaseStudy[] }) {
 
       <div key={`${practice}|${vertical}`} className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {shown.map((c, i) => (
-          <div key={c.slug} data-item data-practice={c.practice} data-vertical={c.vertical}>
+          <div key={c.slug} data-item data-practice={familyOf(c)} data-vertical={c.vertical}>
             <CaseTile c={c} i={i} />
           </div>
         ))}

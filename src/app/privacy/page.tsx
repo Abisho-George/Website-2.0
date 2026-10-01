@@ -1,10 +1,12 @@
-import { buildMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { buildMetadata, pageJsonLd } from "@/lib/seo";
 import { site } from "@/content/site";
 import { Copy } from "@/components/ui/Copy";
-export const metadata = buildMetadata({ title: "Privacy", path: "/privacy" });
+export const metadata = buildMetadata({ title: "Privacy policy", description: "How LeadStrategus collects, uses and protects personal data submitted through this website and in client engagements.", path: "/privacy" });
 export default function Privacy() {
   return (
     <section className="pt-[var(--nav-h)]"><div className="container-x py-20 md:py-28"><div className="mx-auto max-w-3xl">
+      <JsonLd data={pageJsonLd({ type: "WebPage", name: "Privacy policy", description: metadata.description as string, path: "/privacy" })} />
       <p className="eyebrow mb-6">Privacy policy</p>
       <h1 className="display text-[2.6rem] md:text-[4rem]">How we handle data.</h1>
       <div className="prose-ls mt-10">

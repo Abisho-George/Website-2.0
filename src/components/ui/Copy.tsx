@@ -8,7 +8,7 @@ export function Copy({ text, as: Tag = Fragment }: { text: string; as?: React.El
   const parts = text.split(/(\[\[.*?\]\])/g).filter(Boolean);
   const children = parts.map((p, i) =>
     p.startsWith("[[") ? (
-      <span key={i} data-placeholder title="Placeholder — verify before launch">
+      <span key={i} data-placeholder title="Placeholder: verify before launch">
         {p.slice(2, -2)}
       </span>
     ) : (

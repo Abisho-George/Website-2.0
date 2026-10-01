@@ -8,8 +8,7 @@ type Art = React.ComponentProps<typeof HeroArt>["variant"];
  *
  * Its signature is unchanged so all eight callers compile untouched while
  * they convert one at a time; `art` is accepted and ignored, because the
- * 320x240 hairline drawing it named is exactly what the new hero replaces —
- * it sat in a 5-of-12 column roughly 540px wide, which guaranteed about
+ * 320x240 hairline drawing it named is exactly what the new hero replaces, * it sat in a 5-of-12 column roughly 540px wide, which guaranteed about
  * 160px of empty column on every template.
  *
  * A page that has been converted passes a `scene` and a computed `readout`

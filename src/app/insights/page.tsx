@@ -5,13 +5,15 @@ import { IndexScene } from "@/components/visual/IndexScene";
 import { CTABand } from "@/components/site/Blocks";
 import { InsightsIndex } from "@/components/site/InsightsIndex";
 import { insightsByDate, clusters } from "@/content/insights";
-import { buildMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { buildMetadata, pageJsonLd } from "@/lib/seo";
 
-export const metadata = buildMetadata({ title: "Insights", description: "Writing on B2B go-to-market from the LeadStrategus founders: GTM strategy, demand generation, revenue intelligence and AI in GTM.", path: "/insights" });
+export const metadata = buildMetadata({ title: "Insights on B2B go-to-market", description: "Writing on B2B go-to-market from the LeadStrategus founders: GTM strategy, demand generation, account intelligence and AI agents in GTM.", path: "/insights", keywords: ["B2B go-to-market blog", "GTM strategy articles", "demand generation insights", "account intelligence", "AI in GTM"] });
 
 export default function InsightsPage() {
   return (
     <>
+      <JsonLd data={pageJsonLd({ type: "CollectionPage", name: "Insights", description: metadata.description as string, path: "/insights" })} />
       <PageHero
         art="insights"
         title={<>Written from the <em>pipeline.</em></>}

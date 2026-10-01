@@ -18,7 +18,7 @@ import { CanvasScene, type Scene, type SceneEnv } from "./CanvasScene";
  *
  * Three z-planes give parallax without a library: a particle's plane scales its
  * radius, its alpha and its speed, so the field has depth rather than being a
- * flat scatter. The gate labels are DOM, not canvas — canvas text is blurry on
+ * flat scatter. The gate labels are DOM, not canvas, canvas text is blurry on
  * a retina screen, cannot be themed, and ctx.letterSpacing is silently ignored
  * by Safari below 17.
  */
@@ -28,7 +28,7 @@ const MEET_X = 0.9; // inside the frame: the booked meeting is the payoff, not a
 const KEEP = [0.6, 0.55, 0.5];
 const PLANES = [0.6, 0.85, 1] as const;
 const LINK_D2 = 7400;
-const LINK_DX = 86; // px — beyond this no pair can be within LINK_D2
+const LINK_DX = 86; // px, beyond this no pair can be within LINK_D2
 const SWEEP_EVERY = 9000; // ms between scan passes
 
 type P = {
@@ -122,7 +122,7 @@ function makeScene(): Scene {
     ctx.arc(meet.x, meet.y, 11 + pulse * 5, 0, Math.PI * 2);
     ctx.stroke();
 
-    // relationships between qualified accounts — the one O(n²) pass, bounded on
+    // relationships between qualified accounts, the one O(n²) pass, bounded on
     // both ends: qualified only, and an x-distance reject before the multiply
     if (!lowPower) {
       ctx.lineWidth = 0.7;

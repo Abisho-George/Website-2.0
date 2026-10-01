@@ -4,9 +4,10 @@ import { Copy } from "@/components/ui/Copy";
 import { ContactForm } from "@/components/site/ContactForm";
 import { site } from "@/content/site";
 import { enquiryTypes } from "@/lib/enquiry";
-import { buildMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { buildMetadata, pageJsonLd } from "@/lib/seo";
 
-export const metadata = buildMetadata({ title: "Contact", description: "Send an enquiry to LeadStrategus. Routed by practice, answered within one working day.", path: "/contact" });
+export const metadata = buildMetadata({ title: "Contact LeadStrategus", description: "Send an enquiry to LeadStrategus about GTM strategy, account intelligence, demand generation, enablement, events or the GTM AI Twin. Routed by service and answered within one working day.", path: "/contact", keywords: ["contact LeadStrategus", "B2B go-to-market enquiry", "demand generation agency contact", "GTM consulting India"] });
 
 export default async function ContactPage({ searchParams }: { searchParams: Promise<{ type?: string }> }) {
   const { type } = await searchParams;
@@ -14,6 +15,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
   const isTwin = type === "gtm-ai-twin";
   return (
     <>
+      <JsonLd data={pageJsonLd({ type: "ContactPage", name: "Contact", description: metadata.description as string, path: "/contact" })} />
       <section className="relative pt-[var(--nav-h)]">
         <div className="container-x grid gap-14 py-16 md:py-24 lg:grid-cols-12">
           <div className="lg:col-span-5">

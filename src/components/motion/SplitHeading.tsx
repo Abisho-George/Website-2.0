@@ -5,7 +5,7 @@ import { Reveal } from "@/components/ui/Reveal";
 /**
  * A heading whose lines rise out of their own boxes, one after another.
  *
- * The line breaks are authored, not measured — pass the lines you want. That
+ * The line breaks are authored, not measured, pass the lines you want. That
  * is deliberate: a heading that re-splits itself on resize either ships a
  * layout read on every frame or breaks in a different place than the copy was
  * written for. The three headings on this site with a hand-placed <br/> are

@@ -1,5 +1,5 @@
 /**
- * Synthetic demonstration data — invented, every line of it.
+ * Synthetic demonstration data, invented, every line of it.
  *
  * Nothing in this file happened. No company named here is a client, no figure
  * here was measured, and none of it may ever be shown as a case study, a
@@ -67,7 +67,7 @@ export type AccountName = (typeof scanAccounts)[number]["name"];
 export const meetingDays = ["Mon", "Tue", "Wed", "Thu", "Fri"] as const;
 export type MeetingDay = (typeof meetingDays)[number];
 
-/** How the meeting was earned — the firm's own motions, not channels in general. */
+/** How the meeting was earned, the firm's own motions, not channels in general. */
 export type MeetingSource = "sequence" | "reply" | "social" | "webinar" | "event";
 
 export type Meeting = {

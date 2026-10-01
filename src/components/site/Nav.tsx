@@ -5,8 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ChevronDown, Menu, X, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { site } from "@/content/site";
-import { practices } from "@/content/practices";
-import { servicesFor } from "@/content/services";
+import { families, platforms, getGroup } from "@/content/practices";
+import { servicesFor, serviceHref, getService } from "@/content/services";
 import { PracticeGlyph } from "@/components/visual/PracticeGlyph";
 import { Logo } from "./Logo";
 import { Button } from "@/components/ui/Button";
@@ -15,7 +15,7 @@ import { RailIndicator } from "@/components/motion/RailIndicator";
 const resourceLinks = [
   { href: "/insights", label: "Blog & Insights", note: "Writing from the pipeline" },
   { href: "/resources", label: "Guides & Templates", note: "The worksheets we use" },
-  { href: "/work", label: "Case Studies", note: "Programmes and their numbers" },
+  { href: "/work", label: "Case Studies", note: "Programmes and what changed" },
   { href: "/faq", label: "FAQ", note: "Everything people ask first" },
   { href: "/pricing", label: "Pricing", note: "What engagements cost" },
 ];
@@ -57,7 +57,7 @@ export function Nav() {
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
 
   // Which nav section the current route belongs to. The GTM AI Twin pill is
-  // deliberately not on the rail — it carries its own filled state.
+  // deliberately not on the rail, it carries its own filled state.
   const railKey =
     active("/") ? "home"
     : active("/services") || active("/practices") ? "services"
@@ -73,7 +73,7 @@ export function Nav() {
       aria-haspopup="true"
       className={cn(
         "inline-flex h-[var(--nav-h)] items-center gap-1.5 px-3.5 text-[0.9rem] transition-colors duration-[var(--dur-1)]",
-        isActive || open === id ? "text-white" : "text-[#ddd6cc] hover:text-white",
+        isActive || open === id ? "text-fg" : "text-muted hover:text-fg",
       )}
     >
       {label}
@@ -85,26 +85,26 @@ export function Nav() {
     <header
       ref={navRef}
       data-nav
-      className={cn("fixed inset-x-0 top-0 z-50 bg-ink text-white transition-shadow duration-300", scrolled && "shadow-e2")}
+      className={cn("fixed inset-x-0 top-0 z-50 border-b border-rule bg-white/95 text-fg backdrop-blur-md transition-shadow duration-300 supports-[backdrop-filter]:bg-white/85", scrolled && "shadow-e2")}
     >
-      <div className="brand-rule absolute inset-x-0 bottom-0" aria-hidden />
+      <div className="brand-rule absolute inset-x-0 top-0" aria-hidden />
       <div className="container-x flex h-[var(--nav-h)] items-center justify-between gap-4">
-        <Logo tone="light" />
+        <Logo tone="dark" />
 
         <nav className="rail-track hidden items-center lg:flex">
-          <Link data-rail-item="home" href="/" className={cn("inline-flex h-[var(--nav-h)] items-center px-3.5 text-[0.9rem] transition-colors duration-[var(--dur-1)]", active("/") ? "text-white" : "text-[#ddd6cc] hover:text-white")}>
+          <Link data-rail-item="home" href="/" className={cn("inline-flex h-[var(--nav-h)] items-center px-3.5 text-[0.9rem] transition-colors duration-[var(--dur-1)]", active("/") ? "text-fg" : "text-muted hover:text-fg")}>
             Home
           </Link>
 
           <div className="relative">{trigger("services", "Services", active("/services") || active("/practices"))}</div>
 
-          <Link href="/gtm-ai-twin" className={cn("relative mx-2.5 inline-flex h-9 items-center gap-1.5 rounded-full px-4 text-[0.9rem] font-medium transition-all duration-300", active("/gtm-ai-twin") ? "bg-ember text-white" : "bg-white/12 text-ember-2 hover:bg-ember hover:text-white")}>
+          <Link href="/gtm-ai-twin" className={cn("relative mx-2.5 inline-flex h-9 items-center gap-1.5 rounded-full px-4 text-[0.9rem] font-medium transition-all duration-300", active("/gtm-ai-twin") ? "bg-ember text-white" : "bg-ember-wash text-ember-ink ring-1 ring-ember/25 hover:bg-ember hover:text-white")}>
             <Sparkles className="size-3.5" /> GTM AI Twin
           </Link>
 
           <div className="relative">{trigger("resources", "Resources", active("/insights") || active("/resources") || active("/work") || active("/faq") || active("/pricing"))}</div>
 
-          <Link data-rail-item="about" href="/about" className={cn("inline-flex h-[var(--nav-h)] items-center px-3.5 text-[0.9rem] transition-colors duration-[var(--dur-1)]", active("/about") ? "text-white" : "text-[#ddd6cc] hover:text-white")}>
+          <Link data-rail-item="about" href="/about" className={cn("inline-flex h-[var(--nav-h)] items-center px-3.5 text-[0.9rem] transition-colors duration-[var(--dur-1)]", active("/about") ? "text-fg" : "text-muted hover:text-fg")}>
             About
           </Link>
 
@@ -114,11 +114,11 @@ export function Nav() {
         </nav>
 
         <div className="hidden items-center gap-4 lg:flex">
-          <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="font-mono text-[0.7rem] uppercase tracking-[0.13em] text-[#ddd6cc] transition-colors hover:text-ember-2">.ai ↗</a>
+          <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="font-mono text-[0.7rem] uppercase tracking-[0.13em] text-muted transition-colors hover:text-ember-ink">.ai ↗</a>
           <Button href="/book" size="sm">Book a strategy call</Button>
         </div>
 
-        <button data-menu-toggle className="inline-flex size-10 items-center justify-center rounded-full border border-white/20 text-[#f6f2ec] lg:hidden" onClick={() => setDrawer(!drawer)} aria-label="Toggle menu" aria-expanded={drawer}>
+        <button data-menu-toggle className="inline-flex size-10 items-center justify-center rounded-full border border-rule-strong text-fg lg:hidden" onClick={() => setDrawer(!drawer)} aria-label="Toggle menu" aria-expanded={drawer}>
           {drawer ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
       </div>
@@ -131,20 +131,20 @@ export function Nav() {
           open === "services" ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0",
         )}
       >
-        <div className="container-x grid gap-8 py-9 xl:grid-cols-12">
-          <div className="grid gap-x-8 gap-y-8 sm:grid-cols-2 xl:col-span-9 xl:grid-cols-4">
-            {practices.map((p) => (
-              <div key={p.slug}>
-                <div className="mb-4 flex items-center justify-between gap-2 border-b border-rule pb-3">
-                  <Link href={`/practices/${p.slug}`} className="font-display text-[0.98rem] font-semibold tracking-tight transition-colors hover:text-ember-ink">
-                    {p.short}
+        <div className="container-x grid max-h-[calc(100vh-var(--nav-h)-24px)] gap-8 overflow-y-auto py-9 xl:grid-cols-12">
+          <div className="grid gap-x-8 gap-y-8 sm:grid-cols-2 xl:col-span-9 xl:grid-cols-3">
+            {families.map((g) => (
+              <div key={g.slug}>
+                <div className="mb-3 flex items-center justify-between gap-2 border-b border-rule pb-3">
+                  <Link href={`/practices/${g.slug}`} className="font-display text-[0.98rem] font-semibold tracking-tight transition-colors hover:text-ember-ink">
+                    {g.short}
                   </Link>
-                  <PracticeGlyph slug={p.slug} className="h-6 w-9 shrink-0 opacity-70" />
+                  <PracticeGlyph slug={g.slug} className="h-6 w-9 shrink-0 opacity-70" />
                 </div>
-                <ul className="space-y-1">
-                  {servicesFor(p.slug).map((s) => (
+                <ul className="space-y-0.5">
+                  {servicesFor(g.slug).map((s) => (
                     <li key={s.slug}>
-                      <Link href={`/services/${s.slug}`} className="group flex items-start gap-2 rounded-lg px-2 py-1.5 -mx-2 text-[0.86rem] leading-snug text-muted transition-colors hover:bg-sand hover:text-ink">
+                      <Link href={serviceHref(s)} className="group -mx-2 flex items-start gap-2 rounded-lg px-2 py-1.5 text-[0.86rem] leading-snug text-muted transition-colors hover:bg-sand hover:text-fg">
                         <span className="mt-[7px] size-1 shrink-0 rounded-full bg-rule-strong transition-colors group-hover:bg-ember" />
                         {s.name}
                       </Link>
@@ -155,26 +155,27 @@ export function Nav() {
             ))}
           </div>
 
-          <div className="xl:col-span-3">
-            <div className="flex h-full flex-col justify-between rounded-[var(--radius-lg)] bg-ink p-6 text-[#f6f2ec]">
-              <div>
-                <div className="flex items-center gap-2 text-ember-2">
-                  <Sparkles className="size-4" />
-                  <span className="font-mono text-[0.64rem] uppercase tracking-[0.15em]">Special service</span>
-                </div>
-                <div className="mt-2 font-display text-[1.5rem] font-semibold tracking-tight">GTM AI Twin</div>
-                <p className="mt-2 text-[0.86rem] leading-relaxed text-[#c3b9ac]">
-                  Custom agents that take over the whole motion — identify, research, engage, qualify, book.
-                </p>
+          <div className="flex flex-col gap-4 xl:col-span-3">
+            <div className="rounded-[var(--radius-lg)] border border-ember/25 bg-ember-wash p-6">
+              <div className="flex items-center gap-2 text-ember-ink">
+                <Sparkles className="size-4" />
+                <span className="font-mono text-[0.64rem] uppercase tracking-[0.15em]">Special service</span>
               </div>
-              <div className="mt-6 flex flex-col gap-2">
-                <Link href="/gtm-ai-twin" className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-ember px-4 text-[0.86rem] font-medium text-white transition-colors hover:bg-ember-2">
-                  Explore the Twin <ArrowRight className="size-4" />
-                </Link>
-                <Link href="/services" className="inline-flex h-10 items-center justify-center gap-2 rounded-full border border-white/25 px-4 text-[0.86rem] transition-colors hover:bg-white/5">
-                  All services <ArrowRight className="size-4" />
-                </Link>
-              </div>
+              <div className="mt-2 font-display text-[1.5rem] font-semibold tracking-tight">GTM AI Twin</div>
+              <p className="mt-2 text-[0.86rem] leading-relaxed text-fg-soft">{getService("gtm-ai-twin")?.tagline}</p>
+              <Link href="/gtm-ai-twin" className="mt-5 inline-flex h-10 w-full items-center justify-center gap-2 rounded-full bg-ember px-4 text-[0.86rem] font-medium text-white transition-colors hover:bg-ember-ink">
+                Explore the Twin <ArrowRight className="size-4" />
+              </Link>
+            </div>
+            {platforms.map((g) => (
+              <Link key={g.slug} href={`/practices/${g.slug}`} className="group rounded-[var(--radius-lg)] border border-rule p-4 transition-colors hover:border-rule-strong hover:bg-sand">
+                <div className="font-display text-[0.98rem] font-semibold tracking-tight group-hover:text-ember-ink">{g.short}</div>
+                <p className="mt-1 text-[0.8rem] leading-snug text-muted">{g.tagline}</p>
+              </Link>
+            ))}
+            <div className="flex flex-col gap-1 text-[0.86rem]">
+              <Link href={serviceHref(getService("revenue-operations")!)} className="text-muted transition-colors hover:text-fg">{getGroup("revenue-operations")?.short}</Link>
+              <Link href="/services" className="inline-flex items-center gap-1.5 font-medium text-ember-ink">All services <ArrowRight className="size-4" /></Link>
             </div>
           </div>
         </div>
@@ -201,34 +202,37 @@ export function Nav() {
       </div>
 
       {/* ---------- mobile drawer ---------- */}
-      <div data-drawer className={cn("fixed inset-0 top-[var(--nav-h)] z-40 bg-ink text-[#f6f2ec] transition-all duration-300 lg:hidden", drawer ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0")}>
+      <div data-drawer className={cn("fixed inset-0 top-[var(--nav-h)] z-40 bg-white text-fg transition-all duration-300 lg:hidden", drawer ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0")}>
         <div className="container-x flex h-full flex-col overflow-y-auto pb-12 pt-6">
-          <Link href="/gtm-ai-twin" className="mb-6 flex items-center justify-between rounded-2xl bg-ember p-5 text-white">
+          <Link href="/gtm-ai-twin" className="mb-6 flex items-center justify-between rounded-2xl border border-ember/25 bg-ember-wash p-5 text-ember-ink">
             <div>
               <div className="flex items-center gap-2"><Sparkles className="size-4" /><span className="font-mono text-[0.66rem] uppercase tracking-[0.15em]">Special service</span></div>
-              <div className="mt-1 font-display text-xl font-semibold tracking-tight">GTM AI Twin</div>
+              <div className="mt-1 font-display text-xl font-semibold tracking-tight text-fg">GTM AI Twin</div>
             </div>
             <ArrowRight className="size-5" />
           </Link>
 
-          <Link href="/" className="border-b border-white/10 py-3.5 font-display text-lg font-medium">Home</Link>
-          {practices.map((p) => (
-            <details key={p.slug} className="border-b border-white/10">
-              <summary className="cursor-pointer list-none py-3.5 font-display text-lg font-medium marker:hidden">{p.short}</summary>
+          <Link href="/" className="border-b border-rule py-3.5 font-display text-lg font-medium">Home</Link>
+          {[...families, ...platforms].map((g) => (
+            <details key={g.slug} className="group border-b border-rule">
+              <summary className="flex cursor-pointer list-none items-center justify-between py-3.5 font-display text-lg font-medium [&::-webkit-details-marker]:hidden">
+                {g.short}
+                <ChevronDown className="size-4 text-muted transition-transform group-open:rotate-180" aria-hidden />
+              </summary>
               <ul className="pb-3">
-                {servicesFor(p.slug).map((s) => (
-                  <li key={s.slug}><Link href={`/services/${s.slug}`} className="block py-2 pl-4 text-[0.92rem] text-[#c3b9ac]">{s.name}</Link></li>
+                {servicesFor(g.slug).map((s) => (
+                  <li key={s.slug}><Link href={serviceHref(s)} className="block py-2 pl-4 text-[0.92rem] text-muted">{s.name}</Link></li>
                 ))}
-                <li><Link href={`/practices/${p.slug}`} className="block py-2 pl-4 text-[0.92rem] text-ember-2">About {p.short} →</Link></li>
+                <li><Link href={`/practices/${g.slug}`} className="block py-2 pl-4 text-[0.92rem] font-medium text-ember-ink">About {g.short} →</Link></li>
               </ul>
             </details>
           ))}
 
           <div className="mt-6 grid grid-cols-2 gap-x-6">
-            {[["/services", "All Services"], ["/work", "Work"], ["/insights", "Blog"], ["/resources", "Resources"], ["/faq", "FAQ"], ["/pricing", "Pricing"], ["/about", "About"], ["/contact", "Contact"]].map(([h, l]) => (
-              <Link key={h} href={h} className="border-b border-white/10 py-3.5 font-display text-[1.05rem] font-medium">{l}</Link>
+            {[["/services", "All Services"], ["/work", "Case Studies"], ["/insights", "Blog"], ["/resources", "Resources"], ["/faq", "FAQ"], ["/pricing", "Pricing"], ["/about", "About"], ["/contact", "Contact"]].map(([h, l]) => (
+              <Link key={h} href={h} className="border-b border-rule py-3.5 font-display text-[1.05rem] font-medium">{l}</Link>
             ))}
-            <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="border-b border-white/10 py-3.5 font-display text-[1.05rem] font-medium text-ember-2">leadstrategus.ai ↗</a>
+            <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="border-b border-rule py-3.5 font-display text-[1.05rem] font-medium text-ember-ink">leadstrategus.ai ↗</a>
           </div>
           <Button href="/book" size="lg" className="mt-8 w-full">Book a strategy call</Button>
         </div>

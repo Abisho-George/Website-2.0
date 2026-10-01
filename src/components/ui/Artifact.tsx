@@ -1,6 +1,6 @@
 import { Copy } from "./Copy";
 
-/** A "sample output" card — an excerpt of a real deliverable, set like a terminal. */
+/** A "sample output" card, an excerpt of a real deliverable, set like a terminal. */
 export function Artifact({ kind, title, lines }: { kind: string; title: string; lines: string[]; tone?: "ember" | "twin" }) {
   return (
     <div className="overflow-hidden rounded-[var(--radius-lg)] border border-ink-2/20 bg-ink text-[#f6f2ec] shadow-[0_28px_60px_-40px_rgba(23,18,13,.75)]">

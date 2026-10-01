@@ -4,9 +4,10 @@ import { PageHero } from "@/components/site/PageHero";
 import { Button } from "@/components/ui/Button";
 import { Copy } from "@/components/ui/Copy";
 import { site } from "@/content/site";
-import { buildMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { buildMetadata, pageJsonLd } from "@/lib/seo";
 
-export const metadata = buildMetadata({ title: "Careers", description: "Work at LeadStrategus: GTM strategists, demand generation leads, research analysts and agent engineers in Bengaluru.", path: "/careers" });
+export const metadata = buildMetadata({ title: "Careers in B2B go-to-market", description: "Work at LeadStrategus in Bengaluru: GTM strategists, demand generation leads, research analysts and AI agent engineers who own a number and run real programmes.", path: "/careers", keywords: ["LeadStrategus careers", "B2B marketing jobs Bengaluru", "GTM strategist jobs", "demand generation jobs India", "AI agent engineer jobs"] });
 
 const roles = [
   { t: "[[GTM Strategist]]", b: "Run diagnostics and strategy sprints with the founders. Five-plus years in B2B marketing or sales with at least one pipeline target owned." },
@@ -18,6 +19,7 @@ const roles = [
 export default function CareersPage() {
   return (
     <>
+      <JsonLd data={pageJsonLd({ type: "WebPage", name: "Careers", description: metadata.description as string, path: "/careers" })} />
       <PageHero art="contact" title={<>Learn GTM by <em>running it.</em></>} lede="A small firm where every person owns a number, works directly with founders who have led marketing at AWS and Gartner, and now builds agents alongside the programmes they run." />
       <Section className="hero-next">
         <div className="eyebrow mb-6">Open roles · Bengaluru, hybrid</div>

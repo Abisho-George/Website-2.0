@@ -10,18 +10,21 @@ import { CTABand } from "@/components/site/Blocks";
 import { PageHero } from "@/components/site/PageHero";
 import { resources } from "@/content/resources";
 import { insightsByDate, clusters, getCluster } from "@/content/insights";
-import { buildMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { buildMetadata, pageJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
 
 export const metadata = buildMetadata({
   title: "Resources",
-  description: "The worksheets, templates, checklists and benchmarks LeadStrategus uses inside client engagements — ICP definition, deliverability, OSINT briefs, pipeline benchmarks and the GTM AI readiness assessment.",
+  description: "The worksheets, templates, checklists and benchmarks LeadStrategus uses inside client engagements: ICP definition, deliverability, OSINT briefs, pipeline benchmarks and the GTM AI readiness assessment.",
   path: "/resources",
+  keywords: ["B2B GTM templates", "ICP worksheet", "email deliverability checklist", "OSINT brief template", "pipeline benchmarks", "GTM AI readiness assessment"],
 });
 
 export default function ResourcesPage() {
   return (
     <>
+      <JsonLd data={pageJsonLd({ type: "CollectionPage", name: "Resources", description: metadata.description as string, path: "/resources" })} />
       <PageHero
         art="insights"
         title={<>The tools we use, <em>not brochures.</em></>}
@@ -57,7 +60,7 @@ export default function ResourcesPage() {
           })}
         </div>
         <p className="mt-6 text-sm text-dim">
-          Items marked with a lock ask for a work email. We send the file and nothing else — no sequence, no newsletter.
+          Items marked with a lock ask for a work email. We send the file and nothing else. No sequence, no newsletter.
         </p>
       </Section>
 

@@ -1,14 +1,16 @@
 import { Reveal } from "@/components/ui/Reveal";
 import { ContactForm } from "@/components/site/ContactForm";
 import { site } from "@/content/site";
-import { buildMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { buildMetadata, pageJsonLd } from "@/lib/seo";
 
-export const metadata = buildMetadata({ title: "Book a strategy call", description: "Thirty minutes with a LeadStrategus founder on your pipeline, your motion and what would move it.", path: "/book" });
+export const metadata = buildMetadata({ title: "Book a strategy call", description: "Book thirty minutes with a LeadStrategus founder on your pipeline, your go-to-market motion and what would move it. No pitch deck, a working session.", path: "/book", keywords: ["book a GTM strategy call", "B2B go-to-market consultation", "demand generation consultation", "LeadStrategus call"] });
 
 export default function BookPage() {
   const cal = site.booking.calLink;
   return (
     <section className="relative pt-[var(--nav-h)]">
+      <JsonLd data={pageJsonLd({ type: "WebPage", name: "Book a strategy call", description: metadata.description as string, path: "/book" })} />
       <div className="container-x grid gap-12 py-16 md:py-24 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <Reveal delay={80}><h1 className="display text-[2.8rem] md:text-[4rem]">Thirty minutes. <em className="text-ember">No pitch.</em></h1></Reveal>

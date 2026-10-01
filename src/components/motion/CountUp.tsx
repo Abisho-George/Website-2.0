@@ -31,7 +31,7 @@ export function CountUp({
   locale?: string;
   duration?: number;
   delay?: number;
-  /** False for flagged placeholder figures — an invented number never animates. */
+  /** False for flagged placeholder figures, an invented number never animates. */
   animate?: boolean;
   className?: string;
 } & React.HTMLAttributes<HTMLSpanElement>) {

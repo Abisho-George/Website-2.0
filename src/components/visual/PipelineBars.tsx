@@ -6,7 +6,7 @@ import { scanAccounts } from "@/content/synthetic";
 
 /**
  * The arithmetic of a pipeline, scrubbed by scroll: as this card moves up
- * the viewport, each stage fills in step with the scroll position — the
+ * the viewport, each stage fills in step with the scroll position, the
  * reader's own scrolling drives the funnel, rather than a timer. A scan
  * line and a rotating "now scoring" ticker keep it reading as a live
  * process rather than a chart that happened to load filled in.
@@ -61,7 +61,7 @@ export function PipelineBars({ className }: { className?: string }) {
       if (Math.abs(targetRef.current - shownRef.current) < 0.0008) {
         shownRef.current = targetRef.current;
         setProgress(shownRef.current);
-        halt(); // settled — give the frame back until the reader scrolls again
+        halt(); // settled, give the frame back until the reader scrolls again
         return;
       }
       setProgress(shownRef.current);
@@ -85,7 +85,7 @@ export function PipelineBars({ className }: { className?: string }) {
 
   const scanning = !reduced && inView && progress > 0.02 && progress < 0.999;
 
-  // the rotating "now scoring" line — only while the funnel is actively filling
+  // the rotating "now scoring" line, only while the funnel is actively filling
   useEffect(() => {
     if (!scanning) return;
     const id = window.setInterval(() => setTick((t) => t + 1), 1650);

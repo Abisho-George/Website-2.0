@@ -6,18 +6,19 @@ import { JsonLd } from "@/components/ui/JsonLd";
 import { CTABand } from "@/components/site/Blocks";
 import { PageHero } from "@/components/site/PageHero";
 import { homeFaq, twinFaq } from "@/content/faq";
-import { practices } from "@/content/practices";
-import { buildMetadata, faqJsonLd } from "@/lib/seo";
+import { families } from "@/content/practices";
+import { buildMetadata, faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "FAQ",
   description: "How LeadStrategus engagements work: what we cost, how quickly we start, what we guarantee, how the GTM AI Twin differs from an AI SDR tool, and how we handle data compliance.",
   path: "/faq",
+  keywords: ["LeadStrategus FAQ", "B2B demand generation pricing", "GTM AI Twin vs AI SDR", "how GTM consulting works", "data compliance outbound"],
 });
 
 const groups = [
   { id: "firm", title: "The firm", items: homeFaq },
-  ...practices.map((p) => ({ id: p.slug, title: p.name, items: p.faq })),
+  ...families.filter((f) => f.faq.length).map((f) => ({ id: f.slug, title: f.name, items: f.faq })),
   { id: "twin", title: "GTM AI Twin", items: twinFaq },
 ];
 
@@ -26,7 +27,7 @@ const all = groups.flatMap((g) => g.items);
 export default function FaqPage() {
   return (
     <>
-      <JsonLd data={faqJsonLd(all)} />
+      <JsonLd data={[faqJsonLd(all), breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "FAQ", path: "/faq" }])]} />
       <PageHero
         art="insights"
         title={<>Answers, <em>before you ask.</em></>}
@@ -49,7 +50,7 @@ export default function FaqPage() {
                 ))}
               </ul>
               <div className="mt-8 rounded-[var(--radius-lg)] border border-rule bg-sand p-5">
-                <p className="text-sm leading-relaxed text-muted">Still unanswered? Ask a founder directly — we reply within one working day.</p>
+                <p className="text-sm leading-relaxed text-muted">Still unanswered? Ask a founder directly. We reply within one working day.</p>
                 <Button href="/contact" size="sm" className="mt-4">Ask us</Button>
               </div>
             </div>

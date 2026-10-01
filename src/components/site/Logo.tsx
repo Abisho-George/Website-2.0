@@ -5,7 +5,7 @@ import { brand } from "@/content/brand";
 
 /**
  * The shield mark. Uses /public/brand/mark.svg when supplied, otherwise the
- * built-in vector below — a guard's visor inside a shield, in the brand red and blue.
+ * built-in vector below, a guard's visor inside a shield, in the brand red and blue.
  */
 export function Mark({ className }: { className?: string }) {
   if (brand.assets.mark) {
@@ -32,7 +32,7 @@ export function Mark({ className }: { className?: string }) {
   );
 }
 
-/** The wordmark: "Lead" in brand red, "Strategus" in brand blue — or white on the dark nav. */
+/** The wordmark: "Lead" in brand red, "Strategus" in brand blue, or white on the dark nav. */
 export function Wordmark({ tone = "dark", className }: { tone?: "dark" | "light"; className?: string }) {
   const src = tone === "light" ? brand.assets.wordmarkLight ?? brand.assets.wordmark : brand.assets.wordmark;
   if (src) {

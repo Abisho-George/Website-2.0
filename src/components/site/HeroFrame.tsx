@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
  * The page opening, rebuilt as a scene with copy standing on it.
  *
  * PageHero put the copy in 7 of 12 columns and a 320px drawing in the other 5,
- * which on a 1400px page leaves ~160px of empty column on every template — the
+ * which on a 1400px page leaves ~160px of empty column on every template, the
  * dead air that reads as unfinished. Here the visual is a BACKGROUND layer
  * inset from --scene-left, so there is no five-column hole to fill: the copy
  * keeps its 7 columns and the scene runs under and past it to the page edge.
@@ -20,7 +20,7 @@ type Band = "paper" | "sand" | "ink";
 
 /**
  * The height rung and the type rung move together, but only the full-height
- * hero gets display-1 — a short hero is shorter, not quieter.
+ * hero gets display-1, a short hero is shorter, not quieter.
  */
 const RUNG: Record<Size, string> = { sm: "display-2", md: "display-2", lg: "display-1" };
 
@@ -43,7 +43,7 @@ export function HeroFrame({
   label,
 }: {
   size?: Size;
-  /** Inline content — it is set inside the page's own <p class="eyebrow">. */
+  /** Inline content, it is set inside the page's own <p class="eyebrow">. */
   eyebrow?: React.ReactNode;
   /** Used when `lines` is absent. */
   title?: React.ReactNode;
@@ -140,8 +140,8 @@ export function HeroFrame({
 /**
  * The figures under a hero.
  *
- * Values are COMPUTED from content by the caller — services.length,
- * practices.length, the count of practices a service belongs to — and never
+ * Values are COMPUTED from content by the caller, services.length,
+ * practices.length, the count of practices a service belongs to, and never
  * typed, because a number typed here is an invented fact that nothing will
  * re-check when the content changes. A value that is authored copy must be
  * passed in through <Copy/> so a [[placeholder]] keeps its flag in the cell.

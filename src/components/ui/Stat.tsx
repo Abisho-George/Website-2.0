@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
  * (with its flags intact) as-is.
  *
  * A figure written as [[1,200]] is an invented number awaiting sign-off. It
- * keeps its dashed underline and it never animates — a placeholder that
+ * keeps its dashed underline and it never animates, a placeholder that
  * counts up looks exactly as confident as a verified one, which is the whole
  * problem the flagging exists to solve.
  */
@@ -42,10 +42,10 @@ export function Stat({
             animate={!isPh}
             data-stat={clean}
             data-placeholder={isPh ? "" : undefined}
-            title={isPh ? "Placeholder — verify before launch" : undefined}
+            title={isPh ? "Placeholder: verify before launch" : undefined}
           />
         ) : (
-          <span data-placeholder={isPh ? "" : undefined} title={isPh ? "Placeholder — verify before launch" : undefined}>
+          <span data-placeholder={isPh ? "" : undefined} title={isPh ? "Placeholder: verify before launch" : undefined}>
             {clean}
           </span>
         )}

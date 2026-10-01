@@ -52,7 +52,7 @@ export const resources: Resource[] = [
     title: "The OSINT account brief template",
     kind: "Template",
     blurb: "The two-page structure our analysts fill for every tier-1 account: priorities, evidence, buying group, likely objection and the angle.",
-    detail: "Includes the source checklist — filings, hiring, stack detection, executive interviews — in the order we work them.",
+    detail: "Includes the source checklist (filings, hiring, stack detection, executive interviews) in the order we work them.",
     gated: true,
     cta: "Get the template",
   },

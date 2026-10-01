@@ -6,11 +6,13 @@ import { PageHero } from "@/components/site/PageHero";
 import { Copy } from "@/components/ui/Copy";
 import { Marquee } from "@/components/ui/Marquee";
 import { CTABand, StatRow } from "@/components/site/Blocks";
+import { FounderGrid } from "@/components/site/Founders";
 import { authors } from "@/content/authors";
 import { proof, site } from "@/content/site";
-import { buildMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { buildMetadata, pageJsonLd, ids } from "@/lib/seo";
 
-export const metadata = buildMetadata({ title: "About", description: "LeadStrategus is a Bengaluru-headquartered B2B go-to-market firm founded in 2018 by operators who led marketing for AWS, Gartner, SAP and Pluralsight.", path: "/about" });
+export const metadata = buildMetadata({ title: "About us: operators, not an agency", description: "LeadStrategus is a Bengaluru-headquartered B2B go-to-market firm founded in 2018 by operators who led marketing for AWS, Gartner, SAP and Pluralsight. Meet the founders and see how we work.", path: "/about", keywords: ["LeadStrategus", "about LeadStrategus", "B2B go-to-market firm", "GTM consulting Bengaluru", "Kingshuk Hazra", "Anindita Hazra", "B2B marketing agency India"] });
 
 const principles = [
   { t: "Meetings, not activity", b: "Every report we send has the word 'meeting' in it. Opens and clicks are diagnostics. Pipeline is the outcome." },
@@ -21,7 +23,7 @@ const principles = [
 const timeline = [
   { y: "2018", t: "Founded in Bengaluru", b: "After leading marketing for AWS India, Kingshuk and Anindita Hazra start LeadStrategus to run pipeline for B2B technology companies." },
   { y: "[[2019]]", t: "Productised formats", b: "Webinar-as-a-Service, Quiz-as-a-Service and Lead Generation in a Box launch as fixed-scope programmes." },
-  { y: "[[2021]]", t: "Revenue Intelligence", b: "Database-as-a-Service and OSINT briefs become a standalone practice feeding every programme." },
+  { y: "[[2021]]", t: "Account intelligence", b: "Database-as-a-Service and OSINT briefs become a standalone service line feeding every programme." },
   { y: "[[2024]]", t: "leadstrategus.ai", b: "The agent platform ships: AI revenue agents that find, qualify and convert, built on eight years of programme data." },
   { y: "2026", t: "GTM AI Twin", b: "Custom agents that take over go-to-market end to end, built and run for clients on our own platform." },
 ];
@@ -29,6 +31,7 @@ const timeline = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={pageJsonLd({ type: "AboutPage", name: "About", description: metadata.description as string, path: "/about", about: [ids.org, ...authors.map((a) => ids.person(a.slug))] })} />
       <PageHero art="about" title={<>Operators, <em>not an agency.</em></>} lede="LeadStrategus was started in 2018 by people who had run marketing and business development for global technology vendors in India, and were tired of watching agencies report activity while pipeline stayed flat. We built the firm we wished we could have hired." />
 
       <Section className="hero-next">
@@ -38,19 +41,7 @@ export default function AboutPage() {
 
       <Section band="sand">
         <SectionHead title={<>Led by people who have <em className="serif-em">carried the number.</em></>} />
-        <div className="mt-12 grid gap-4 md:grid-cols-2">
-          {authors.map((a, i) => (
-            <Reveal key={a.slug} delay={i * 90}>
-              <Link href={`/authors/${a.slug}`} className="card card-hover group block h-full p-7">
-                <div className="flex size-16 items-center justify-center rounded-full bg-ember-wash font-display text-xl font-semibold text-ember-ink">{a.name.split(" ").map((s) => s[0]).join("")}</div>
-                <div className="mt-6 text-2xl font-medium tracking-tight">{a.name}</div>
-                <div className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ember">{a.role}</div>
-                <p className="mt-4 leading-relaxed text-muted"><Copy text={a.long[0]} /></p>
-                <div className="mt-5 inline-flex items-center gap-1 text-sm">Full profile <ArrowUpRight className="size-4" /></div>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
+        <FounderGrid authors={authors} className="mt-12" />
       </Section>
 
       <Section>

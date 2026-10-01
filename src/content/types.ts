@@ -1,37 +1,25 @@
 export type FAQ = { q: string; a: string };
 
-export type Practice = {
-  slug: string;
-  index: string;
-  name: string;
-  short: string;
-  tagline: string;
-  summary: string;
-  accent: "ember" | "twin";
-  problem: { title: string; points: string[] };
-  deliverables: { title: string; body: string }[];
-  process: { phase: string; title: string; body: string; duration: string }[];
-  sampleOutput: { kind: string; title: string; lines: string[] };
-  outcomes: { value: string; label: string }[];
-  pricing: { model: string; from: string; note: string };
-  faq: FAQ[];
-  relatedWork: string[];
-  services: string[];
-};
-
 export type CaseStudy = {
   slug: string;
+  /** A placeholder shown until a real, signed-off case study takes its place. */
+  sample: boolean;
   client: string;
   vertical: string;
   region: string;
-  practice: string;
-  practiceSlug: string;
+  /** The family the case belongs to. */
+  group: import("./services").ServiceGroupSlug;
+  /** Service slugs whose pages show this case. */
+  services: string[];
   title: string;
   summary: string;
   stats: { value: string; label: string }[];
-  challenge: string;
-  approach: string[];
+  situation: string;
+  question: string;
+  whatWeDid: string[];
+  evidence: string[];
   outcome: string;
+  whatChanged: string;
   quote?: { text: string; who: string };
   tags: string[];
   featured?: boolean;
@@ -45,6 +33,8 @@ export type Author = {
   bio: string;
   long: string[];
   linkedin?: string;
+  /** A path under /public. */
+  image?: string;
 };
 
 export type Cluster = { slug: string; name: string; blurb: string };
