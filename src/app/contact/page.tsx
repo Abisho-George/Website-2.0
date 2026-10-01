@@ -26,7 +26,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                 <ol className="space-y-2 text-muted">
                   <li>01 · A founder reads your note and replies with two or three questions.</li>
                   <li>02 · A thirty-minute call: your motion, your numbers, our honest view.</li>
-                  <li>03 · A scoped proposal with a price, or a recommendation to look elsewhere.</li>
+                  <li>03 · A scoped proposal, or a recommendation to look elsewhere.</li>
                 </ol>
               </div>
               <div><div className="eyebrow mb-2">Direct</div>

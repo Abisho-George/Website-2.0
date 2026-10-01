@@ -67,9 +67,4 @@ export const twin = {
     { wk: "Weeks 5 to 6", t: "Supervised run", b: "Live, with a human approving every outbound message and reply for the first fortnight. Autonomy increases as accuracy is proven." },
     { wk: "Week 7 →", t: "Handover & run", b: "The twin runs; we review weekly, tune monthly, and your team owns the escalations. Optional managed operation if you would rather not." },
   ],
-  pricing: {
-    model: "A one-time build fee, then a monthly run fee.",
-    from: "[[₹9.5 L / $11.5k build · ₹2.8 L / $3.4k per month]]",
-    note: "Scoped to your universe size and channels. For most mid-market companies the monthly run fee is [[below one SDR's fully loaded cost]]. Build fee credited against the run fee for annual commitments.",
-  },
 };

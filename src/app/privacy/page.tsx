@@ -11,7 +11,7 @@ export default function Privacy() {
       <h1 className="display text-[2.6rem] md:text-[4rem]">How we handle data.</h1>
       <div className="prose-ls mt-10">
         <p><strong>Who we are.</strong> {site.legalName}, Bengaluru, India. Contact: <Copy text={site.contact.email} />.</p>
-        <p><strong>What we collect on this site.</strong> Enquiry form submissions (name, work email, company, message, enquiry type, optional budget) and standard analytics (page views, referrer, device class). We use a honeypot and, where configured, Cloudflare Turnstile to filter spam.</p>
+        <p><strong>What we collect on this site.</strong> Enquiry form submissions (name, work email, company, message, enquiry type) and standard analytics (page views, referrer, device class). We use a honeypot and, where configured, Cloudflare Turnstile to filter spam.</p>
         <p><strong>Why.</strong> To respond to your enquiry, to route it to the right practice lead, and to understand which pages are useful. Lawful basis: legitimate interest and, where applicable, consent.</p>
         <p><strong>Where it goes.</strong> Enquiries are delivered to our inbox and, where configured, to our CRM (HubSpot). Booking requests are handled by Cal.com. We do not sell personal data.</p>
         <p><strong>Our services.</strong> Our Revenue Intelligence practice processes business-contact data on behalf of clients under contract, sourced from public and licensed data, with lawful basis recorded per record and suppression lists honoured. Requests concerning that processing should be addressed to the client and to us at the address above.</p>

@@ -23,7 +23,6 @@ export function Footer() {
               {families.map((g) => <li key={g.slug}><Link href={`/practices/${g.slug}`} className="text-muted transition-colors hover:text-fg">{g.short}</Link></li>)}
               {platforms.map((g) => <li key={g.slug}><a href={g.url} target="_blank" rel="noopener noreferrer" className="text-muted transition-colors hover:text-fg">{g.short} ↗</a></li>)}
               <li><Link href="/services" className="text-muted transition-colors hover:text-fg">All services</Link></li>
-              <li><Link href="/pricing" className="text-muted transition-colors hover:text-fg">Pricing</Link></li>
               <li><Link href="/gtm-ai-twin" className="font-medium text-ember-ink">GTM AI Twin</Link></li>
             </ul>
           </div>

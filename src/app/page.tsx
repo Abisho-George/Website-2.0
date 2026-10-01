@@ -225,7 +225,7 @@ export default function Home() {
       {/* 12 · cta */}
       <CTABand
         title={<>Tell us what is <em>not converting.</em></>}
-        lede="Thirty minutes with a founder. We will tell you which practice fits, what it costs, and whether a twin makes sense for your motion."
+        lede="Thirty minutes with a founder. We will tell you which services fit and whether a twin makes sense for your motion."
         primary={{ label: "Book a strategy call", href: "/book" }}
         secondary={{ label: "Send an enquiry", href: "/contact" }}
       />

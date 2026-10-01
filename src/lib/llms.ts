@@ -35,8 +35,7 @@ export function llmsIndex() {
   }
   out.push("## Company", "");
   out.push(`- [About and founders](${abs("/about")}): who runs LeadStrategus and how the firm works`);
-  out.push(`- [Pricing](${abs("/pricing")}): engagement models and starting prices by family`);
-  out.push(`- [FAQ](${abs("/faq")}): common questions about engagements, pricing and the GTM AI Twin`);
+  out.push(`- [FAQ](${abs("/faq")}): common questions about engagements and the GTM AI Twin`);
   out.push(`- [Case studies](${abs("/work")}): case studies by service`);
   out.push(`- [Contact](${abs("/contact")}): enquiries, answered within one working day`);
   out.push(`- [Book a strategy call](${abs("/book")})`, "");

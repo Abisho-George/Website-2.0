@@ -25,15 +25,14 @@
     document.body.style.overflow = "";
     window.scrollTo(0, 0);
     wire();
-    /* a second fragment (#/about#kingshuk-hazra) names an element on the page:
-       open the founder details inside it and bring it into view, as OpenOnHash does */
-    var frag = (location.hash.slice(1).split("?")[0].split("#")[1] || "");
+    /* a second fragment (#/about#kingshuk-hazra) names a founder: open their
+       popup, as FounderGrid does; any other id is scrolled into view */
+    var frag = decodeURIComponent(location.hash.slice(1).split("?")[0].split("#")[1] || "");
     if (frag) {
-      var host = document.getElementById(decodeURIComponent(frag));
-      if (host) {
-        var d = host.querySelector("[data-founder]"); if (d) d.open = true;
-        setTimeout(function () { host.scrollIntoView({ block: "start" }); }, 60);
-      }
+      var dlg = document.getElementById("founder-" + frag);
+      var host = document.getElementById(frag);
+      if (dlg && dlg.showModal) { if (host) host.scrollIntoView({ block: "center" }); dlg.showModal(); }
+      else if (host) setTimeout(function () { host.scrollIntoView({ block: "start" }); }, 60);
     }
   }
 
@@ -46,7 +45,7 @@
     var starts = function (x) { return p === x || p.indexOf(x + "/") === 0; };
     if (p === "/") return "home";
     if (starts("/services") || starts("/practices")) return "services";
-    if (starts("/insights") || starts("/resources") || starts("/work") || starts("/faq") || starts("/pricing")) return "resources";
+    if (starts("/insights") || starts("/resources") || starts("/work") || starts("/faq")) return "resources";
     if (starts("/about")) return "about";
     return null;
   }
@@ -60,6 +59,20 @@
       } else if (href.charAt(0) === "#") {
         a.addEventListener("click", function (e) { e.preventDefault(); var t = app.querySelector(href); if (t) t.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" }); });
       }
+    });
+
+    /* founder popups, mirrors Founders.tsx: the card opens a modal dialog;
+       a click on the backdrop or the close button shuts it */
+    app.querySelectorAll("[data-founder-open]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var d = document.getElementById("founder-" + btn.getAttribute("data-founder-open"));
+        if (d && !d.open) d.showModal();
+      });
+    });
+    app.querySelectorAll("[data-founder-dialog]").forEach(function (d) {
+      d.addEventListener("click", function (e) { if (e.target === d) d.close(); });
+      var x = d.querySelector("[data-founder-close]");
+      if (x) x.addEventListener("click", function () { d.close(); });
     });
 
     /* nav scroll state */

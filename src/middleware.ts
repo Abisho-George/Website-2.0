@@ -31,6 +31,8 @@ const redirects: Record<string, string> = {
   "/services/sales-coaching": "/services/coaching-and-training",
   "/services/gtm-ai-twin": "/gtm-ai-twin",
   "/practices/revenue-intelligence": "/practices/account-intelligence",
+  // there is no pricing page; engagements are scoped on a call
+  "/pricing": "/services",
   "/practices/revenue-operations": "/services/revenue-operations",
 };
 

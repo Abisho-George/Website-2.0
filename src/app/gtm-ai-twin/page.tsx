@@ -23,7 +23,7 @@ export const metadata = buildMetadata({
 
 const svc = getService("gtm-ai-twin")!;
 
-const anchors = [["agents", "The agents"], ["what", "What is it"], ["why-now", "Why now"], ["why-us", "Why LeadStrategus"], ["build", "How it's built"], ["pricing", "Pricing"], ["faq", "FAQ"]];
+const anchors = [["agents", "The agents"], ["what", "What is it"], ["why-now", "Why now"], ["why-us", "Why LeadStrategus"], ["build", "How it's built"], ["faq", "FAQ"]];
 
 export default function TwinPage() {
   return (
@@ -166,25 +166,11 @@ export default function TwinPage() {
         </ol>
       </Section>
 
-      {/* pricing */}
-      <Section band="blush" id="pricing" tight className="scroll-mt-32">
-        <Reveal className="grid gap-8 md:grid-cols-12 md:items-center">
-          <div className="md:col-span-5">
-            <h2 className="h3">{twin.pricing.model}</h2>
-          </div>
-          <div className="md:col-span-7">
-            <div className="display text-[1.7rem] text-ember-ink md:text-[2.3rem]"><Copy text={twin.pricing.from} /></div>
-            <p className="mt-4 text-fg-soft"><Copy text={twin.pricing.note} /></p>
-            <Button href="/contact?type=gtm-ai-twin" className="mt-8">Get a scoped quote</Button>
-          </div>
-        </Reveal>
-      </Section>
-
       <Section id="faq" className="scroll-mt-32"><FAQBlock items={twinFaq} title="What people ask before they build one." /></Section>
 
       <CTABand
         title={<>Your GTM team, <em>twinned.</em></>}
-        lede="A forty-minute scoping call: your ICP, your motion, your stack. We tell you what the twin would take over first and what it would cost."
+        lede="A forty-minute scoping call: your ICP, your motion, your stack. We tell you what the twin would take over first."
         primary={{ label: "Scope my twin", href: "/contact?type=gtm-ai-twin" }}
         secondary={{ label: "See the platform", href: "https://leadstrategus.ai", external: true }}
       />

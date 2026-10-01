@@ -114,25 +114,6 @@ export default async function FamilyPage({ params }: { params: Promise<{ slug: s
         </Section>
       )}
 
-      {g.pricing && (
-        <Section pad="tight" width="mid">
-          <Reveal className="card grid gap-6 p-7 md:grid-cols-12 md:items-center md:p-9">
-            <div className="md:col-span-8">
-              <h2 className="h3">How it is priced</h2>
-              <p className="mt-2 text-fg-soft">{g.pricing.model}</p>
-              <p className="mt-2 text-sm text-muted">{g.pricing.note}</p>
-            </div>
-            <div className="md:col-span-4 md:text-right">
-              <p className="text-sm text-muted">From</p>
-              <p className="display-3"><Copy text={g.pricing.from} /></p>
-              <Link href="/pricing" className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-ember-ink">
-                All pricing <ArrowRight className="size-4" />
-              </Link>
-            </div>
-          </Reveal>
-        </Section>
-      )}
-
       {g.faq.length > 0 && (
         <Section band="sand">
           <FAQBlock items={g.faq} title={`${g.short}, answered plainly.`} />

@@ -44,16 +44,6 @@ export function ContactForm({ defaultType = "gtm-ai-twin", tone = "ember" }: { d
         <textarea id="message" name="message" rows={5} className={cn(field, "resize-y", err("message") && "border-ember")} placeholder="What are you selling, to whom, and what is not working?" />
         {err("message") && <p className="mt-1.5 text-xs text-ember-ink">{err("message")}</p>}
       </div>
-      <div>
-        <label className={label} htmlFor="budget">Budget range <span className="normal-case tracking-normal text-dim">(optional)</span></label>
-        <select id="budget" name="budget" defaultValue="" className={cn(field, "appearance-none")}>
-          <option value="">Prefer not to say yet</option>
-          <option>Under ₹3 L / $4k per month</option>
-          <option>₹3 to 8 L / $4k to $10k per month</option>
-          <option>₹8 L+ / $10k+ per month</option>
-          <option>Project / one-time</option>
-        </select>
-      </div>
       <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
       {siteKey && <div className="cf-turnstile" data-sitekey={siteKey} data-theme="light" />}
       {state?.message && <p className="text-sm text-ember-ink">{state.message}</p>}

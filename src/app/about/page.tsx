@@ -18,7 +18,7 @@ const principles = [
   { t: "Meetings, not activity", b: "Every report we send has the word 'meeting' in it. Opens and clicks are diagnostics. Pipeline is the outcome." },
   { t: "Diagnose before you prescribe", b: "We read the closed-lost deals before we write a single message. Most GTM problems are upstream of the channel that gets blamed." },
   { t: "Judgement is the product", b: "Software runs the repetition. Humans decide which accounts deserve effort, and that judgement is what we sell, in people and now in agents." },
-  { t: "Say the number", b: "Pricing signals on every page, forecasts we will defend, and 'no' on the first call if we are not the right fit." },
+  { t: "Say the number", b: "Forecasts we will defend, and 'no' on the first call if we are not the right fit." },
 ];
 const timeline = [
   { y: "2018", t: "Founded in Bengaluru", b: "After leading marketing for AWS India, Kingshuk and Anindita Hazra start LeadStrategus to run pipeline for B2B technology companies." },

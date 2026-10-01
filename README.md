@@ -24,11 +24,11 @@ Copy `.env.example` to `.env.local` to configure Cal.com, Turnstile, HubSpot and
 | `/` | Homepage: hero, thesis, the six families, Twin spotlight, operating model, work, founders, `.com ⇆ .ai` portal, insights, FAQ, CTA |
 | `/services`, `/services/[slug]` | All 36 services. Each page: what is the service, why it is important now, why LeadStrategus, case studies, more in the family |
 | `/practices`, `/practices/[slug]` | The six service families. The two platforms link out to https://leadstrategus.ai/ and https://expotofunnel.com/ |
-| `/gtm-ai-twin` | The special service: agents, what it is, why now, why LeadStrategus, build timeline, pricing, FAQ |
+| `/gtm-ai-twin` | The special service: agents, what it is, why now, why LeadStrategus, build timeline, FAQ |
 | `/work`, `/work/[slug]` | Case studies filterable by family. The current ones are samples: labelled, noindex, not in the sitemap |
 | `/insights`, `/insights/[slug]` | Topic clusters, articles, related-post logic |
 | `/about` | Story, principles and the founders; a founder's details open in place (`/about#kingshuk-hazra`) |
-| `/contact`, `/contact/thanks`, `/book`, `/careers`, `/pricing`, `/faq`, `/resources`, `/privacy`, `/terms` | |
+| `/contact`, `/contact/thanks`, `/book`, `/careers`, `/faq`, `/resources`, `/privacy`, `/terms` | |
 
 Infrastructure: `src/middleware.ts` (301 map from the WordPress URLs and old routes), `sitemap.ts`, `robots.ts` (AI crawlers allowed), `manifest.ts`, `/llms.txt` and `/llms-full.txt`, an Open Graph image per route (`src/lib/og.tsx`), JSON-LD (Organization, WebSite, WebPage, Service, Article, FAQPage, BreadcrumbList, Person) via `src/lib/seo.ts`. Check it with `node scripts/seo-audit.mjs http://localhost:3000` against a running build.
 

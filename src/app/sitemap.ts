@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   });
   return [
     u("/", 1, "weekly"), u("/services", 0.95, "weekly"), u("/gtm-ai-twin", 0.95, "weekly"), u("/practices", 0.85),
-    u("/work", 0.8, "weekly"), u("/insights", 0.8, "weekly"), u("/pricing", 0.8), u("/faq", 0.7), u("/resources", 0.7),
+    u("/work", 0.8, "weekly"), u("/insights", 0.8, "weekly"), u("/faq", 0.7), u("/resources", 0.7),
     u("/about", 0.7), u("/contact", 0.7), u("/book", 0.7), u("/careers", 0.4), u("/privacy", 0.2, "yearly"), u("/terms", 0.2, "yearly"),
     ...services.filter((s) => !s.href).map((s) => u(`/services/${s.slug}`, 0.85)),
     ...pagedGroups.map((g) => u(`/practices/${g.slug}`, 0.85)),

@@ -17,7 +17,7 @@ export default function BookPage() {
           <Reveal delay={160}><p className="lede mt-6">A founder, your numbers, and an honest view of what would move them. If we are not the right fit we will say so and point you somewhere useful.</p></Reveal>
           <Reveal delay={220} className="mt-8 space-y-3 text-sm text-muted">
             <p>Come with: pipeline by source for the last two quarters, your ICP as you currently define it, and the one motion you suspect is broken.</p>
-            <p>Leave with: a diagnosis, a practice recommendation, and a price.</p>
+            <p>Leave with: a diagnosis, a recommendation, and a clear next step.</p>
           </Reveal>
         </div>
         <div className="lg:col-span-8">

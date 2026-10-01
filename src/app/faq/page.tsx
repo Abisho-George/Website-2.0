@@ -11,9 +11,9 @@ import { buildMetadata, faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "FAQ",
-  description: "How LeadStrategus engagements work: what we cost, how quickly we start, what we guarantee, how the GTM AI Twin differs from an AI SDR tool, and how we handle data compliance.",
+  description: "How LeadStrategus engagements work: how quickly we start, what we guarantee, how the GTM AI Twin differs from an AI SDR tool, and how we handle data compliance.",
   path: "/faq",
-  keywords: ["LeadStrategus FAQ", "B2B demand generation pricing", "GTM AI Twin vs AI SDR", "how GTM consulting works", "data compliance outbound"],
+  keywords: ["LeadStrategus FAQ", "GTM AI Twin vs AI SDR", "how GTM consulting works", "data compliance outbound"],
 });
 
 const groups = [

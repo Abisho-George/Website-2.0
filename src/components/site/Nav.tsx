@@ -17,7 +17,6 @@ const resourceLinks = [
   { href: "/resources", label: "Guides & Templates", note: "The worksheets we use" },
   { href: "/work", label: "Case Studies", note: "Programmes and what changed" },
   { href: "/faq", label: "FAQ", note: "Everything people ask first" },
-  { href: "/pricing", label: "Pricing", note: "What engagements cost" },
 ];
 
 export function Nav() {
@@ -61,7 +60,7 @@ export function Nav() {
   const railKey =
     active("/") ? "home"
     : active("/services") || active("/practices") ? "services"
-    : active("/insights") || active("/resources") || active("/work") || active("/faq") || active("/pricing") ? "resources"
+    : active("/insights") || active("/resources") || active("/work") || active("/faq") ? "resources"
     : active("/about") ? "about"
     : null;
 
@@ -102,7 +101,7 @@ export function Nav() {
             <Sparkles className="size-3.5" /> GTM AI Twin
           </Link>
 
-          <div className="relative">{trigger("resources", "Resources", active("/insights") || active("/resources") || active("/work") || active("/faq") || active("/pricing"))}</div>
+          <div className="relative">{trigger("resources", "Resources", active("/insights") || active("/resources") || active("/work") || active("/faq"))}</div>
 
           <Link data-rail-item="about" href="/about" className={cn("inline-flex h-[var(--nav-h)] items-center px-3.5 text-[0.9rem] transition-colors duration-[var(--dur-1)]", active("/about") ? "text-fg" : "text-muted hover:text-fg")}>
             About
@@ -235,7 +234,7 @@ export function Nav() {
           ))}
 
           <div className="mt-6 grid grid-cols-2 gap-x-6">
-            {[["/services", "All Services"], ["/work", "Case Studies"], ["/insights", "Blog"], ["/resources", "Resources"], ["/faq", "FAQ"], ["/pricing", "Pricing"], ["/about", "About"], ["/contact", "Contact"]].map(([h, l]) => (
+            {[["/services", "All Services"], ["/work", "Case Studies"], ["/insights", "Blog"], ["/resources", "Resources"], ["/faq", "FAQ"], ["/about", "About"], ["/contact", "Contact"]].map(([h, l]) => (
               <Link key={h} href={h} className="border-b border-rule py-3.5 font-display text-[1.05rem] font-medium">{l}</Link>
             ))}
             <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="border-b border-rule py-3.5 font-display text-[1.05rem] font-medium text-ember-ink">leadstrategus.ai ↗</a>

@@ -732,14 +732,45 @@ a.card:hover::after, a.card:focus-visible::after,
 .rail-head[data-fill] { top: 0; bottom: auto; left: 0; height: auto; border-radius: 999px; }
 
 /* ---------- founders ----------
-   A founder's details open in place from their name. Native <details>, so the
-   only work here is the label swap, the chevron and a short fade on open. */
-.founder .founder__less { display: none; }
-.founder[open] .founder__more { display: none; }
-.founder[open] .founder__less { display: inline; }
-.founder[open] .founder__chev { transform: rotate(180deg); }
-.founder[open] .founder__body { animation: founder-in var(--dur-2) var(--ease-entrance) both; }
-@keyframes founder-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+   A founder's full details open in a native <dialog> over a blurred page.
+   The dialog element itself is transparent and fills only the panel's box, so
+   a click on the dialog (not the panel) is a click on the backdrop. */
+.founder-dialog {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-fg);
+  width: 100%;
+  max-width: min(680px, calc(100vw - 32px));
+  max-height: calc(100dvh - 48px);
+  margin: auto;
+  overflow: visible;
+}
+.founder-dialog__panel {
+  position: relative;
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  padding: 28px;
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 40px 90px -40px rgba(23,18,13,.55);
+}
+@media (min-width: 768px) { .founder-dialog__panel { padding: 40px; } }
+.founder-dialog::backdrop {
+  background: rgba(23,18,13,.28);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.founder-dialog[open] .founder-dialog__panel { animation: founder-pop var(--dur-2) var(--ease-entrance) both; }
+.founder-dialog[open]::backdrop { animation: founder-fade var(--dur-2) ease both; }
+@keyframes founder-pop { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes founder-fade { from { opacity: 0; } to { opacity: 1; } }
+/* the page behind does not scroll while a popup is open */
+html:has(.founder-dialog[open]) { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  .founder-dialog[open] .founder-dialog__panel, .founder-dialog[open]::backdrop { animation: none; }
+}
 
 /* ---------- placeholder flagging ---------- */
 [data-placeholder] {
