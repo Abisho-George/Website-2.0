@@ -22,6 +22,8 @@
     var path = routeFromHash();
     var tpl = tpls[path] || tpls["/__404"];
     app.innerHTML = tpl.innerHTML;
+    /* images are embedded once in the bundle and referenced by index */
+    app.querySelectorAll("[data-pv-img]").forEach(function (img) { img.src = (window.__PV_IMG || [])[+img.getAttribute("data-pv-img")]; });
     document.body.style.overflow = "";
     window.scrollTo(0, 0);
     wire();

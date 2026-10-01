@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { site } from "@/content/site";
+import { ArrowUpRight, Instagram, Linkedin, Star } from "lucide-react";
+import { site, proof } from "@/content/site";
 import { families, platforms } from "@/content/practices";
 import { Logo } from "./Logo";
 import { Copy } from "@/components/ui/Copy";
@@ -11,7 +11,7 @@ export function Footer() {
       <div className="container-x pb-10 pt-16">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-4">
-            <Logo tone="dark" />
+            <Logo variant="full" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">B2B go-to-market, engineered. Strategy, demand generation, intelligence, enablement and custom AI agents, from Bengaluru to wherever you sell.</p>
             <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="group mt-6 inline-flex items-center gap-2 rounded-full border border-ember/40 bg-ember-wash px-4 py-2 text-sm font-medium text-ember-ink transition-all hover:bg-ember hover:text-white">
               The agents live at leadstrategus.ai <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -39,7 +39,19 @@ export function Footer() {
             <ul className="space-y-2.5 text-sm text-muted">
               <li><a className="link-u transition-colors hover:text-fg" href={`mailto:${site.contact.email}`}>{site.contact.email}</a></li>
               <li className="pt-2 max-w-xs leading-relaxed">{site.contact.hq}</li>
-              <li className="pt-2"><a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" className="link-u">LinkedIn</a> · <a href={site.social.clutch} target="_blank" rel="noopener noreferrer" className="link-u">Clutch</a></li>
+              <li className="flex items-center gap-2.5 pt-3">
+                {[
+                  { href: site.social.linkedin, label: "LeadStrategus on LinkedIn", Icon: Linkedin },
+                  { href: site.social.instagram, label: "LeadStrategus on Instagram", Icon: Instagram },
+                ].map(({ href, label, Icon }) => (
+                  <a key={href} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} title={label} className="inline-flex size-10 items-center justify-center rounded-full border border-rule-strong bg-paper text-fg transition-colors hover:border-ember hover:bg-ember hover:text-white">
+                    <Icon className="size-[18px]" aria-hidden />
+                  </a>
+                ))}
+                <a href={site.social.clutch} target="_blank" rel="noopener noreferrer" aria-label={`Rated ${proof.clutch.rating} on Clutch`} className="ml-1 inline-flex h-10 items-center gap-1.5 rounded-full border border-rule-strong bg-paper px-3.5 text-[0.8rem] font-medium text-fg transition-colors hover:border-ember/50 hover:text-ember-ink">
+                  <Star className="size-3.5 text-ember" fill="currentColor" strokeWidth={0} aria-hidden /> {proof.clutch.rating} on Clutch
+                </a>
+              </li>
             </ul>
           </div>
         </div>

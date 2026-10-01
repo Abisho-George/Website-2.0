@@ -26,6 +26,7 @@ export const site = {
   social: {
     linkedin: "https://www.linkedin.com/company/leadstrategus",
     clutch: "https://clutch.co/profile/leadstrategus",
+    instagram: "https://www.instagram.com/leadstrategus/",
   },
   booking: {
     // Set NEXT_PUBLIC_CAL_LINK (e.g. "leadstrategus/strategy-call") to embed Cal.com on /book

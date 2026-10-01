@@ -50,6 +50,6 @@ Any text wrapped in `[[double brackets]]` is an **invented or unverified fact**.
 
 ## Design system
 
-Tokens in `src/app/globals.css` (`@theme`). Light throughout: white nav, white and warm sand grounds, and a light red wash for the Twin spotlight and calls to action. The accent is the **brand red taken from the logo** (`#e4121f`), so the interface and the identity share one palette; the logo's navy and blue appear in the mark and the rule beneath the navigation. Type: Bricolage Grotesque for display, Geist Sans for body, Geist Mono for data and labels.
+Tokens in `src/app/globals.css` (`@theme`). Light throughout: white nav, white and warm sand grounds, and a light red wash for the Twin spotlight and calls to action. The accent is the **brand-kit Strategic Red** (`#e10600`), so the interface and the identity share one palette; the logo's navy and blue appear in the mark and the rule beneath the navigation. Type: Bricolage Grotesque for display, Geist Sans for body, Geist Mono for data and labels.
 
 Signature components in `src/components/visual/`: `SignalField` (hero canvas: prospects flowing through identify → qualify → book), `TwinRunLog` (live agent run), `Portal` (cursor-driven `.com ⇆ .ai` split), `TwinDiagram`.

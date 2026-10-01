@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { site } from "@/content/site";
+import { brand } from "@/content/brand";
 
 /**
  * Metadata and structured data for every page.
@@ -111,10 +112,10 @@ export function orgJsonLd(founders: { slug: string; name: string; role: string; 
         name: site.name,
         legalName: site.legalName,
         url: site.url,
-        logo: { "@type": "ImageObject", url: `${site.url}/apple-icon.png`, width: 180, height: 180 },
+        logo: { "@type": "ImageObject", url: `${site.url}/brand/icon-512.png`, width: 512, height: 512 },
         image: `${site.url}/opengraph-image`,
         description: unflag(site.description),
-        slogan: site.tagline,
+        slogan: brand.tagline,
         foundingDate: String(site.founded),
         founder: founders.map((f) => ({ "@id": ids.person(f.slug) })),
         address: { "@type": "PostalAddress", streetAddress: site.contact.address.street, addressLocality: site.contact.address.locality, addressRegion: site.contact.address.region, postalCode: site.contact.address.postalCode, addressCountry: site.contact.address.country },
@@ -130,7 +131,7 @@ export function orgJsonLd(founders: { slug: string; name: string; role: string; 
           "Intent data", "Open-source intelligence for sales", "Product marketing", "Sales enablement",
           "Event-led demand generation", "AI agents for demand generation", "Revenue operations",
         ],
-        sameAs: [site.social.linkedin, site.social.clutch, site.aiUrl, "https://expotofunnel.com/"],
+        sameAs: [site.social.linkedin, site.social.instagram, site.social.clutch, site.aiUrl, "https://expotofunnel.com/"],
         ...(email ? { email, contactPoint: [{ "@type": "ContactPoint", contactType: "sales", email, availableLanguage: ["en"] }] } : {}),
       },
       {

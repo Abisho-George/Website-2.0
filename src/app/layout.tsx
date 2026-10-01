@@ -8,6 +8,9 @@ import { GeistMono } from "geist/font/mono";
 import "@fontsource-variable/bricolage-grotesque/standard.css";
 import "@fontsource/instrument-serif/400.css";
 import "@fontsource/instrument-serif/400-italic.css";
+// the logotype (Cinzel Bold) and its tagline (Montserrat Medium), per the brand kit
+import "@fontsource/cinzel/latin-700.css";
+import "@fontsource/montserrat/latin-500.css";
 import "./globals.css";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";

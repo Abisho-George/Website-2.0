@@ -88,7 +88,7 @@ export function Nav() {
     >
       <div className="brand-rule absolute inset-x-0 top-0" aria-hidden />
       <div className="container-x flex h-[var(--nav-h)] items-center justify-between gap-4">
-        <Logo tone="dark" />
+        <Logo />
 
         <nav className="rail-track hidden items-center lg:flex">
           <Link data-rail-item="home" href="/" className={cn("inline-flex h-[var(--nav-h)] items-center px-3.5 text-[0.9rem] transition-colors duration-[var(--dur-1)]", active("/") ? "text-fg" : "text-muted hover:text-fg")}>

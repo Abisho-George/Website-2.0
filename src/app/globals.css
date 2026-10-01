@@ -46,16 +46,16 @@
   --color-scene-line-2: #b9ab94;
 
   /* accents */
-  --color-ember: #e4121f;        /* brand red, fills, buttons, marks */
+  --color-ember: #e10600;        /* brand red, fills, buttons, marks */
   --color-ember-2: #ff4452;      /* lighter, for dark grounds */
-  --color-ember-ink: #c10d18;    /* small text on light (6.4:1) */
+  --color-ember-ink: #b10000;    /* small text on light (7.9:1) */
   --color-ember-deep: #8f0a12;
   --color-ember-wash: #fff0f1;   /* tint */
 
   /* the logo's blues. Its red is the accent above, so there is one red only. */
-  --color-brand-blue: #2438c8;
+  --color-brand-blue: #0066ff;
   --color-brand-blue-2: #1667f0;
-  --color-brand-navy: #141c7a;
+  --color-brand-navy: #0b2a6b;
 
   /* done-states only. Red-for-everything turns the brand colour into an alarm. */
   --color-ok: #0e6e60;
@@ -927,7 +927,9 @@ html:not(.js) [data-reveal] { opacity: 1 !important; transform: none !important;
     var(--color-brand-blue) 58%,
     var(--color-brand-blue-2) 100%);
 }
-.brand-wordmark { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.035em; }
+/* the logotype: Cinzel Bold stands in for the brand kit's Trajan Pro */
+.brand-name { font-family: "Cinzel", "Trajan Pro", Georgia, serif; font-weight: 700; letter-spacing: 0.02em; color: #0b1226; white-space: nowrap; }
+.brand-tagline { font-family: "Montserrat", var(--font-sans), system-ui, sans-serif; font-weight: 500; letter-spacing: 0.04em; color: #2a2f3d; white-space: nowrap; }
 
 /* the moving stripe inside a live pipeline bar */
 .pipe-flow {
