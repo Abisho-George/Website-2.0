@@ -36,6 +36,12 @@ const redirects: Record<string, string> = {
 
 export function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname.replace(/\/+$/, "") || "/";
+  // the platforms live on their own websites
+  const external: Record<string, string> = {
+    "/practices/leadstrategus-ai": "https://leadstrategus.ai/",
+    "/practices/expotofunnel": "https://expotofunnel.com/",
+  };
+  if (external[path]) return NextResponse.redirect(external[path], 301);
   const target = redirects[path];
   if (target) {
     const url = req.nextUrl.clone();

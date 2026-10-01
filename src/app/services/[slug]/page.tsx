@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
@@ -15,7 +15,7 @@ import { CaseTeaser } from "@/components/site/CaseTeaser";
 import { FieldPlate } from "@/components/ui/Atmos";
 import { iconFor } from "@/components/icons/registry";
 import { services, getService, servicesFor, serviceHref } from "@/content/services";
-import { getGroup } from "@/content/practices";
+import { getGroup, groupHref as groupHrefFor } from "@/content/practices";
 import { casesFor } from "@/content/work";
 import { enquiryFor } from "@/lib/enquiry";
 import { buildMetadata, serviceJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
@@ -50,7 +50,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const s = getService((await params).slug);
   if (!s || s.href) notFound();
   const group = getGroup(s.group)!;
-  const groupHref = group.kind === "capability" ? "/services" : `/practices/${group.slug}`;
+  // a platform's services link out to the platform's own website
+  const groupHref = groupHrefFor(group);
+  const groupPaged = group.kind === "family";
   const siblings = servicesFor(s.group).filter((x) => x.slug !== s.slug);
   const cases = casesFor(s.slug).slice(0, 4);
   const path = `/services/${s.slug}`;
@@ -72,7 +74,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           breadcrumbJsonLd([
             { name: "Home", path: "/" },
             { name: "Services", path: "/services" },
-            ...(group.kind === "capability" ? [] : [{ name: group.name, path: groupHref }]),
+            ...(groupPaged ? [{ name: group.name, path: groupHref }] : []),
             { name: s.name, path },
           ]),
         ]}
@@ -84,7 +86,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <Breadcrumb
             items={[
               { label: "Services", href: "/services" },
-              ...(group.kind === "capability" ? [] : [{ label: group.short, href: groupHref }]),
+              ...(groupPaged ? [{ label: group.short, href: groupHref }] : []),
               { label: s.name },
             ]}
           />
@@ -150,10 +152,15 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <Section pad="tight">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 className="h3">More in {group.name}</h2>
-            {group.kind !== "capability" && (
+            {groupPaged && (
               <Link href={groupHref} className="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ember-ink">
                 About this family <ArrowRight className="size-4" />
               </Link>
+            )}
+            {group.url && (
+              <a href={group.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ember-ink">
+                Visit {group.name} <ArrowUpRight className="size-4" />
+              </a>
             )}
           </div>
           <div className="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-3">

@@ -26,6 +26,8 @@ export type Group = {
   job: string;
   pricing?: { model: string; from: string; note: string };
   faq: FAQ[];
+  /** A platform lives on its own website; links go there instead of a page here. */
+  url?: string;
 };
 
 export const groups: Group[] = [
@@ -145,6 +147,7 @@ export const groups: Group[] = [
     summary: "Build, deploy and operate an AI demand-generation engine: a single agent for one painful workflow, a GTM AI Twin configured on your own commercial logic, or the full system from account discovery to revenue operations.",
     job: "ALL / OPERATE",
     faq: [],
+    url: "https://leadstrategus.ai/",
   },
   {
     slug: "expotofunnel",
@@ -156,6 +159,7 @@ export const groups: Group[] = [
     summary: "Event revenue end to end: find the shows where your ICP actually concentrates, match the event to the buyers you want, and turn a booked meeting into a better sales conversation.",
     job: "DECIDE → MEET → CONVERT",
     faq: [],
+    url: "https://expotofunnel.com/",
   },
   {
     slug: "revenue-operations",
@@ -172,8 +176,16 @@ export const groups: Group[] = [
 
 export const families = groups.filter((g) => g.kind === "family");
 export const platforms = groups.filter((g) => g.kind === "platform");
-/** Groups that get their own page. A one-service capability layer does not. */
-export const pagedGroups = groups.filter((g) => g.kind !== "capability");
+/**
+ * Groups that get their own page here. The platforms have their own websites
+ * and a one-service capability layer has no page at all.
+ */
+export const pagedGroups = groups.filter((g) => g.kind === "family");
+
+/** Where a group's name links: its page here, or a platform's own website. */
+export function groupHref(g: Group) {
+  return g.url ?? (g.kind === "capability" ? "/services" : `/practices/${g.slug}`);
+}
 
 export function getGroup(slug: string) {
   return groups.find((g) => g.slug === slug);

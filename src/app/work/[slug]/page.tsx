@@ -129,7 +129,11 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
         <Section pad="tight" width="text">
           <p className="text-[0.95rem] text-muted">
             Part of{" "}
-            <Link href={`/practices/${group.slug}`} className="link-u text-fg">{group.name}</Link>.
+            {group.url ? (
+              <a href={group.url} target="_blank" rel="noopener noreferrer" className="link-u text-fg">{group.name}</a>
+            ) : (
+              <Link href={`/practices/${group.slug}`} className="link-u text-fg">{group.name}</Link>
+            )}.
           </p>
         </Section>
       )}

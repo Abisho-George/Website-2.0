@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
@@ -72,6 +72,19 @@ export default function FamiliesHub() {
                 </Link>
               </div>
             </Reveal>
+          ))}
+        </div>
+
+        <div className="mt-10 grid gap-4 md:grid-cols-2">
+          {platforms.map((g) => (
+            <a key={g.slug} href={g.url} target="_blank" rel="noopener noreferrer" className="card card-hover group flex items-center justify-between gap-6 p-6">
+              <div>
+                <div className="font-mono text-micro uppercase tracking-[0.14em] text-muted">Platform</div>
+                <div className="h3 mt-1 transition-colors group-hover:text-ember-ink">{g.name}</div>
+                <p className="mt-1 text-muted">{g.tagline}</p>
+              </div>
+              <ArrowUpRight className="size-5 shrink-0 text-dim transition-colors group-hover:text-ember-ink" aria-hidden />
+            </a>
           ))}
         </div>
 

@@ -117,7 +117,7 @@ export function orgJsonLd(founders: { slug: string; name: string; role: string; 
         slogan: site.tagline,
         foundingDate: String(site.founded),
         founder: founders.map((f) => ({ "@id": ids.person(f.slug) })),
-        address: { "@type": "PostalAddress", addressLocality: "Bengaluru", addressRegion: "Karnataka", addressCountry: "IN" },
+        address: { "@type": "PostalAddress", streetAddress: site.contact.address.street, addressLocality: site.contact.address.locality, addressRegion: site.contact.address.region, postalCode: site.contact.address.postalCode, addressCountry: site.contact.address.country },
         areaServed: [
           { "@type": "Country", name: "India" },
           { "@type": "Country", name: "United States" },
@@ -130,7 +130,7 @@ export function orgJsonLd(founders: { slug: string; name: string; role: string; 
           "Intent data", "Open-source intelligence for sales", "Product marketing", "Sales enablement",
           "Event-led demand generation", "AI agents for demand generation", "Revenue operations",
         ],
-        sameAs: [site.social.linkedin, site.social.clutch, site.aiUrl],
+        sameAs: [site.social.linkedin, site.social.clutch, site.aiUrl, "https://expotofunnel.com/"],
         ...(email ? { email, contactPoint: [{ "@type": "ContactPoint", contactType: "sales", email, availableLanguage: ["en"] }] } : {}),
       },
       {

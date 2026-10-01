@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, ChevronDown, Menu, X, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ChevronDown, Menu, X, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { site } from "@/content/site";
 import { families, platforms, getGroup } from "@/content/practices";
@@ -168,10 +168,10 @@ export function Nav() {
               </Link>
             </div>
             {platforms.map((g) => (
-              <Link key={g.slug} href={`/practices/${g.slug}`} className="group rounded-[var(--radius-lg)] border border-rule p-4 transition-colors hover:border-rule-strong hover:bg-sand">
-                <div className="font-display text-[0.98rem] font-semibold tracking-tight group-hover:text-ember-ink">{g.short}</div>
+              <a key={g.slug} href={g.url} target="_blank" rel="noopener noreferrer" className="group rounded-[var(--radius-lg)] border border-rule p-4 transition-colors hover:border-rule-strong hover:bg-sand">
+                <div className="flex items-center justify-between gap-2 font-display text-[0.98rem] font-semibold tracking-tight group-hover:text-ember-ink">{g.short}<ArrowUpRight className="size-4 text-muted group-hover:text-ember-ink" aria-hidden /></div>
                 <p className="mt-1 text-[0.8rem] leading-snug text-muted">{g.tagline}</p>
-              </Link>
+              </a>
             ))}
             <div className="flex flex-col gap-1 text-[0.86rem]">
               <Link href={serviceHref(getService("revenue-operations")!)} className="text-muted transition-colors hover:text-fg">{getGroup("revenue-operations")?.short}</Link>
@@ -223,7 +223,13 @@ export function Nav() {
                 {servicesFor(g.slug).map((s) => (
                   <li key={s.slug}><Link href={serviceHref(s)} className="block py-2 pl-4 text-[0.92rem] text-muted">{s.name}</Link></li>
                 ))}
-                <li><Link href={`/practices/${g.slug}`} className="block py-2 pl-4 text-[0.92rem] font-medium text-ember-ink">About {g.short} →</Link></li>
+                <li>
+                  {g.url ? (
+                    <a href={g.url} target="_blank" rel="noopener noreferrer" className="block py-2 pl-4 text-[0.92rem] font-medium text-ember-ink">Visit {g.short} ↗</a>
+                  ) : (
+                    <Link href={`/practices/${g.slug}`} className="block py-2 pl-4 text-[0.92rem] font-medium text-ember-ink">About {g.short} →</Link>
+                  )}
+                </li>
               </ul>
             </details>
           ))}

@@ -28,7 +28,8 @@ export function llmsIndex() {
     const list = servicesFor(g.slug);
     if (!list.length) continue;
     out.push(`## ${g.name}`, "", plain(g.tagline), "");
-    if (g.kind !== "capability") out.push(`- [${g.name} overview](${abs(`/practices/${g.slug}`)}): ${plain(g.summary)}`);
+    if (g.url) out.push(`- [${g.name}](${g.url}): ${plain(g.summary)} (separate website)`);
+    else if (g.kind === "family") out.push(`- [${g.name} overview](${abs(`/practices/${g.slug}`)}): ${plain(g.summary)}`);
     for (const s of list) out.push(`- [${s.name}](${abs(serviceHref(s))}): ${plain(s.tagline)}. ${plain(s.what)}`);
     out.push("");
   }

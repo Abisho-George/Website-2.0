@@ -11,7 +11,6 @@ import "@fontsource/instrument-serif/400-italic.css";
 import "./globals.css";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
-import { Spine } from "@/components/site/Spine";
 import { PlaceholderToggle } from "@/components/site/PlaceholderToggle";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { buildMetadata, orgJsonLd } from "@/lib/seo";
@@ -45,7 +44,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <JsonLd data={orgJsonLd(authors)} />
-        <Spine />
         <Nav />
         <main className="relative">{children}</main>
         <Footer />

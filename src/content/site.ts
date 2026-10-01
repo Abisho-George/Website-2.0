@@ -13,10 +13,15 @@ export const site = {
   aiUrl: "https://leadstrategus.ai",
   founded: 2018,
   contact: {
-    email: "[[hello@leadstrategus.com]]",
-    phone: "[[+91 98459 80970]]",
-    hq: "[[RMZ Ecoworld, Panathur, Bengaluru 560103]]",
-    office2: "[[Bridge+, ITPL Main Road, Whitefield, Bengaluru 560066]]",
+    email: "kingshuk@leadstrategus.com",
+    hq: "Novel Office, Brigade Tech Park, near ITPL Main Road, Pattandur Agrahara, Whitefield, Bengaluru, Karnataka 560066",
+    address: {
+      street: "Novel Office, Brigade Tech Park, near ITPL Main Road, Pattandur Agrahara",
+      locality: "Whitefield, Bengaluru",
+      region: "Karnataka",
+      postalCode: "560066",
+      country: "IN",
+    },
   },
   social: {
     linkedin: "https://www.linkedin.com/company/leadstrategus",

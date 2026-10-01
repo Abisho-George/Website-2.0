@@ -30,9 +30,9 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                 </ol>
               </div>
               <div><div className="eyebrow mb-2">Direct</div>
-                <p className="text-muted"><Copy text={site.contact.email} /><br /><Copy text={site.contact.phone} /></p>
+                <p className="text-muted"><a className="link-u hover:text-fg" href={`mailto:${site.contact.email}`}>{site.contact.email}</a></p>
               </div>
-              <div><div className="eyebrow mb-2">Bengaluru</div><p className="text-muted"><Copy text={site.contact.hq} /></p></div>
+              <div><div className="eyebrow mb-2">Office</div><p className="max-w-sm text-muted">{site.contact.hq}</p></div>
             </Reveal>
           </div>
           <div className="lg:col-span-7">

@@ -99,13 +99,13 @@ export default function ServicesHub() {
                 <div className="flex items-center gap-4">
                   <IconPlate icon={practiceIconFor(p.slug)} size="lg" />
                   <div>
-                    <h3 className="h3">{p.name}</h3>
+                    <h3 className="h3">{p.url ? <a href={p.url} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-ember-ink">{p.name}</a> : p.name}</h3>
                     <p className="text-muted">{p.tagline}</p>
                   </div>
                 </div>
-                {p.slug === "leadstrategus-ai" && (
-                  <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="inline-flex shrink-0 items-center gap-1 font-mono text-micro uppercase tracking-[0.13em] text-muted hover:text-ember-ink">
-                    Visit <ArrowUpRight className="size-3.5" />
+                {p.url && (
+                  <a href={p.url} target="_blank" rel="noopener noreferrer" className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-rule-strong px-4 py-2 text-sm font-medium text-fg transition-colors hover:border-ember/40 hover:text-ember-ink">
+                    Visit {new URL(p.url).hostname} <ArrowUpRight className="size-4" />
                   </a>
                 )}
               </div>

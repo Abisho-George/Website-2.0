@@ -28,7 +28,7 @@ export default function CareersPage() {
             <Reveal key={i} delay={i * 60} className="grid gap-3 py-7 md:grid-cols-12 md:items-baseline">
               <div className="text-xl font-medium tracking-tight md:col-span-4"><Copy text={r.t} /></div>
               <p className="text-muted md:col-span-6">{r.b}</p>
-              <div className="md:col-span-2 md:justify-self-end"><Button href={`mailto:${site.contact.email.replace(/\[\[|\]\]/g, "")}?subject=Application`} variant="outline" size="sm">Apply</Button></div>
+              <div className="md:col-span-2 md:justify-self-end"><Button href={`mailto:${site.contact.email}?subject=Application`} variant="outline" size="sm">Apply</Button></div>
             </Reveal>
           ))}
         </div>

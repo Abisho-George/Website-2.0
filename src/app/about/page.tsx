@@ -73,10 +73,8 @@ export default function AboutPage() {
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-5"><h2 className="h2 balance">Bengaluru, working in your time zone.</h2></div>
           <div className="grid gap-6 text-sm md:col-span-7 md:grid-cols-2">
-            <div><div className="eyebrow mb-2">Headquarters</div><p><Copy text={site.contact.hq} /></p></div>
-            <div><div className="eyebrow mb-2">Office</div><p><Copy text={site.contact.office2} /></p></div>
-            <div><div className="eyebrow mb-2">Email</div><p><Copy text={site.contact.email} /></p></div>
-            <div><div className="eyebrow mb-2">Phone</div><p><Copy text={site.contact.phone} /></p></div>
+            <div><div className="eyebrow mb-2">Office</div><p>{site.contact.hq}</p></div>
+            <div><div className="eyebrow mb-2">Email</div><p><a className="link-u" href={`mailto:${site.contact.email}`}>{site.contact.email}</a></p></div>
           </div>
         </div>
       </Section>

@@ -344,45 +344,6 @@
       if (reduced) LINES.forEach(line); else timers.push(setTimeout(tick, 700));
     }
 
-    /* spine progress + section markers, mirrors Spine.tsx, whose markers are
-       built in an effect and so are absent from the server-rendered body */
-    var spine = app.querySelector(".spine");
-    var fill = spine && spine.querySelector("[data-spine-fill]");
-    var marks = [];
-    if (spine) {
-      [].slice.call(spine.querySelectorAll(".marker")).forEach(function (m) { m.remove(); });
-      app.querySelectorAll("[data-section-n]").forEach(function (sec) {
-        var m = document.createElement("div");
-        m.className = "marker";
-        m.setAttribute("data-spine-marker", "");
-        var dot = document.createElement("span"); dot.className = "marker__dot";
-        m.appendChild(dot);
-        spine.appendChild(m);
-        marks.push({ el: m, sec: sec });
-      });
-    }
-    var measured = [];
-    var measureSpine = function () {
-      var y = window.scrollY;
-      measured = marks.map(function (m) {
-        var r = m.sec.getBoundingClientRect();
-        return { el: m.el, top: r.top + y, bottom: r.bottom + y };
-      });
-    };
-    var onSpine = function () {
-      var y = window.scrollY;
-      if (fill) {
-        var max = document.documentElement.scrollHeight - window.innerHeight;
-        fill.style.height = "100%";
-        fill.style.transform = "scaleY(" + (max > 0 ? Math.min(1, y / max) : 0) + ")";
-      }
-      var mid = y + window.innerHeight * 0.4;
-      measured.forEach(function (m) {
-        m.el.style.top = (m.top - y) + "px";
-        m.el.classList.toggle("marker--on", mid >= m.top && mid < m.bottom);
-      });
-    };
-    measureSpine();
 
     /* rail indicators, mirrors RailIndicator.tsx */
     var rails = [];
@@ -413,14 +374,10 @@
       head.style.transition = "none"; place(current); void head.offsetWidth; head.style.transition = "";
       rails.push({ track: track, place: place, current: current });
     });
-    window.addEventListener("resize", function () { measureSpine(); onSpine(); rails.forEach(function (r) { r.place(r.current); }); });
+    window.addEventListener("resize", function () { rails.forEach(function (r) { r.place(r.current); }); });
 
-    var prevScroll = window.onscroll;
-    window.onscroll = function () { if (prevScroll) prevScroll(); onSpine(); };
-    onSpine();
-    // one late pass: fonts land and reveals fire after first paint, so the
-    // section offsets measured above move
-    setTimeout(function () { measureSpine(); onSpine(); rails.forEach(function (r) { r.place(r.current); }); }, 700);
+    // one late pass: fonts land after first paint, so the rails move
+    setTimeout(function () { rails.forEach(function (r) { r.place(r.current); }); }, 700);
 
     /* signal field */
     var canvas = app.querySelector("[data-signal-field]");

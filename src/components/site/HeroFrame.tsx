@@ -62,7 +62,7 @@ export function HeroFrame({
   band?: Band;
   className?: string;
   children?: React.ReactNode;
-  /** Registers the hero with the spine as the page's first numbered section. */
+  /** Names the hero as the page's first section in the markup. */
   n?: string;
   label?: string;
 }) {

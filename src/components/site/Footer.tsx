@@ -20,7 +20,8 @@ export function Footer() {
           <div className="md:col-span-2">
             <div className="eyebrow mb-4">Services</div>
             <ul className="space-y-2.5 text-sm">
-              {[...families, ...platforms].map((g) => <li key={g.slug}><Link href={`/practices/${g.slug}`} className="text-muted transition-colors hover:text-fg">{g.short}</Link></li>)}
+              {families.map((g) => <li key={g.slug}><Link href={`/practices/${g.slug}`} className="text-muted transition-colors hover:text-fg">{g.short}</Link></li>)}
+              {platforms.map((g) => <li key={g.slug}><a href={g.url} target="_blank" rel="noopener noreferrer" className="text-muted transition-colors hover:text-fg">{g.short} ↗</a></li>)}
               <li><Link href="/services" className="text-muted transition-colors hover:text-fg">All services</Link></li>
               <li><Link href="/pricing" className="text-muted transition-colors hover:text-fg">Pricing</Link></li>
               <li><Link href="/gtm-ai-twin" className="font-medium text-ember-ink">GTM AI Twin</Link></li>
@@ -37,10 +38,8 @@ export function Footer() {
           <div className="md:col-span-4">
             <div className="eyebrow mb-4">Contact</div>
             <ul className="space-y-2.5 text-sm text-muted">
-              <li><a className="link-u transition-colors hover:text-fg" href={`mailto:${site.contact.email.replace(/\[\[|\]\]/g, "")}`}><Copy text={site.contact.email} /></a></li>
-              <li><a className="link-u transition-colors hover:text-fg" href={`tel:${site.contact.phone.replace(/\[\[|\]\]|\s/g, "")}`}><Copy text={site.contact.phone} /></a></li>
-              <li className="pt-2"><Copy text={site.contact.hq} /></li>
-              <li><Copy text={site.contact.office2} /></li>
+              <li><a className="link-u transition-colors hover:text-fg" href={`mailto:${site.contact.email}`}>{site.contact.email}</a></li>
+              <li className="pt-2 max-w-xs leading-relaxed">{site.contact.hq}</li>
               <li className="pt-2"><a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" className="link-u">LinkedIn</a> · <a href={site.social.clutch} target="_blank" rel="noopener noreferrer" className="link-u">Clutch</a></li>
             </ul>
           </div>

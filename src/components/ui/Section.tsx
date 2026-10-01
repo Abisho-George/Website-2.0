@@ -5,17 +5,16 @@ type Width = "text" | "mid" | "wide" | "full";
 type Pad = "tight" | "base" | "loose";
 
 /**
- * A band of the page. Bands change ground colour but share one gutter and one
- * spine, and their edges dissolve rather than cut, so the page stays continuous.
+ * A band of the page. Bands change ground colour but share one gutter, and
+ * their edges dissolve rather than cut, so the page stays continuous.
  *
  * `width` and `pad` are the rhythm controls. Every band on this site used to
  * be 1400px wide with the same vertical air, which is why alternating ground
  * colour read as stripes rather than as pace: a dense grid wants a wide
  * measure and less air, an argument wants a narrow one and more.
  *
- * `n`/`label` register the band with the spine, which draws the page's section
- * numbers down the left margin. The numbers existed for months as code
- * comments; this is them made visible.
+ * `n`/`label` name the section in the markup (data attributes) for tooling
+ * and anchors. Nothing is drawn from them.
  */
 export function Section({
   children, className, band = "paper", id, tight, flush, width = "wide", pad, n, label,
@@ -24,9 +23,9 @@ export function Section({
   tight?: boolean; flush?: boolean;
   width?: Width;
   pad?: Pad;
-  /** Section number shown on the spine, e.g. "03". */
+  /** Section number, e.g. "03". Not displayed. */
   n?: string;
-  /** Short name shown beside the number when the section is in view. */
+  /** Short section name. Not displayed. */
   label?: string;
 }) {
   // `tight` predates `pad` and means the same as pad="tight"
