@@ -15,7 +15,7 @@ import type { CaseStudy, FAQ } from "@/content/types";
 import type { Group } from "@/content/practices";
 import { getGroup } from "@/content/practices";
 import { servicesFor, serviceHref } from "@/content/services";
-import { proof } from "@/content/site";
+import { proof, site } from "@/content/site";
 
 export function PracticeCard({ p, i }: { p: Group; i: number }) {
   const members = servicesFor(p.slug);
@@ -150,7 +150,10 @@ export function ProofBar() {
           <span className="flex items-center gap-0.5 text-ember" role="img" aria-label={`Rated ${proof.clutch.rating.replace(/\[\[|\]\]/g, "")} out of 5 on Clutch from ${proof.clutch.reviews.replace(/\[\[|\]\]/g, "")} reviews`}>
             {Array.from({ length: 5 }, (_, i) => <Star key={i} className="size-3.5" fill="currentColor" strokeWidth={0} />)}
           </span>
-          <span aria-hidden><Copy text={proof.clutch.rating} /> on Clutch · <Copy text={proof.clutch.reviews} /> reviews</span>
+          <a href={site.social.clutch} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-ember-ink">
+            <span aria-hidden><Copy text={proof.clutch.rating} /> on Clutch · <Copy text={proof.clutch.reviews} /> reviews</span>
+            <span className="sr-only">LeadStrategus on Clutch</span>
+          </a>
         </div>
       </div>
     </div>

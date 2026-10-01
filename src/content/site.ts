@@ -47,7 +47,7 @@ export const nav = {
 export const proof = {
   // The founders' prior employers. Public on LinkedIn/Crunchbase.
   pedigree: ["AWS", "Gartner", "SAP", "Oracle", "IBM", "Pluralsight", "IMRB"],
-  clutch: { rating: "[[4.8]]", reviews: "[[7]]" },
+  clutch: { rating: "5.0", reviews: "[[7]]" },
   stats: [
     { value: "8", suffix: "yrs", label: "running B2B pipeline programmes" },
     { value: "[[120]]", suffix: "+", label: "GTM engagements delivered" },
