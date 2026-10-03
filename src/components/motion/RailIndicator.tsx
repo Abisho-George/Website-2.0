@@ -41,19 +41,23 @@ export function RailIndicator({
       if (!el) { head.style.opacity = "0"; return; }
       const t = track.getBoundingClientRect();
       const r = el.getBoundingClientRect();
+      // a track that scrolls sideways (filter chips on a phone) carries the
+      // head with its content, so measure in content coordinates
+      const x = r.left - t.left + track.scrollLeft;
+      const y = r.top - t.top + track.scrollTop;
       // the first placement must not animate in from the corner
       if (!placed.current) head.style.transition = "none";
       head.style.opacity = "1";
 
       if (fill) {
-        head.style.transform = `translate(${r.left - t.left}px, ${r.top - t.top}px)`;
+        head.style.transform = `translate(${x}px, ${y}px)`;
         head.style.width = `${r.width}px`;
         head.style.height = `${r.height}px`;
       } else if (orientation === "vertical") {
-        head.style.transform = `translateY(${r.top - t.top}px)`;
+        head.style.transform = `translateY(${y}px)`;
         head.style.height = `${r.height}px`;
       } else {
-        head.style.transform = `translateX(${r.left - t.left}px)`;
+        head.style.transform = `translateX(${x}px)`;
         head.style.width = `${r.width}px`;
       }
 

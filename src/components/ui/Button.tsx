@@ -28,7 +28,7 @@ export function Button({ href, children, variant = "primary", size = "md", exter
   const Icon = external ? ArrowUpRight : ArrowRight;
   const inner = (
     <>
-      <span>{children}</span>
+      <span className="inline-flex items-center gap-2">{children}</span>
       {arrow && <Icon className="size-4 transition-transform duration-[var(--dur-1)] ease-standard group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={2.2} />}
     </>
   );

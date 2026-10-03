@@ -27,7 +27,7 @@ export function WorkIndex({ items }: { items: CaseStudy[] }) {
 
   const option = (on: boolean) =>
     cn(
-      "relative z-[1] rounded-full px-3.5 py-1.5 text-[0.78rem] transition-colors duration-[var(--dur-1)]",
+      "relative z-[1] shrink-0 whitespace-nowrap rounded-full px-3.5 py-2 text-[0.82rem] transition-colors duration-[var(--dur-1)] md:py-1.5 md:text-[0.78rem]",
       on ? "text-paper" : "text-muted hover:text-fg",
     );
 
@@ -38,9 +38,12 @@ export function WorkIndex({ items }: { items: CaseStudy[] }) {
     set: (v: string) => void,
     filter: string,
   ) => (
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="flex min-w-0 flex-col gap-2 md:flex-row md:flex-wrap md:items-center">
       <span className="mr-1 font-mono text-micro uppercase tracking-[0.15em] text-muted">{legend}</span>
-      <div className="rail-track flex flex-wrap items-center gap-1 rounded-full border border-rule p-1" role="group" aria-label={legend}>
+      {/* one swipeable row on a phone; wraps from tablet up. The radius is a
+          fixed size rather than full, so a wrapped group is a rounded box and
+          not a stretched oval */}
+      <div className="rail-track scrollbar-none flex max-w-full items-center gap-1 overflow-x-auto rounded-[1.25rem] border border-rule p-1 md:flex-wrap md:overflow-visible" role="group" aria-label={legend}>
         {/* a thumb, not a baseline rail, and it tracks both axes, because
             these groups wrap onto a second row at most widths */}
         <RailIndicator active={current} fill className="!bg-ink" />

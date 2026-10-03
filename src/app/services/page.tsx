@@ -95,10 +95,10 @@ export default function ServicesHub() {
         <div className="mt-10 grid gap-4 lg:grid-cols-2">
           {platforms.map((p) => (
             <Reveal key={p.slug} className="card flex h-full flex-col p-6 md:p-8">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div className="flex min-w-0 items-center gap-4">
                   <IconPlate icon={practiceIconFor(p.slug)} size="lg" />
-                  <div>
+                  <div className="min-w-0">
                     <h3 className="h3">{p.url ? <a href={p.url} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-ember-ink">{p.name}</a> : p.name}</h3>
                     <p className="text-muted">{p.tagline}</p>
                   </div>

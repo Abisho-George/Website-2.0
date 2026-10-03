@@ -18,7 +18,7 @@ export function PlaceholderToggle() {
     <button
       data-ph-toggle
       onClick={() => setHidden(!hidden)}
-      className="fixed bottom-4 left-4 z-[60] inline-flex items-center gap-2 rounded-full border border-rule bg-paper/95 px-3 py-1.5 font-mono text-[0.66rem] text-muted shadow-[0_8px_24px_-12px_rgba(23,18,13,.4)] backdrop-blur transition-colors hover:text-fg"
+      className="fixed bottom-4 left-4 z-40 inline-flex items-center gap-2 rounded-full border border-rule bg-paper/95 px-3 py-1.5 font-mono text-[0.66rem] text-muted shadow-[0_8px_24px_-12px_rgba(23,18,13,.4)] backdrop-blur transition-colors hover:text-fg"
       title="Dashed underlines mark invented facts to verify before launch"
     >
       <span className={`size-1.5 rounded-full ${hidden ? "bg-dim" : "bg-ember"}`} />

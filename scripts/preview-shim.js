@@ -368,17 +368,17 @@
       var place = function (key) {
         var el = key ? track.querySelector('[data-rail-item="' + key.replace(/"/g, '\\"') + '"]') : null;
         if (!el) { head.style.opacity = "0"; return; }
-        var t = track.getBoundingClientRect(), r = el.getBoundingClientRect();
+        var t = track.getBoundingClientRect(), r = el.getBoundingClientRect(), x = r.left - t.left + track.scrollLeft, y = r.top - t.top + track.scrollTop;
         head.style.opacity = "1";
         if (head.hasAttribute("data-fill")) {
-          head.style.transform = "translate(" + (r.left - t.left) + "px," + (r.top - t.top) + "px)";
+          head.style.transform = "translate(" + x + "px," + y + "px)";
           head.style.width = r.width + "px";
           head.style.height = r.height + "px";
         } else if (head.getAttribute("data-orientation") === "vertical") {
-          head.style.transform = "translateY(" + (r.top - t.top) + "px)";
+          head.style.transform = "translateY(" + y + "px)";
           head.style.height = r.height + "px";
         } else {
-          head.style.transform = "translateX(" + (r.left - t.left) + "px)";
+          head.style.transform = "translateX(" + x + "px)";
           head.style.width = r.width + "px";
         }
       };

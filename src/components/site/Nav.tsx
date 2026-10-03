@@ -80,11 +80,14 @@ export function Nav() {
     </button>
   );
 
+  // No transform, filter or backdrop-filter on the header: any of them makes it
+  // the containing block for the fixed mobile drawer, which then collapses to
+  // the header's own height and the menu cannot be opened.
   return (
     <header
       ref={navRef}
       data-nav
-      className={cn("fixed inset-x-0 top-0 z-50 border-b border-rule bg-white/95 text-fg backdrop-blur-md transition-shadow duration-300 supports-[backdrop-filter]:bg-white/85", scrolled && "shadow-e2")}
+      className={cn("fixed inset-x-0 top-0 z-50 border-b border-rule bg-white text-fg transition-shadow duration-300", scrolled && "shadow-e2")}
     >
       <div className="brand-rule absolute inset-x-0 top-0" aria-hidden />
       <div className="container-x flex h-[var(--nav-h)] items-center justify-between gap-4">

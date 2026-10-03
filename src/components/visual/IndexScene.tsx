@@ -54,6 +54,7 @@ export function IndexScene({
   return (
     <div
       aria-hidden
+      data-index-scene
       // --rise-2 is the reveal's travel distance. Zeroed for this subtree so the
       // shared .reveal contract gives a fade and nothing else: a background
       // layer that slides is a background layer you look at.

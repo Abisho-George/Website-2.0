@@ -670,6 +670,15 @@ a.card:hover::after, a.card:focus-visible::after,
   pointer-events: none;
 }
 @media (max-width: 1023px) { .hero__scene { inset: 0; opacity: .45; } }
+/* A scene made of words and figures (an index of services, a ledger of
+   results) reads as clutter once it sits under the headline instead of beside
+   it, so below desktop it steps aside. Drawn scenes stay as texture. */
+@media (max-width: 1023px) { .hero__scene:has([data-index-scene]) { display: none; } }
+/* On a phone an inner page's hero is only as tall as its copy: the reserved
+   height exists to give a scene room beside the text, and there is no beside. */
+@media (max-width: 767px) {
+  .hero:not([data-size="lg"]) { min-height: 0; padding-top: calc(var(--nav-h) + 36px); }
+}
 
 /* feathered on two axes, so a scene ends rather than being cut off */
 .scene-mask {
@@ -927,6 +936,14 @@ html:not(.js) [data-reveal] { opacity: 1 !important; transform: none !important;
     var(--color-brand-blue) 58%,
     var(--color-brand-blue-2) 100%);
 }
+/* ---------- phone type floor ----------
+   The mono captions are set between 10 and 11px, which holds on a desktop
+   monitor and is too small in a hand. On a phone they come up to 11.5px. */
+@media (max-width: 767px) {
+  :root { --text-micro: 0.72rem; }
+  [class*="text-[0.6"], [class*="text-[0.5"] { font-size: 0.72rem !important; }
+}
+
 /* the logotype: Cinzel Bold stands in for the brand kit's Trajan Pro */
 .brand-name { font-family: "Cinzel", "Trajan Pro", Georgia, serif; font-weight: 700; letter-spacing: 0.02em; color: #0b1226; white-space: nowrap; }
 .brand-tagline { font-family: "Montserrat", var(--font-sans), system-ui, sans-serif; font-weight: 500; letter-spacing: 0.04em; color: #2a2f3d; white-space: nowrap; }

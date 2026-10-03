@@ -35,7 +35,11 @@ const inline = (b) => b.replace(/src="(\/(?:founders|brand)\/[^"]+)"/g, (all, sr
 const clean = (b) => inline(b).replace(/<script[\s\S]*?<\/script>/g, "").replace(/<script[^>]*\/>/g, "").replace(/<next-route-announcer[\s\S]*?<\/next-route-announcer>/g, "");
 css = css.replace(/@font-face\s*\{[^}]*\}/g, "");
 const shim = readFileSync(new URL("./preview-shim.js", import.meta.url), "utf8");
-const out = `<title>LeadStrategus 2.0</title>
+// the viewport tag matters: without it a phone lays the page out 980px wide
+// and shrinks it, and none of the mobile layout applies
+const out = `<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LeadStrategus 2.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Serif:ital@0;1&family=Cinzel:wght@700&family=Montserrat:wght@500&display=swap">
 <style>
 ${css}
