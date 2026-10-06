@@ -3,7 +3,8 @@ import { z } from "zod";
 import { site } from "@/content/site";
 import { redirect } from "next/navigation";
 
-import { enquiryTypes } from "@/lib/enquiry";
+import { enquiryTypes, enquiryLabel } from "@/lib/enquiry";
+import { deliverLead } from "@/lib/leads";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Tell us your name").max(120),
@@ -11,69 +12,78 @@ const schema = z.object({
   company: z.string().trim().min(1, "Which company?").max(200),
   type: z.enum(enquiryTypes.map((t) => t[0]) as [string, ...string[]]),
   message: z.string().trim().min(10, "A sentence or two helps us route it").max(4000),
-  budget: z.string().optional(),
+  source: z.string().max(200).optional(),
   website: z.string().max(0).optional(), // honeypot
   "cf-turnstile-response": z.string().optional(),
 });
 
-export type FormState = { errors?: Record<string, string>; message?: string } | null;
+/** The fields a visitor typed, handed back so a failed send does not clear the form. */
+export type FormValues = { name?: string; email?: string; company?: string; type?: string; message?: string };
 
-/** Every enquiry goes to the one company inbox, whatever its type. */
-function inboxFor(_type: string) {
-  return site.contact.email;
-}
+export type FormState = {
+  errors?: Record<string, string>;
+  message?: string;
+  /** The enquiry could not be delivered: show the fallback email address. */
+  failed?: boolean;
+  values?: FormValues;
+} | null;
 
 async function verifyTurnstile(token?: string) {
   const secret = process.env.TURNSTILE_SECRET_KEY;
   if (!secret) return true; // not configured: skip
   if (!token) return false;
-  const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-    method: "POST",
-    headers: { "content-type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({ secret, response: token }),
-  });
-  const json = (await res.json()) as { success: boolean };
-  return json.success;
-}
-
-async function captureHubSpot(data: Record<string, string>) {
-  const portal = process.env.HUBSPOT_PORTAL_ID, form = process.env.HUBSPOT_FORM_GUID;
-  if (!portal || !form) return;
-  await fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${portal}/${form}`, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      fields: [
-        { name: "firstname", value: data.name }, { name: "email", value: data.email },
-        { name: "company", value: data.company }, { name: "message", value: data.message },
-        { name: "enquiry_type", value: data.type },
-      ],
-    }),
-  }).catch(() => undefined);
-}
-
-async function deliver(to: string, data: Record<string, string>) {
-  const hook = process.env.CONTACT_WEBHOOK_URL;
-  const payload = { to, ...data, receivedAt: new Date().toISOString() };
-  if (hook) {
-    await fetch(hook, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
-  } else {
-    console.info("[enquiry]", JSON.stringify(payload));
+  try {
+    const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ secret, response: token }),
+      signal: AbortSignal.timeout(10_000),
+    });
+    const json = (await res.json()) as { success: boolean };
+    return json.success;
+  } catch {
+    return false;
   }
 }
 
 export async function submitEnquiry(_prev: FormState, formData: FormData): Promise<FormState> {
   const raw = Object.fromEntries(formData.entries()) as Record<string, string>;
+  const values: FormValues = { name: raw.name, email: raw.email, company: raw.company, type: raw.type, message: raw.message };
   const parsed = schema.safeParse(raw);
   if (!parsed.success) {
     const errors: Record<string, string> = {};
     for (const issue of parsed.error.issues) errors[String(issue.path[0])] = issue.message;
-    return { errors };
+    return { errors, values };
   }
   if (parsed.data.website) return { message: "Thanks." }; // honeypot hit
-  if (!(await verifyTurnstile(parsed.data["cf-turnstile-response"]))) return { message: "Could not verify you are human. Please try again." };
-  const data = { ...parsed.data } as Record<string, string>;
-  delete data["cf-turnstile-response"]; delete data.website;
-  await Promise.all([deliver(inboxFor(parsed.data.type), data), captureHubSpot(data)]);
-  redirect(`/contact/thanks?type=${encodeURIComponent(parsed.data.type)}`);
+  if (!(await verifyTurnstile(parsed.data["cf-turnstile-response"]))) {
+    return { message: "Could not verify you are human. Please try again.", values };
+  }
+
+  const { name, email, company, type, message, source } = parsed.data;
+  const result = await deliverLead(
+    { name, email, company, type, typeLabel: enquiryLabel(type), message, source },
+    {
+      resendKey: process.env.RESEND_API_KEY,
+      from: process.env.LEADS_FROM,
+      to: process.env.LEADS_TO || site.contact.email,
+      webhookUrl: process.env.CONTACT_WEBHOOK_URL,
+      production: process.env.NODE_ENV === "production",
+      resendUrl: process.env.RESEND_API_URL,
+    },
+  );
+
+  // the server log is the record of last resort: what failed, and the lead itself
+  // when it reached nowhere, so it can still be recovered by hand
+  if (!result.email.ok && !result.email.skipped) console.error("[enquiry] email failed:", result.email.error);
+  if (!result.webhook.ok && !result.webhook.skipped) console.error("[enquiry] webhook failed:", result.webhook.error);
+  if (!result.delivered) {
+    console.error("[enquiry] NOT DELIVERED", JSON.stringify({ name, email, company, type, message, source }));
+    return { failed: true, values };
+  }
+  if (result.email.skipped && result.webhook.skipped) {
+    console.info("[enquiry] (no delivery configured, development)", JSON.stringify({ name, email, company, type, message, source }));
+  }
+
+  redirect(`/contact/thanks?type=${encodeURIComponent(type)}`);
 }
