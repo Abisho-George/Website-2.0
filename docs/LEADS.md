@@ -19,6 +19,12 @@ in the form. The lead is also written to the server log under
 The sheet's **Emailed** column says `yes` for every lead that reached the
 inbox. If the email step fails after the row was saved, it says `FAILED: …`.
 
+Every time the script answers `ok: false` it also logs why (bad token, a
+request that is not JSON, a sheet error or an email error) with the full
+error and stack trace. See them in the Apps Script editor under
+**Executions**: open a failed or completed run to read its log. The token
+itself is never logged.
+
 The site-side rules are in `src/lib/leads.ts` and checked by
 `node scripts/check-leads.mjs`. Nothing else (no email provider, no API key)
 is involved.
