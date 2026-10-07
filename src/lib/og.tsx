@@ -10,17 +10,46 @@ import { join } from "node:path";
 export const ogSize = { width: 1200, height: 630 };
 export const ogContentType = "image/png";
 
-// the real shield, and Cinzel for the logotype, read once at build time
-const root = process.cwd();
-const markSrc = `data:image/png;base64,${readFileSync(join(root, "public/brand/mark.png")).toString("base64")}`;
-const cinzel = readFileSync(join(root, "node_modules/@fontsource/cinzel/files/cinzel-latin-700-normal.woff"));
-const montserrat = readFileSync(join(root, "node_modules/@fontsource/montserrat/files/montserrat-latin-500-normal.woff"));
-const montserratBold = readFileSync(join(root, "node_modules/@fontsource/montserrat/files/montserrat-latin-700-normal.woff"));
+/*
+ * The real shield and the brand fonts are read from disk when an image is
+ * drawn, never when this module loads. Pages import their opengraph-image
+ * module just to read `size` and `contentType` for their metadata, and on
+ * Vercel a page rendered on request (/contact) runs in a function that does
+ * not contain public/ or these font files: a read at load time threw ENOENT
+ * and broke the page's server render. A missing file now degrades the image
+ * (no shield, default font) instead of throwing.
+ */
+const readOr = (path: string) => {
+  try {
+    return readFileSync(join(process.cwd(), path));
+  } catch {
+    return null;
+  }
+};
+let assets: { markSrc: string | null; fonts: { name: string; data: Buffer; weight: 500 | 700; style: "normal" }[] } | null = null;
+function loadAssets() {
+  if (assets) return assets;
+  const mark = readOr("public/brand/mark.png");
+  const font = (name: string, file: string, weight: 500 | 700) => {
+    const data = readOr(`node_modules/@fontsource/${file}`);
+    return data ? [{ name, data, weight, style: "normal" as const }] : [];
+  };
+  assets = {
+    markSrc: mark ? `data:image/png;base64,${mark.toString("base64")}` : null,
+    fonts: [
+      ...font("Cinzel", "cinzel/files/cinzel-latin-700-normal.woff", 700),
+      ...font("Montserrat", "montserrat/files/montserrat-latin-500-normal.woff", 500),
+      ...font("Montserrat", "montserrat/files/montserrat-latin-700-normal.woff", 700),
+    ],
+  };
+  return assets;
+}
 
 const clip = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1).trimEnd() + "…" : s);
 const unflag = (s: string) => s.replace(/\[\[|\]\]/g, "");
 
 export function ogImage({ kicker, title, sub }: { kicker?: string; title: string; sub?: string }) {
+  const { markSrc, fonts } = loadAssets();
   const t = clip(unflag(title), 90);
   const big = t.length <= 34;
   return new ImageResponse(
@@ -29,7 +58,7 @@ export function ogImage({ kicker, title, sub }: { kicker?: string; title: string
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={markSrc} width={58} height={70} alt="" />
+            {markSrc ? <img src={markSrc} width={58} height={70} alt="" /> : null}
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
               <div style={{ display: "flex", fontFamily: "Cinzel", fontSize: 34, fontWeight: 700, letterSpacing: 0.5, color: "#0b1226" }}>LEADSTRATEGUS</div>
               <div style={{ display: "flex", fontFamily: "Montserrat", fontSize: 15, color: "#2a2f3d", letterSpacing: 0.6 }}>Superpower your sales!</div>
@@ -57,11 +86,7 @@ export function ogImage({ kicker, title, sub }: { kicker?: string; title: string
     ),
     {
       ...ogSize,
-      fonts: [
-        { name: "Cinzel", data: cinzel, weight: 700, style: "normal" },
-        { name: "Montserrat", data: montserrat, weight: 500, style: "normal" },
-        { name: "Montserrat", data: montserratBold, weight: 700, style: "normal" },
-      ],
+      ...(fonts.length ? { fonts } : {}),
     },
   );
 }

@@ -1,6 +1,5 @@
 "use server";
 import { z } from "zod";
-import { site } from "@/content/site";
 import { redirect } from "next/navigation";
 
 import { enquiryTypes, enquiryLabel } from "@/lib/enquiry";
@@ -77,26 +76,17 @@ export async function submitEnquiry(_prev: FormState, formData: FormData): Promi
 async function deliver({ name, email, company, type, message, source }: { name: string; email: string; company: string; type: string; message: string; source?: string }) {
   const result = await deliverLead(
     { name, email, company, type, typeLabel: enquiryLabel(type), message, source },
-    {
-      resendKey: process.env.RESEND_API_KEY,
-      from: process.env.LEADS_FROM,
-      to: process.env.LEADS_TO || site.contact.email,
-      webhookUrl: process.env.CONTACT_WEBHOOK_URL,
-      production: process.env.NODE_ENV === "production",
-      resendUrl: process.env.RESEND_API_URL,
-    },
+    { webhookUrl: process.env.CONTACT_WEBHOOK_URL, production: process.env.NODE_ENV === "production" },
   );
 
   // the server log is the record of last resort: what failed, and the lead itself
   // when it reached nowhere, so it can still be recovered by hand
-  if (!result.email.ok && !result.email.skipped) console.error("[enquiry] email failed:", result.email.error);
-  if (!result.webhook.ok && !result.webhook.skipped) console.error("[enquiry] webhook failed:", result.webhook.error);
   if (!result.delivered) {
-    console.error("[enquiry] NOT DELIVERED", JSON.stringify({ name, email, company, type, message, source }));
+    console.error("[enquiry] NOT DELIVERED:", result.error, JSON.stringify({ name, email, company, type, message, source }));
     return false;
   }
-  if (result.email.skipped && result.webhook.skipped) {
-    console.info("[enquiry] (no delivery configured, development)", JSON.stringify({ name, email, company, type, message, source }));
+  if (result.skipped) {
+    console.info("[enquiry] (no webhook configured, development)", JSON.stringify({ name, email, company, type, message, source }));
   }
   return true;
 }
