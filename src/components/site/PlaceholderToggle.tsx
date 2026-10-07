@@ -1,8 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
+import { showPlaceholders } from "@/lib/placeholders";
 
-/** Review aid: counts flagged placeholders on the page and toggles the underlines. */
+/**
+ * Review aid: counts flagged placeholders on the page and toggles the
+ * underlines. Development only (see src/lib/placeholders.ts); in production it
+ * renders nothing and runs nothing, and the layout hides the underlines.
+ */
 export function PlaceholderToggle() {
+  return showPlaceholders ? <Toggle /> : null;
+}
+
+function Toggle() {
   const [count, setCount] = useState(0);
   const [hidden, setHidden] = useState(false);
   useEffect(() => {
@@ -13,7 +22,6 @@ export function PlaceholderToggle() {
     return () => mo.disconnect();
   }, []);
   useEffect(() => { document.body.classList.toggle("ph-hidden", hidden); }, [hidden]);
-  if (process.env.NEXT_PUBLIC_SHOW_PLACEHOLDERS === "false") return null;
   return (
     <button
       data-ph-toggle

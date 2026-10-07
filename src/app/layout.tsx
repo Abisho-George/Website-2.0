@@ -15,6 +15,8 @@ import "./globals.css";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { PlaceholderToggle } from "@/components/site/PlaceholderToggle";
+import { ErrorReporter } from "@/components/site/ErrorReporter";
+import { showPlaceholders } from "@/lib/placeholders";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { buildMetadata, orgJsonLd } from "@/lib/seo";
 import { site } from "@/content/site";
@@ -45,12 +47,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>
-      <body>
+      {/* placeholder flags are a development aid: in production they read as ordinary text */}
+      <body className={showPlaceholders ? undefined : "ph-hidden"}>
         <JsonLd data={orgJsonLd(authors)} />
         <Nav />
         <main className="relative">{children}</main>
         <Footer />
         <PlaceholderToggle />
+        <ErrorReporter />
       </body>
     </html>
   );

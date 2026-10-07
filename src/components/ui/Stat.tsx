@@ -1,5 +1,6 @@
 "use client";
 import { Copy } from "./Copy";
+import { placeholderTitle } from "@/lib/placeholders";
 import { CountUp } from "@/components/motion/CountUp";
 import { cn } from "@/lib/utils";
 
@@ -42,10 +43,10 @@ export function Stat({
             animate={!isPh}
             data-stat={clean}
             data-placeholder={isPh ? "" : undefined}
-            title={isPh ? "Placeholder: verify before launch" : undefined}
+            title={isPh ? placeholderTitle : undefined}
           />
         ) : (
-          <span data-placeholder={isPh ? "" : undefined} title={isPh ? "Placeholder: verify before launch" : undefined}>
+          <span data-placeholder={isPh ? "" : undefined} title={isPh ? placeholderTitle : undefined}>
             {clean}
           </span>
         )}

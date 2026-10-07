@@ -61,6 +61,20 @@ export async function submitEnquiry(_prev: FormState, formData: FormData): Promi
   }
 
   const { name, email, company, type, message, source } = parsed.data;
+  // Anything unexpected while delivering becomes the visitor's fallback message
+  // rather than a thrown error, which the browser would show as a crash.
+  // redirect() works by throwing, so it stays outside this try.
+  try {
+    const delivered = await deliver({ name, email, company, type, message, source });
+    if (!delivered) return { failed: true, values };
+  } catch (e) {
+    console.error("[enquiry] NOT DELIVERED (unexpected error)", e, JSON.stringify({ name, email, company, type, message, source }));
+    return { failed: true, values };
+  }
+  redirect(`/contact/thanks?type=${encodeURIComponent(type)}`);
+}
+
+async function deliver({ name, email, company, type, message, source }: { name: string; email: string; company: string; type: string; message: string; source?: string }) {
   const result = await deliverLead(
     { name, email, company, type, typeLabel: enquiryLabel(type), message, source },
     {
@@ -79,11 +93,10 @@ export async function submitEnquiry(_prev: FormState, formData: FormData): Promi
   if (!result.webhook.ok && !result.webhook.skipped) console.error("[enquiry] webhook failed:", result.webhook.error);
   if (!result.delivered) {
     console.error("[enquiry] NOT DELIVERED", JSON.stringify({ name, email, company, type, message, source }));
-    return { failed: true, values };
+    return false;
   }
   if (result.email.skipped && result.webhook.skipped) {
     console.info("[enquiry] (no delivery configured, development)", JSON.stringify({ name, email, company, type, message, source }));
   }
-
-  redirect(`/contact/thanks?type=${encodeURIComponent(type)}`);
+  return true;
 }
