@@ -1,6 +1,7 @@
 "use server";
 import { z } from "zod";
 import { redirect } from "next/navigation";
+import { site } from "@/content/site";
 
 import { enquiryTypes, enquiryLabel } from "@/lib/enquiry";
 import { deliverLead } from "@/lib/leads";
@@ -76,17 +77,24 @@ export async function submitEnquiry(_prev: FormState, formData: FormData): Promi
 async function deliver({ name, email, company, type, message, source }: { name: string; email: string; company: string; type: string; message: string; source?: string }) {
   const result = await deliverLead(
     { name, email, company, type, typeLabel: enquiryLabel(type), message, source },
-    { webhookUrl: process.env.CONTACT_WEBHOOK_URL, production: process.env.NODE_ENV === "production" },
+    {
+      resendKey: process.env.RESEND_API_KEY,
+      from: process.env.LEADS_FROM,
+      to: process.env.LEADS_TO || site.contact.email,
+      webhookUrl: process.env.CONTACT_WEBHOOK_URL,
+      production: process.env.NODE_ENV === "production",
+      resendUrl: process.env.RESEND_API_URL,
+    },
   );
 
   // the server log is the record of last resort: what failed, and the lead itself
   // when it reached nowhere, so it can still be recovered by hand
+  const lead = JSON.stringify({ name, email, company, type, message, source });
+  if (!result.sheet.ok && !result.sheet.skipped) console.error("[enquiry] sheet backup failed:", result.sheet.error);
   if (!result.delivered) {
-    console.error("[enquiry] NOT DELIVERED:", result.error, JSON.stringify({ name, email, company, type, message, source }));
+    console.error("[enquiry] NOT DELIVERED:", result.email.error ?? "no email configured", lead);
     return false;
   }
-  if (result.skipped) {
-    console.info("[enquiry] (no webhook configured, development)", JSON.stringify({ name, email, company, type, message, source }));
-  }
+  if (result.email.skipped) console.info("[enquiry] (no email configured, development)", lead);
   return true;
 }

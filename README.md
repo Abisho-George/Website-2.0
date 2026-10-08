@@ -15,7 +15,7 @@ npm run placeholders # regenerates PLACEHOLDERS.md
 npm run screenshots  # BASE=http://localhost:3000 OUT=shots: desktop + mobile full-page captures
 ```
 
-Copy `.env.example` to `.env.local` to configure Cal.com, Turnstile and lead delivery. Enquiries go to a Google Apps Script that adds them to a Google Sheet and emails them to kingshuk@leadstrategus.com; setup and the script are in [docs/LEADS.md](docs/LEADS.md). In development, with nothing configured, enquiries are logged to the terminal; in production a form with nowhere to deliver shows the visitor an error and the fallback email address. `node scripts/check-leads.mjs` checks the delivery rules.
+Copy `.env.example` to `.env.local` to configure Cal.com, Turnstile and lead delivery. Enquiries are emailed to kingshuk@leadstrategus.com through Resend and copied to a Google Sheet as a backup; setup, DNS records and the sheet script are in [docs/LEADS.md](docs/LEADS.md). In development, with nothing configured, enquiries are logged to the terminal; in production a form with nowhere to deliver shows the visitor an error and the fallback email address. `node scripts/check-leads.mjs` checks the delivery rules.
 
 ## Map
 

@@ -1,27 +1,30 @@
 // Exercises the lead delivery rules in src/lib/leads.ts with a fake network:
-// when a visitor is told "thanks" and when they see the fallback. Nothing is
-// sent anywhere.
+// when a visitor is told "thanks", when they see the fallback, and what the
+// email contains. Nothing is sent anywhere.
 // Usage: node scripts/check-leads.mjs
-import { deliverLead } from "../src/lib/leads.ts";
+import { deliverLead, leadEmail } from "../src/lib/leads.ts";
 
 const lead = {
-  name: "Asha Rao",
+  name: "Asha <script>",
   email: "asha@example.com",
-  company: "Acme",
+  company: "Acme\r\nBcc: evil@example.com",
   type: "gtm-ai-twin",
   typeLabel: "GTM AI Twin",
-  message: "We sell to CFOs and nothing converts.",
+  message: "We sell to <b>CFOs</b> & nothing converts.",
   source: "/contact",
 };
-const base = { webhookUrl: "https://script.example/exec?token=test", production: true };
+const base = { resendKey: "re_test", from: "LeadStrategus Website <leads@leadstrategus.com>", to: "kingshuk@leadstrategus.com", webhookUrl: "https://script.example/exec?token=test", production: true };
 
-// a fake fetch answering with a status and body, or throwing like a network failure
-const net = (status, body) => {
+// fake fetch: per host, a status (body chosen to match) or "down", "okfalse", "html"
+const net = (answers) => {
   const calls = [];
   const f = async (url, init) => {
     calls.push({ url, body: JSON.parse(init.body), headers: init.headers });
-    if (status === "down") throw new Error("connect ECONNREFUSED");
-    return new Response(body, { status });
+    const a = answers[new URL(url).host];
+    if (a === "down") throw new Error("connect ECONNREFUSED");
+    if (a === "okfalse") return new Response('{"ok":false,"error":"sheet error"}', { status: 200 });
+    if (a === "html") return new Response("<html>Script error</html>", { status: 200 });
+    return new Response(a === 200 ? '{"ok":true,"id":"x"}' : "nope", { status: a });
   };
   f.calls = calls;
   return f;
@@ -33,31 +36,37 @@ const check = (name, cond, detail = "") => {
   if (!cond) failures++;
 };
 
+const R = "api.resend.com", G = "script.example";
 const cases = [
-  ["row and email done (ok:true): thanks", base, net(200, '{"ok":true}'), true],
-  ["script says ok:false (row or email failed): fallback", base, net(200, '{"ok":false,"error":"email failed"}'), false],
-  ["Apps Script error page (200, HTML): fallback", base, net(200, "<html>Script function not found</html>"), false],
-  ["200 with no ok field: fallback", base, net(200, "{}"), false],
-  ["webhook 500: fallback", base, net(500, "oops"), false],
-  ["webhook unreachable: fallback", base, net("down"), false],
-  ["no webhook, production: fallback", { ...base, webhookUrl: undefined }, net(200, '{"ok":true}'), false],
-  ["no webhook, development: thanks (logged)", { ...base, webhookUrl: undefined, production: false }, net(200, '{"ok":true}'), true],
+  ["email ok, sheet ok: thanks", base, { [R]: 200, [G]: 200 }, true, true],
+  ["email ok, sheet ok:false: thanks, sheet failure reported", base, { [R]: 200, [G]: "okfalse" }, true, false],
+  ["email ok, sheet error page: thanks", base, { [R]: 200, [G]: "html" }, true, false],
+  ["email ok, sheet unreachable: thanks", base, { [R]: 200, [G]: "down" }, true, false],
+  ["email ok, no sheet configured: thanks", { ...base, webhookUrl: undefined }, { [R]: 200 }, true, false],
+  ["email rejected, sheet ok: fallback", base, { [R]: 403, [G]: 200 }, false, true],
+  ["email unreachable: fallback", base, { [R]: "down", [G]: 200 }, false, true],
+  ["key set, no sender: fallback", { ...base, from: undefined }, { [G]: 200 }, false, true],
+  ["sender set, no key: fallback", { ...base, resendKey: undefined }, { [G]: 200 }, false, true],
+  ["no email configured, production: fallback", { ...base, resendKey: undefined, from: undefined }, { [G]: 200 }, false, true],
+  ["no email configured, development: thanks (logged)", { ...base, resendKey: undefined, from: undefined, production: false }, { [G]: 200 }, true, true],
 ];
-for (const [name, settings, f, expected] of cases) {
-  const r = await deliverLead(lead, settings, f);
-  check(name, r.delivered === expected, JSON.stringify(r));
+for (const [name, settings, answers, delivered, sheetOk] of cases) {
+  const r = await deliverLead(lead, settings, net(answers));
+  check(name, r.delivered === delivered && r.sheet.ok === sheetOk, JSON.stringify(r));
 }
 
-// what the script receives
-const f = net(200, '{"ok":true}');
-await deliverLead(lead, base, f, new Date("2026-10-07T10:00:00Z"));
-const sent = f.calls[0];
-check("posts to the configured URL, token included", sent.url === base.webhookUrl);
-check("sends JSON", sent.headers["content-type"] === "application/json");
-check("payload has every field and a timestamp", ["receivedAt", "name", "email", "company", "type", "typeLabel", "message", "source"].every((k) => k in sent.body) && sent.body.receivedAt === "2026-10-07T10:00:00.000Z");
-const offline = net(200, '{"ok":true}');
-await deliverLead(lead, { ...base, webhookUrl: undefined, production: false }, offline);
-check("nothing is sent when no webhook is configured", offline.calls.length === 0);
+const f = net({ [R]: 200, [G]: 200 });
+await deliverLead(lead, base, f, new Date("2026-10-08T10:00:00Z"));
+const mail = f.calls.find((c) => c.url.includes("resend")).body;
+const sheet = f.calls.find((c) => c.url.includes("script")).body;
+check("email goes to the company inbox", JSON.stringify(mail.to) === JSON.stringify(["kingshuk@leadstrategus.com"]));
+check("reply-to is the visitor", mail.reply_to === "asha@example.com");
+check("sender is the configured address", mail.from === base.from);
+check("API key sent as a bearer token", f.calls.find((c) => c.url.includes("resend")).headers.authorization === "Bearer re_test");
+check("subject is one line and names the visitor", !/[\r\n]/.test(mail.subject) && mail.subject.startsWith("New website enquiry: Asha"), mail.subject);
+check("HTML is escaped", !mail.html.includes("<script>") && mail.html.includes("&lt;b&gt;CFOs"));
+check("sheet copy has every field and a timestamp", ["receivedAt", "name", "email", "company", "type", "typeLabel", "message", "source"].every((k) => k in sheet) && sheet.receivedAt === "2026-10-08T10:00:00.000Z");
+check("subject is capped", leadEmail({ ...lead, company: "x".repeat(400) }, "t").subject.length <= 200);
 
 console.log(failures ? `\n${failures} check(s) failed` : "\nall lead delivery checks passed");
 process.exit(failures ? 1 : 0);
