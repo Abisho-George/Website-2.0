@@ -91,10 +91,10 @@ export default function FamiliesHub() {
         <Reveal className="glow-ember mt-10 grid gap-6 rounded-[var(--radius-xl)] border border-ember/30 bg-paper p-8 md:grid-cols-12 md:items-center md:p-10">
           <div className="md:col-span-8">
             <div className="flex items-center gap-2 text-ember-ink"><Sparkles className="size-4" /><span className="font-mono text-micro uppercase tracking-[0.14em]">Special service</span></div>
-            <h2 className="h3 mt-3">GTM AI Twin</h2>
+            <h2 className="h3 mt-3">Lead Gen AI Twin</h2>
             <p className="mt-2 max-w-xl text-muted">Encode your demand-gen best practices into a connected system, with human judgement retained at the gates that matter.</p>
           </div>
-          <div className="md:col-span-4 md:justify-self-end"><Button href="/gtm-ai-twin">Explore the Twin</Button></div>
+          <div className="md:col-span-4 md:justify-self-end"><Button href="/lead-gen-ai-twin">Explore the Twin</Button></div>
         </Reveal>
       </Section>
 

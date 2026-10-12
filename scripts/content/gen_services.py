@@ -55,7 +55,7 @@ for x in d:
       "seoTerms": [undash(t) for t in x['seoTerms']], "sourceProof": [undash(p) for p in x['sourceProof']],
     }
     if note: rec["editorialNote"] = undash(note)
-    if slug == "gtm-ai-twin": rec["href"] = "/gtm-ai-twin"
+    if slug == "gtm-ai-twin": rec["href"] = "/lead-gen-ai-twin"
     if slug in LEGACY: rec["legacy"] = LEGACY[slug]
     rows.append(rec)
 

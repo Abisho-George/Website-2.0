@@ -9,7 +9,7 @@ const lead = {
   email: "asha@example.com",
   company: "Acme\r\nBcc: evil@example.com",
   type: "gtm-ai-twin",
-  typeLabel: "GTM AI Twin",
+  typeLabel: "Lead Gen AI Twin",
   message: "We sell to <b>CFOs</b> & nothing converts.",
   source: "/contact",
 };

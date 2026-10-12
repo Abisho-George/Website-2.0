@@ -29,7 +29,9 @@ const redirects: Record<string, string> = {
   "/services/outbound-sequencing": "/services/lead-generation-in-a-box",
   "/services/pricing-and-packaging": "/services/repositioning",
   "/services/sales-coaching": "/services/coaching-and-training",
-  "/services/gtm-ai-twin": "/gtm-ai-twin",
+  "/services/gtm-ai-twin": "/lead-gen-ai-twin",
+  // the service was renamed from GTM AI Twin
+  "/gtm-ai-twin": "/lead-gen-ai-twin",
   "/practices/revenue-intelligence": "/practices/account-intelligence",
   // there is no pricing page; engagements are scoped on a call
   "/pricing": "/services",

@@ -13,7 +13,7 @@ const roles = [
   { t: "[[GTM Strategist]]", b: "Run diagnostics and strategy sprints with the founders. Five-plus years in B2B marketing or sales with at least one pipeline target owned." },
   { t: "[[Demand Generation Lead]]", b: "Own a client pod and its meetings target. Outbound, social selling, ABM, weekly reporting." },
   { t: "[[Revenue Intelligence Analyst]]", b: "Build account universes, run OSINT briefs, tune intent models against closed-won data." },
-  { t: "[[Agent Engineer]]", b: "Design, train and supervise GTM AI Twins on the leadstrategus.ai platform. TypeScript or Python, LLM tooling, and enough curiosity about sales to sit in on calls." },
+  { t: "[[Agent Engineer]]", b: "Design, train and supervise Lead Gen AI Twins on the leadstrategus.ai platform. TypeScript or Python, LLM tooling, and enough curiosity about sales to sit in on calls." },
 ];
 
 export default function CareersPage() {

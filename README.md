@@ -1,6 +1,6 @@
 # LeadStrategus 2.0
 
-The replacement for leadstrategus.com: a B2B go-to-market company site with 36 services in six families (built from the 2026 service portfolio), the **GTM AI Twin** special service, case studies by service, insights with topic clusters, founders on the About page, an enquiry form, and a full SEO, AEO and GEO layer.
+The replacement for leadstrategus.com: a B2B go-to-market company site with 36 services in six families (built from the 2026 service portfolio), the **Lead Gen AI Twin** special service, case studies by service, insights with topic clusters, founders on the About page, an enquiry form, and a full SEO, AEO and GEO layer.
 
 Next.js 15 · React 19 · TypeScript strict · Tailwind v4 · zero CMS (typed content files).
 
@@ -24,7 +24,7 @@ Copy `.env.example` to `.env.local` to configure Cal.com, Turnstile and lead del
 | `/` | Homepage: hero, thesis, the six families, Twin spotlight, operating model, work, founders, `.com ⇆ .ai` portal, insights, FAQ, CTA |
 | `/services`, `/services/[slug]` | All 36 services. Each page: what is the service, why it is important now, why LeadStrategus, case studies, more in the family |
 | `/practices`, `/practices/[slug]` | The six service families. The two platforms link out to https://leadstrategus.ai/ and https://expotofunnel.com/ |
-| `/gtm-ai-twin` | The special service: agents, what it is, why now, why LeadStrategus, build timeline, FAQ |
+| `/lead-gen-ai-twin` | The special service: agents, what it is, why now, why LeadStrategus, build timeline, FAQ |
 | `/work`, `/work/[slug]` | Case studies filterable by family. The current ones are samples: labelled, noindex, not in the sitemap |
 | `/insights`, `/insights/[slug]` | Topic clusters, articles, related-post logic |
 | `/about` | Story, principles and the founders; a founder's details open in place (`/about#kingshuk-hazra`) |
@@ -39,7 +39,7 @@ All copy lives in `src/content/*.ts`. No build tooling to learn: edit the string
 - `site.ts`: name, contact (email and office address), proof stats
 - `services.ts`: the 36 services, generated from the portfolio document by `python3 scripts/content/gen_services.py`
 - `practices.ts`: the six families, two platforms (with their website URLs) and RevOps
-- `twin.ts`: the GTM AI Twin page
+- `twin.ts`: the Lead Gen AI Twin page
 - `work.ts`: case studies
 - `insights.ts`: articles and clusters (`## ` for headings, `- ` for lists)
 - `authors.ts`, `faq.ts`

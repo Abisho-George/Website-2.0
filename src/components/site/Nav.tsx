@@ -55,7 +55,7 @@ export function Nav() {
   const active = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
 
-  // Which nav section the current route belongs to. The GTM AI Twin pill is
+  // Which nav section the current route belongs to. The Lead Gen AI Twin pill is
   // deliberately not on the rail, it carries its own filled state.
   const railKey =
     active("/") ? "home"
@@ -100,8 +100,8 @@ export function Nav() {
 
           <div className="relative">{trigger("services", "Services", active("/services") || active("/practices"))}</div>
 
-          <Link href="/gtm-ai-twin" className={cn("relative mx-2.5 inline-flex h-9 items-center gap-1.5 rounded-full px-4 text-[0.9rem] font-medium transition-all duration-300", active("/gtm-ai-twin") ? "bg-ember text-white" : "bg-ember-wash text-ember-ink ring-1 ring-ember/25 hover:bg-ember hover:text-white")}>
-            <Sparkles className="size-3.5" /> GTM AI Twin
+          <Link href="/lead-gen-ai-twin" className={cn("relative mx-2.5 inline-flex h-9 items-center gap-1.5 rounded-full px-4 text-[0.9rem] font-medium transition-all duration-300", active("/lead-gen-ai-twin") ? "bg-ember text-white" : "bg-ember-wash text-ember-ink ring-1 ring-ember/25 hover:bg-ember hover:text-white")}>
+            <Sparkles className="size-3.5" /> Lead Gen AI Twin
           </Link>
 
           <div className="relative">{trigger("resources", "Resources", active("/insights") || active("/resources") || active("/work") || active("/faq"))}</div>
@@ -163,9 +163,9 @@ export function Nav() {
                 <Sparkles className="size-4" />
                 <span className="font-mono text-[0.64rem] uppercase tracking-[0.15em]">Special service</span>
               </div>
-              <div className="mt-2 font-display text-[1.5rem] font-semibold tracking-tight">GTM AI Twin</div>
+              <div className="mt-2 font-display text-[1.5rem] font-semibold tracking-tight">Lead Gen AI Twin</div>
               <p className="mt-2 text-[0.86rem] leading-relaxed text-fg-soft">{getService("gtm-ai-twin")?.tagline}</p>
-              <Link href="/gtm-ai-twin" className="mt-5 inline-flex h-10 w-full items-center justify-center gap-2 rounded-full bg-ember px-4 text-[0.86rem] font-medium text-white transition-colors hover:bg-ember-ink">
+              <Link href="/lead-gen-ai-twin" className="mt-5 inline-flex h-10 w-full items-center justify-center gap-2 rounded-full bg-ember px-4 text-[0.86rem] font-medium text-white transition-colors hover:bg-ember-ink">
                 Explore the Twin <ArrowRight className="size-4" />
               </Link>
             </div>
@@ -206,10 +206,10 @@ export function Nav() {
       {/* ---------- mobile drawer ---------- */}
       <div data-drawer className={cn("fixed inset-0 top-[var(--nav-h)] z-40 bg-white text-fg transition-all duration-300 lg:hidden", drawer ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0")}>
         <div className="container-x flex h-full flex-col overflow-y-auto pb-12 pt-6">
-          <Link href="/gtm-ai-twin" className="mb-6 flex items-center justify-between rounded-2xl border border-ember/25 bg-ember-wash p-5 text-ember-ink">
+          <Link href="/lead-gen-ai-twin" className="mb-6 flex items-center justify-between rounded-2xl border border-ember/25 bg-ember-wash p-5 text-ember-ink">
             <div>
               <div className="flex items-center gap-2"><Sparkles className="size-4" /><span className="font-mono text-[0.66rem] uppercase tracking-[0.15em]">Special service</span></div>
-              <div className="mt-1 font-display text-xl font-semibold tracking-tight text-fg">GTM AI Twin</div>
+              <div className="mt-1 font-display text-xl font-semibold tracking-tight text-fg">Lead Gen AI Twin</div>
             </div>
             <ArrowRight className="size-5" />
           </Link>

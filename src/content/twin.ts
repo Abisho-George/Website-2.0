@@ -1,6 +1,6 @@
-/** Content for the GTM AI Twin special service page. */
+/** Content for the Lead Gen AI Twin special service page. */
 export const twin = {
-  eyebrow: "Special service · GTM AI Twin",
+  eyebrow: "Special service · Lead Gen AI Twin",
   h1: "A twin of your",
   h1em: "demand gen best practices.",
   sub: "The heavy lifting done by AI agents. The decision making done by you.",
@@ -22,7 +22,7 @@ export const twin = {
     title: "What is it",
     h: "Not a tool. Your demand gen best practices, run by agents.",
     paras: [
-      "A GTM AI Twin is a set of purpose-built agents, configured on your ICP, your closed-won history and your voice, that carry the manual weight of outbound demand generation: building the universe, researching accounts, finding the opening, writing and sending, handling replies and booking the meeting.",
+      "A Lead Gen AI Twin is a set of purpose-built agents, configured on your ICP, your closed-won history and your voice, that carry the manual weight of outbound demand generation: building the universe, researching accounts, finding the opening, writing and sending, handling replies and booking the meeting.",
       "Each agent owns one painful job and hands to the next. The division of labour is the point: the agents do the heavy lifting, and every decision that needs context (is this angle credible, is this account worth pushing, is this reply going badly?) comes back to a named human with the full thread.",
       "It is built on our own agent platform at leadstrategus.ai and configured for you by people who have run human demand generation programmes for eight years. That combination is the product: agents that already know what a good meeting looks like.",
     ],

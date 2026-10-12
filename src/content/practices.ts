@@ -123,7 +123,7 @@ export const groups: Group[] = [
     name: "LeadStrategus.ai",
     short: "LeadStrategus.ai",
     tagline: "The AI engine.",
-    summary: "Build, deploy and operate an AI demand-generation engine: a single agent for one painful workflow, a GTM AI Twin configured on your own commercial logic, or the full system from account discovery to revenue operations.",
+    summary: "Build, deploy and operate an AI demand-generation engine: a single agent for one painful workflow, a Lead Gen AI Twin configured on your own commercial logic, or the full system from account discovery to revenue operations.",
     job: "ALL / OPERATE",
     faq: [],
     url: "https://leadstrategus.ai/",

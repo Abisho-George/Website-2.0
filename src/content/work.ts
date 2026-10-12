@@ -454,7 +454,7 @@ export const caseStudies: CaseStudy[] = [
       "Mapped the research workflow and the decisions inside it.",
       "Built and configured an agent on the firm's own logic and data.",
       "Kept a human review gate on every brief before it reached a seller.",
-      "Designed the agent as the first component of a wider GTM AI Twin.",
+      "Designed the agent as the first component of a wider Lead Gen AI Twin.",
     ],
     evidence: [
       "Workflow map",
@@ -475,7 +475,7 @@ export const caseStudies: CaseStudy[] = [
     region: "United States",
     group: "leadstrategus-ai",
     services: ["gtm-ai-twin", "ai-demand-gen-system", "ai-agent-build"],
-    title: "A GTM AI Twin configured on the company's own winning patterns",
+    title: "A Lead Gen AI Twin configured on the company's own winning patterns",
     summary: "Connected agents ran the repeatable work, with judgement kept at the gates that mattered.",
     stats: [
       { value: "[[6]]", label: "weeks to a supervised live run" },
@@ -496,7 +496,7 @@ export const caseStudies: CaseStudy[] = [
     ],
     outcome: "A supervised live run in [[six]] weeks, with every outbound decision passing a human gate.",
     whatChanged: "The team's best practices became a system the whole team could run on.",
-    tags: ["GTM AI Twin", "AI demand generation"],
+    tags: ["Lead Gen AI Twin", "AI demand generation"],
     featured: false,
     year: "[[2025]]",
   },

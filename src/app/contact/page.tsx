@@ -7,7 +7,7 @@ import { enquiryTypes } from "@/lib/enquiry";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { buildMetadata, pageJsonLd } from "@/lib/seo";
 
-export const metadata = buildMetadata({ title: "Contact LeadStrategus", description: "Send an enquiry to LeadStrategus about GTM strategy, account intelligence, demand generation, enablement, events or the GTM AI Twin. Routed by service and answered within one working day.", path: "/contact", keywords: ["contact LeadStrategus", "B2B go-to-market enquiry", "demand generation agency contact", "GTM consulting India"] });
+export const metadata = buildMetadata({ title: "Contact LeadStrategus", description: "Send an enquiry to LeadStrategus about GTM strategy, account intelligence, demand generation, enablement, events or the Lead Gen AI Twin. Routed by service and answered within one working day.", path: "/contact", keywords: ["contact LeadStrategus", "B2B go-to-market enquiry", "demand generation agency contact", "GTM consulting India"] });
 
 export default async function ContactPage({ searchParams }: { searchParams: Promise<{ type?: string }> }) {
   const { type } = await searchParams;

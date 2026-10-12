@@ -37,7 +37,7 @@ export const site = {
 export const nav = {
   primary: [
     { label: "Practices", href: "/practices", mega: true },
-    { label: "GTM AI Twin", href: "/gtm-ai-twin", highlight: true },
+    { label: "Lead Gen AI Twin", href: "/lead-gen-ai-twin", highlight: true },
     { label: "Work", href: "/work" },
     { label: "Insights", href: "/insights" },
     { label: "About", href: "/about" },

@@ -29,7 +29,7 @@ export const metadata = buildMetadata({
   absoluteTitle: "LeadStrategus | B2B GTM Strategy, Demand Generation and AI Agents",
   description: site.description,
   path: "/",
-  keywords: ["B2B go-to-market", "GTM strategy", "B2B demand generation", "account-based marketing", "account intelligence", "sales enablement", "event-led demand generation", "AI agents for sales", "GTM AI Twin", "B2B marketing agency India", "LeadStrategus"],
+  keywords: ["B2B go-to-market", "GTM strategy", "B2B demand generation", "account-based marketing", "account intelligence", "sales enablement", "event-led demand generation", "AI agents for sales", "Lead Gen AI Twin", "B2B marketing agency India", "LeadStrategus"],
 });
 
 const shifts = [
@@ -62,7 +62,7 @@ export default function Home() {
         actions={
           <>
             <Button href="/book" size="lg">Book a strategy call</Button>
-            <Button href="/gtm-ai-twin" size="lg" variant="outline"><Sparkles className="size-4 text-ember" /> Meet the GTM AI Twin</Button>
+            <Button href="/lead-gen-ai-twin" size="lg" variant="outline"><Sparkles className="size-4 text-ember" /> Meet the Lead Gen AI Twin</Button>
           </>
         }
       />
@@ -112,8 +112,8 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* 05 · GTM AI Twin */}
-      <Section n="05" label="GTM AI Twin" band="blush" className="overflow-hidden">
+      {/* 05 · Lead Gen AI Twin */}
+      <Section n="05" label="Lead Gen AI Twin" band="blush" className="overflow-hidden">
         <Bloom hue="ember" at="br" size={70} />
         <FieldPlate fx="78%" fy="45%" />
         <div className="relative grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
@@ -127,7 +127,7 @@ export default function Home() {
                 ))}
               </ul>
               <div className="mt-9 flex flex-wrap gap-3">
-                <Button href="/gtm-ai-twin" size="lg">Explore the Twin</Button>
+                <Button href="/lead-gen-ai-twin" size="lg">Explore the Twin</Button>
                 <Button href="/contact?type=gtm-ai-twin" size="lg" variant="ghost" className="border border-rule-strong bg-paper text-fg hover:border-fg/40">Scope mine</Button>
               </div>
             </Reveal>

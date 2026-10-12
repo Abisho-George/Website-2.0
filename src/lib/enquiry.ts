@@ -1,6 +1,6 @@
 /** Enquiry types, one per family and platform, so a service page can preselect its own. */
 export const enquiryTypes = [
-  ["gtm-ai-twin", "GTM AI Twin"],
+  ["gtm-ai-twin", "Lead Gen AI Twin"],
   ["gtm-strategy", "GTM Strategy & Market Intelligence"],
   ["account-intelligence", "Account & Buying Intelligence"],
   ["positioning-content", "Positioning, Product Marketing & Revenue Content"],

@@ -26,7 +26,7 @@ import { buildMetadata, serviceJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/lib
  * headings are the document's own questions, asked as headings rather than
  * labelled with small letters above them.
  *
- * GTM AI Twin is one of the thirty-six but has its own page at /gtm-ai-twin,
+ * Lead Gen AI Twin is one of the thirty-six but has its own page at /lead-gen-ai-twin,
  * so it is not generated here; /services/gtm-ai-twin redirects there.
  */
 export function generateStaticParams() {

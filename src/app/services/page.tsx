@@ -130,10 +130,10 @@ export default function ServicesHub() {
               <Sparkles className="size-4" />
               <span className="font-mono text-micro uppercase tracking-[0.15em]">Special service</span>
             </div>
-            <h2 className="h2 mt-3">GTM AI Twin</h2>
+            <h2 className="h2 mt-3">Lead Gen AI Twin</h2>
             <p className="lede mt-3 max-w-xl">Encode your demand-gen best practices into a connected system. The heavy lifting is done by agents; the decisions stay with you.</p>
           </div>
-          <div className="md:col-span-4 md:justify-self-end"><Button href="/gtm-ai-twin" size="lg">Explore the Twin</Button></div>
+          <div className="md:col-span-4 md:justify-self-end"><Button href="/lead-gen-ai-twin" size="lg">Explore the Twin</Button></div>
         </div>
       </Section>
 

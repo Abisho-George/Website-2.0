@@ -11,15 +11,15 @@ import { buildMetadata, faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "FAQ",
-  description: "How LeadStrategus engagements work: how quickly we start, what we guarantee, how the GTM AI Twin differs from an AI SDR tool, and how we handle data compliance.",
+  description: "How LeadStrategus engagements work: how quickly we start, what we guarantee, how the Lead Gen AI Twin differs from an AI SDR tool, and how we handle data compliance.",
   path: "/faq",
-  keywords: ["LeadStrategus FAQ", "GTM AI Twin vs AI SDR", "how GTM consulting works", "data compliance outbound"],
+  keywords: ["LeadStrategus FAQ", "Lead Gen AI Twin vs AI SDR", "how GTM consulting works", "data compliance outbound"],
 });
 
 const groups = [
   { id: "firm", title: "The firm", items: homeFaq },
   ...families.filter((f) => f.faq.length).map((f) => ({ id: f.slug, title: f.name, items: f.faq })),
-  { id: "twin", title: "GTM AI Twin", items: twinFaq },
+  { id: "twin", title: "Lead Gen AI Twin", items: twinFaq },
 ];
 
 const all = groups.flatMap((g) => g.items);

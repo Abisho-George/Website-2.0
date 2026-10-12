@@ -42,7 +42,7 @@ export const resources: Resource[] = [
     title: "GTM AI readiness assessment",
     kind: "Checklist",
     blurb: "Fifteen questions on your data, messaging system, CRM hygiene and operating cadence that determine whether AI agents will work for you yet.",
-    detail: "The same qualification we run before scoping a GTM AI Twin. If you score badly, the honest answer is to fix the foundation first.",
+    detail: "The same qualification we run before scoping a Lead Gen AI Twin. If you score badly, the honest answer is to fix the foundation first.",
     gated: false,
     cta: "Take the assessment",
     href: "/contact?type=gtm-ai-twin",

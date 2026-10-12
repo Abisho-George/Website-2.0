@@ -90,8 +90,8 @@ export default async function FamilyPage({ params }: { params: Promise<{ slug: s
         <ServiceGrid services={members} className="mt-10" />
         {g.slug === "leadstrategus-ai" && (
           <p className="mt-8 text-[0.95rem] text-muted">
-            The GTM AI Twin has its own page.{" "}
-            <Link href="/gtm-ai-twin" className="link-u text-fg">See how it works</Link>, or{" "}
+            The Lead Gen AI Twin has its own page.{" "}
+            <Link href="/lead-gen-ai-twin" className="link-u text-fg">See how it works</Link>, or{" "}
             <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="link-u inline-flex items-center gap-1 text-fg">
               visit LeadStrategus.ai <ArrowUpRight className="size-3.5" />
             </a>

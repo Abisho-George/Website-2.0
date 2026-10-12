@@ -15,10 +15,10 @@ import { proof } from "@/content/site";
 import { buildMetadata, serviceJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "GTM AI Twin: custom AI agents for B2B go-to-market",
+  title: "Lead Gen AI Twin: custom AI agents for B2B go-to-market",
   description: "We build custom AI agents that take over B2B go-to-market: identify prospects, research accounts, reach out in your voice, handle replies and book qualified meetings. What it is, why now, and why LeadStrategus.",
-  path: "/gtm-ai-twin",
-  keywords: ["GTM AI Twin", "AI agents for go-to-market", "AI SDR alternative", "AI demand generation", "custom AI sales agents", "AI agents for B2B outbound", "LeadStrategus.ai"],
+  path: "/lead-gen-ai-twin",
+  keywords: ["Lead Gen AI Twin", "AI agents for go-to-market", "AI SDR alternative", "AI demand generation", "custom AI sales agents", "AI agents for B2B outbound", "LeadStrategus.ai"],
 });
 
 const svc = getService("gtm-ai-twin")!;
@@ -28,7 +28,7 @@ const anchors = [["agents", "The agents"], ["what", "What is it"], ["why-now", "
 export default function TwinPage() {
   return (
     <>
-      <JsonLd data={[serviceJsonLd({ name: "GTM AI Twin", description: svc.what, path: "/gtm-ai-twin", category: "AI agents for go-to-market", alternateNames: svc.seoTerms }), faqJsonLd(twinFaq), breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "GTM AI Twin", path: "/gtm-ai-twin" }])]} />
+      <JsonLd data={[serviceJsonLd({ name: "Lead Gen AI Twin", description: svc.what, path: "/lead-gen-ai-twin", category: "AI agents for go-to-market", alternateNames: svc.seoTerms }), faqJsonLd(twinFaq), breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Lead Gen AI Twin", path: "/lead-gen-ai-twin" }])]} />
 
       <section className="band relative overflow-hidden pt-[var(--nav-h)]">
         <Bloom hue="ember" at="tr" size={64} />

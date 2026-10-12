@@ -25,7 +25,7 @@ const timeline = [
   { y: "[[2019]]", t: "Productised formats", b: "Webinar-as-a-Service, Quiz-as-a-Service and Lead Generation in a Box launch as fixed-scope programmes." },
   { y: "[[2021]]", t: "Account intelligence", b: "Database-as-a-Service and OSINT briefs become a standalone service line feeding every programme." },
   { y: "[[2024]]", t: "leadstrategus.ai", b: "The agent platform ships: AI revenue agents that find, qualify and convert, built on eight years of programme data." },
-  { y: "2026", t: "GTM AI Twin", b: "Custom agents that take over go-to-market end to end, built and run for clients on our own platform." },
+  { y: "2026", t: "Lead Gen AI Twin", b: "Custom agents that take over go-to-market end to end, built and run for clients on our own platform." },
 ];
 
 export default function AboutPage() {

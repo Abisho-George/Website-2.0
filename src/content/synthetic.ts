@@ -29,7 +29,7 @@ export type RunLine = {
   tone?: RunTone;
 };
 
-/** One run of the GTM AI Twin, as its log would read. */
+/** One run of the Lead Gen AI Twin, as its log would read. */
 export const runLog: RunLine[] = [
   { agent: "prospecting", text: "universe refreshed · 4,212 accounts scanned · 38 moved to active tier" },
   { agent: "research", text: "brief built · Northwind Logistics · S/4 migration · new CIO · 3 open roles" },
