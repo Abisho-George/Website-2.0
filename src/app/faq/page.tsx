@@ -44,7 +44,7 @@ export default function FaqPage() {
                   <li key={g.id}>
                     <a href={`#${g.id}`} className="flex items-baseline justify-between gap-3 rounded-lg px-2.5 py-1.5 -mx-2.5 text-sm text-muted transition-colors hover:bg-sand hover:text-ink">
                       {g.title}
-                      <span className="font-mono text-[0.68rem] text-dim">{g.items.length}</span>
+                      <span className="kicker text-dim">{g.items.length}</span>
                     </a>
                   </li>
                 ))}

@@ -42,7 +42,7 @@ export function ValueChain({ stages, className }: { stages: Stage[]; className?:
                 lit ? "border-ember bg-ember shadow-[0_0_0_4px_var(--color-ember-wash)]" : "border-rule-strong bg-paper",
               )}
             />
-            <span className={cn("font-mono text-label uppercase tracking-[0.14em]", lit ? "font-medium text-fg" : "text-faint")}>
+            <span className={cn("kicker", lit ? "font-medium text-fg" : "text-faint")}>
               {LABEL[s]}
               {lit && <span className="sr-only"> (this service)</span>}
             </span>

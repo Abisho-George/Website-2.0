@@ -79,7 +79,7 @@ export default function FamiliesHub() {
           {platforms.map((g) => (
             <a key={g.slug} href={g.url} target="_blank" rel="noopener noreferrer" className="card card-hover group flex items-center justify-between gap-6 p-6">
               <div>
-                <div className="font-mono text-micro uppercase tracking-[0.14em] text-muted">Platform</div>
+                <div className="kicker text-muted">Platform</div>
                 <div className="h3 mt-1 transition-colors group-hover:text-ember-ink">{g.name}</div>
                 <p className="mt-1 text-muted">{g.tagline}</p>
               </div>
@@ -90,7 +90,7 @@ export default function FamiliesHub() {
 
         <Reveal className="glow-ember mt-10 grid gap-6 rounded-[var(--radius-xl)] border border-ember/30 bg-paper p-8 md:grid-cols-12 md:items-center md:p-10">
           <div className="md:col-span-8">
-            <div className="flex items-center gap-2 text-ember-ink"><Sparkles className="size-4" /><span className="font-mono text-micro uppercase tracking-[0.14em]">Special service</span></div>
+            <div className="flex items-center gap-2 text-ember-ink"><Sparkles className="size-4" /><span className="kicker">Special service</span></div>
             <h2 className="h3 mt-3">Lead Gen AI Twin</h2>
             <p className="mt-2 max-w-xl text-muted">Encode your demand-gen best practices into a connected system, with human judgement retained at the gates that matter.</p>
           </div>

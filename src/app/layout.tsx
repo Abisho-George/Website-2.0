@@ -1,13 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-// `standard` carries wght + wdth + opsz in one file. The package default
-// (index.css) is weight-only, which is why `font-variation-settings: "opsz"`
-// has been dead code; `opsz.css` is the mirror trap, optical size but no
-// weight axis, which would flatten every heading on the site to one weight.
-import "@fontsource-variable/bricolage-grotesque/standard.css";
-import "@fontsource/instrument-serif/400.css";
-import "@fontsource/instrument-serif/400-italic.css";
+// headings: Plus Jakarta Sans (variable weight); body copy is Geist
+import "@fontsource-variable/plus-jakarta-sans/index.css";
 // the logotype (Cinzel Bold) and its tagline (Montserrat Medium), per the brand kit
 import "@fontsource/cinzel/latin-700.css";
 import "@fontsource/montserrat/latin-500.css";

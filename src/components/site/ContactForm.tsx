@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 const field = "w-full rounded-xl border border-rule bg-paper px-4 py-3 text-[0.95rem] text-fg placeholder:text-dim outline-none transition-colors focus:border-ember focus:ring-2 focus:ring-ember/20";
-const label = "mb-2 block font-mono text-[0.66rem] uppercase tracking-[0.14em] text-muted";
+const label = "kicker mb-2 block text-fg-soft";
 
 export function ContactForm({ defaultType = "gtm-ai-twin", tone = "ember" }: { defaultType?: string; tone?: "ember" | "twin" }) {
   const [state, action, pending] = useActionState<FormState, FormData>(submitEnquiry, null);

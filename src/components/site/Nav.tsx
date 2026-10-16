@@ -114,7 +114,7 @@ export function Nav() {
         </nav>
 
         <div className="hidden items-center gap-4 lg:flex">
-          <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="font-mono text-[0.7rem] uppercase tracking-[0.13em] text-muted transition-colors hover:text-ember-ink">.ai ↗</a>
+          <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="kicker text-muted transition-colors hover:text-ember-ink">.ai ↗</a>
           <Button href="/book" size="sm">Book a strategy call</Button>
         </div>
 
@@ -159,7 +159,7 @@ export function Nav() {
             <div className="rounded-[var(--radius-lg)] border border-ember/25 bg-ember-wash p-6">
               <div className="flex items-center gap-2 text-ember-ink">
                 <Sparkles className="size-4" />
-                <span className="font-mono text-[0.64rem] uppercase tracking-[0.15em]">Special service</span>
+                <span className="kicker">Special service</span>
               </div>
               <div className="mt-2 font-display text-[1.5rem] font-semibold tracking-tight">Lead Gen AI Twin</div>
               <p className="mt-2 text-[0.86rem] leading-relaxed text-fg-soft">{getService("gtm-ai-twin")?.tagline}</p>
@@ -206,7 +206,7 @@ export function Nav() {
         <div className="container-x flex h-full flex-col overflow-y-auto pb-12 pt-6">
           <Link href="/lead-gen-ai-twin" className="mb-6 flex items-center justify-between rounded-2xl border border-ember/25 bg-ember-wash p-5 text-ember-ink">
             <div>
-              <div className="flex items-center gap-2"><Sparkles className="size-4" /><span className="font-mono text-[0.66rem] uppercase tracking-[0.15em]">Special service</span></div>
+              <div className="flex items-center gap-2"><Sparkles className="size-4" /><span className="kicker">Special service</span></div>
               <div className="mt-1 font-display text-xl font-semibold tracking-tight text-fg">Lead Gen AI Twin</div>
             </div>
             <ArrowRight className="size-5" />

@@ -93,21 +93,22 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               { label: s.name },
             ]}
           />
-          <div className="mt-7">
-            <Reveal className="max-w-3xl">
-              <div className="flex items-center gap-3">
-                <IconPlate icon={iconFor(s.slug)} size="md" />
-                <Link href={groupHref} className="text-[0.88rem] font-medium text-ember-ink hover:underline">{group.name}</Link>
-              </div>
-              <h1 className="display-2 mt-5 balance">{s.name}</h1>
-              <p className="mt-3 font-display text-[1.2rem] font-medium leading-snug text-ember-ink md:text-[1.45rem]">{s.tagline}.</p>
-              <p className="mt-5 max-w-2xl text-[1.05rem] leading-relaxed text-fg-soft md:text-[1.1rem]">{s.what}</p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button href={enquiry} size="lg">Talk about {s.name}</Button>
+          <div className="mt-8 grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-14">
+            <Reveal className="lg:col-span-6">
+              <Link href={groupHref} className="inline-flex items-center gap-2.5 rounded-full bg-ember-wash py-1 pl-1 pr-4 text-[0.88rem] font-semibold text-ember-ink hover:bg-ember hover:text-white">
+                <IconPlate icon={iconFor(s.slug)} size="sm" />
+                {group.name}
+              </Link>
+              <h1 className="mt-6 font-display text-[2.2rem] font-bold leading-[1.06] tracking-[-0.02em] balance sm:text-[2.7rem] lg:text-[3.3rem]">{s.name}</h1>
+              <p className="mt-4 font-display text-[1.2rem] font-semibold leading-snug tracking-[-0.015em] text-ember md:text-[1.45rem]">{s.tagline}.</p>
+            </Reveal>
+            <Reveal delay={90} className="lg:col-span-6">
+              <p className="text-[1.05rem] leading-relaxed text-fg-soft md:text-[1.12rem]">{s.what}</p>
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Button href={enquiry} size="lg">Talk to us about this</Button>
                 <Button href="/book" size="lg" variant="outline">Book a strategy call</Button>
               </div>
             </Reveal>
-
           </div>
         </div>
       </section>
@@ -133,38 +134,24 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </Section>
 
-      {/* use cases */}
+      {/* use cases: two small cards and a way into the library */}
       {(own.length > 0 || related.length > 0) && (
         <Section pad="tight">
-          <div className="flex flex-wrap items-end justify-between gap-3">
-            <h2 className="h3">{s.name} in action</h2>
-            <Link href={`/use-cases?family=${encodeURIComponent(own[0]?.family ?? related[0].family)}`} className="inline-flex items-center gap-1.5 text-sm font-medium text-ember-ink hover:underline">
-              All use cases <ArrowRight className="size-4" />
+          <h2 className="h3">{s.name} in action</h2>
+          <div className="rail rail--swipe mt-6 md:grid-cols-2 lg:grid-cols-3">
+            {(own.length ? own : related).slice(0, 2).map((u, i) => <UseCaseCard key={u.slug} u={u} i={i} showService={false} />)}
+            <Link
+              href={`/use-cases?family=${encodeURIComponent((own[0] ?? related[0]).family)}`}
+              className="group flex flex-col justify-between rounded-[var(--radius-lg)] bg-ember p-5 text-white transition-colors hover:bg-ember-deep md:p-6"
+            >
+              <span className="font-display text-[1.25rem] font-bold leading-snug tracking-[-0.015em]">
+                See every {group.short} use case
+              </span>
+              <span className="mt-6 inline-flex items-center gap-2 text-[0.92rem] font-semibold">
+                Browse use cases <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+              </span>
             </Link>
           </div>
-          {own.length > 0 && (
-            <div className="rail rail--swipe mt-6 md:grid-cols-2">
-              {own.map((u, i) => <UseCaseCard key={u.slug} u={u} i={i} showService={false} />)}
-            </div>
-          )}
-          {related.length > 0 && (
-            <>
-              <p className="mt-8 text-[0.85rem] font-medium text-muted">{own.length ? "Also used in" : "Used in"}</p>
-              <ul className="mt-3 grid gap-2 md:grid-cols-2">
-                {related.slice(0, 4).map((u) => (
-                  <li key={u.slug}>
-                    <Link href={`/use-cases/${u.slug}`} className="group flex h-full items-start justify-between gap-3 rounded-[var(--radius-md)] border border-rule bg-paper px-4 py-3 hover:border-ember/50">
-                      <span>
-                        <span className="block text-[0.74rem] font-medium text-ember-ink">{u.industry}</span>
-                        <span className="mt-0.5 block text-[0.95rem] leading-snug text-fg group-hover:text-ember-ink">{u.title}</span>
-                      </span>
-                      <ArrowUpRight className="mt-1 size-4 shrink-0 text-dim group-hover:text-ember-ink" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
         </Section>
       )}
 

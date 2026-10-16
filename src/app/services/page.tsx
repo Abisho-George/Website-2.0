@@ -71,7 +71,7 @@ export default function ServicesHub() {
               <div className="flex items-center gap-6">
                 <PracticeGlyph slug={f.slug} className="hidden h-16 w-24 shrink-0 opacity-70 lg:block" />
                 <div className="sm:text-right">
-                  <div className="font-mono text-micro uppercase tracking-[0.15em] text-dim">
+                  <div className="kicker text-dim">
                     {group.length} {group.length === 1 ? "service" : "services"}
                   </div>
                   <Link href={`/practices/${f.slug}`} className="mt-1 inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors duration-[var(--dur-1)] hover:text-ember-ink">
@@ -128,7 +128,7 @@ export default function ServicesHub() {
           <div className="md:col-span-8">
             <div className="flex items-center gap-2 text-ember-ink">
               <Sparkles className="size-4" />
-              <span className="font-mono text-micro uppercase tracking-[0.15em]">Special service</span>
+              <span className="kicker">Special service</span>
             </div>
             <h2 className="h2 mt-3">Lead Gen AI Twin</h2>
             <p className="lede mt-3 max-w-xl">Encode your demand-gen best practices into a connected system. The heavy lifting is done by agents; the decisions stay with you.</p>

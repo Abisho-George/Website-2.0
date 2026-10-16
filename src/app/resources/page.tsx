@@ -40,7 +40,7 @@ export default function ResourcesPage() {
                   <IconPlate icon={resourceIconFor(r.kind)} size="lg" />
                   <ArrowUpRight className="size-4 text-dim transition-colors duration-[var(--dur-1)] group-hover:text-ember-ink" />
                 </div>
-                <p className="mt-5 font-mono text-micro uppercase tracking-[0.15em] text-dim">{r.kind}</p>
+                <p className="kicker mt-5 text-dim">{r.kind}</p>
                 <h2 className="h4 mt-1.5"><Copy text={r.title} /></h2>
                 <p className="mt-2.5 text-[0.9rem] leading-relaxed text-muted">{r.blurb}</p>
                 <p className="mt-3 text-[0.82rem] leading-relaxed text-dim"><Copy text={r.detail} /></p>
@@ -73,7 +73,7 @@ export default function ResourcesPage() {
           {insightsByDate.slice(0, 3).map((p, i) => (
             <Reveal key={p.slug} delay={i * 60} className="h-full">
               <Link href={`/insights/${p.slug}`} className="card card-hover group flex h-full flex-col p-6">
-                <div className="font-mono text-[0.64rem] uppercase tracking-[0.14em] text-muted">{getCluster(p.cluster)?.name} · {formatDate(p.date)}</div>
+                <div className="kicker text-muted">{getCluster(p.cluster)?.name} · {formatDate(p.date)}</div>
                 <h3 className="mt-5 font-display text-[1.15rem] font-semibold leading-snug tracking-tight">{p.title}</h3>
                 <p className="mt-2.5 text-[0.88rem] leading-relaxed text-muted">{p.dek}</p>
                 <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-medium text-ember-ink">Read <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" /></span>

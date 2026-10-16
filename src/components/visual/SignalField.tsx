@@ -29,7 +29,6 @@ const KEEP = [0.6, 0.55, 0.5];
 const PLANES = [0.6, 0.85, 1] as const;
 const LINK_D2 = 7400;
 const LINK_DX = 86; // px, beyond this no pair can be within LINK_D2
-const SWEEP_EVERY = 9000; // ms between scan passes
 
 type P = {
   x: number; y: number; px: number; py: number;
@@ -89,29 +88,8 @@ function makeScene(): Scene {
     }
     ctx.setLineDash([]);
 
-    // a scan pass every few seconds, so the field reads as live rather than idle
-    if (!reduced) {
-      const phase = (env.t % SWEEP_EVERY) / SWEEP_EVERY;
-      if (phase < 0.28) {
-        const sx = w * (0.1 + (phase / 0.28) * 0.95);
-        const grd = ctx.createLinearGradient(sx - 90, 0, sx + 40, 0);
-        grd.addColorStop(0, ember(0));
-        grd.addColorStop(0.8, ember(0.05));
-        grd.addColorStop(1, ember(0));
-        ctx.fillStyle = grd;
-        ctx.fillRect(sx - 90, 0, 130, h);
-      }
-    }
-
     // the booked meeting
     const pulse = 0.5 + 0.5 * Math.sin(env.t / 700);
-    const grd = ctx.createRadialGradient(meet.x, meet.y, 0, meet.x, meet.y, 54 + pulse * 16);
-    grd.addColorStop(0, ember(0.22));
-    grd.addColorStop(1, ember(0));
-    ctx.fillStyle = grd;
-    ctx.beginPath();
-    ctx.arc(meet.x, meet.y, 72, 0, Math.PI * 2);
-    ctx.fill();
     ctx.fillStyle = ember(1);
     ctx.beginPath();
     ctx.arc(meet.x, meet.y, 4.5, 0, Math.PI * 2);

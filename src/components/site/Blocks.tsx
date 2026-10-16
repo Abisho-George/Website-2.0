@@ -34,7 +34,7 @@ export function PracticeCard({ p, i }: { p: Group; i: number }) {
             <li key={s.slug} className="rounded-full border border-rule bg-sand px-2.5 py-1 text-[0.72rem] text-muted">{s.name}</li>
           ))}
           {members.length > 4 && (
-            <li className="rounded-full px-2.5 py-1 font-mono text-[0.72rem] text-dim">+{members.length - 4} more</li>
+            <li className="kicker rounded-full px-2.5 py-1 text-dim">+{members.length - 4} more</li>
           )}
         </ul>
         <span className="relative mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-ember-ink">
@@ -53,7 +53,7 @@ export function Quote({ text, who }: { text: string; who: string }) {
       <blockquote className="serif-quote relative text-[1.4rem] leading-[1.28] balance md:text-[1.9rem]">
         <Copy text={text} />
       </blockquote>
-      <figcaption className="mt-5 font-mono text-[0.68rem] uppercase tracking-[0.15em] text-muted"><Copy text={who} /></figcaption>
+      <figcaption className="kicker mt-5 text-muted"><Copy text={who} /></figcaption>
     </figure>
   );
 }
@@ -112,7 +112,7 @@ export function ProofBar() {
     <div className="border-y border-rule bg-sand">
       <div className="container-x flex flex-col gap-4 py-5 md:flex-row md:items-center md:justify-between md:gap-8">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <span className="shrink-0 font-mono text-[0.68rem] uppercase tracking-[0.15em] text-muted">Leadership from</span>
+          <span className="kicker shrink-0 text-muted">Leadership from</span>
           <ul className="flex flex-wrap gap-x-5 gap-y-1 font-display text-[0.95rem] font-semibold tracking-tight">
             {proof.pedigree.map((p) => <li key={p}>{p}</li>)}
           </ul>
@@ -135,7 +135,7 @@ export function ProofBar() {
 
 export function Breadcrumb({ items }: { items: { label: string; href?: string }[] }) {
   return (
-    <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.13em] text-muted">
+    <nav aria-label="Breadcrumb" className="kicker flex flex-wrap items-center gap-2 text-muted">
       {items.map((it, i) => (
         <span key={i} className="flex items-center gap-2">
           {i > 0 && <span className="text-dim">/</span>}

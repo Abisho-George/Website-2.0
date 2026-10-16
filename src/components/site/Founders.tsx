@@ -28,7 +28,7 @@ export function FounderCard({ a, i = 0, className }: { a: Author; i?: number; cl
       <article id={a.slug} className="card card-hover group relative h-full scroll-mt-[calc(var(--nav-h)+24px)] p-6 md:p-7">
         <div className="flex items-center gap-5">
           <Photo a={a} className="size-20 md:size-24" />
-          <p className="font-mono text-label uppercase tracking-[0.14em] text-ember-ink">{a.role}</p>
+          <p className="kicker text-ember-ink">{a.role}</p>
         </div>
         <h3 className="h3 mt-5">
           {/* the stretched button makes the whole card the target */}
@@ -89,7 +89,7 @@ function FounderDialog({ a }: { a: Author }) {
         <div className="flex items-center gap-5 pr-10">
           <Photo a={a} className="size-20 md:size-28" />
           <div>
-            <p className="font-mono text-label uppercase tracking-[0.14em] text-ember-ink">{a.role}</p>
+            <p className="kicker text-ember-ink">{a.role}</p>
             <h2 id={`${dialogId(a.slug)}-name`} className="h2 mt-1">{a.name}</h2>
           </div>
         </div>

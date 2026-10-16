@@ -38,7 +38,7 @@ export function InsightsIndex({ items, clusters }: { items: Insight[]; clusters:
               className={topic("all", active === "all")}
             >
               All insights
-              <span className="ml-2 font-mono text-[0.68rem] text-dim">{items.length}</span>
+              <span className="kicker ml-2 text-dim">{items.length}</span>
             </button>
           </li>
           {clusters.map((c) => (
@@ -55,7 +55,7 @@ export function InsightsIndex({ items, clusters }: { items: Insight[]; clusters:
                     while scanning rather than only while reading */}
                 <IconPlate icon={clusterIconFor(c.slug)} presentation="bare" size="sm" />
                 <span className="min-w-0 flex-1 truncate text-left">{c.name}</span>
-                <span className="font-mono text-[0.68rem] text-dim">{items.filter((i) => i.cluster === c.slug).length}</span>
+                <span className="kicker text-dim">{items.filter((i) => i.cluster === c.slug).length}</span>
               </button>
             </li>
           ))}
@@ -69,7 +69,7 @@ export function InsightsIndex({ items, clusters }: { items: Insight[]; clusters:
           // half a second behind the first and it only gets worse with volume
           <StaggerItem key={i.slug} i={idx} step={stagger.tight} cap={6}>
             <Link data-item data-cluster={i.cluster} href={`/insights/${i.slug}`} className="group grid gap-3 py-8 md:grid-cols-12 md:items-baseline">
-              <div className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted md:col-span-3">{name(i.cluster)}<br />{formatDate(i.date)}</div>
+              <div className="kicker text-muted md:col-span-3">{name(i.cluster)}<br />{formatDate(i.date)}</div>
               <div className="md:col-span-8">
                 <div className="h3 transition-colors duration-[var(--dur-1)] group-hover:text-ember-ink">{i.title}</div>
                 <p className="mt-2 max-w-2xl text-[0.95rem] text-muted">{i.dek}</p>

@@ -28,7 +28,7 @@ function Stages({ s, className }: { s: Service; className?: string }) {
   // a span of six or more stages (the AI systems) reads as "end to end"
   const span = s.stages.length >= 6;
   return (
-    <p className={cn("font-mono text-micro uppercase tracking-[0.13em] text-dim", className)}>
+    <p className={cn("kicker text-dim", className)}>
       {span ? `${stageLabel[s.stages[0]]} to ${stageLabel[s.stages[s.stages.length - 1]]}` : s.stages.map((x) => stageLabel[x]).join(" · ")}
     </p>
   );

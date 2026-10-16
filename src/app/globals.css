@@ -63,7 +63,7 @@
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
-  --font-display: "Bricolage Grotesque Variable", "Bricolage Fallback", "Bricolage Grotesque", var(--font-geist-sans), system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", var(--font-geist-sans), system-ui, sans-serif;
   /* The emphasis face. Used only inside <em> in headings and for pull quotes, never for running text. One idea, one face. */
   --font-serif: "Instrument Serif", "Instrument Fallback", ui-serif, Georgia, "Times New Roman", serif;
 
@@ -192,9 +192,9 @@
   --measure-text: 720px;
   --measure-mid: 1040px;
   --measure-wide: 1400px;
-  --pad-tight: clamp(40px, 5vw, 72px);
-  --pad-base: clamp(64px, 8vw, 116px);
-  --pad-loose: clamp(88px, 11vw, 168px);
+  --pad-tight: clamp(36px, 4.5vw, 60px);
+  --pad-base: clamp(48px, 6vw, 88px);
+  --pad-loose: clamp(56px, 7vw, 104px);
 
   /* ---------- heroes ----------
      svh, not vh, so mobile browser chrome does not push the read below the fold. */
@@ -292,75 +292,44 @@ body {
   position: absolute;
   inset: 0;
   background: var(--band, transparent);
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--plate-fade), #000 calc(100% - var(--plate-fade)), transparent);
-  mask-image: linear-gradient(to bottom, transparent, #000 var(--plate-fade), #000 calc(100% - var(--plate-fade)), transparent);
   z-index: 0;
-  pointer-events: none;
-}
-.band--ink::before { -webkit-mask-image: none; mask-image: none; }
-/* service pages: solid grounds that meet at a hard edge, and a tighter rhythm */
-.page-solid .band::before { -webkit-mask-image: none; mask-image: none; }
-.page-solid .section-y[data-pad="tight"] { padding-block: clamp(40px, 5vw, 64px); }
-.page-solid .card, .page-solid .band--sand .card { background: var(--color-paper); }
-.band--ink::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; top: -40px;
-  height: 40px;
-  background: linear-gradient(to top, rgba(23,18,13,.16), transparent);
   pointer-events: none;
 }
 .band > .container-x { position: relative; z-index: var(--z-band-content); }
 
 
 /* ---------- type ----------
-   Bricolage is an optical-size design: the same letterform is drawn with
-   different contrast and spacing depending on how large it will be set.
-   Every rung below therefore declares its own `opsz` rather than scaling one
-   drawing up, which is the difference between a headline that was set and a
-   headline that was merely enlarged. */
-.display {
-  font-family: var(--font-display);
-  font-weight: 620;
-  font-variation-settings: "opsz" 48;
-  letter-spacing: -0.038em;
-  line-height: 0.94;
-}
-.display-1 {
-  font-family: var(--font-display);
-  font-weight: 620;
-  font-variation-settings: "opsz" 72;
-  letter-spacing: -0.042em;
-  line-height: 0.9;
-  font-size: var(--text-display-1);
-}
-.display-2 {
-  font-family: var(--font-display);
-  font-weight: 620;
-  font-variation-settings: "opsz" 54;
-  letter-spacing: -0.038em;
-  line-height: 0.94;
-  font-size: var(--text-display-2);
+   Headings are Plus Jakarta Sans, set bold with a little negative tracking.
+   An <em> inside a heading stays in the same face and simply turns brand
+   red, so emphasis reads as colour rather than as a change of voice. */
+/* Plus Jakarta's word space is narrow (about 0.17em) and reads as words
+   running together once headings are tracked tight, so everything set in the
+   heading face opens it up. The body's Geist stylistic sets are switched off
+   here too, since they mean nothing to this face. */
+.font-display, .display, .display-1, .display-2, .display-3, .h2, .h3, .h4,
+.kicker, .eyebrow, .readout__k, .spec, .serif-quote {
+  font-feature-settings: normal;
+  word-spacing: 0.09em;
 }
 
+.display, .display-1, .display-2, .display-3, .h2, .h3, .h4 {
+  font-family: var(--font-display);
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+.display { line-height: 1.02; }
+.display-1 { line-height: 1; font-size: var(--text-display-1); }
+.display-2 { line-height: 1.04; font-size: var(--text-display-2); }
 /* figures, not headings: a proof number set at display scale */
-.display-3 {
-  font-family: var(--font-display);
-  font-weight: 620;
-  font-variation-settings: "opsz" 34;
-  letter-spacing: -0.032em;
-  line-height: 1;
-  font-size: var(--text-display-3);
-}
+.display-3 { line-height: 1.06; font-size: var(--text-display-3); }
+.h2 { font-weight: 720; letter-spacing: -0.018em; line-height: 1.1; font-size: var(--text-display-3); }
+.h3 { font-weight: 700; letter-spacing: -0.012em; line-height: 1.2; font-size: var(--text-title); }
+.h4 { font-weight: 680; letter-spacing: -0.006em; line-height: 1.3; font-size: var(--text-subtitle); }
 
-/* The emphasis face. An <em> inside a heading is the one place this site
-   changes voice, it marks the word the sentence is actually about. */
-.display em, .display-1 em, .display-2 em, .h2 em, .h3 em, .serif-em {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1.14em;
-  letter-spacing: -0.005em;
+.display em, .display-1 em, .display-2 em, .display-3 em, .h2 em, .h3 em, .serif-em {
+  font-family: inherit;
+  font-style: normal;
+  font-weight: inherit;
   color: var(--color-ember);
 }
 .band--ink .display em,
@@ -368,40 +337,6 @@ body {
 .band--ink .display-2 em,
 .band--ink .h2 em,
 .band--ink .serif-em { color: var(--color-ember-2); }
-
-.h2 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-variation-settings: "opsz" 40;
-  letter-spacing: -0.032em;
-  line-height: 1.0;
-  font-size: var(--text-display-3);
-}
-.h3 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-variation-settings: "opsz" 24;
-  letter-spacing: -0.025em;
-  line-height: 1.1;
-  font-size: var(--text-title);
-}
-.h4 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-variation-settings: "opsz" 17;
-  letter-spacing: -0.018em;
-  line-height: 1.3;
-  font-size: var(--text-subtitle);
-}
-/* Below 480px even the display cuts are being set small; hold the optical
-   size down and take the weight up so they do not go spindly. */
-@media (max-width: 480px) {
-  .display, .display-1, .display-2, .display-3 {
-    font-variation-settings: "opsz" 28;
-    font-weight: 660;
-    letter-spacing: -0.03em;
-  }
-}
 
 .lede {
   font-size: clamp(1.03rem, 1.25vw, 1.24rem);
@@ -414,30 +349,39 @@ body {
 .measure { max-width: var(--measure-text); }
 /* a pull quote set in the emphasis face rather than the display face */
 .serif-quote {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
 }
 
 .eyebrow {
-  font-family: var(--font-mono);
-  font-size: var(--text-label);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--color-muted);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+  color: var(--color-ember-ink);
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
 }
 .eyebrow::before {
   content: "";
-  width: 18px; height: 1px;
-  background: currentColor;
-  opacity: .55;
+  width: 20px; height: 3px;
+  border-radius: 2px;
+  background: var(--color-ember);
   flex: none;
 }
+/* a small label above a value or a list: the readable replacement for the
+   old spaced mono capitals */
+.kicker {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+  line-height: 1.3;
+}
 .eyebrow__n { font-variant-numeric: tabular-nums; color: var(--color-ember-ink); }
-.band--ink .eyebrow { color: #b3a89a; }
+.band--ink .eyebrow { color: var(--color-ember-2); }
 
 /* a hairline under a section head that draws itself as the head arrives */
 .rule-draw { transform-origin: left; }
@@ -449,7 +393,7 @@ body {
 .card {
   position: relative;
   isolation: isolate;
-  background: linear-gradient(to bottom, var(--color-paper), var(--color-sand-2));
+  background: var(--color-paper);
   border: 1px solid transparent;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-e1), var(--inset-shadow-lip);
@@ -461,7 +405,7 @@ body {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: var(--edge-rest);
+  background: var(--color-rule);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -480,12 +424,12 @@ body {
   pointer-events: none;
   z-index: -1;
 }
-.band--sand .card, .band--kraft .card { background: linear-gradient(to bottom, var(--color-paper), var(--color-sand-2)); }
+.band--sand .card, .band--kraft .card { background: var(--color-paper); }
 .band--ink .card {
   background: rgba(255,255,255,.045);
   box-shadow: none;
 }
-.band--ink .card::before { background: linear-gradient(158deg, rgba(255,255,255,.18), rgba(255,255,255,.06) 50%, rgba(255,255,255,.13)); }
+.band--ink .card::before { background: rgba(255,255,255,.14); }
 .band--ink .card::after { box-shadow: none; }
 
 /* A card lifts when there is something in it to click. Cards that are pure
@@ -519,7 +463,7 @@ a.card:hover::after, a.card:focus-visible::after,
 .plate--lg { width: 54px; height: 54px; }
 .card:hover .plate {
   transform: translateY(-3px) rotate(-3.5deg);
-  background: linear-gradient(to bottom, var(--color-ember-wash), #ffe1e3);
+  background: var(--color-ember-wash);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 0 0 1px rgba(228,18,31,.30), var(--shadow-e3-ember);
 }
 .band--ink .plate {
@@ -529,7 +473,7 @@ a.card:hover::after, a.card:focus-visible::after,
 }
 
 /* a row of ticks that reads as a measured quantity rather than a label */
-.spec { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: var(--text-micro); color: var(--color-dim); }
+.spec { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 0.82rem; font-weight: 600; color: var(--color-dim); }
 .spec__ticks { display: flex; gap: 3px; }
 .spec__tick {
   width: 6px; height: 10px;
@@ -674,10 +618,15 @@ a.card:hover::after, a.card:focus-visible::after,
   pointer-events: none;
 }
 @media (max-width: 1023px) { .hero__scene { inset: 0; opacity: .45; } }
-/* A scene made of words and figures (an index of services, a ledger of
-   results) reads as clutter once it sits under the headline instead of beside
-   it, so below desktop it steps aside. Drawn scenes stay as texture. */
-@media (max-width: 1023px) { .hero__scene:has([data-index-scene]) { display: none; } }
+/* the index-page diagrams (column lists of services, families, clusters)
+   compete with the headline; the headline wins at every width */
+.hero__scene:has([data-index-scene]) { display: none; }
+/* an inner page's hero is only as tall as its copy; only a hero with a live
+   scene (the homepage) keeps a reserved height */
+.hero:not([data-size="lg"]), .hero:not(:has(.hero__scene)), .hero:has([data-index-scene]) {
+  min-height: 0;
+  padding-top: calc(var(--nav-h) + clamp(36px, 5vw, 72px));
+}
 /* On a phone an inner page's hero is only as tall as its copy: the reserved
    height exists to give a scene room beside the text, and there is no beside. */
 @media (max-width: 767px) {
@@ -710,7 +659,7 @@ a.card:hover::after, a.card:focus-visible::after,
 }
 @media (min-width: 768px) { .readout { grid-template-columns: repeat(4, 1fr); } }
 .readout__cell { background: var(--band, var(--color-paper)); padding: 14px 18px 16px; }
-.readout__k { font-family: var(--font-mono); font-size: var(--text-micro); letter-spacing: .14em; text-transform: uppercase; color: var(--color-dim); }
+.readout__k { font-family: var(--font-display); font-size: 0.85rem; font-weight: 650; color: var(--color-dim); }
 .readout__v {
   font-family: var(--font-display);
   font-variation-settings: "opsz" 24;
@@ -931,15 +880,7 @@ html:not(.js) [data-reveal] { opacity: 1 !important; transform: none !important;
 
 /* ---------- brand ---------- */
 /* the logo's own colours, carried through as a signature rule */
-.brand-rule {
-  height: 3px;
-  background: linear-gradient(90deg,
-    var(--color-ember) 0%,
-    var(--color-ember) 18%,
-    var(--color-brand-navy) 34%,
-    var(--color-brand-blue) 58%,
-    var(--color-brand-blue-2) 100%);
-}
+.brand-rule { height: 3px; background: var(--color-ember); }
 /* ---------- phone type floor ----------
    The mono captions are set between 10 and 11px, which holds on a desktop
    monitor and is too small in a hand. On a phone they come up to 11.5px. */
@@ -961,3 +902,10 @@ html:not(.js) [data-reveal] { opacity: 1 !important; transform: none !important;
   animation: pipe-flow 1.05s linear infinite;
 }
 @media (prefers-reduced-motion: reduce) { .pipe-flow { animation: none; opacity: 0; } }
+
+/* ---------- solid only ----------
+   The site uses flat colour: no glows, washes, grids or fades behind
+   content. These decorative layers stay in the markup but are not drawn. */
+.bloom, .field, .sheen__pass, .surface__sweep, .hero-grain::after { display: none; }
+.grid-bg { background-image: none; }
+.scene-mask, .mask-fade-x { -webkit-mask-image: none; mask-image: none; }

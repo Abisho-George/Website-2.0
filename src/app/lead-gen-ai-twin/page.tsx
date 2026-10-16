@@ -59,7 +59,7 @@ export default function TwinPage() {
       </section>
 
       <div className="sticky top-[var(--nav-h)] z-30 border-y border-rule bg-paper/90 backdrop-blur-xl">
-        <div className="container-x scrollbar-none flex gap-6 overflow-x-auto py-3 font-mono text-[0.68rem] uppercase tracking-[0.14em]">
+        <div className="kicker container-x scrollbar-none flex gap-6 overflow-x-auto py-3">
           {anchors.map(([id, l]) => <a key={id} href={`#${id}`} className="shrink-0 text-muted transition-colors hover:text-ember-ink">{l}</a>)}
         </div>
       </div>
@@ -87,11 +87,11 @@ export default function TwinPage() {
             </div>
             <div className="mt-11 grid gap-4 md:grid-cols-2">
               <Reveal className="card p-6">
-                <div className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-ember-ink">It is</div>
+                <div className="kicker text-ember-ink">It is</div>
                 <ul className="mt-4 space-y-3">{twin.what.isList.map((t) => <li key={t} className="flex gap-3 text-[0.94rem]"><Check className="mt-0.5 size-4 shrink-0 text-ember" />{t}</li>)}</ul>
               </Reveal>
               <Reveal delay={70} className="card p-6">
-                <div className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-muted">It is not</div>
+                <div className="kicker text-muted">It is not</div>
                 <ul className="mt-4 space-y-3">{twin.what.notList.map((t) => <li key={t} className="flex gap-3 text-[0.94rem] text-muted"><X className="mt-0.5 size-4 shrink-0 text-dim" />{t}</li>)}</ul>
               </Reveal>
             </div>
@@ -161,7 +161,7 @@ export default function TwinPage() {
               <div className="mb-5 flex items-center gap-3">
                 <span className="h-px w-10 bg-ember" />
               </div>
-              <div className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-ember-ink">{b.wk}</div>
+              <div className="kicker text-ember-ink">{b.wk}</div>
               <div className="mt-1.5 font-display text-xl font-semibold tracking-tight">{b.t}</div>
               <p className="mt-2.5 text-[0.9rem] leading-relaxed text-muted">{b.b}</p>
             </li>

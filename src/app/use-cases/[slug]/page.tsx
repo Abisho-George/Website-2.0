@@ -33,11 +33,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   });
 }
 
-/** A numbered section head: the number in brand red, the title beside it. */
-function Head({ n, children }: { n: string; children: React.ReactNode }) {
+/** A section head: a short solid red bar, then the title. */
+function Head({ children }: { n?: string; children: React.ReactNode }) {
   return (
-    <div className="flex items-baseline gap-3">
-      <span className="font-mono text-[0.75rem] tracking-[0.14em] text-ember-ink">{n}</span>
+    <div className="flex items-center gap-3">
+      <span aria-hidden className="h-6 w-1.5 shrink-0 rounded-full bg-ember" />
       <h2 className="h3">{children}</h2>
     </div>
   );
@@ -95,7 +95,7 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
 
             <Reveal delay={140} className="lg:col-span-5">
               <aside className="surface p-6 md:p-7">
-                <p className="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-ember-ink">At a glance</p>
+                <p className="h4">At a glance</p>
                 <dl className="mt-4 divide-y divide-rule">
                   {glance.map(([k, v]) => (
                     <div key={k} className="grid grid-cols-[7.5rem_1fr] gap-3 py-3 text-[0.9rem]">
@@ -137,8 +137,8 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
               )}
             >
               <div className="flex items-center justify-between">
-                <span className={cn("font-mono text-[0.7rem] uppercase tracking-[0.14em]", i === 2 ? "text-white/85" : "text-ember-ink")}>
-                  0{i + 1} · {b.k}
+                <span className={cn("kicker", i === 2 ? "text-white" : "text-fg")}>
+                  {b.k}
                 </span>
                 {i < 2 && <ArrowRight aria-hidden className="hidden size-4 text-ember/60 md:block" />}
               </div>
@@ -158,8 +158,8 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
 
           {/* the question */}
           <Reveal as="section" className="relative overflow-hidden rounded-[var(--radius-lg)] bg-sand px-6 py-8 md:px-12 md:py-12">
-            <Quote aria-hidden className="absolute -right-2 -top-2 size-20 text-ember/10 md:size-28" />
-            <p className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ember-ink">02 · The question that mattered</p>
+            <Quote aria-hidden className="absolute right-5 top-5 size-10 text-ember md:right-8 md:top-8" />
+            <p className="kicker text-fg">The question that mattered</p>
             <p className="relative mt-4 font-display text-[1.4rem] font-medium leading-[1.3] tracking-tight text-fg md:text-[1.85rem]">{u.question}</p>
           </Reveal>
 
@@ -168,8 +168,8 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
             <Head n="03">What we did</Head>
             <ol className="mt-7 grid gap-4 md:grid-cols-2">
               {u.whatWeDid.map((s, i) => (
-                <StaggerItem as="li" key={s.t} i={i} className="card p-6">
-                  <span className="font-display text-[2rem] font-semibold leading-none text-ember/25">{String(i + 1).padStart(2, "0")}</span>
+                <StaggerItem as="li" key={s.t} i={i} className="rounded-[var(--radius-lg)] border border-rule bg-paper p-6">
+                  <span className="grid size-9 place-items-center rounded-full bg-ember font-display text-[0.95rem] font-bold text-white">{i + 1}</span>
                   <h3 className="mt-3 font-display text-[1.08rem] font-semibold tracking-tight">{s.t}</h3>
                   <p className="mt-2 text-[0.94rem] leading-relaxed text-fg-soft">{s.b}</p>
                 </StaggerItem>
@@ -198,8 +198,8 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
             <Head n="05">The outcome</Head>
             <div className="mt-7 grid gap-3 sm:grid-cols-2">
               {u.outcome.map((o, i) => (
-                <StaggerItem key={o.t} i={i} className="rounded-[var(--radius-lg)] border-l-[3px] border-ember bg-ember-wash/60 px-5 py-4">
-                  <p className="font-display text-[1.02rem] font-semibold text-ember-ink">{o.t}</p>
+                <StaggerItem key={o.t} i={i} className="rounded-[var(--radius-lg)] bg-ember-wash px-5 py-4">
+                  <p className="font-display text-[1.02rem] font-bold text-ember-ink">{o.t}</p>
                   <p className="mt-1 text-[0.95rem] leading-snug text-fg-soft">{o.b}</p>
                 </StaggerItem>
               ))}
@@ -210,7 +210,7 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
           {/* what changed */}
           <section>
             <Head n="06">What changed in the GTM motion</Head>
-            <div className="mt-6 rounded-[var(--radius-lg)] border border-ember/20 bg-gradient-to-br from-ember-wash to-paper p-6 text-[1.04rem] leading-relaxed text-fg md:p-9 md:text-[1.12rem]">
+            <div className="mt-6 rounded-[var(--radius-lg)] bg-ember p-6 text-white text-[1.04rem] leading-relaxed md:p-9 md:text-[1.12rem]">
               {u.whatChanged.map((p) => <p key={p.slice(0, 40)}>{p}</p>)}
             </div>
           </section>
@@ -218,7 +218,7 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
           {/* services */}
           {all.length > 0 && (
             <section>
-              <p className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-dim">Services in this programme</p>
+              <p className="kicker text-fg">Services in this programme</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {all.map((s) => (
                   <Link

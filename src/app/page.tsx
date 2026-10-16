@@ -146,7 +146,7 @@ export default function Home() {
               <div className="mb-5 flex items-center gap-3">
                 <span className="h-px w-10 bg-ember" />
                 <span className="h-px flex-1 bg-rule" />
-                <span className="font-mono text-[0.66rem] uppercase tracking-[0.13em] text-dim">{ph.d}</span>
+                <span className="kicker text-dim">{ph.d}</span>
               </div>
               <div className="font-display text-xl font-semibold tracking-tight">{ph.p}</div>
               <p className="mt-2 text-[0.94rem] leading-relaxed text-muted">{ph.b}</p>
@@ -156,7 +156,7 @@ export default function Home() {
         <div className="mt-16 grid gap-10 border-t border-rule pt-12 md:grid-cols-12 md:items-center">
           <div className="md:col-span-5">
             <p className="font-display text-[1.5rem] font-medium leading-[1.2] tracking-[-0.022em] md:text-[1.9rem]">&ldquo;We report the same five numbers every week: accounts engaged, meetings booked, meetings held, opportunities created, and what we are changing next.&rdquo;</p>
-            <p className="mt-4 font-mono text-[0.68rem] uppercase tracking-[0.15em] text-muted">Kingshuk Hazra · Founder</p>
+            <p className="kicker mt-4 text-muted">Kingshuk Hazra · Founder</p>
           </div>
           <div className="md:col-span-7"><StatRow stats={proof.stats} /></div>
         </div>
@@ -185,7 +185,7 @@ export default function Home() {
           </div>
         </div>
         <div className="mt-14 border-y border-rule py-5">
-          <Marquee speed="64s" items={proof.verticals.map((v) => <span key={v} className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-dim">{v}</span>)} />
+          <Marquee speed="64s" items={proof.verticals.map((v) => <span key={v} className="kicker text-dim">{v}</span>)} />
         </div>
       </Section>
 
@@ -193,7 +193,7 @@ export default function Home() {
       <Section n="09" label="The other side" band="kraft">
         <SectionHead title={<>There is a <em className="serif-em">second</em> LeadStrategus.</>} lede="This site is the people. The agents have their own address. Move the seam to see the other side, then cross over." />
         <Reveal className="mt-11"><Portal /></Reveal>
-        <p className="mt-3 text-right font-mono text-[0.66rem] uppercase tracking-[0.13em] text-dim">
+        <p className="kicker mt-3 text-right text-dim">
           <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-ember-ink">leadstrategus.ai ↗</a>
         </p>
       </Section>
@@ -208,7 +208,7 @@ export default function Home() {
           {insightsByDate.slice(0, 3).map((i, idx) => (
             <Reveal key={i.slug} delay={idx * 60}>
               <Link href={`/insights/${i.slug}`} className="group grid gap-2 py-6 md:grid-cols-12 md:items-baseline md:gap-6 md:py-7">
-                <div className="font-mono text-[0.66rem] uppercase tracking-[0.13em] text-muted md:col-span-3">{getCluster(i.cluster)?.name} · {formatDate(i.date)}</div>
+                <div className="kicker text-muted md:col-span-3">{getCluster(i.cluster)?.name} · {formatDate(i.date)}</div>
                 <div className="md:col-span-8">
                   <div className="font-display text-[1.2rem] font-semibold tracking-[-0.028em] transition-colors group-hover:text-ember-ink md:text-[1.45rem]">{i.title}</div>
                   <p className="mt-1.5 max-w-2xl text-sm text-muted">{i.dek}</p>

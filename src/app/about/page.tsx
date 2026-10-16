@@ -62,7 +62,7 @@ export default function AboutPage() {
           {timeline.map((t, i) => (
             <Reveal key={t.t} as="li" delay={i * 60} className="relative grid gap-2 py-6 pl-8 md:grid-cols-12">
               <span className="absolute -left-[5px] top-8 size-[9px] rounded-full bg-ember" />
-              <div className="font-mono text-sm text-muted md:col-span-2"><Copy text={t.y} /></div>
+              <div className="kicker text-sm text-muted md:col-span-2"><Copy text={t.y} /></div>
               <div className="md:col-span-10"><div className="text-xl font-medium tracking-tight">{t.t}</div><p className="mt-1 max-w-2xl text-muted">{t.b}</p></div>
             </Reveal>
           ))}
