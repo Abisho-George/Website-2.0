@@ -30,7 +30,7 @@ export function UseCaseCard({ u, i = 0, className, showService = true }: { u: Us
         </h3>
 
         <ol className="relative mt-5 space-y-3.5 pl-5">
-          <span aria-hidden className="absolute bottom-2 left-[4px] top-2 w-px bg-gradient-to-b from-rule-strong via-rule-strong to-ember" />
+          <span aria-hidden className="absolute bottom-2 left-[4px] top-2 w-px bg-rule-strong" />
           {beats.map((b, k) => (
             <li key={b.k} className="relative">
               <span aria-hidden className={cn("absolute -left-5 top-[5px] size-[9px] rounded-full border-2", k === 2 ? "border-ember bg-ember" : "border-rule-strong bg-paper")} />

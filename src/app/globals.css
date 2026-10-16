@@ -298,6 +298,10 @@ body {
   pointer-events: none;
 }
 .band--ink::before { -webkit-mask-image: none; mask-image: none; }
+/* service pages: solid grounds that meet at a hard edge, and a tighter rhythm */
+.page-solid .band::before { -webkit-mask-image: none; mask-image: none; }
+.page-solid .section-y[data-pad="tight"] { padding-block: clamp(40px, 5vw, 64px); }
+.page-solid .card, .page-solid .band--sand .card { background: var(--color-paper); }
 .band--ink::after {
   content: "";
   position: absolute;
