@@ -42,12 +42,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   });
 }
 
-const STAGE: Record<string, string> = { "LEARN / SCALE": "Learn & scale" };
-const stageLabel = (s: string) => STAGE[s] ?? s.charAt(0) + s.slice(1).toLowerCase();
-
 /**
  * One service page, kept deliberately plain: a hero that says what the
- * service is, one band for why now and why us, the use cases, related
+ * service is (no side panel), one band for why now and why us, the use cases, related
  * services and a closing call. Grounds are solid colours with hard edges
  * (the .page-solid scope), and the rhythm is tighter than the rest of the site.
  */
@@ -96,8 +93,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               { label: s.name },
             ]}
           />
-          <div className="mt-7 grid gap-8 lg:grid-cols-12 lg:gap-12">
-            <Reveal className="lg:col-span-7">
+          <div className="mt-7">
+            <Reveal className="max-w-3xl">
               <div className="flex items-center gap-3">
                 <IconPlate icon={iconFor(s.slug)} size="md" />
                 <Link href={groupHref} className="text-[0.88rem] font-medium text-ember-ink hover:underline">{group.name}</Link>
@@ -111,33 +108,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               </div>
             </Reveal>
 
-            <Reveal delay={100} className="lg:col-span-5">
-              <dl className="rounded-[var(--radius-lg)] bg-sand p-6 text-[0.92rem] md:p-7">
-                <div>
-                  <dt className="text-[0.78rem] font-medium uppercase tracking-[0.1em] text-muted">Revenue stage</dt>
-                  <dd className="mt-2 flex flex-wrap gap-1.5">
-                    {s.stages.map((st) => <span key={st} className="rounded-full bg-ember px-3 py-1 text-[0.8rem] font-medium text-white">{stageLabel(st)}</span>)}
-                  </dd>
-                </div>
-                <div className="mt-5 border-t border-rule pt-5">
-                  <dt className="text-[0.78rem] font-medium uppercase tracking-[0.1em] text-muted">Also known as</dt>
-                  <dd className="mt-2 text-fg">{s.seoTerms.join(" · ")}</dd>
-                </div>
-                {own.length > 0 && (
-                  <div className="mt-5 border-t border-rule pt-5">
-                    <dt className="text-[0.78rem] font-medium uppercase tracking-[0.1em] text-muted">See it in action</dt>
-                    <dd className="mt-2 space-y-2">
-                      {own.slice(0, 2).map((u) => (
-                        <Link key={u.slug} href={`/use-cases/${u.slug}`} className="group flex items-start gap-2 leading-snug text-fg hover:text-ember-ink">
-                          <ArrowRight className="mt-[3px] size-4 shrink-0 text-ember" />
-                          <span className="group-hover:underline">{u.title}</span>
-                        </Link>
-                      ))}
-                    </dd>
-                  </div>
-                )}
-              </dl>
-            </Reveal>
           </div>
         </div>
       </section>
