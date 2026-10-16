@@ -99,6 +99,8 @@
 
   /* ---------- elevation ladder ----------
      A raised thing picks a rung. Nothing writes its own shadow. */
+  --shadow-soft: 0 1px 2px rgb(23 18 13 / .05), 0 8px 24px -14px rgb(23 18 13 / .14);
+  --shadow-lift: 0 2px 4px rgb(23 18 13 / .05), 0 22px 44px -20px rgb(23 18 13 / .24);
   --shadow-e1: 0 1px 2px -1px rgb(23 18 13 / .10), 0 3px 8px -4px rgb(23 18 13 / .07);
   --shadow-e2: 0 2px 4px -2px rgb(23 18 13 / .10), 0 10px 22px -10px rgb(23 18 13 / .13);
   --shadow-e3: 0 4px 8px -4px rgb(23 18 13 / .12), 0 22px 48px -24px rgb(23 18 13 / .24);
@@ -396,8 +398,7 @@ body {
   background: var(--color-paper);
   border: 1px solid transparent;
   border-radius: var(--radius-lg);
-  /* depth without blur: the card sits on a solid ledge of its own edge colour */
-  box-shadow: 0 6px 0 0 var(--color-rule-strong);
+  box-shadow: var(--shadow-soft);
   transition: transform var(--dur-1) var(--ease-standard), box-shadow var(--dur-1) var(--ease-standard);
 }
 .card::before {
@@ -438,7 +439,7 @@ body {
 .card-hover:hover, .card-hover:focus-within,
 a.card:hover, a.card:focus-visible,
 .card:has(a[href]):hover, .card:has(a[href]):focus-within,
-.card:has(button):hover, .card:has(button):focus-within { transform: translateY(-4px); box-shadow: 0 10px 0 0 var(--color-ember); }
+.card:has(button):hover, .card:has(button):focus-within { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
 .card-hover:hover::after, .card-hover:focus-within::after,
 a.card:hover::after, a.card:focus-visible::after,
 .card:has(a[href]):hover::after, .card:has(a[href]):focus-within::after,
@@ -912,11 +913,7 @@ html:not(.js) [data-reveal] { opacity: 1 !important; transform: none !important;
 .scene-mask, .mask-fade-x { -webkit-mask-image: none; mask-image: none; }
 
 /* ---------- depth ----------
-   Flat colour, but not flat: clickable cards rise onto a red ledge (above),
-   and the pre-painted blur shadow they used to fade in is not drawn. */
+   Quiet elevation: a soft, neutral shadow under cards, a deeper one when a
+   card can be clicked and is hovered. Flat colour everywhere else. */
 .card::after { display: none; }
-.band--ink .card { box-shadow: 0 6px 0 0 rgba(255,255,255,.14); }
-/* the homepage headline's red word is extruded one step, in a solid tint */
-.display-1 em { text-shadow: 4px 4px 0 var(--color-ember-wash); }
-/* the review carousel's timer bar */
-@keyframes review-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.band--ink .card { box-shadow: none; }

@@ -6,7 +6,8 @@ import { Section, SectionHead } from "@/components/ui/Section";
 import { Marquee } from "@/components/ui/Marquee";
 import { Copy } from "@/components/ui/Copy";
 import { JsonLd } from "@/components/ui/JsonLd";
-import { CTABand, FAQBlock, PracticeCard, ProofBar, StatRow } from "@/components/site/Blocks";
+import { CTABand, FAQBlock, PracticeCard, StatRow } from "@/components/site/Blocks";
+import { ClientLogos } from "@/components/site/ClientLogos";
 import { ClutchReviews } from "@/components/site/ClutchReviews";
 import { HeroFrame } from "@/components/site/HeroFrame";
 import { FounderGrid } from "@/components/site/Founders";
@@ -67,7 +68,7 @@ export default function Home() {
         }
       />
 
-      <ProofBar />
+      <ClientLogos />
       <ClutchReviews />
 
       {/* 02 · thesis */}

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Star } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Copy } from "@/components/ui/Copy";
 import { Button } from "@/components/ui/Button";
@@ -14,7 +14,6 @@ import { PracticeGlyph } from "@/components/visual/PracticeGlyph";
 import type { FAQ } from "@/content/types";
 import type { Group } from "@/content/practices";
 import { servicesFor, serviceHref } from "@/content/services";
-import { proof, site } from "@/content/site";
 
 export function PracticeCard({ p, i }: { p: Group; i: number }) {
   const members = servicesFor(p.slug);
@@ -104,32 +103,6 @@ export function CTABand({ title, lede, primary, secondary, tone = "ember" }: { t
         </Reveal>
       </div>
     </section>
-  );
-}
-
-export function ProofBar() {
-  return (
-    <div className="border-y border-rule bg-sand">
-      <div className="container-x flex flex-col gap-4 py-5 md:flex-row md:items-center md:justify-between md:gap-8">
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <span className="kicker shrink-0 text-muted">Leadership from</span>
-          <ul className="flex flex-wrap gap-x-5 gap-y-1 font-display text-[0.95rem] font-semibold tracking-tight">
-            {proof.pedigree.map((p) => <li key={p}>{p}</li>)}
-          </ul>
-        </div>
-        <div className="flex shrink-0 items-center gap-2.5 text-sm text-muted">
-          {/* five literal stars announced only as "rating" told a screen reader
-              nothing; the name now carries the figure, flag and all */}
-          <span className="flex items-center gap-0.5 text-ember" role="img" aria-label={`Rated ${proof.clutch.rating.replace(/\[\[|\]\]/g, "")} out of 5 on Clutch from ${proof.clutch.reviews.replace(/\[\[|\]\]/g, "")} reviews`}>
-            {Array.from({ length: 5 }, (_, i) => <Star key={i} className="size-3.5" fill="currentColor" strokeWidth={0} />)}
-          </span>
-          <a href={site.social.clutch} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-ember-ink">
-            <span aria-hidden><Copy text={proof.clutch.rating} /> on Clutch · <Copy text={proof.clutch.reviews} /> reviews</span>
-            <span className="sr-only">LeadStrategus on Clutch</span>
-          </a>
-        </div>
-      </div>
-    </div>
   );
 }
 

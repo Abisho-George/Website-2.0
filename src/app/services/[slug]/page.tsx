@@ -143,7 +143,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             {(own.length ? own : related).slice(0, 2).map((u, i) => <UseCaseCard key={u.slug} u={u} i={i} showService={false} />)}
             <Link
               href={`/case-studies?family=${encodeURIComponent((own[0] ?? related[0]).family)}`}
-              className="group mt-8 flex flex-col justify-between rounded-[18px] border-2 border-ink bg-ember p-5 text-white shadow-[6px_6px_0_0_var(--color-ink)] transition-[transform,box-shadow] duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[9px_9px_0_0_var(--color-ink)] md:p-6"
+              className="group flex flex-col justify-between rounded-[var(--radius-lg)] bg-ember p-5 text-white shadow-[var(--shadow-soft)] transition-[transform,background-color,box-shadow] duration-200 hover:-translate-y-[3px] hover:bg-ember-ink hover:shadow-[var(--shadow-lift)] md:p-6"
             >
               <span className="font-display text-[1.25rem] font-bold leading-snug tracking-[-0.015em]">
                 See every {group.short} case study
