@@ -103,7 +103,7 @@ export default function FamiliesHub() {
         <Button href="/services/diagnostic-workshops" className="mt-8">See diagnostic workshops</Button>
       </Section>
 
-      <CTABand title={<>One engine, <em>built around your pipeline.</em></>} primary={{ label: "Book a strategy call", href: "/book" }} secondary={{ label: "See every service", href: "/services" }} />
+      <CTABand title={<>One engine, <em>built around your pipeline.</em></>} primary={{ label: "Book a strategy call", href: "/book" }} />
     </>
   );
 }

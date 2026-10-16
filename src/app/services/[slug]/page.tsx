@@ -12,7 +12,7 @@ import { UseCaseCard } from "@/components/site/UseCaseCard";
 import { iconFor } from "@/components/icons/registry";
 import { services, getService, servicesFor, serviceHref } from "@/content/services";
 import { getGroup, groupHref as groupHrefFor } from "@/content/practices";
-import { useCasesForService } from "@/content/use-cases";
+import { useCasesForService } from "@/content/case-studies";
 import { enquiryFor } from "@/lib/enquiry";
 import { buildMetadata, serviceJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 /**
  * One service page, kept deliberately plain: a hero that says what the
- * service is (no side panel), one band for why now and why us, the use cases, related
+ * service is (no side panel), one band for why now and why us, the case studies, related
  * services and a closing call. Grounds are solid colours with hard edges
  * (the .page-solid scope), and the rhythm is tighter than the rest of the site.
  */
@@ -95,10 +95,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           />
           <div className="mt-8 grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-14">
             <Reveal className="lg:col-span-6">
-              <Link href={groupHref} className="inline-flex items-center gap-2.5 rounded-full bg-ember-wash py-1 pl-1 pr-4 text-[0.88rem] font-semibold text-ember-ink hover:bg-ember hover:text-white">
+              <span className="inline-flex items-center gap-2.5 rounded-full bg-ember-wash py-1 pl-1 pr-4 text-[0.88rem] font-semibold text-ember-ink">
                 <IconPlate icon={iconFor(s.slug)} size="sm" />
                 {group.name}
-              </Link>
+              </span>
               <h1 className="mt-6 font-display text-[2.2rem] font-bold leading-[1.06] tracking-[-0.02em] balance sm:text-[2.7rem] lg:text-[3.3rem]">{s.name}</h1>
               <p className="mt-4 font-display text-[1.2rem] font-semibold leading-snug tracking-[-0.015em] text-ember md:text-[1.45rem]">{s.tagline}.</p>
             </Reveal>
@@ -134,21 +134,22 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </Section>
 
-      {/* use cases: two small cards and a way into the library */}
+      {/* case studies: two small cards and a way into the library */}
       {(own.length > 0 || related.length > 0) && (
         <Section pad="tight">
-          <h2 className="h3">{s.name} in action</h2>
+          <h2 className="h3">Want to see how this works in the field?</h2>
+          <p className="mt-2 text-[1rem] text-fg-soft">Here is how it played out for companies like yours.</p>
           <div className="rail rail--swipe mt-6 md:grid-cols-2 lg:grid-cols-3">
             {(own.length ? own : related).slice(0, 2).map((u, i) => <UseCaseCard key={u.slug} u={u} i={i} showService={false} />)}
             <Link
-              href={`/use-cases?family=${encodeURIComponent((own[0] ?? related[0]).family)}`}
-              className="group flex flex-col justify-between rounded-[var(--radius-lg)] bg-ember p-5 text-white transition-colors hover:bg-ember-deep md:p-6"
+              href={`/case-studies?family=${encodeURIComponent((own[0] ?? related[0]).family)}`}
+              className="group mt-8 flex flex-col justify-between rounded-[18px] border-2 border-ink bg-ember p-5 text-white shadow-[6px_6px_0_0_var(--color-ink)] transition-[transform,box-shadow] duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[9px_9px_0_0_var(--color-ink)] md:p-6"
             >
               <span className="font-display text-[1.25rem] font-bold leading-snug tracking-[-0.015em]">
-                See every {group.short} use case
+                See every {group.short} case study
               </span>
               <span className="mt-6 inline-flex items-center gap-2 text-[0.92rem] font-semibold">
-                Browse use cases <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                Browse case studies <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
               </span>
             </Link>
           </div>

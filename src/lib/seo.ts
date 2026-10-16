@@ -232,7 +232,7 @@ export function useCaseJsonLd(input: {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
-    genre: "Use case",
+    genre: "Case study",
     headline: unflag(input.title),
     description: unflag(input.description),
     url: `${site.url}${input.path}`,

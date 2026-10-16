@@ -10,7 +10,7 @@ import { Breadcrumb, CTABand } from "@/components/site/Blocks";
 import { UseCaseRail } from "@/components/site/UseCaseRail";
 import { IconPlate } from "@/components/ui/IconPlate";
 import { iconFor } from "@/components/icons/registry";
-import { useCases, getUseCase, findService, moreLike } from "@/content/use-cases";
+import { useCases, getUseCase, findService, moreLike } from "@/content/case-studies";
 import { getService, serviceHref } from "@/content/services";
 import { enquiryFor } from "@/lib/enquiry";
 import { buildMetadata, breadcrumbJsonLd, useCaseJsonLd } from "@/lib/seo";
@@ -27,9 +27,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return buildMetadata({
     title: u.title,
     description: u.hook,
-    path: `/use-cases/${u.slug}`,
+    path: `/case-studies/${u.slug}`,
     type: "article",
-    keywords: [u.service, ...u.related, u.industry, u.family, "use case", "LeadStrategus"],
+    keywords: [u.service, ...u.related, u.industry, u.family, "case study", "LeadStrategus"],
   });
 }
 
@@ -44,14 +44,14 @@ function Head({ children }: { n?: string; children: React.ReactNode }) {
 }
 
 /**
- * One use case, in the "Programmes in Action" shape: the story in three beats
+ * One case study, in the "Programmes in Action" shape: the story in three beats
  * up top, then situation, the question, what we did, evidence, outcome and
  * what changed in the go-to-market motion.
  */
 export default async function UseCasePage({ params }: { params: Promise<{ slug: string }> }) {
   const u = getUseCase((await params).slug);
   if (!u) notFound();
-  const path = `/use-cases/${u.slug}`;
+  const path = `/case-studies/${u.slug}`;
   const own = getService(u.serviceSlug);
   const related = u.relatedSlugs.map(getService).filter((s): s is NonNullable<typeof s> => !!s);
   const all = [own, ...related].filter((s): s is NonNullable<typeof s> => !!s);
@@ -68,7 +68,7 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
       <JsonLd
         data={[
           useCaseJsonLd({ title: u.title, description: u.hook, path, industry: u.industry, services: all.map((s) => ({ name: s.name, path: serviceHref(s) })) }),
-          breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Use cases", path: "/use-cases" }, { name: u.title, path }]),
+          breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Case studies", path: "/case-studies" }, { name: u.title, path }]),
         ]}
       />
 
@@ -76,7 +76,7 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
       <section className="band relative overflow-hidden pt-[var(--nav-h)]">
         <Bloom hue="ember" at="tr" size={56} />
         <div className="container-x relative py-10 md:py-16">
-          <Breadcrumb items={[{ label: "Use cases", href: "/use-cases" }, { label: u.family, href: `/use-cases?family=${encodeURIComponent(u.family)}` }]} />
+          <Breadcrumb items={[{ label: "Case studies", href: "/case-studies" }, { label: u.family, href: `/case-studies?family=${encodeURIComponent(u.family)}` }]} />
           <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:gap-14">
             <div className="lg:col-span-7">
               <Reveal>

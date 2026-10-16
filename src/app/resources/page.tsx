@@ -98,7 +98,7 @@ export default function ResourcesPage() {
         </div>
       </Section>
 
-      <CTABand title={<>Rather have us <em>run it?</em></>} primary={{ label: "Book a strategy call", href: "/book" }} secondary={{ label: "See all services", href: "/services" }} />
+      <CTABand title={<>Rather have us <em>run it?</em></>} primary={{ label: "Book a strategy call", href: "/book" }} />
     </>
   );
 }

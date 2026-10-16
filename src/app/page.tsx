@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section, SectionHead } from "@/components/ui/Section";
@@ -7,6 +7,7 @@ import { Marquee } from "@/components/ui/Marquee";
 import { Copy } from "@/components/ui/Copy";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { CTABand, FAQBlock, PracticeCard, ProofBar, StatRow } from "@/components/site/Blocks";
+import { ClutchReviews } from "@/components/site/ClutchReviews";
 import { HeroFrame } from "@/components/site/HeroFrame";
 import { FounderGrid } from "@/components/site/Founders";
 import { SignalField } from "@/components/visual/SignalField";
@@ -16,14 +17,12 @@ import { PipelineBars } from "@/components/visual/PipelineBars";
 import { Portal } from "@/components/visual/Portal";
 import { Bloom, FieldPlate } from "@/components/ui/Atmos";
 import { families } from "@/content/practices";
-import { featuredUseCases, useCases } from "@/content/use-cases";
+import { featuredUseCases, useCases } from "@/content/case-studies";
 import { UseCaseCard } from "@/components/site/UseCaseCard";
-import { insightsByDate, getCluster } from "@/content/insights";
 import { authors } from "@/content/authors";
 import { homeFaq } from "@/content/faq";
 import { proof, site } from "@/content/site";
 import { buildMetadata, faqJsonLd, pageJsonLd, serviceListJsonLd } from "@/lib/seo";
-import { formatDate } from "@/lib/utils";
 
 
 export const metadata = buildMetadata({
@@ -57,7 +56,7 @@ export default function Home() {
       <HeroFrame
         size="lg"
         n="01"
-        lines={["Go-to-market,", <em key="e">engineered.</em>]}
+        lines={["Go\u2011to\u2011market,", <em key="e">engineered.</em>]}
         lede="LeadStrategus designs, runs and now automates B2B revenue engines: from positioning and intent intelligence to demand generation, enablement, and custom AI agents that book the meetings. Built by operators who ran marketing at AWS, Gartner and SAP."
         scene={<SignalField className="h-full w-full" />}
         actions={
@@ -69,6 +68,7 @@ export default function Home() {
       />
 
       <ProofBar />
+      <ClutchReviews />
 
       {/* 02 · thesis */}
       <Section n="02" label="Thesis" width="text" pad="loose">
@@ -94,7 +94,6 @@ export default function Home() {
             <SectionHead title={<>A market of ten thousand is a shortlist of <em className="serif-em">two hundred.</em></>} />
             <p className="lede mt-5">Pipeline is an arithmetic problem before it is a creative one. Every stage below throws work away, so the only question that matters is whether you threw away the right accounts.</p>
             <p className="mt-5 text-sm text-muted">Typical shape of a programme we run in its second quarter. Your numbers will differ; the shape rarely does.</p>
-            <Button href="/practices/account-intelligence" variant="outline" className="mt-8">How we rank accounts</Button>
           </div>
           <div className="lg:col-span-7">
             <Reveal className="card p-6 md:p-8"><PipelineBars /></Reveal>
@@ -129,7 +128,6 @@ export default function Home() {
               </ul>
               <div className="mt-9 flex flex-wrap gap-3">
                 <Button href="/lead-gen-ai-twin" size="lg">Explore the Twin</Button>
-                <Button href="/contact?type=gtm-ai-twin" size="lg" variant="ghost" className="border border-rule-strong bg-paper text-fg hover:border-fg/40">Scope mine</Button>
               </div>
             </Reveal>
           </div>
@@ -162,11 +160,11 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* 07 · use cases */}
-      <Section n="07" label="Use cases">
+      {/* 07 · case studies */}
+      <Section n="07" label="Case studies">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <SectionHead title={<>Programmes in <em className="serif-em">action.</em></>} lede="How our service lines work in practice, by industry: the challenge, what we did, and what changed in the go-to-market motion." />
-          <Link href="/use-cases" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-ember-ink transition-colors hover:text-ember-deep">All {useCases.length} use cases <ArrowRight className="size-4" /></Link>
+          <SectionHead title={<>Case studies from <em className="serif-em">the field.</em></>} lede="How our service lines work in practice, by industry: the challenge, what we did, and what changed in the go-to-market motion." />
+          <Link href="/case-studies" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-ember-ink transition-colors hover:text-ember-deep">All {useCases.length} case studies <ArrowRight className="size-4" /></Link>
         </div>
         <div className="rail rail--swipe mt-12 md:grid-cols-2 lg:grid-cols-3">
           {featuredUseCases.map((u, i) => <UseCaseCard key={u.slug} u={u} i={i % 3} />)}
@@ -196,28 +194,6 @@ export default function Home() {
         <p className="kicker mt-3 text-right text-dim">
           <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-ember-ink">leadstrategus.ai ↗</a>
         </p>
-      </Section>
-
-      {/* 10 · insights */}
-      <Section>
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <SectionHead title={<>Written from the <em className="serif-em">pipeline.</em></>} />
-          <Link href="/insights" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ember-ink">All insights <ArrowRight className="size-4" /></Link>
-        </div>
-        <div className="mt-10 divide-y divide-rule border-y border-rule">
-          {insightsByDate.slice(0, 3).map((i, idx) => (
-            <Reveal key={i.slug} delay={idx * 60}>
-              <Link href={`/insights/${i.slug}`} className="group grid gap-2 py-6 md:grid-cols-12 md:items-baseline md:gap-6 md:py-7">
-                <div className="kicker text-muted md:col-span-3">{getCluster(i.cluster)?.name} · {formatDate(i.date)}</div>
-                <div className="md:col-span-8">
-                  <div className="font-display text-[1.2rem] font-semibold tracking-[-0.028em] transition-colors group-hover:text-ember-ink md:text-[1.45rem]">{i.title}</div>
-                  <p className="mt-1.5 max-w-2xl text-sm text-muted">{i.dek}</p>
-                </div>
-                <ArrowUpRight className="hidden size-5 justify-self-end text-dim transition-colors group-hover:text-ember-ink md:col-span-1 md:block" />
-              </Link>
-            </Reveal>
-          ))}
-        </div>
       </Section>
 
       {/* 11 · faq */}

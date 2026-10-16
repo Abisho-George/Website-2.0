@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/content/site";
 import { pagedGroups } from "@/content/practices";
-import { useCases } from "@/content/use-cases";
+import { useCases } from "@/content/case-studies";
 import { insights } from "@/content/insights";
 import { services } from "@/content/services";
 
@@ -19,11 +19,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   });
   return [
     u("/", 1, "weekly"), u("/services", 0.95, "weekly"), u("/lead-gen-ai-twin", 0.95, "weekly"), u("/practices", 0.85),
-    u("/insights", 0.8, "weekly"), u("/faq", 0.7), u("/resources", 0.7), u("/use-cases", 0.8),
+    u("/insights", 0.8, "weekly"), u("/faq", 0.7), u("/resources", 0.7), u("/case-studies", 0.8),
     u("/about", 0.7), u("/contact", 0.7), u("/book", 0.7), u("/careers", 0.4), u("/privacy", 0.2, "yearly"), u("/terms", 0.2, "yearly"),
     ...services.filter((s) => !s.href).map((s) => u(`/services/${s.slug}`, 0.85)),
     ...pagedGroups.map((g) => u(`/practices/${g.slug}`, 0.85)),
-    ...useCases.map((x) => u(`/use-cases/${x.slug}`, 0.7)),
+    ...useCases.map((x) => u(`/case-studies/${x.slug}`, 0.7)),
     ...insights.map((i) => ({ ...u(`/insights/${i.slug}`, 0.6), lastModified: new Date(i.date) })),
   ];
 }

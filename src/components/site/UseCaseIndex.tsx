@@ -1,18 +1,18 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import type { UseCase } from "@/content/use-cases";
+import type { UseCase } from "@/content/case-studies";
 import { UseCaseCard } from "./UseCaseCard";
 import { cn } from "@/lib/utils";
 
 /**
- * The use-case library: filter by family and by industry. With no family
+ * The case-study library: filter by family and by industry. With no family
  * chosen the cases are grouped under their family, so the page still reads
  * as a map of the service lines; choosing one shows that family alone.
  */
 export function UseCaseIndex({ items, families, industries }: { items: UseCase[]; families: string[]; industries: string[] }) {
   const [family, setFamily] = useState<string | null>(null);
   const [industry, setIndustry] = useState<string | null>(null);
-  // a service or family page can link here pre-filtered: /use-cases?family=…
+  // a service or family page can link here pre-filtered: /case-studies?family=…
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
     const f = q.get("family"), x = q.get("industry");
@@ -52,12 +52,12 @@ export function UseCaseIndex({ items, families, industries }: { items: UseCase[]
       </div>
 
       <p className="mt-6 text-sm text-muted" aria-live="polite">
-        Showing <span className="font-medium text-fg">{shown.length}</span> of {items.length} use cases
+        Showing <span className="font-medium text-fg">{shown.length}</span> of {items.length} case studies
       </p>
 
       {groups.length === 0 && (
         <div className="mt-10 rounded-[var(--radius-lg)] border border-dashed border-rule-strong p-10 text-center text-muted">
-          No use case matches both filters yet.{" "}
+          No case study matches both filters yet.{" "}
           <button type="button" className="link-u text-fg" onClick={() => { setFamily(null); setIndustry(null); }}>Clear filters</button>
         </div>
       )}
@@ -68,7 +68,7 @@ export function UseCaseIndex({ items, families, industries }: { items: UseCase[]
             <h2 className="font-display text-[1.35rem] font-semibold tracking-tight md:text-[1.6rem]">{g.f}</h2>
             <span className="shrink-0 text-sm text-dim">{g.list.length}</span>
           </div>
-          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-6 grid gap-x-5 gap-y-8 md:grid-cols-2 xl:grid-cols-3">
             {g.list.map((u, i) => <UseCaseCard key={u.slug} u={u} i={i % 3} />)}
           </div>
         </section>

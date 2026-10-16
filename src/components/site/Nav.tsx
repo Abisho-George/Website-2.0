@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/Button";
 import { RailIndicator } from "@/components/motion/RailIndicator";
 
 const resourceLinks = [
-  { href: "/use-cases", label: "Use Cases", note: "Where the work fits your pipeline" },
+  { href: "/case-studies", label: "Case Studies", note: "Where the work fits your pipeline" },
   { href: "/faq", label: "FAQ", note: "Everything people ask first" },
 ];
 
@@ -58,7 +58,7 @@ export function Nav() {
   const railKey =
     active("/") ? "home"
     : active("/services") || active("/practices") ? "services"
-    : active("/use-cases") || active("/faq") ? "resources"
+    : active("/case-studies") || active("/faq") ? "resources"
     : active("/about") ? "about"
     : null;
 
@@ -102,7 +102,7 @@ export function Nav() {
             <Sparkles className="size-3.5" /> Lead Gen AI Twin
           </Link>
 
-          <div className="relative">{trigger("resources", "Resources", active("/use-cases") || active("/faq"))}</div>
+          <div className="relative">{trigger("resources", "Resources", active("/case-studies") || active("/faq"))}</div>
 
           <Link data-rail-item="about" href="/about" className={cn("inline-flex h-[var(--nav-h)] items-center px-3.5 text-[0.9rem] transition-colors duration-[var(--dur-1)]", active("/about") ? "text-fg" : "text-muted hover:text-fg")}>
             About
@@ -235,7 +235,7 @@ export function Nav() {
           ))}
 
           <div className="mt-6 grid grid-cols-2 gap-x-6">
-            {[["/services", "All Services"], ["/use-cases", "Use Cases"], ["/faq", "FAQ"], ["/about", "About"], ["/contact", "Contact"]].map(([h, l]) => (
+            {[["/services", "All Services"], ["/case-studies", "Case Studies"], ["/faq", "FAQ"], ["/about", "About"], ["/contact", "Contact"]].map(([h, l]) => (
               <Link key={h} href={h} className="border-b border-rule py-3.5 font-display text-[1.05rem] font-medium">{l}</Link>
             ))}
             <a href={site.aiUrl} target="_blank" rel="noopener noreferrer" className="border-b border-rule py-3.5 font-display text-[1.05rem] font-medium text-ember-ink">leadstrategus.ai ↗</a>

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { agentPhases, liveCount, buildingCount, type Agent } from "@/content/agents";
+import { agentPhases, type Agent } from "@/content/agents";
 
 /**
  * The agent catalogue as a map: four phases across, the agents that do the
@@ -63,17 +63,6 @@ export function AgentMap() {
         ))}
       </div>
 
-      <div className="mt-9 flex flex-col gap-3 border-t border-rule pt-5 text-[0.8rem] text-muted sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-          <span className="inline-flex items-center gap-2">
-            <span className="size-2 rounded-full bg-ember" /> {liveCount} live
-          </span>
-          <span className="inline-flex items-center gap-2">
-            <span className="size-2 rounded-full border border-rule-strong" /> {buildingCount} in build
-          </span>
-        </div>
-        <span className="text-dim">{canHover ? "Hover an agent for detail" : "Tap an agent for detail"}</span>
-      </div>
     </div>
   );
 }
@@ -81,7 +70,6 @@ export function AgentMap() {
 function AgentCard({ agent, isOpen, onEnter, onLeave, onToggle }: {
   agent: Agent; isOpen: boolean; onEnter: () => void; onLeave: () => void; onToggle: () => void;
 }) {
-  const live = agent.status === "live";
   return (
     <li onMouseEnter={onEnter} onMouseLeave={onLeave}>
       <button
@@ -91,16 +79,10 @@ function AgentCard({ agent, isOpen, onEnter, onLeave, onToggle }: {
         aria-expanded={isOpen}
         className={cn(
           "w-full rounded-[var(--radius-md)] border p-3.5 text-left transition-all duration-300",
-          isOpen ? "border-ember bg-ember-wash shadow-[0_12px_30px_-20px_rgba(228,18,31,.5)]" : "border-rule bg-paper hover:border-rule-strong",
+          isOpen ? "border-ember bg-ember-wash shadow-[0_5px_0_0_var(--color-ember)]" : "border-rule-strong bg-paper shadow-[0_4px_0_0_var(--color-rule-strong)] hover:-translate-y-0.5",
         )}
       >
-        <div className="flex items-start justify-between gap-2.5">
-          <span className="font-display text-[0.96rem] font-semibold leading-snug tracking-tight">{agent.name}</span>
-          <span
-            className={cn("mt-[5px] size-2 shrink-0 rounded-full", live ? "bg-ember" : "border border-rule-strong")}
-            title={live ? "Live" : "In build"}
-          />
-        </div>
+        <span className="font-display text-[0.96rem] font-semibold leading-snug">{agent.name}</span>
 
         <p className={cn("mt-1.5 text-[0.82rem] leading-snug text-muted transition-all", !isOpen && "line-clamp-2")}>
           {agent.does}
@@ -110,15 +92,12 @@ function AgentCard({ agent, isOpen, onEnter, onLeave, onToggle }: {
           <div className="overflow-hidden">
             <dl className="mt-3 space-y-2.5 border-t border-ember/25 pt-3 text-[0.78rem] leading-snug">
               <div>
-                <dt className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-ember-ink">Replaces</dt>
+                <dt className="kicker text-ember-ink">Replaces</dt>
                 <dd className="mt-1 text-muted">{agent.replaces}</dd>
               </div>
               <div>
-                <dt className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-ember-ink">You decide</dt>
+                <dt className="kicker text-ember-ink">You decide</dt>
                 <dd className="mt-1 text-muted">{agent.youDecide}</dd>
-              </div>
-              <div className="pt-0.5 font-mono text-[0.62rem] uppercase tracking-[0.13em] text-dim">
-                {live ? "Live today" : "In build"}
               </div>
             </dl>
           </div>

@@ -16,7 +16,7 @@ import { UseCaseRail } from "@/components/site/UseCaseRail";
 import { practiceIconFor } from "@/components/icons/registry";
 import { pagedGroups, getGroup } from "@/content/practices";
 import { servicesFor, serviceHref, valueChain } from "@/content/services";
-import { useCasesForGroup } from "@/content/use-cases";
+import { useCasesForGroup } from "@/content/case-studies";
 import { site } from "@/content/site";
 import { enquiryFor } from "@/lib/enquiry";
 import { buildMetadata, breadcrumbJsonLd, faqJsonLd, serviceListJsonLd } from "@/lib/seo";
@@ -116,7 +116,6 @@ export default async function FamilyPage({ params }: { params: Promise<{ slug: s
       <CTABand
         title={<>{g.tagline.replace(/\.$/, "")}<em>.</em></>}
         primary={{ label: "Book a strategy call", href: "/book" }}
-        secondary={{ label: "See every service", href: "/services" }}
       />
     </>
   );

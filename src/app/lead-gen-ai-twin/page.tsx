@@ -6,7 +6,7 @@ import { Copy } from "@/components/ui/Copy";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { CTABand, FAQBlock } from "@/components/site/Blocks";
 import { UseCaseRail } from "@/components/site/UseCaseRail";
-import { useCasesForService } from "@/content/use-cases";
+import { useCasesForService } from "@/content/case-studies";
 import { AgentConsole } from "@/components/visual/surface/AgentConsole";
 import { AgentMap } from "@/components/visual/AgentMap";
 import { Bloom, FieldPlate } from "@/components/ui/Atmos";
@@ -70,9 +70,6 @@ export default function TwinPage() {
           <p className="lede mt-5 max-w-3xl">{twin.agentsIntro.p}</p>
         </Reveal>
         <Reveal delay={80} className="mt-12"><AgentMap /></Reveal>
-        <p className="mt-6 max-w-3xl text-[0.8rem] leading-relaxed text-dim">
-          <Copy text="[[Agent names, coverage and live/in-build status shown here are indicative and are being reconciled with the leadstrategus.ai roster.]]" />
-        </p>
       </Section>
 
       {/* 01 · what is it */}

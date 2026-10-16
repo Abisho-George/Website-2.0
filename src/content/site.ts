@@ -38,7 +38,7 @@ export const nav = {
   primary: [
     { label: "Practices", href: "/practices", mega: true },
     { label: "Lead Gen AI Twin", href: "/lead-gen-ai-twin", highlight: true },
-    { label: "Use cases", href: "/use-cases" },
+    { label: "Case studies", href: "/case-studies" },
     { label: "Insights", href: "/insights" },
     { label: "About", href: "/about" },
   ],
@@ -48,7 +48,7 @@ export const nav = {
 export const proof = {
   // The founders' prior employers. Public on LinkedIn/Crunchbase.
   pedigree: ["AWS", "Gartner", "SAP", "Oracle", "IBM", "Pluralsight", "IMRB"],
-  clutch: { rating: "5.0", reviews: "[[7]]" },
+  clutch: { rating: "5.0", reviews: "7" },
   stats: [
     { value: "8", suffix: "yrs", label: "running B2B pipeline programmes" },
     { value: "[[120]]", suffix: "+", label: "GTM engagements delivered" },

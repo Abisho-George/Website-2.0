@@ -29,7 +29,7 @@ export function Footer() {
           <div className="md:col-span-2">
             <div className="eyebrow mb-4">Company</div>
             <ul className="space-y-2.5 text-sm">
-              {[["/about", "About"], ["/use-cases", "Use cases"], ["/faq", "FAQ"], ["/careers", "Careers"], ["/contact", "Contact"], ["/book", "Book a call"]].map(([h, l]) => (
+              {[["/about", "About"], ["/case-studies", "Case studies"], ["/faq", "FAQ"], ["/careers", "Careers"], ["/contact", "Contact"], ["/book", "Book a call"]].map(([h, l]) => (
                 <li key={h}><Link href={h} className="text-muted transition-colors hover:text-fg">{l}</Link></li>
               ))}
             </ul>

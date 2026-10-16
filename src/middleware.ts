@@ -36,9 +36,10 @@ const redirects: Record<string, string> = {
   // there is no pricing page; engagements are scoped on a call
   "/pricing": "/services",
   "/practices/revenue-operations": "/services/revenue-operations",
-  // the sample case studies were replaced by the use-case library
-  "/work": "/use-cases",
-  "/case-studies": "/use-cases",
+  // the old sample case studies now land on the case-study library
+  "/work": "/case-studies",
+  // the library was called "use cases" before it was renamed
+  "/use-cases": "/case-studies",
 };
 
 export function middleware(req: NextRequest) {
@@ -61,8 +62,11 @@ export function middleware(req: NextRequest) {
     const url = req.nextUrl.clone(); url.pathname = "/about"; url.hash = author[1];
     return NextResponse.redirect(url, 301);
   }
-  if (path.startsWith("/work/") || path.startsWith("/case-studies/")) {
-    const url = req.nextUrl.clone(); url.pathname = "/use-cases"; return NextResponse.redirect(url, 301);
+  if (path.startsWith("/use-cases/")) {
+    const url = req.nextUrl.clone(); url.pathname = path.replace(/^\/use-cases\//, "/case-studies/"); return NextResponse.redirect(url, 301);
+  }
+  if (path.startsWith("/work/")) {
+    const url = req.nextUrl.clone(); url.pathname = "/case-studies"; return NextResponse.redirect(url, 301);
   }
   if (path.startsWith("/tag/") || path.startsWith("/category/") || path.startsWith("/author/") || path.startsWith("/authors/")) {
     const url = req.nextUrl.clone(); url.pathname = "/insights"; return NextResponse.redirect(url, 301);

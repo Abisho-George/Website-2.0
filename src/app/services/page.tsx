@@ -13,7 +13,7 @@ import { PracticeGlyph } from "@/components/visual/PracticeGlyph";
 import { practiceIconFor } from "@/components/icons/registry";
 import { families, platforms, groups } from "@/content/practices";
 import { services, servicesFor, serviceHref } from "@/content/services";
-import { useCases } from "@/content/use-cases";
+import { useCases } from "@/content/case-studies";
 import { site } from "@/content/site";
 import { buildMetadata, breadcrumbJsonLd, serviceListJsonLd } from "@/lib/seo";
 
@@ -49,7 +49,7 @@ export default function ServicesHub() {
           { k: "Services", v: services.length },
           { k: "Families", v: families.length },
           { k: "Platforms", v: platforms.length },
-          { k: "Use cases", v: useCases.length },
+          { k: "Case studies", v: useCases.length },
         ]}
       />
 

@@ -3,26 +3,26 @@ import { CTABand } from "@/components/site/Blocks";
 import { UseCaseIndex } from "@/components/site/UseCaseIndex";
 import { Section } from "@/components/ui/Section";
 import { JsonLd } from "@/components/ui/JsonLd";
-import { useCases, useCaseFamilies, useCaseIndustries } from "@/content/use-cases";
+import { useCases, useCaseFamilies, useCaseIndustries } from "@/content/case-studies";
 import { buildMetadata, pageJsonLd } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Use cases: programmes in action",
+  title: "Case studies: programmes in action",
   description: "How LeadStrategus service lines work in practice, by industry: the situation buyers face, the question that matters, what we do, and what changes in the go-to-market motion.",
-  path: "/use-cases",
-  keywords: ["LeadStrategus use cases", "B2B go-to-market use cases", "demand generation use cases", "ABM use cases", "AI agents for lead generation"],
+  path: "/case-studies",
+  keywords: ["LeadStrategus case studies", "B2B go-to-market case studies", "demand generation case studies", "ABM case studies", "AI agents for lead generation"],
 });
 
 export default function UseCasesPage() {
   return (
     <>
-      <JsonLd data={pageJsonLd({ type: "CollectionPage", name: "Use cases", description: metadata.description as string, path: "/use-cases" })} />
+      <JsonLd data={pageJsonLd({ type: "CollectionPage", name: "Case studies", description: metadata.description as string, path: "/case-studies" })} />
       <PageHero
-        eyebrow="Use cases"
+        eyebrow="Case studies"
         title={<>Programmes in <em>action.</em></>}
         lede="How our service lines work in practice, by industry: the situation buyers face, the question that matters, what we do, and what changes in the go-to-market motion."
         readout={[
-          { k: "Use cases", v: useCases.length },
+          { k: "Case studies", v: useCases.length },
           { k: "Service families", v: useCaseFamilies.length },
           { k: "Industries", v: useCaseIndustries.length },
           { k: "Services shown", v: new Set(useCases.map((u) => u.serviceSlug)).size },

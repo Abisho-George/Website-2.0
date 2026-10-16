@@ -79,7 +79,7 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <CTABand title={<>Work with <em className="serif-em text-ember">operators.</em></>} primary={{ label: "Book a strategy call", href: "/book" }} secondary={{ label: "Careers", href: "/careers" }} />
+      <CTABand title={<>Work with <em className="serif-em text-ember">operators.</em></>} primary={{ label: "Book a strategy call", href: "/book" }} />
     </>
   );
 }

@@ -396,7 +396,8 @@ body {
   background: var(--color-paper);
   border: 1px solid transparent;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-e1), var(--inset-shadow-lip);
+  /* depth without blur: the card sits on a solid ledge of its own edge colour */
+  box-shadow: 0 6px 0 0 var(--color-rule-strong);
   transition: transform var(--dur-1) var(--ease-standard), box-shadow var(--dur-1) var(--ease-standard);
 }
 .card::before {
@@ -437,7 +438,7 @@ body {
 .card-hover:hover, .card-hover:focus-within,
 a.card:hover, a.card:focus-visible,
 .card:has(a[href]):hover, .card:has(a[href]):focus-within,
-.card:has(button):hover, .card:has(button):focus-within { transform: translateY(-3px); }
+.card:has(button):hover, .card:has(button):focus-within { transform: translateY(-4px); box-shadow: 0 10px 0 0 var(--color-ember); }
 .card-hover:hover::after, .card-hover:focus-within::after,
 a.card:hover::after, a.card:focus-visible::after,
 .card:has(a[href]):hover::after, .card:has(a[href]):focus-within::after,
@@ -909,3 +910,11 @@ html:not(.js) [data-reveal] { opacity: 1 !important; transform: none !important;
 .bloom, .field, .sheen__pass, .surface__sweep, .hero-grain::after { display: none; }
 .grid-bg { background-image: none; }
 .scene-mask, .mask-fade-x { -webkit-mask-image: none; mask-image: none; }
+
+/* ---------- depth ----------
+   Flat colour, but not flat: clickable cards rise onto a red ledge (above),
+   and the pre-painted blur shadow they used to fade in is not drawn. */
+.card::after { display: none; }
+.band--ink .card { box-shadow: 0 6px 0 0 rgba(255,255,255,.14); }
+/* the homepage headline's red word is extruded one step, in a solid tint */
+.display-1 em { text-shadow: 4px 4px 0 var(--color-ember-wash); }
