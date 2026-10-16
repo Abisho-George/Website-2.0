@@ -47,7 +47,7 @@
     var starts = function (x) { return p === x || p.indexOf(x + "/") === 0; };
     if (p === "/") return "home";
     if (starts("/services") || starts("/practices")) return "services";
-    if (starts("/insights") || starts("/resources") || starts("/work") || starts("/faq")) return "resources";
+    if (starts("/use-cases") || starts("/faq")) return "resources";
     if (starts("/about")) return "about";
     return null;
   }
