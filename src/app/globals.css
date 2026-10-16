@@ -918,3 +918,5 @@ html:not(.js) [data-reveal] { opacity: 1 !important; transform: none !important;
 .band--ink .card { box-shadow: 0 6px 0 0 rgba(255,255,255,.14); }
 /* the homepage headline's red word is extruded one step, in a solid tint */
 .display-1 em { text-shadow: 4px 4px 0 var(--color-ember-wash); }
+/* the review carousel's timer bar */
+@keyframes review-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }

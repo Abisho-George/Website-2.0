@@ -51,9 +51,6 @@ export const proof = {
   clutch: { rating: "5.0", reviews: "7" },
   stats: [
     { value: "8", suffix: "yrs", label: "running B2B pipeline programmes" },
-    { value: "[[120]]", suffix: "+", label: "GTM engagements delivered" },
-    { value: "[[14]]", suffix: "", label: "countries our clients sell into" },
-    { value: "[[3.2]]", suffix: "×", label: "median pipeline lift in year one" },
   ],
   verticals: [
     "SaaS", "DevTools", "Cloud & Infrastructure", "Healthcare IT", "Document Software",

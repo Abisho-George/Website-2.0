@@ -60,7 +60,7 @@ export function Quote({ text, who }: { text: string; who: string }) {
 
 export function StatRow({ stats, className }: { stats: { value: string; suffix?: string; label: string }[]; className?: string }) {
   return (
-    <div className={cn("grid grid-cols-2 gap-x-6 gap-y-9 md:grid-cols-4", className)}>
+    <div className={cn("grid gap-x-6 gap-y-9", stats.length > 1 ? "grid-cols-2 md:grid-cols-4" : "grid-cols-1", className)}>
       {stats.map((s, i) => (
         <StaggerItem key={s.label} i={i}><Stat value={s.value} suffix={s.suffix} label={s.label} delay={i * 90} /></StaggerItem>
       ))}
