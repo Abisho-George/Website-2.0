@@ -226,21 +226,22 @@ export function articleJsonLd(input: {
 }
 
 /** A case study is an Article about the service it evidences. */
-export function caseStudyJsonLd(input: {
-  title: string; description: string; path: string; services: { name: string; path: string }[]; sample: boolean;
+export function useCaseJsonLd(input: {
+  title: string; description: string; path: string; services: { name: string; path: string }[]; industry: string;
 }) {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
-    genre: "Case study",
+    genre: "Use case",
     headline: unflag(input.title),
     description: unflag(input.description),
     url: `${site.url}${input.path}`,
     mainEntityOfPage: `${site.url}${input.path}`,
-    about: input.services.map((s) => ({ "@id": ids.service(s.path), name: s.name })),
+    about: [
+      ...input.services.map((s) => ({ "@id": ids.service(s.path), name: s.name })),
+      { "@type": "Thing", name: input.industry },
+    ],
     publisher: { "@id": ids.org },
-    // a sample is not evidence and should not be surfaced as such
-    ...(input.sample ? { creativeWorkStatus: "Draft" } : {}),
     inLanguage: "en-IN",
   };
 }

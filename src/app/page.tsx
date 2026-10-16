@@ -6,7 +6,7 @@ import { Section, SectionHead } from "@/components/ui/Section";
 import { Marquee } from "@/components/ui/Marquee";
 import { Copy } from "@/components/ui/Copy";
 import { JsonLd } from "@/components/ui/JsonLd";
-import { CaseTile, CTABand, FAQBlock, PracticeCard, ProofBar, StatRow } from "@/components/site/Blocks";
+import { CTABand, FAQBlock, PracticeCard, ProofBar, StatRow } from "@/components/site/Blocks";
 import { HeroFrame } from "@/components/site/HeroFrame";
 import { FounderGrid } from "@/components/site/Founders";
 import { SignalField } from "@/components/visual/SignalField";
@@ -16,7 +16,8 @@ import { PipelineBars } from "@/components/visual/PipelineBars";
 import { Portal } from "@/components/visual/Portal";
 import { Bloom, FieldPlate } from "@/components/ui/Atmos";
 import { families } from "@/content/practices";
-import { featuredCases } from "@/content/work";
+import { featuredUseCases, useCases } from "@/content/use-cases";
+import { UseCaseCard } from "@/components/site/UseCaseCard";
 import { insightsByDate, getCluster } from "@/content/insights";
 import { authors } from "@/content/authors";
 import { homeFaq } from "@/content/faq";
@@ -161,14 +162,14 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* 07 · work */}
-      <Section n="07" label="Work">
+      {/* 07 · use cases */}
+      <Section n="07" label="Use cases">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <SectionHead title={<>Programmes that produced <em className="serif-em">meetings.</em></>} lede="Anonymised by default. Every number traces to a client review or a signed-off study before it ships." />
-          <Link href="/work" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ember-ink">All work <ArrowRight className="size-4" /></Link>
+          <SectionHead title={<>Programmes in <em className="serif-em">action.</em></>} lede="How our service lines work in practice, by industry: the challenge, what we did, and what changed in the go-to-market motion." />
+          <Link href="/use-cases" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-ember-ink transition-colors hover:text-ember-deep">All {useCases.length} use cases <ArrowRight className="size-4" /></Link>
         </div>
-        <div className="rail rail--swipe mt-12 lg:grid-cols-3">
-          {featuredCases.map((c, i) => <CaseTile key={c.slug} c={c} i={i} />)}
+        <div className="rail rail--swipe mt-12 md:grid-cols-2 lg:grid-cols-3">
+          {featuredUseCases.map((u, i) => <UseCaseCard key={u.slug} u={u} i={i % 3} />)}
         </div>
       </Section>
 

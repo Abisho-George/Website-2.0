@@ -11,9 +11,8 @@ import { Bloom, FieldPlate } from "@/components/ui/Atmos";
 import { StaggerItem } from "@/components/motion/Stagger";
 import { practiceIconFor } from "@/components/icons/registry";
 import { PracticeGlyph } from "@/components/visual/PracticeGlyph";
-import type { CaseStudy, FAQ } from "@/content/types";
+import type { FAQ } from "@/content/types";
 import type { Group } from "@/content/practices";
-import { getGroup } from "@/content/practices";
 import { servicesFor, serviceHref } from "@/content/services";
 import { proof, site } from "@/content/site";
 
@@ -41,32 +40,6 @@ export function PracticeCard({ p, i }: { p: Group; i: number }) {
         <span className="relative mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-ember-ink">
           Explore <ArrowRight className="size-4 transition-transform duration-[var(--dur-1)] ease-standard group-hover:translate-x-1" />
         </span>
-      </Link>
-    </StaggerItem>
-  );
-}
-
-export function CaseTile({ c, i = 0, compact }: { c: CaseStudy; i?: number; compact?: boolean }) {
-  return (
-    <StaggerItem i={i} className="h-full">
-      <Link href={`/work/${c.slug}`} className={cn("card group flex h-full flex-col p-6", !compact && "md:p-7")}>
-        <div className="flex items-center justify-between gap-3 font-mono text-[0.66rem] uppercase tracking-[0.13em] text-muted">
-          <span>{c.vertical}</span>
-          {c.sample ? <span className="rounded-full border border-rule-strong bg-sand px-2 py-0.5 normal-case tracking-normal text-muted">Sample</span> : <span className="text-dim">{c.region}</span>}
-        </div>
-        <h3 className={cn("mt-5 font-display font-semibold tracking-[-0.028em]", compact ? "text-[1.12rem] leading-snug" : "h3")}><Copy text={c.title} /></h3>
-        {!compact && <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted">{c.summary}</p>}
-        <div className="mt-auto grid grid-cols-3 gap-3 border-t border-rule pt-5 [margin-top:1.75rem]">
-          {c.stats.map((s) => (
-            <div key={s.label}>
-              <div className="datum text-xl font-semibold tracking-tight md:text-[1.4rem]"><Copy text={s.value} /></div>
-              <div className="mt-1 text-[0.7rem] leading-snug text-dim">{s.label}</div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-5 flex items-center gap-1.5 text-sm text-muted transition-colors group-hover:text-ember-ink">
-          <span>{getGroup(c.group)?.short}</span><ArrowRight className="size-4 transition-transform duration-[var(--dur-1)] group-hover:translate-x-1" />
-        </div>
       </Link>
     </StaggerItem>
   );

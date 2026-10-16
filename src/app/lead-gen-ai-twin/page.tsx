@@ -5,6 +5,8 @@ import { Section } from "@/components/ui/Section";
 import { Copy } from "@/components/ui/Copy";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { CTABand, FAQBlock } from "@/components/site/Blocks";
+import { UseCaseRail } from "@/components/site/UseCaseRail";
+import { useCasesForService } from "@/content/use-cases";
 import { AgentConsole } from "@/components/visual/surface/AgentConsole";
 import { AgentMap } from "@/components/visual/AgentMap";
 import { Bloom, FieldPlate } from "@/components/ui/Atmos";
@@ -22,8 +24,9 @@ export const metadata = buildMetadata({
 });
 
 const svc = getService("gtm-ai-twin")!;
+const inAction = (({ own, related }) => [...own, ...related])(useCasesForService("gtm-ai-twin"));
 
-const anchors = [["agents", "The agents"], ["what", "What is it"], ["why-now", "Why now"], ["why-us", "Why LeadStrategus"], ["build", "How it's built"], ["faq", "FAQ"]];
+const anchors = [["agents", "The agents"], ["what", "What is it"], ["why-now", "Why now"], ["why-us", "Why LeadStrategus"], ["build", "How it's built"], ["in-action", "In action"], ["faq", "FAQ"]];
 
 export default function TwinPage() {
   return (
@@ -165,6 +168,13 @@ export default function TwinPage() {
           ))}
         </ol>
       </Section>
+
+      <UseCaseRail
+        id="in-action"
+        items={inAction}
+        title={<>The twin <em className="serif-em">in action.</em></>}
+        lede="Programmes where the agents carry the go-to-market work, by industry."
+      />
 
       <Section id="faq" className="scroll-mt-32"><FAQBlock items={twinFaq} title="What people ask before they build one." /></Section>
 

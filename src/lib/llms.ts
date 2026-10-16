@@ -4,6 +4,7 @@ import { groups } from "@/content/practices";
 import { homeFaq, twinFaq } from "@/content/faq";
 import { authors } from "@/content/authors";
 import { insightsByDate } from "@/content/insights";
+import { useCases } from "@/content/use-cases";
 
 /**
  * llms.txt (https://llmstxt.org): a plain-text map of the site for language
@@ -36,7 +37,8 @@ export function llmsIndex() {
   out.push("## Company", "");
   out.push(`- [About and founders](${abs("/about")}): who runs LeadStrategus and how the firm works`);
   out.push(`- [FAQ](${abs("/faq")}): common questions about engagements and the Lead Gen AI Twin`);
-  out.push(`- [Case studies](${abs("/work")}): case studies by service`);
+  out.push(`- [Use cases](${abs("/use-cases")}): ${useCases.length} programmes in action, by service and industry`);
+  for (const u of useCases) out.push(`  - [${u.title}](${abs(`/use-cases/${u.slug}`)}): ${u.industry}, ${u.service}`);
   out.push(`- [Contact](${abs("/contact")}): enquiries, answered within one working day`);
   out.push(`- [Book a strategy call](${abs("/book")})`, "");
   out.push("## Insights", "");

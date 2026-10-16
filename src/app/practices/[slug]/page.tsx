@@ -12,11 +12,11 @@ import { Breadcrumb, CTABand, FAQBlock } from "@/components/site/Blocks";
 import { HeroFrame } from "@/components/site/HeroFrame";
 import { ServiceGrid } from "@/components/site/ServiceGrid";
 import { ValueChain } from "@/components/site/ValueChain";
-import { CaseTeaser } from "@/components/site/CaseTeaser";
+import { UseCaseRail } from "@/components/site/UseCaseRail";
 import { practiceIconFor } from "@/components/icons/registry";
 import { pagedGroups, getGroup } from "@/content/practices";
 import { servicesFor, serviceHref, valueChain } from "@/content/services";
-import { caseStudies } from "@/content/work";
+import { useCasesForGroup } from "@/content/use-cases";
 import { site } from "@/content/site";
 import { enquiryFor } from "@/lib/enquiry";
 import { buildMetadata, breadcrumbJsonLd, faqJsonLd, serviceListJsonLd } from "@/lib/seo";
@@ -42,10 +42,9 @@ export default async function FamilyPage({ params }: { params: Promise<{ slug: s
   const g = getGroup((await params).slug);
   if (!g || g.kind === "capability") notFound();
   const members = servicesFor(g.slug);
-  const memberSlugs = new Set(members.map((s) => s.slug));
   // the stages this family covers, in chain order
   const stages = valueChain.filter((st) => members.some((s) => s.stages.includes(st)));
-  const cases = caseStudies.filter((c) => c.services.some((x) => memberSlugs.has(x))).slice(0, 4);
+  const cases = useCasesForGroup(g.slug);
   const path = `/practices/${g.slug}`;
 
   return (
@@ -100,19 +99,13 @@ export default async function FamilyPage({ params }: { params: Promise<{ slug: s
         )}
       </Section>
 
-      {cases.length > 0 && (
-        <Section band="sand">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <Reveal><h2 className="h2 balance">Case studies</h2></Reveal>
-            <Link href="/work" className="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ember-ink">
-              All case studies <ArrowRight className="size-4" />
-            </Link>
-          </div>
-          <div className="mt-10 grid gap-4 md:grid-cols-2">
-            {cases.map((c, i) => <CaseTeaser key={c.slug} c={c} i={i} />)}
-          </div>
-        </Section>
-      )}
+      <UseCaseRail
+        items={cases}
+        max={6}
+        family={cases[0]?.family}
+        title={<>{g.short} <em className="serif-em">in action.</em></>}
+        lede="Programmes from this family, by industry: the challenge, the approach and the result."
+      />
 
       {g.faq.length > 0 && (
         <Section band="sand">
