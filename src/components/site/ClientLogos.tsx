@@ -8,7 +8,7 @@ import { clients } from "@/content/clients";
  * the screen, whatever the number of logos.
  */
 export function ClientLogos() {
-  const row = [...clients, ...clients];
+  const row = clients;
   return (
     <section aria-label="Clients" className="border-y border-rule bg-paper py-8 md:py-10">
       <p className="kicker text-center text-muted">Trusted by B2B teams at</p>
