@@ -9,7 +9,7 @@ export function ClutchReviews() {
   return (
     <Section band="sand" pad="tight" label="Clutch reviews">
       <Reveal className="text-center">
-        <h2 className="h2 balance">What our clients say about us</h2>
+        <h2 className="font-display text-[1.7rem] font-bold leading-tight text-fg md:text-[2.1rem]">Here&apos;s what our customers say about us</h2>
         <a
           href={clutch.url}
           target="_blank"
@@ -23,7 +23,7 @@ export function ClutchReviews() {
           <ArrowUpRight className="size-4" aria-hidden />
         </a>
       </Reveal>
-      <div className="mt-8">
+      <div className="mt-6">
         <ReviewCarousel items={reviews} />
       </div>
     </Section>

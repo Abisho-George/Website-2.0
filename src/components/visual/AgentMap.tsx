@@ -79,7 +79,7 @@ function AgentCard({ agent, isOpen, onEnter, onLeave, onToggle }: {
         aria-expanded={isOpen}
         className={cn(
           "w-full rounded-[var(--radius-md)] border p-3.5 text-left transition-all duration-300",
-          isOpen ? "border-ember bg-ember-wash shadow-[var(--shadow-soft)]" : "border-rule bg-paper hover:border-rule-strong hover:shadow-[var(--shadow-soft)]",
+          isOpen ? "border-ember bg-ember-wash" : "border-rule bg-paper hover:border-rule-strong",
         )}
       >
         <span className="font-display text-[0.96rem] font-semibold leading-snug">{agent.name}</span>

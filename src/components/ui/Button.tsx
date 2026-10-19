@@ -13,10 +13,10 @@ type Props = {
 const base =
   // transition-all on a focus-ring-bearing element animates the ring too, which
 // blurs the one affordance a keyboard user has. Named properties only.
-"group inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight whitespace-nowrap transition-[background-color,box-shadow,transform,border-color,color] duration-[var(--dur-1)] ease-standard active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-offset-2 disabled:opacity-50";
+"group inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight whitespace-nowrap transition-[background-color,box-shadow,transform,border-color,color] duration-[var(--dur-1)] ease-standard focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-offset-2 disabled:opacity-50";
 const sizes = { sm: "h-9 px-4 text-[0.85rem]", md: "h-11 px-5 text-[0.94rem]", lg: "h-[52px] px-7 text-[1rem]" };
 const variants = {
-  primary: "bg-ember text-white hover:-translate-y-px hover:bg-ember-ink hover:shadow-[0_10px_24px_-10px_rgba(225,6,0,.55)]",
+  primary: "bg-ember text-white hover:bg-ember-ink",
   // the Twin accent: ink, not teal. The teal was never in the logo.
   twin: "bg-ink text-paper hover:bg-ink-3 focus-visible:ring-ember",
   ghost: "text-fg hover:bg-sand",

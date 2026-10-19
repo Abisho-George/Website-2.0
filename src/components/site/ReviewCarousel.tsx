@@ -39,7 +39,7 @@ export function ReviewCarousel({ items }: { items: Review[] }) {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      <div className="grid overflow-x-clip py-4">
+      <div className="grid overflow-x-clip py-6">
         {items.map((x, k) => {
           const o = offset(k);
           const side = Math.abs(o) === 1;
@@ -48,24 +48,21 @@ export function ReviewCarousel({ items }: { items: Review[] }) {
               key={x.quote}
               aria-hidden={o !== 0}
               onClick={side ? () => go(o) : undefined}
-              style={{ transform: `translateX(${o * 82}%) scale(${o === 0 ? 1 : 0.9})` }}
+              style={{ transform: `translateX(${o * 72}%)` }}
               className={cn(
-                "flex w-full max-w-[600px] flex-col justify-self-center rounded-[20px] border border-rule bg-paper p-6 transition-[transform,opacity,box-shadow] duration-700 ease-[cubic-bezier(.22,1,.36,1)] [grid-area:1/1] md:p-8",
-                o === 0 && "z-10 opacity-100 shadow-[var(--shadow-lift)]",
-                side && "z-0 cursor-pointer opacity-0 md:opacity-45",
+                "w-full max-w-[575px] justify-self-center rounded-2xl border border-rule bg-paper px-6 py-6 transition-[transform,opacity] duration-700 ease-[cubic-bezier(.22,1,.36,1)] [grid-area:1/1] md:px-7",
+                o === 0 && "z-10 shadow-[0_8px_30px_-12px_rgba(15,23,42,.22)]",
+                side && "z-0 cursor-pointer opacity-0 md:opacity-50",
                 Math.abs(o) > 1 && "pointer-events-none opacity-0",
               )}
             >
-              <span className="flex gap-1 text-[#f5a524]" role="img" aria-label="Rated 5 out of 5">
+              <span className="flex gap-0.5 text-[#f0b54a]" role="img" aria-label="Rated 5 out of 5">
                 {Array.from({ length: 5 }, (_, s) => <Star key={s} className="size-[18px]" fill="currentColor" strokeWidth={0} />)}
               </span>
-              <blockquote className="mt-4 text-[1.05rem] italic leading-relaxed text-fg md:text-[1.12rem]">
-                &ldquo;{x.quote}&rdquo;
-              </blockquote>
-              <p className="mb-5 mt-3 text-[0.92rem] leading-relaxed text-muted">{x.summary}</p>
-              <figcaption className="mt-auto border-t border-rule pt-4">
-                <span className="block font-display text-[0.98rem] font-bold text-fg">{x.role}</span>
-                <span className="block text-[0.85rem] text-muted">{x.company} · {x.region}</span>
+              <blockquote className="mt-4 text-[0.95rem] italic leading-[1.65] text-fg-soft">&ldquo;{x.quote}&rdquo;</blockquote>
+              <figcaption className="mt-5">
+                <span className="block text-[0.95rem] font-semibold text-fg">{x.role}</span>
+                <span className="block text-[0.82rem] text-muted">{x.company}, {x.region}</span>
               </figcaption>
             </figure>
           );
@@ -84,7 +81,7 @@ export function ReviewCarousel({ items }: { items: Review[] }) {
               aria-current={k === i}
               aria-label={`Review ${k + 1} of ${n}`}
               onClick={() => setI(k)}
-              className={cn("h-2 rounded-full transition-all duration-300", k === i ? "w-6 bg-fg" : "w-2 bg-rule-strong hover:bg-muted")}
+              className={cn("h-2 rounded-full transition-all duration-300", k === i ? "w-6 bg-ink" : "w-2 bg-rule-strong hover:bg-muted")}
             />
           ))}
         </div>

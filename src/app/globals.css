@@ -398,7 +398,7 @@ body {
   background: var(--color-paper);
   border: 1px solid transparent;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-soft);
+  box-shadow: none;
   transition: transform var(--dur-1) var(--ease-standard), box-shadow var(--dur-1) var(--ease-standard);
 }
 .card::before {
@@ -436,10 +436,9 @@ body {
 
 /* A card lifts when there is something in it to click. Cards that are pure
    content do not move, because nothing invites it. */
-.card-hover:hover, .card-hover:focus-within,
 a.card:hover, a.card:focus-visible,
 .card:has(a[href]):hover, .card:has(a[href]):focus-within,
-.card:has(button):hover, .card:has(button):focus-within { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
+.card:has(button):hover, .card:has(button):focus-within { border-color: var(--color-rule-strong); }
 .card-hover:hover::after, .card-hover:focus-within::after,
 a.card:hover::after, a.card:focus-visible::after,
 .card:has(a[href]):hover::after, .card:has(a[href]):focus-within::after,
@@ -464,7 +463,7 @@ a.card:hover::after, a.card:focus-visible::after,
 .plate--md { width: 42px; height: 42px; }
 .plate--lg { width: 54px; height: 54px; }
 .card:hover .plate {
-  transform: translateY(-3px) rotate(-3.5deg);
+  
   background: var(--color-ember-wash);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 0 0 1px rgba(228,18,31,.30), var(--shadow-e3-ember);
 }
