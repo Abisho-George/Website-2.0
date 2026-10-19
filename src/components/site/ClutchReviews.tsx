@@ -19,7 +19,7 @@ export function ClutchReviews() {
           <span className="flex gap-0.5 text-[#f5a524]" aria-hidden>
             {Array.from({ length: 5 }, (_, i) => <Star key={i} className="size-4" fill="currentColor" strokeWidth={0} />)}
           </span>
-          <span><strong className="font-semibold text-fg">{clutch.rating}</strong> from {clutch.count} verified reviews on Clutch</span>
+          <span>5-star rated on Clutch</span>
           <ArrowUpRight className="size-4" aria-hidden />
         </a>
       </Reveal>
