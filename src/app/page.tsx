@@ -39,13 +39,6 @@ const shifts = [
   { n: "03", t: "Execution is becoming software.", b: "The repeatable seventy percent of go-to-market can now be run by agents. Deciding which accounts deserve effort is the human job, and the whole advantage." },
 ];
 
-const phases = [
-  { p: "Diagnose", d: "2 weeks", b: "Pipeline archaeology, customer interviews, motion audit. We find out what actually converts." },
-  { p: "Design", d: "2 to 4 weeks", b: "ICP, positioning, universe, messaging system, channel mix and the operating plan." },
-  { p: "Deploy", d: "4 to 8 weeks", b: "Pods, programmes or agents go live under weekly review. Learning before volume." },
-  { p: "Run", d: "Ongoing", b: "Accountable to meetings and opportunities, reported every week, tuned every month." },
-];
-
 export default function Home() {
   return (
     <>
@@ -127,21 +120,7 @@ export default function Home() {
 
       {/* 06 · operating model */}
       <Section n="06" label="Operating model" band="sand">
-        <SectionHead title={<>Diagnose. Design. Deploy. <em className="serif-em">Run.</em></>} lede="Every practice, the Twin included, runs on the same four phases and the same weekly report." />
-        <ol className="mt-12 grid gap-8 md:grid-cols-4 md:gap-6">
-          {phases.map((ph, i) => (
-            <Reveal key={ph.p} as="li" delay={i * 70} className="relative">
-              <div className="mb-5 flex items-center gap-3">
-                <span className="h-px w-10 bg-ember" />
-                <span className="h-px flex-1 bg-rule" />
-                <span className="kicker text-dim">{ph.d}</span>
-              </div>
-              <div className="font-display text-xl font-semibold tracking-tight">{ph.p}</div>
-              <p className="mt-2 text-[0.94rem] leading-relaxed text-muted">{ph.b}</p>
-            </Reveal>
-          ))}
-        </ol>
-        <div className="mt-16 grid gap-10 border-t border-rule pt-12 md:grid-cols-12 md:items-center">
+        <div className="grid gap-10 md:grid-cols-12 md:items-center">
           <div className="md:col-span-5">
             <p className="font-display text-[1.5rem] font-medium leading-[1.2] tracking-[-0.022em] md:text-[1.9rem]">&ldquo;We report the same five numbers every week: accounts engaged, meetings booked, meetings held, opportunities created, and what we are changing next.&rdquo;</p>
             <p className="kicker mt-4 text-muted">Kingshuk Hazra · Founder</p>
