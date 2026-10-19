@@ -6,7 +6,7 @@ import { Section, SectionHead } from "@/components/ui/Section";
 import { Marquee } from "@/components/ui/Marquee";
 import { Copy } from "@/components/ui/Copy";
 import { JsonLd } from "@/components/ui/JsonLd";
-import { CTABand, FAQBlock, PracticeCard, StatRow } from "@/components/site/Blocks";
+import { CTABand, FAQBlock, StatRow } from "@/components/site/Blocks";
 import { ClientLogos } from "@/components/site/ClientLogos";
 import { ClutchReviews } from "@/components/site/ClutchReviews";
 import { HeroFrame } from "@/components/site/HeroFrame";
@@ -99,17 +99,6 @@ export default function Home() {
           <div className="lg:col-span-7">
             <Reveal className="card p-6 md:p-8"><PipelineBars /></Reveal>
           </div>
-        </div>
-      </Section>
-
-      {/* 04 · families */}
-      <Section n="04" label="Families">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <SectionHead title={<>Six families.<br />One <em className="serif-em">revenue engine.</em></>} lede="From deciding where to play to converting the meetings that follow. Start with the family your pipeline needs; most clients add a second, because they share one account universe and one commercial logic." />
-          <Link href="/services" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ember-ink">All services <ArrowRight className="size-4" /></Link>
-        </div>
-        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {families.map((p, i) => <PracticeCard key={p.slug} p={p} i={i} />)}
         </div>
       </Section>
 
