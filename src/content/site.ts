@@ -14,9 +14,9 @@ export const site = {
   founded: 2018,
   contact: {
     email: "kingshuk@leadstrategus.com",
-    hq: "Novel Office, Brigade Tech Park, near ITPL Main Road, Pattandur Agrahara, Whitefield, Bengaluru, Karnataka 560066",
+    hq: "Bizzhub, Brigade Tech Park, near ITPL Main Road, Pattandur Agrahara, Whitefield, Bengaluru, Karnataka 560066",
     address: {
-      street: "Novel Office, Brigade Tech Park, near ITPL Main Road, Pattandur Agrahara",
+      street: "Bizzhub, Brigade Tech Park, near ITPL Main Road, Pattandur Agrahara",
       locality: "Whitefield, Bengaluru",
       region: "Karnataka",
       postalCode: "560066",
