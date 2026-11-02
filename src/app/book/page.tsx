@@ -1,13 +1,11 @@
 import { Reveal } from "@/components/ui/Reveal";
 import { ContactForm } from "@/components/site/ContactForm";
-import { site } from "@/content/site";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { buildMetadata, pageJsonLd } from "@/lib/seo";
 
 export const metadata = buildMetadata({ title: "Book a strategy call", description: "Book thirty minutes with a LeadStrategus founder on your pipeline, your go-to-market motion and what would move it. No pitch deck, a working session.", path: "/book", keywords: ["book a GTM strategy call", "B2B go-to-market consultation", "demand generation consultation", "LeadStrategus call"] });
 
 export default function BookPage() {
-  const cal = site.booking.calLink;
   return (
     <section className="relative pt-[var(--nav-h)]">
       <JsonLd data={pageJsonLd({ type: "WebPage", name: "Book a strategy call", description: metadata.description as string, path: "/book" })} />
@@ -21,16 +19,9 @@ export default function BookPage() {
           </Reveal>
         </div>
         <div className="lg:col-span-8">
-          {cal ? (
-            <Reveal delay={120} className="card overflow-hidden">
-              <iframe src={`https://cal.com/${cal}?embed=true&theme=dark&layout=month_view`} title="Book a strategy call" className="h-[760px] w-full" loading="lazy" />
-            </Reveal>
-          ) : (
-            <Reveal delay={120} className="card p-6 md:p-8">
-              <p className="kicker mb-6 rounded-xl border border-rule bg-white/[.03] p-4 text-muted">Calendar embed not configured. Set <span className="text-fg">NEXT_PUBLIC_CAL_LINK</span> (e.g. <span className="text-fg">leadstrategus/strategy-call</span>) to embed Cal.com here. Until then, requests go through the form.</p>
-              <ContactForm defaultType="other" />
-            </Reveal>
-          )}
+          <Reveal delay={120} className="card p-6 md:p-8">
+            <ContactForm defaultType="other" />
+          </Reveal>
         </div>
       </div>
     </section>
