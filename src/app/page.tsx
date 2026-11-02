@@ -142,15 +142,11 @@ export default function Home() {
 
       {/* 08 · operators */}
       <Section n="08" label="Operators">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
-          <div className="lg:col-span-5">
-            <SectionHead title={<>Operators, <em className="serif-em">not an agency.</em></>} lede="The founders ran marketing for global vendors in India before starting LeadStrategus in 2018. Every engagement is led by someone who has carried the number." />
-            <Button href="/about" variant="outline" className="mt-8">About the firm</Button>
-          </div>
-          <div className="lg:col-span-7">
-            <FounderGrid authors={authors} />
-          </div>
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <SectionHead title={<>Operators, <em className="serif-em">not an agency.</em></>} lede="The founders ran marketing for global vendors in India before starting LeadStrategus in 2018. Every engagement is led by someone who has carried the number." />
+          <Button href="/about" variant="outline" className="shrink-0">About the firm</Button>
         </div>
+        <FounderGrid authors={authors} className="mt-10" />
         <div className="mt-14 border-y border-rule py-5">
           <Marquee speed="64s" items={proof.verticals.map((v) => <span key={v} className="kicker text-dim">{v}</span>)} />
         </div>

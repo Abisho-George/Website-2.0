@@ -21,7 +21,8 @@ export const authors: Author[] = [
       "A statistics graduate with an MBA from the Indian Institute of Foreign Trade, Kingshuk is the reason every LeadStrategus engagement starts with the numbers and ends with a forecast someone is prepared to defend.",
       "Kingshuk writes and speaks on demand generation, intent data and the practical use of AI agents in B2B go-to-market, and still personally runs the diagnostic phase of most GTM strategy engagements.",
     ],
-    linkedin: "https://in.linkedin.com/in/kingshuk",
+    linkedin: "https://www.linkedin.com/in/kingshuk/",
+    email: "kingshuk@leadstrategus.com",
   },
   {
     slug: "anindita-hazra",
@@ -33,6 +34,20 @@ export const authors: Author[] = [
       "[[Anindita co-founded LeadStrategus and leads client delivery: the pods, the programmes and the weekly pipeline reviews that keep the firm accountable for meetings rather than activity.]]",
       "[[Anindita's background spans marketing operations, content and programme management for technology companies.]]",
     ],
+    linkedin: "https://www.linkedin.com/in/aninditahazra/",
+    email: "anindita@leadstrategus.com",
+  },
+  {
+    slug: "komala-maran",
+    name: "Komala Maran",
+    role: "Head Go-To-Market & Growth",
+    image: "/founders/komala-maran.jpg",
+    bio: "With LeadStrategus for over seven years. Head of GTM and Growth for LeadStrategus.ai.",
+    long: [
+      "Komala has been with LeadStrategus for over seven years, running account-based marketing programmes, SaaS product launches, and go-to-market strategy for clients across industries. She has done the work the platform now automates, building account lists, running research briefs, designing outreach sequences by hand. As Head of GTM and Growth for LeadStrategus.ai, she leads how the platform reaches and serves solo operators and growth teams. B.Tech from IIIT.",
+    ],
+    linkedin: "https://www.linkedin.com/in/komalamaran/",
+    email: "komala.m@leadstrategus.com",
   },
 ];
 

@@ -7,6 +7,7 @@ export type Author = {
   bio: string;
   long: string[];
   linkedin?: string;
+  email?: string;
   /** A path under /public. */
   image?: string;
 };

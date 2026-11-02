@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { ArrowUpRight, X } from "lucide-react";
+import { ArrowUpRight, Linkedin, Mail, X } from "lucide-react";
 import { Copy } from "@/components/ui/Copy";
 import { StaggerItem } from "@/components/motion/Stagger";
 import type { Author } from "@/content/types";
@@ -47,6 +47,19 @@ export function FounderCard({ a, i = 0, className }: { a: Author; i?: number; cl
         <p className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-ember-ink">
           More about {first} <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
         </p>
+        {/* icon-only on the card; they sit above the card's stretched button */}
+        <div className="relative z-10 mt-5 flex gap-2">
+          {a.linkedin && (
+            <a href={a.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${a.name} on LinkedIn`} className="grid size-9 place-items-center rounded-full border border-rule text-fg-soft transition-colors hover:border-ember hover:text-ember">
+              <Linkedin className="size-4" />
+            </a>
+          )}
+          {a.email && (
+            <a href={`mailto:${a.email}`} aria-label={`Email ${a.name}`} className="grid size-9 place-items-center rounded-full border border-rule text-fg-soft transition-colors hover:border-ember hover:text-ember">
+              <Mail className="size-4" />
+            </a>
+          )}
+        </div>
       </article>
     </StaggerItem>
   );
@@ -97,10 +110,19 @@ function FounderDialog({ a }: { a: Author }) {
         <div className="mt-5 space-y-4 border-t border-rule pt-5 text-[0.95rem] leading-relaxed text-fg-soft">
           {a.long.map((para, k) => <p key={k}><Copy text={para} /></p>)}
         </div>
-        {a.linkedin && (
-          <a href={a.linkedin} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-ember-ink">
-            {a.name} on LinkedIn <ArrowUpRight className="size-4" />
-          </a>
+        {(a.linkedin || a.email) && (
+          <div className="mt-6 space-y-2.5 text-sm font-medium text-fg">
+            {a.linkedin && (
+              <a href={a.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 transition-colors hover:text-ember-ink">
+                <Linkedin className="size-4" aria-hidden /> Connect on LinkedIn
+              </a>
+            )}
+            {a.email && (
+              <a href={`mailto:${a.email}`} className="flex items-center gap-2.5 transition-colors hover:text-ember-ink">
+                <Mail className="size-4" aria-hidden /> {a.email}
+              </a>
+            )}
+          </div>
         )}
       </div>
     </dialog>
@@ -122,7 +144,7 @@ export function FounderGrid({ authors, className }: { authors: Author[]; classNa
 
   return (
     <>
-      <div className={cn("grid gap-4 md:grid-cols-2", className)}>
+      <div className={cn("grid gap-4 md:grid-cols-2 lg:grid-cols-3", className)}>
         {authors.map((a, i) => <FounderCard key={a.slug} a={a} i={i} />)}
       </div>
       {authors.map((a) => <FounderDialog key={a.slug} a={a} />)}
