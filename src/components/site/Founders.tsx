@@ -25,7 +25,7 @@ export function FounderCard({ a, i = 0, className }: { a: Author; i?: number; cl
   const first = a.name.split(" ")[0];
   return (
     <StaggerItem i={i} className={cn("h-full", className)}>
-      <article id={a.slug} className="card card-hover group relative h-full scroll-mt-[calc(var(--nav-h)+24px)] p-6 md:p-7">
+      <article id={a.slug} className="card card-hover group relative flex h-full flex-col scroll-mt-[calc(var(--nav-h)+24px)] p-6 md:p-7">
         <div className="flex items-center gap-5">
           <Photo a={a} className="size-20 md:size-24" />
           <p className="kicker text-ember-ink">{a.role}</p>
@@ -44,7 +44,7 @@ export function FounderCard({ a, i = 0, className }: { a: Author; i?: number; cl
           </button>
         </h3>
         <p className="mt-3 text-[0.95rem] leading-relaxed text-fg-soft"><Copy text={a.bio} /></p>
-        <p className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-ember-ink">
+        <p className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-medium text-ember-ink">
           More about {first} <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
         </p>
         {/* icon-only on the card; they sit above the card's stretched button */}
