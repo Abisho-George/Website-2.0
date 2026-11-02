@@ -42,9 +42,11 @@ export const authors: Author[] = [
     name: "Komala Maran",
     role: "Head Go-To-Market & Growth",
     image: "/founders/komala-maran.jpg",
-    bio: "With LeadStrategus for over seven years. Head of GTM and Growth for LeadStrategus.ai.",
+    bio: "Leads Go-To-Market and Market Intelligence at LeadStrategus. Built the firm’s Market Insights and Open Source Intelligence practice. An IT engineer from IIIT Allahabad.",
     long: [
-      "Komala has been with LeadStrategus for over seven years, running account-based marketing programmes, SaaS product launches, and go-to-market strategy for clients across industries. She has done the work the platform now automates, building account lists, running research briefs, designing outreach sequences by hand. As Head of GTM and Growth for LeadStrategus.ai, she leads how the platform reaches and serves solo operators and growth teams. B.Tech from IIIT.",
+      "Komala joined LeadStrategus in 2019 and has grown with the firm from Smarketing consultant to Manager of its Market Insights and Open Source Intelligence practice, and now to Head of Go-To-Market. She runs the intelligence engine behind client engagements: the market selection, opportunity assessment, ICP development and account prioritisation that decide who a client should go after, and when. Her work spans international market entry, buyer and competitive intelligence, and intelligence-led demand generation for B2B and technology companies.",
+      "An engineer by training, Komala is the reason a LeadStrategus target list comes with a why attached to every account: what changed at that company, why now, and how to start the conversation.",
+      "She leads the firm’s use of generative AI and AI agents across research and GTM workflows, and runs LeadStrategus masterclasses on using open-source intelligence to find and research prospects. Outside work, she founded Project Yaadhum and mentors students through the Ministry of Education’s Vidyanjali programme.",
     ],
     linkedin: "https://www.linkedin.com/in/komalamaran/",
     email: "komala.m@leadstrategus.com",
