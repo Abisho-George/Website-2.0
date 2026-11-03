@@ -13,7 +13,7 @@ import { iconFor } from "@/components/icons/registry";
 import { useCases, getUseCase, findService, moreLike } from "@/content/case-studies";
 import { getService, serviceHref } from "@/content/services";
 import { enquiryFor } from "@/lib/enquiry";
-import { buildMetadata, breadcrumbJsonLd, useCaseJsonLd } from "@/lib/seo";
+import { buildMetadata, breadcrumbJsonLd, useCaseJsonLd, pickDescription, firstSentence, fitDescription } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
 export function generateStaticParams() {
@@ -21,12 +21,17 @@ export function generateStaticParams() {
 }
 export const dynamicParams = false;
 
+/** The hook as a description: whole, or its opening sentences of 90+ characters. */
+const hookFits = (hook: string) => hook.length <= 160 || hook.startsWith(fitDescription(hook)) && fitDescription(hook).length >= 90;
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const u = getUseCase((await params).slug);
   if (!u) return {};
   return buildMetadata({
     title: u.title,
-    description: u.hook,
+    // the hook, or its opening sentences when they fit and say enough; otherwise
+    // the best whole-sentence summary that fits a search result
+    description: hookFits(u.hook) ? u.hook : pickDescription([`${u.challenge} ${u.result}`, `${firstSentence(u.hook)} ${u.result}`, `${u.title}. ${u.result}`, firstSentence(u.hook), u.result]) || u.result,
     path: `/case-studies/${u.slug}`,
     type: "article",
     keywords: [u.service, ...u.related, u.industry, u.family, "case study", "LeadStrategus"],

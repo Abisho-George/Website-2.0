@@ -28,7 +28,7 @@ import { buildMetadata, faqJsonLd, pageJsonLd, serviceListJsonLd } from "@/lib/s
 
 export const metadata = buildMetadata({
   absoluteTitle: "LeadStrategus | B2B GTM Strategy, Demand Generation and AI Agents",
-  description: site.description,
+  description: "LeadStrategus is a Bengaluru-headquartered B2B go-to-market firm. We design, run and automate revenue engines for technology companies, AI agents included.",
   path: "/",
   keywords: ["B2B go-to-market", "GTM strategy", "B2B demand generation", "account-based marketing", "account intelligence", "sales enablement", "event-led demand generation", "AI agents for sales", "Lead Gen AI Twin", "B2B marketing agency India", "LeadStrategus"],
 });

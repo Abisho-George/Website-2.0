@@ -18,7 +18,7 @@ import { buildMetadata, serviceJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/lib
 
 export const metadata = buildMetadata({
   title: "Lead Gen AI Twin: custom AI agents for B2B go-to-market",
-  description: "We build custom AI agents that take over B2B go-to-market: identify prospects, research accounts, reach out in your voice, handle replies and book qualified meetings. What it is, why now, and why LeadStrategus.",
+  description: "We build custom AI agents that take over B2B go-to-market: they find prospects, research accounts, reach out in your voice and book qualified meetings.",
   path: "/lead-gen-ai-twin",
   keywords: ["Lead Gen AI Twin", "AI agents for go-to-market", "AI SDR alternative", "AI demand generation", "custom AI sales agents", "AI agents for B2B outbound", "LeadStrategus.ai"],
 });

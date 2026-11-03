@@ -13,6 +13,7 @@ import { iconFor } from "@/components/icons/registry";
 import { services, getService, servicesFor, serviceHref } from "@/content/services";
 import { getGroup, groupHref as groupHrefFor } from "@/content/practices";
 import { useCasesForService } from "@/content/case-studies";
+import { serviceMeta } from "@/content/meta";
 import { enquiryFor } from "@/lib/enquiry";
 import { buildMetadata, serviceJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
@@ -36,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return buildMetadata({
     title: s.name,
     // the definition reads as a search snippet on its own; the tagline leads
-    description: `${s.tagline}. ${s.what}`,
+    description: serviceMeta[s.slug] ?? `${s.tagline}. ${s.what}`,
     path: `/services/${s.slug}`,
     keywords: [s.name, ...s.seoTerms, group?.name ?? "", "LeadStrategus"].filter(Boolean),
   });

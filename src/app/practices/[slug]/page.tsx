@@ -18,6 +18,7 @@ import { pagedGroups, getGroup } from "@/content/practices";
 import { servicesFor, serviceHref, valueChain } from "@/content/services";
 import { useCasesForGroup } from "@/content/case-studies";
 import { site } from "@/content/site";
+import { familyMeta } from "@/content/meta";
 import { enquiryFor } from "@/lib/enquiry";
 import { buildMetadata, breadcrumbJsonLd, faqJsonLd, serviceListJsonLd } from "@/lib/seo";
 
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const members = servicesFor(g.slug);
   return buildMetadata({
     title: g.name,
-    description: `${g.tagline} ${g.summary}`,
+    description: familyMeta[g.slug] ?? `${g.tagline} ${g.summary}`,
     path: `/practices/${g.slug}`,
     keywords: [g.name, ...members.map((s) => s.name), ...members.flatMap((s) => s.seoTerms.slice(0, 2))],
   });

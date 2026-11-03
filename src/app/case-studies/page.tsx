@@ -8,7 +8,7 @@ import { buildMetadata, pageJsonLd } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "Case studies: programmes in action",
-  description: "How LeadStrategus service lines work in practice, by industry: the situation buyers face, the question that matters, what we do, and what changes in the go-to-market motion.",
+  description: "How LeadStrategus service lines work in practice, by industry: the situation buyers face, what we do, and what changes in the go-to-market motion.",
   path: "/case-studies",
   keywords: ["LeadStrategus case studies", "B2B go-to-market case studies", "demand generation case studies", "ABM case studies", "AI agents for lead generation"],
 });

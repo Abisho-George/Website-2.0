@@ -19,7 +19,7 @@ import { buildMetadata, breadcrumbJsonLd, serviceListJsonLd } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "Services",
-  description: `All ${services.length} LeadStrategus services in six families: GTM strategy and market intelligence, account and buying intelligence, positioning and revenue content, demand generation and ABM, sales enablement, and event-led demand generation, plus the LeadStrategus.ai and ExpoToFunnel platforms.`,
+  description: `All ${services.length} LeadStrategus services in six families, from GTM strategy and account intelligence to demand generation, enablement and events.`,
   path: "/services",
   keywords: ["B2B go-to-market services", "demand generation services", "ABM agency India", "sales enablement", "GTM consulting", ...families.map((f) => f.name)],
 });

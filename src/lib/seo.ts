@@ -26,20 +26,46 @@ const unflag = (s: string) => s.replace(/\[\[|\]\]/g, "");
 const isFlagged = (s: string) => s.includes("[[");
 
 /**
- * Search results show roughly 155 to 160 characters of a description. Longer
- * copy is cut at a sentence if one ends in range, otherwise at a word.
+ * Search results show roughly 155 to 160 characters of a description, so
+ * longer copy is cut, but only ever at the end of a sentence: a description
+ * that stops mid-sentence reads as broken in results and link previews.
+ * It keeps the opening run of whole sentences that fits; if that is too thin
+ * (under 90 characters), it uses the longest run of whole sentences from
+ * anywhere in the text instead. Text with no sentence short enough to fit
+ * falls back to a cut at a word, and the page should then be given its own
+ * shorter description.
  */
+/** Whole sentences: a full stop only ends one when a space or the end follows, so "LeadStrategus.ai" stays one word. */
+export const sentencesOf = (text: string) => (text.replace(/\s+/g, " ").trim().match(/.+?[.!?]+(?=\s|$)/g) ?? []).map((x) => x.trim());
+export const firstSentence = (text: string) => sentencesOf(text)[0] ?? text;
+
+/**
+ * A page's description from candidates written in order of preference: the
+ * first that fits in full and says enough (at least `min` characters), else
+ * the longest that fits. Every candidate is whole sentences, so nothing is cut.
+ */
+export function pickDescription(candidates: string[], { max = 160, min = 110 } = {}) {
+  const fits = candidates.map((c) => c.replace(/\s+/g, " ").trim()).filter((c) => c && c.length <= max);
+  return fits.find((c) => c.length >= min) ?? fits.reduce((a, b) => (b.length > a.length ? b : a), "") ?? candidates[0];
+}
+
 export function fitDescription(text: string, max = 160) {
   const t = text.replace(/\s+/g, " ").trim();
   if (t.length <= max) return t;
-  const sentences = t.match(/[^.!?]+[.!?]+(\s|$)/g) ?? [];
-  let out = "";
-  for (const sn of sentences) {
-    if ((out + sn).trim().length > max) break;
-    out += sn;
-  }
-  out = out.trim();
-  if (out.length >= 90) return out;
+  const sentences = sentencesOf(t);
+  const run = (from: number) => {
+    let out = "";
+    for (let k = from; k < sentences.length; k++) {
+      const next = out ? `${out} ${sentences[k]}` : sentences[k];
+      if (next.length > max) break;
+      out = next;
+    }
+    return out;
+  };
+  const lead = run(0);
+  if (lead.length >= 90) return lead;
+  const best = sentences.map((_, k) => run(k)).reduce((a, b) => (b.length > a.length ? b : a), lead);
+  if (best) return best;
   const cut = t.slice(0, max - 1);
   return cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:]$/, "") + "\u2026";
 }

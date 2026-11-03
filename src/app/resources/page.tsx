@@ -16,7 +16,7 @@ import { formatDate } from "@/lib/utils";
 
 export const metadata = buildMetadata({
   title: "Resources",
-  description: "The worksheets, templates, checklists and benchmarks LeadStrategus uses inside client engagements: ICP definition, deliverability, OSINT briefs, pipeline benchmarks and the GTM AI readiness assessment.",
+  description: "The worksheets, templates, checklists and benchmarks LeadStrategus uses inside client engagements, from ICP definition to OSINT briefs.",
   path: "/resources",
   keywords: ["B2B GTM templates", "ICP worksheet", "email deliverability checklist", "OSINT brief template", "pipeline benchmarks", "GTM AI readiness assessment"],
 });
