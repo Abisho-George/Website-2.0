@@ -18,7 +18,7 @@ import { PipelineBars } from "@/components/visual/PipelineBars";
 import { Portal } from "@/components/visual/Portal";
 import { Bloom, FieldPlate } from "@/components/ui/Atmos";
 import { families } from "@/content/practices";
-import { featuredUseCases, useCases } from "@/content/case-studies";
+import { featuredUseCases, useCases } from "@/content/use-cases";
 import { UseCaseCard } from "@/components/site/UseCaseCard";
 import { authors } from "@/content/authors";
 import { homeFaq } from "@/content/faq";
@@ -129,11 +129,11 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* 07 · case studies */}
-      <Section n="07" label="Case studies">
+      {/* 07 · use cases */}
+      <Section n="07" label="Use cases">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <SectionHead title={<>Case studies from <em className="serif-em">the field.</em></>} lede="How our service lines work in practice, by industry: the challenge, what we did, and what changed in the go-to-market motion." />
-          <Link href="/case-studies" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-ember-ink transition-colors hover:text-ember-deep">All {useCases.length} case studies <ArrowRight className="size-4" /></Link>
+          <SectionHead title={<>Use cases from <em className="serif-em">the field.</em></>} lede="How our service lines work in practice, by industry: the challenge, what we did, and what changed in the go-to-market motion." />
+          <Link href="/use-cases" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-ember-ink transition-colors hover:text-ember-deep">All {useCases.length} use cases <ArrowRight className="size-4" /></Link>
         </div>
         <div className="rail rail--swipe mt-12 md:grid-cols-2 lg:grid-cols-3">
           {featuredUseCases.map((u, i) => <UseCaseCard key={u.slug} u={u} i={i % 3} />)}

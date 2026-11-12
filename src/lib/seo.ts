@@ -251,14 +251,14 @@ export function articleJsonLd(input: {
   };
 }
 
-/** A case study is an Article about the service it evidences. */
+/** A use case is an Article about the service it evidences. */
 export function useCaseJsonLd(input: {
   title: string; description: string; path: string; services: { name: string; path: string }[]; industry: string;
 }) {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
-    genre: "Case study",
+    genre: "Use case",
     headline: unflag(input.title),
     description: unflag(input.description),
     url: `${site.url}${input.path}`,

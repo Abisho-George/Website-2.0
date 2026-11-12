@@ -16,7 +16,7 @@ import { UseCaseRail } from "@/components/site/UseCaseRail";
 import { practiceIconFor } from "@/components/icons/registry";
 import { pagedGroups, getGroup } from "@/content/practices";
 import { servicesFor, serviceHref, valueChain } from "@/content/services";
-import { useCasesForGroup } from "@/content/case-studies";
+import { useCasesForGroup } from "@/content/use-cases";
 import { site } from "@/content/site";
 import { familyMeta } from "@/content/meta";
 import { enquiryFor } from "@/lib/enquiry";

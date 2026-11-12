@@ -12,7 +12,7 @@ import { UseCaseCard } from "@/components/site/UseCaseCard";
 import { iconFor } from "@/components/icons/registry";
 import { services, getService, servicesFor, serviceHref } from "@/content/services";
 import { getGroup, groupHref as groupHrefFor } from "@/content/practices";
-import { useCasesForService } from "@/content/case-studies";
+import { useCasesForService } from "@/content/use-cases";
 import { serviceMeta } from "@/content/meta";
 import { enquiryFor } from "@/lib/enquiry";
 import { buildMetadata, serviceJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 /**
  * One service page, kept deliberately plain: a hero that says what the
- * service is (no side panel), one band for why now and why us, the case studies, related
+ * service is (no side panel), one band for why now and why us, the use cases, related
  * services and a closing call. Grounds are solid colours with hard edges
  * (the .page-solid scope), and the rhythm is tighter than the rest of the site.
  */
@@ -135,7 +135,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </Section>
 
-      {/* case studies: two small cards and a way into the library */}
+      {/* use cases: two small cards and a way into the library */}
       {(own.length > 0 || related.length > 0) && (
         <Section pad="tight">
           <h2 className="h3">Want to see how this works in the field?</h2>
@@ -143,14 +143,14 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <div className="rail rail--swipe mt-6 md:grid-cols-2 lg:grid-cols-3">
             {(own.length ? own : related).slice(0, 2).map((u, i) => <UseCaseCard key={u.slug} u={u} i={i} showService={false} />)}
             <Link
-              href={`/case-studies?family=${encodeURIComponent((own[0] ?? related[0]).family)}`}
+              href={`/use-cases?family=${encodeURIComponent((own[0] ?? related[0]).family)}`}
               className="group flex flex-col justify-between rounded-[var(--radius-lg)] bg-ember p-5 text-white transition-colors duration-200 hover:bg-ember-ink md:p-6"
             >
               <span className="font-display text-[1.25rem] font-bold leading-snug tracking-[-0.015em]">
-                See every {group.short} case study
+                See every {group.short} use case
               </span>
               <span className="mt-6 inline-flex items-center gap-2 text-[0.92rem] font-semibold">
-                Browse case studies <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                Browse use cases <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
               </span>
             </Link>
           </div>

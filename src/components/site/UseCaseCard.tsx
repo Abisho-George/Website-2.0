@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { ArrowUpRight, Building2, MapPin } from "lucide-react";
 import { StaggerItem } from "@/components/motion/Stagger";
-import type { UseCase } from "@/content/case-studies";
+import type { UseCase } from "@/content/use-cases";
 import { cn } from "@/lib/utils";
 
 /**
- * A case study as a link card: a thin brand-red rule along the top, the
+ * A use case as a link card: a thin brand-red rule along the top, the
  * industry, the title and two lines of context (who the client is, which
  * market). Its border warms on hover.
  */
@@ -13,7 +13,7 @@ export function UseCaseCard({ u, i = 0, className, showService = true }: { u: Us
   return (
     <StaggerItem i={i} className={cn("h-full", className)}>
       <Link
-        href={`/case-studies/${u.slug}`}
+        href={`/use-cases/${u.slug}`}
         className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border border-rule bg-paper p-6 transition-colors duration-300 hover:border-ember/40"
       >
         <span aria-hidden className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-[0.18] bg-ember transition-transform duration-500 group-hover:scale-x-100" />

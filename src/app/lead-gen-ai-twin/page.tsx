@@ -6,7 +6,7 @@ import { Copy } from "@/components/ui/Copy";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { CTABand, FAQBlock } from "@/components/site/Blocks";
 import { UseCaseRail } from "@/components/site/UseCaseRail";
-import { useCasesForService } from "@/content/case-studies";
+import { useCasesForService } from "@/content/use-cases";
 import { AgentConsole } from "@/components/visual/surface/AgentConsole";
 import { AgentMap } from "@/components/visual/AgentMap";
 import { Bloom, FieldPlate } from "@/components/ui/Atmos";

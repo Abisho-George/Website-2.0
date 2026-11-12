@@ -1,18 +1,18 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import type { UseCase } from "@/content/case-studies";
+import type { UseCase } from "@/content/use-cases";
 import { UseCaseCard } from "./UseCaseCard";
 import { cn } from "@/lib/utils";
 
 /**
- * The case-study library: filter by family and by industry. With no family
+ * The use-case library: filter by family and by industry. With no family
  * chosen the cases are grouped under their family, so the page still reads
  * as a map of the service lines; choosing one shows that family alone.
  */
 export function UseCaseIndex({ items, families, industries }: { items: UseCase[]; families: string[]; industries: string[] }) {
   const [family, setFamily] = useState<string | null>(null);
   const [industry, setIndustry] = useState<string | null>(null);
-  // a service or family page can link here pre-filtered: /case-studies?family=…
+  // a service or family page can link here pre-filtered: /use-cases?family=…
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
     const f = q.get("family"), x = q.get("industry");
@@ -52,12 +52,12 @@ export function UseCaseIndex({ items, families, industries }: { items: UseCase[]
       </div>
 
       <p className="mt-6 text-sm text-muted" aria-live="polite">
-        Showing <span className="font-medium text-fg">{shown.length}</span> of {items.length} case studies
+        Showing <span className="font-medium text-fg">{shown.length}</span> of {items.length} use cases
       </p>
 
       {groups.length === 0 && (
         <div className="mt-10 rounded-[var(--radius-lg)] border border-dashed border-rule-strong p-10 text-center text-muted">
-          No case study matches both filters yet.{" "}
+          No use case matches both filters yet.{" "}
           <button type="button" className="link-u text-fg" onClick={() => { setFamily(null); setIndustry(null); }}>Clear filters</button>
         </div>
       )}
