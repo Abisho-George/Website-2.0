@@ -2,7 +2,7 @@
 
 Every enquiry from the Contact and Book a call forms is:
 
-1. **Emailed to kingshuk@leadstrategus.com** through [Resend](https://resend.com).
+1. **Emailed to mail@leadstrategus.com** through [Resend](https://resend.com).
    The email's reply-to is the visitor, so replying answers them directly.
    The subject is "New website enquiry: [name] ([company])".
 2. **Copied to a Google Sheet** as a backup, through a small Apps Script web app
@@ -12,7 +12,7 @@ Every enquiry from the Contact and Book a call forms is:
 The email is the delivery that counts. The visitor sees the thank-you page
 only when Resend accepts the email. If it does not (or Resend is not
 configured in production), they see "We could not send your enquiry just
-now" with kingshuk@leadstrategus.com as a fallback, their text stays in the
+now" with mail@leadstrategus.com as a fallback, their text stays in the
 form, and the lead is written to the server log under
 `[enquiry] NOT DELIVERED` so it can be recovered.
 
@@ -74,7 +74,7 @@ Variables), then redeploy:
 | `RESEND_API_KEY` | the `re_…` key from step 1 |
 | `LEADS_FROM` | `LeadStrategus Website <leads@leadstrategus.com>` (any address on the verified domain; it needs no mailbox) |
 | `CONTACT_WEBHOOK_URL` | the Apps Script URL with `?token=…` from step 2 |
-| `LEADS_TO` | optional; defaults to kingshuk@leadstrategus.com |
+| `LEADS_TO` | optional; defaults to mail@leadstrategus.com |
 
 ## 4. Test it
 

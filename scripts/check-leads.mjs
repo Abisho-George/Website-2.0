@@ -13,7 +13,7 @@ const lead = {
   message: "We sell to <b>CFOs</b> & nothing converts.",
   source: "/contact",
 };
-const base = { resendKey: "re_test", from: "LeadStrategus Website <leads@leadstrategus.com>", to: "kingshuk@leadstrategus.com", webhookUrl: "https://script.example/exec?token=test", production: true };
+const base = { resendKey: "re_test", from: "LeadStrategus Website <leads@leadstrategus.com>", to: "mail@leadstrategus.com", webhookUrl: "https://script.example/exec?token=test", production: true };
 
 // fake fetch: per host, a status (body chosen to match) or "down", "okfalse", "html"
 const net = (answers) => {
@@ -59,7 +59,7 @@ const f = net({ [R]: 200, [G]: 200 });
 await deliverLead(lead, base, f, new Date("2026-10-08T10:00:00Z"));
 const mail = f.calls.find((c) => c.url.includes("resend")).body;
 const sheet = f.calls.find((c) => c.url.includes("script")).body;
-check("email goes to the company inbox", JSON.stringify(mail.to) === JSON.stringify(["kingshuk@leadstrategus.com"]));
+check("email goes to the company inbox", JSON.stringify(mail.to) === JSON.stringify(["mail@leadstrategus.com"]));
 check("reply-to is the visitor", mail.reply_to === "asha@example.com");
 check("sender is the configured address", mail.from === base.from);
 check("API key sent as a bearer token", f.calls.find((c) => c.url.includes("resend")).headers.authorization === "Bearer re_test");

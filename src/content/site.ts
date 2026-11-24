@@ -13,7 +13,7 @@ export const site = {
   aiUrl: "https://leadstrategus.ai",
   founded: 2018,
   contact: {
-    email: "kingshuk@leadstrategus.com",
+    email: "mail@leadstrategus.com",
     hq: "Bizzhub, Brigade Tech Park, near ITPL Main Road, Pattandur Agrahara, Whitefield, Bengaluru, Karnataka 560066",
     address: {
       street: "Bizzhub, Brigade Tech Park, near ITPL Main Road, Pattandur Agrahara",

@@ -18,7 +18,7 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
           <h1 style={{ fontSize: 28, margin: "0 0 12px" }}>This page did not load properly.</h1>
           <p style={{ fontSize: 17, lineHeight: 1.5, color: "#4a423a", margin: "0 0 24px" }}>
             Please try again. To get in touch, email{" "}
-            <a href="mailto:kingshuk@leadstrategus.com" style={{ color: "#b10000" }}>kingshuk@leadstrategus.com</a>.
+            <a href="mailto:mail@leadstrategus.com" style={{ color: "#b10000" }}>mail@leadstrategus.com</a>.
           </p>
           <button type="button" onClick={() => reset()} style={{ height: 44, padding: "0 24px", borderRadius: 999, border: 0, background: "#e10600", color: "#fff", fontSize: 15, cursor: "pointer" }}>
             Try again
